@@ -1,0 +1,5 @@
+**První zprávu** přes ARPANET („lo“) odeslali 29. 10. 1969 z UCLA do SRI [1]. Systém spadl po dvou písmenech slova login¹². Více na [demo webu](http://127.0.0.1:8765/).
+
+### Zdroje
+1. [ARPANET demo](http://127.0.0.1:8765/arpanet.html?utm_source=chatgpt.com)
+2. http://127.0.0.1:8765/

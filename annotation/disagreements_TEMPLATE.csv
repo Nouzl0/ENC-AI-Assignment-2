@@ -1,0 +1,2 @@
+item_id,item_type,field,rater1,rater1_value,rater2,rater2_value,resolution,resolved_by,note
+A1b2c3-T2-1,pair,rating,R1,S1,R2,S2,S2,diskuse R1+R2,"Zdroj uvádí 1603,296 m – zaokrouhlení na 1603 m je S2 podle rubriky (tolerance čísel)"

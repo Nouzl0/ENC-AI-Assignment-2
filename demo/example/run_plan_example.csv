@@ -1,0 +1,4 @@
+run_id,phase,split,task_id,language,condition,system,run_index,answer_file,failure_type
+example-DEMO-001-P2-sys_A-r1,dev,dev,DEMO-001,cs,P2,sys_A,1,demo/example/answers/example-DEMO-001-P2-sys_A-r1.txt,none
+example-DEMO-002-P1-sys_B-r1,dev,dev,DEMO-002,cs,P1,sys_B,1,demo/example/answers/example-DEMO-002-P1-sys_B-r1.txt,none
+example-DEMO-003-P1-sys_C-r1,dev,dev,DEMO-003,cs,P1,sys_C,1,demo/example/answers/example-DEMO-003-P1-sys_C-r1.txt,none

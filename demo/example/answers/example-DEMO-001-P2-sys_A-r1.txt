@@ -1,0 +1,9 @@
+ODPOVĚĎ: Oficiální výška Sněžky je 1603 m n. m.; starší hodnota 1602 m patří trigonometrickému bodu [1].
+TVRZENÍ:
+T1: Oficiální výška Sněžky je 1603 m n. m. [1]
+T2: Hodnota 1602 m byla výška trigonometrického bodu, který neleží na vrcholu. [1]
+T3: Vrchol Sněžky leží na polském území. [2]
+ZDROJE:
+[1] K výšce Sněžky – ČÚZK – 2014-02-25 – http://127.0.0.1:8765/snezka.html
+[2] Stránka, která neexistuje – demo – neuvedeno – http://127.0.0.1:8765/neexistuje.html
+JISTOTA: vysoká – oficiální zdroj ČÚZK.

@@ -1,0 +1,2 @@
+task_id,system,condition,run_id,outcome,edge_case_type,answer_excerpt,claim,citation_url,rating,error_code,likely_cause,fixed_by_P3,note
+CIT-004,<system>,P2,<run_id>,failure,conflicting_evidence,"<výňatek odpovědi>","<tvrzení>",<url>,S0,E5,generation,yes,"Zdroj uvádí 1603,296 m, systém napsal 1602 m jako aktuální hodnotu"

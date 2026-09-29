@@ -1,0 +1,5 @@
+Solve the task below. Answer only in the required format.
+
+Task:
+{user_prompt}
+Format: a concise answer with links to the sources you used (URLs).

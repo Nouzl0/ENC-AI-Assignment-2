@@ -1,0 +1,5 @@
+Vyřešte níže uvedenou úlohu. Odpovězte pouze v požadovaném formátu.
+
+Úloha:
+{user_prompt}
+Formát: stručná odpověď s odkazy na použité zdroje (URL).
