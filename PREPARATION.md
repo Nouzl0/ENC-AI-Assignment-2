@@ -6,7 +6,7 @@ G1/G2/G3 dosud **nejsou splněny**. Nevytváříme výsledky produktů, vítězn
 | --- | --- | --- |
 | 1 | Integrita skórování, selhání, úplnost matice, regresní testy | hotovo; kritická kontrola + re-kontrola bez blokujících nálezů |
 | 2 | Rubrika, povinné vs. doplňkové fakty, explicitní citace, důkazy | hotovo; kritická kontrola + re-kontrola bez blokujících nálezů |
-| 3 | Soukromý holdout, ověřitelné brány a ochrana artefaktů | čeká |
+| 3 | Soukromý holdout, ověřitelné brány a ochrana artefaktů | hotovo; kritická kontrola + re-kontrola bez blokujících nálezů |
 | 4 | End-to-end testy, konzistentní dokumentace a předání kolegovi | čeká |
 
 Po každé etapě: kritický subagent → oprava nálezů → lokální testy → commit → push.
@@ -26,3 +26,12 @@ zachovávající významové symboly a zaokrouhlení vzorku druhého hodnotitele
 Re-kontrola bez blokujícího nálezu. Ověřeno: 26 unittestů, validace dev/val, offline
 syntetický smoke v dočasné kopii a `git diff --check`. Zdroje všech referencí nadále musí
 nezávisle ověřit kolega; nová rubrika není podepsané G1 ani hotové hodnocení.
+
+## Kontrola etapy 3
+
+Opravené nálezy subagenta: číselná pole plan sidecaru versus CSV, nezmrazený náhradní
+gold při anotaci, stratifikace druhého hodnocení i po fázích, audit každé změny finálního
+ratingu a úplné denní RF/OF důkazy v UTC. Re-kontrola bez blokujícího nálezu.
+Ověřeno: 40 unittestů, validace dev/val, izolované offline reprodukce a `git diff --check`.
+Test G1→G2→G3 používá výhradně dočasné syntetické artefakty; žádná skutečná brána ani
+produktové výsledky nevznikly. Veřejný starý test je přejmenován na kandidáty, historie zůstává.

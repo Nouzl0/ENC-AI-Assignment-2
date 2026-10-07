@@ -22,6 +22,7 @@ Usage:
 import argparse
 import collections
 import csv
+import datetime as dt
 import hashlib
 import html
 import math
@@ -37,7 +38,8 @@ import urllib.parse
 import urllib.request
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from common import ROOT, load_all_cases, read_csv_glob, required_facts, run_problems, unique_index, write_csv  # noqa: E402
+from common import ROOT, load_all_cases, read_csv, read_csv_glob, required_facts, run_problems, sha256_file, unique_index, write_csv  # noqa: E402
+from integrity import private_path, run_artifact_problems, verify_freeze, verify_plans, write_json_new
 
 STRUCTURED = {"P2", "P3", "P3A", "P3B"}
 UA = "Mozilla/5.0 (X11; Linux x86_64) CZAI-citation-benchmark/1.0 (student project)"
@@ -299,20 +301,24 @@ def iri_to_uri(url):
 
 
 def fetch(url, timeout):
-    empty = {"status": 0, "final_url": url, "ctype": "", "text": "", "published": "", "error": ""}
+    empty = {"status": 0, "final_url": url, "ctype": "", "text": "", "published": "", "error": "",
+             "checked_at": dt.datetime.now(dt.timezone.utc).isoformat(), "body": b"", "truncated": False}
     try:
         req = urllib.request.Request(iri_to_uri(url), headers={
             "User-Agent": UA, "Accept": "text/html,application/xhtml+xml,application/pdf;q=0.9,*/*;q=0.8"})
         with urllib.request.urlopen(req, timeout=timeout) as r:
             ctype = r.headers.get("Content-Type", "")
-            body = r.read(3_000_000)
+            body = r.read(3_000_001)
+            truncated = len(body) > 3_000_000
+            body = body[:3_000_000]
             charset = r.headers.get_content_charset() or "utf-8"
             try:
                 raw = body.decode(charset, errors="replace")
             except LookupError:
                 raw = body.decode("utf-8", errors="replace")
             text = strip_html(raw) if "html" in ctype else (raw if ("text" in ctype or "json" in ctype) else "")
-            return {"status": r.status, "final_url": r.geturl(), "ctype": ctype, "text": text,
+            return {**empty, "status": r.status, "final_url": r.geturl(), "ctype": ctype, "text": text,
+                    "body": body, "truncated": truncated,
                     "published": published_date(raw) if "html" in ctype else "", "error": ""}
     except urllib.error.HTTPError as e:
         return {**empty, "status": e.code, "error": f"HTTP {e.code}"}
@@ -342,6 +348,21 @@ def suggestion(res):
     if st >= 500:
         return "NA? (chyba serveru)"
     return ""
+
+
+def save_source_check(directory, url, result, attempt):
+    """Preserve each HTTP attempt, including error logs; never imply full support."""
+    stem = hashlib.sha256(url.encode()).hexdigest() + f"-attempt{attempt}"
+    os.makedirs(directory, exist_ok=True)
+    path = os.path.join(directory, stem + ".snapshot")
+    payload = result.pop("body", b"")
+    if not payload:
+        payload = (result.get("error", "empty response") + "\n").encode()
+    with open(path, "xb") as f:
+        f.write(payload)
+    result["snapshot_file"] = path
+    result["snapshot_sha256"] = sha256_file(path)
+    write_json_new(os.path.join(directory, stem + ".json"), dict({k: v for k, v in result.items() if k != "text"}, requested_url=url))
 
 
 # ----------------------------------------------------------------- entity match
@@ -398,7 +419,7 @@ def match_ratio(nums, words, page_text):
 def stratified_sample(answer_rows, share, rng):
     groups = collections.defaultdict(list)
     for a in answer_rows:
-        groups[(a["_system"], a["_condition"])].append(a["blind_answer_id"])
+        groups[(a["_phase"], a["_system"], a["_condition"])].append(a["blind_answer_id"])
     chosen = set()
     for key in sorted(groups):
         ids = sorted(groups[key])
@@ -420,6 +441,11 @@ def main():
     ap.add_argument("--runs", default=os.path.join(ROOT, "runs", "run_plan_*.csv"))
     ap.add_argument("--root", default=ROOT, help="base dir for answer_file paths")
     ap.add_argument("--data-dir", default=os.path.join(ROOT, "data"))
+    ap.add_argument("--test-file", help="private holdout matching the freeze (not opened for dev/val)")
+    ap.add_argument("--freeze", help="G1 for dev/val; G2 for test/repeat")
+    mode = ap.add_mutually_exclusive_group()
+    mode.add_argument("--pilot", action="store_true")
+    mode.add_argument("--synthetic", action="store_true", help="local DEMO-* fixtures only")
     ap.add_argument("--out-dir", default=os.path.join(ROOT, "annotation"))
     ap.add_argument("--key-dir", default=os.path.join(ROOT, "annotation_key"),
                     help="data steward only: blind key, salt, answer metadata")
@@ -430,18 +456,31 @@ def main():
     ap.add_argument("--seed", type=int, default=2026, help="seed for answer order and rater-2 sample")
     ap.add_argument("--salt", default="", help="override salt (default: <key-dir>/salt.txt, created if missing)")
     args = ap.parse_args()
-    if not 0.2 <= args.double_share <= 1 or args.timeout <= 0 or args.retry_wait < 0:
-        ap.error("require 0.2 <= --double-share <= 1, positive timeout and nonnegative retry wait")
+    if not 0.25 <= args.double_share <= 1 or not math.isfinite(args.timeout) or args.timeout <= 0 or not math.isfinite(args.retry_wait) or args.retry_wait < 0:
+        ap.error("require 0.25 <= --double-share <= 1, finite positive timeout and nonnegative retry wait")
     runs = read_csv_glob(args.runs)
     if not runs:
         raise SystemExit("no run metadata found")
+    try:
+        if not args.synthetic:
+            args.out_dir, args.key_dir = private_path(args.out_dir), private_path(args.key_dir)
+            if not args.pilot:
+                if os.path.realpath(args.data_dir) != os.path.realpath(os.path.join(ROOT, "data")):
+                    raise ValueError("production annotation must use the frozen repository data directory")
+                gate = verify_freeze(args.freeze, "G2" if any(r.get("split") == "test" for r in runs) else "G1")
+                if args.test_file and os.path.realpath(args.test_file) != gate["inputs"]["test_cases"]:
+                    raise ValueError("holdout does not match freeze")
+                args.test_file = gate["inputs"]["test_cases"] if any(r.get("split") == "test" for r in runs) else None
+        verify_plans(args.runs, args.freeze, args.synthetic, args.pilot)
+    except (ValueError, OSError, KeyError) as e:
+        raise SystemExit(str(e))
     try:
         unique_index(runs, "run_id", "runs")
     except ValueError as e:
         raise SystemExit(str(e))
     problems, usable = [], []
     for r in runs:
-        problems.extend(f"{r['run_id']}: {e}" for e in run_problems(r))
+        problems.extend(f"{r['run_id']}: {e}" for e in (run_problems(r) if args.synthetic else run_artifact_problems(r)))
         if r.get("run_status") == "completed":
             path = os.path.join(args.root, r["answer_file"])
             if not os.path.isfile(path) or os.path.getsize(path) == 0:
@@ -469,7 +508,9 @@ def main():
                 f.write(salt + "\n")
 
     rng = random.Random(args.seed)
-    cases = load_all_cases(args.data_dir)
+    cases = load_all_cases(args.data_dir, args.test_file)
+    if args.synthetic and any(not r["task_id"].startswith("DEMO-") or not r["system"].startswith("sys_") for r in runs):
+        raise SystemExit("synthetic mode accepts only anonymous DEMO-* runs")
     print(f"{len(runs)} manifest rows, {len(usable)} completed answers; "
           f"{sum(r.get('run_status') == 'failed' for r in runs)} terminal failures retained by score.py")
     if not usable:
@@ -483,23 +524,31 @@ def main():
         parsed.append((r, clean_text_urls(text), claims, sources, seg, fmt))
 
     url_results = {}
+    check_dir = os.path.join(args.key_dir, "source_checks", hashlib.sha256(os.path.abspath(args.out_dir).encode()).hexdigest()[:16])
     if not args.offline:
         urls = sorted({s["url"] for _, _, _, srcs, _, _ in parsed for s in srcs.values() if s["url"]})
         print(f"checking {len(urls)} unique URLs ...")
         for u in urls:
             url_results[u] = fetch(u, args.timeout)
+            save_source_check(check_dir, u, url_results[u], 1)
         failed = [u for u, res in url_results.items() if res["status"] in (0, 404, 410) or res["status"] >= 500]
         if failed and args.retry_wait > 0:
             print(f"{len(failed)} failed, second attempt in {args.retry_wait:.0f} s ...")
             time.sleep(args.retry_wait)
         for u in failed:
             second = fetch(u, args.timeout)
+            save_source_check(check_dir, u, second, 2)
             if second["status"] and second["status"] < 400:
                 url_results[u] = second
             else:
                 url_results[u]["error"] += " | 2nd attempt failed"
 
-    ids = {}
+    key_path = os.path.join(args.key_dir, "blind_key.csv")
+    old_key = read_csv(key_path) if os.path.exists(key_path) else []
+    ids = {b: r["run_id"] for b, r in unique_index(old_key, "blind_answer_id", "existing blind key").items()}
+    unique_index(old_key, "run_id", "existing blind key")
+    if {r["run_id"] for r in runs} & {r["run_id"] for r in old_key}:
+        raise SystemExit("run already exported; preserve original sheets/key and use an audited new workspace version")
     answers_out, pairs_out, key_out, meta_out = [], [], [], []
     for r, text, claims, sources, seg, fmt in parsed:
         bid = "A" + hashlib.sha256(f"{salt}:{r['run_id']}".encode("utf-8")).hexdigest()[:7]
@@ -524,7 +573,7 @@ def main():
             "segmentation_reviewed": "",
             "correctness": "", "key_facts_supported": "", "key_fact_evidence": "", "acknowledges_uncertainty": "",
             "check_minutes": "", "rater": "", "comment": "",
-            "_system": r["system"], "_condition": r["condition"],
+            "_phase": r["phase"], "_system": r["system"], "_condition": r["condition"],
         })
         key_out.append({"blind_answer_id": bid, "run_id": r["run_id"]})
         meta_out.append({"blind_answer_id": bid, "run_id": r["run_id"], "format_valid": fmt_valid,
@@ -558,6 +607,10 @@ def main():
                     "auto_entities": "; ".join(["/".join(v) for v in nums] + words),
                     "auto_match_ratio": match_ratio(nums, words, res["text"]) if res else "",
                     "auto_suggestion": sug,
+                    "auto_checked_at": res["checked_at"] if res else "",
+                    "auto_snapshot_file": res.get("snapshot_file", "") if res else "",
+                    "auto_snapshot_sha256": res.get("snapshot_sha256", "") if res else "",
+                    "auto_truncated": ("yes" if res["truncated"] else "no") if res else "",
                     "time_constraint_case": "yes" if edge == "time_constraint" else "",
                     "rater_source_n": "", "rating": "", "source_tier": "", "time_ok": "",
                     "evidence_url": "", "evidence_checked_at": "", "evidence_locator": "", "evidence_excerpt": "",
@@ -580,8 +633,15 @@ def main():
     write_csv(os.path.join(args.out_dir, "pairs_to_rate_rater2.csv"),
               [p for p in pairs_out if p["blind_answer_id"] in chosen], [k for k in p_fields if not k.startswith("auto_")])
 
-    merge_steward_file(os.path.join(args.key_dir, "blind_key.csv"), key_out, ["blind_answer_id", "run_id"], ids)
-    merge_steward_file(os.path.join(args.key_dir, "answers_meta.csv"), meta_out, list(meta_out[0]), ids)
+    new_ids = {r["blind_answer_id"] for r in key_out}
+    merge_steward_file(os.path.join(args.key_dir, "blind_key.csv"), key_out, ["blind_answer_id", "run_id"], new_ids)
+    merge_steward_file(os.path.join(args.key_dir, "answers_meta.csv"), meta_out, list(meta_out[0]), new_ids)
+    # Original sample and sheets are immutable audit evidence, not rater labels.
+    batch = os.path.join(args.key_dir, "batches", hashlib.sha256(os.path.abspath(args.out_dir).encode()).hexdigest()[:16], "annotation_batch.json")
+    write_json_new(batch, {"rater2_ids": sorted(chosen), "answer_ids": sorted(a["blind_answer_id"] for a in answers_out),
+                          "share": args.double_share,
+                          "sheets": {os.path.join(args.out_dir, n): sha256_file(os.path.join(args.out_dir, n)) for n in
+                                     ("answers_to_rate.csv", "pairs_to_rate.csv", "answers_to_rate_rater2.csv", "pairs_to_rate_rater2.csv")}})
 
     n_uncited = sum(1 for p in pairs_out if p["citation_n"] == "")
     n_unlinked = sum(1 for p in pairs_out if p["citation_n"] == "*")

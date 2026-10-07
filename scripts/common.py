@@ -53,6 +53,9 @@ META_FILL_COLUMNS = [
     "search_used", "n_sources_shown", "turns", "tool_calls_visible", "retries",
     "failure_type", "first_attempt_ok", "manual_intervention", "share_link",
     "screenshot_file", "operator", "cost_note", "notes",
+    "answer_sha256", "raw_answer_file", "raw_answer_sha256", "screenshot_sha256",
+    "attempt1_sha256", "failure_artifact_file", "failure_artifact_sha256",
+    "replacement_run_id", "replaces_run_id",
 ]
 FAILURE_TYPES = {"", "none", "model_output", "invalid_format", "tool_error", "rate_limit",
                  "timeout", "product_outage", "student_error", "student_error_rerun", "evaluation_error"}
@@ -160,20 +163,19 @@ def sha256_file(path):
     return h.hexdigest()
 
 
-def load_cases(split, data_dir=DATA):
-    path = os.path.join(data_dir, f"cases_{split}.jsonl")
+def load_cases(split, data_dir=DATA, test_file=None):
+    if split == "test" and not test_file:
+        raise ValueError("test requires an explicit --test-file; published candidates are not a private holdout")
+    path = test_file if split == "test" else os.path.join(data_dir, f"cases_{split}.jsonl")
     with open(path, encoding="utf-8") as f:
         return [json.loads(line) for line in f if line.strip()]
 
 
-def load_all_cases(data_dir=DATA):
-    out = {}
-    for split in ("dev", "val", "test"):
-        p = os.path.join(data_dir, f"cases_{split}.jsonl")
-        if os.path.exists(p):
-            for c in load_cases(split, data_dir):
-                out[c["task_id"]] = c
-    return out
+def load_all_cases(data_dir=DATA, test_file=None):
+    rows = []
+    for split in ("dev", "val") + (("test",) if test_file else ()):
+        rows.extend(load_cases(split, data_dir, test_file))
+    return unique_index(rows, "task_id", "cases")
 
 
 def read_csv(path):

@@ -35,6 +35,7 @@ import sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from common import (PROMPTS, RATINGS, ROOT, SYSTEMS, finite_number, load_all_cases,  # noqa: E402
                     read_csv, read_csv_glob, required_facts, run_problems, unique_index, validate_pair_rows, write_csv)
+from integrity import private_path, run_artifact_problems, verify_freeze, verify_plans
 
 
 # ----------------------------------------------------------------- statistics helpers
@@ -303,6 +304,12 @@ def main():
     ap.add_argument("--annotation-dir", default=os.path.join(ROOT, "annotation"))
     ap.add_argument("--key-dir", default=os.path.join(ROOT, "annotation_key"))
     ap.add_argument("--data-dir", default=os.path.join(ROOT, "data"))
+    ap.add_argument("--test-file", help="private holdout matching G2/G3")
+    ap.add_argument("--freeze", help="G1/G2 for exploratory analysis, G3 for --final")
+    ap.add_argument("--final", action="store_true", help="requires verified G3; enables confirmatory decisions")
+    mode = ap.add_mutually_exclusive_group()
+    mode.add_argument("--pilot", action="store_true")
+    mode.add_argument("--synthetic", action="store_true", help="local DEMO-* fixtures; never confirms real hypotheses")
     ap.add_argument("--prompts-dir", default=PROMPTS)
     ap.add_argument("--out", default=os.path.join(ROOT, "results"))
     ap.add_argument("--boot", type=int, default=10000)
@@ -316,6 +323,8 @@ def main():
     args = ap.parse_args()
     if args.boot < 1:
         ap.error("--boot must be positive")
+    if args.final and (args.synthetic or args.pilot or args.allow_missing):
+        ap.error("--final cannot be combined with synthetic/pilot/allow-missing modes")
     expected_systems = [s.strip() for s in args.systems.split(",") if s.strip()]
 
     ad = args.annotation_dir
@@ -330,32 +339,72 @@ def main():
 
     runs = read_csv_glob(args.runs)
     key = collect("blind_key.csv", args.key_dir) or collect("blind_key.csv")
-    meta = {m["blind_answer_id"]: m for m in (collect("answers_meta.csv", args.key_dir) or collect("answers_meta.csv"))}
+    meta = unique_index(collect("answers_meta.csv", args.key_dir) or collect("answers_meta.csv"), "blind_answer_id", "answers meta")
     pairs = collect("pairs_rated.csv")
     answers_raw = collect("answers_rated.csv")
     if not runs:
         raise SystemExit("no run metadata found")
-    cases = load_all_cases(args.data_dir)
     try:
+        if not args.synthetic:
+            for path in (args.out, args.annotation_dir, args.key_dir):
+                private_path(path)
+            if not args.pilot:
+                gate = verify_freeze(args.freeze, "G3" if args.final else None)
+                if any(r.get("split") == "test" for r in runs) and gate["gate"] == "G1":
+                    raise ValueError("test analysis requires G2 or G3")
+                cfg = gate["config"]
+                if args.systems != ",".join(SYSTEMS) and expected_systems != cfg["systems"]:
+                    raise ValueError("systems differ from frozen config")
+                if (args.boot, args.seed, args.focus, args.h1_margin, args.h2_margin) != (cfg["bootstrap"], cfg["seed"], cfg["focus"], cfg["h1_margin"], cfg["h2_margin"]):
+                    raise ValueError("analysis parameters differ from frozen config")
+                expected_systems = cfg["systems"]
+                if os.path.realpath(args.data_dir) != os.path.join(ROOT, "data") or os.path.realpath(args.prompts_dir) != PROMPTS:
+                    raise ValueError("real analysis must use frozen repository data/prompts")
+                if args.test_file and os.path.realpath(args.test_file) != gate["inputs"]["test_cases"]:
+                    raise ValueError("holdout differs from freeze")
+                args.test_file = gate["inputs"]["test_cases"] if any(r.get("split") == "test" for r in runs) else None
+            paths = verify_plans(args.runs, args.freeze, args.synthetic, args.pilot)
+            for r in runs:
+                errors = run_artifact_problems(r)
+                if errors:
+                    raise ValueError(f"{r['run_id']}: " + "; ".join(errors))
+            if args.final:
+                if set(map(os.path.realpath, paths)) != set(gate["inputs"]["run_plans"]) or any(os.path.realpath(p) != gate["inputs"][k] for p, k in ((args.annotation_dir, "annotation_dir"), (args.key_dir, "key_dir"))):
+                    raise ValueError("final analysis must use exactly the G3-bound plans and ratings")
+        else:
+            verify_plans(args.runs, synthetic=True)
+            if any(not r["task_id"].startswith("DEMO-") or not r["system"].startswith("sys_") for r in runs):
+                raise ValueError("synthetic mode accepts only anonymous DEMO-* runs")
+        cases = load_all_cases(args.data_dir, args.test_file)
+        if args.synthetic and any("synthetic" not in c.get("source_or_provenance", "").lower() for c in cases.values()):
+            raise ValueError("synthetic cases must declare their provenance")
         A, problems = load_answers(runs, key, pairs, answers_raw, cases, args.allow_missing, meta)
         for name, field in (("pairs_rated_rater1.csv", "pair_id"), ("pairs_rated_rater2.csv", "pair_id"),
                             ("answers_rated_rater1.csv", "blind_answer_id"), ("answers_rated_rater2.csv", "blind_answer_id")):
             unique_index(collect(name), field, name)
             if field == "pair_id":
                 validate_pair_rows(collect(name), name)
-    except ValueError as e:
+    except (ValueError, OSError, KeyError) as e:
         raise SystemExit(str(e))
     for p in problems[:30]:
         print("PROBLEM:", p)
     if problems and not args.allow_missing:
         raise SystemExit(f"{len(problems)} problem(s): unrated or unmatched rows. Fix the sheets, "
                          "or rerun with --allow-missing to exclude them (the report will say so).")
+    if any(os.path.exists(os.path.join(args.out, n)) for n in ("metrics.csv", "answer_metrics.csv", "hypotheses.csv", "agreement.csv", "report.md")):
+        raise SystemExit("Refusing to overwrite analysis outputs; use a new versioned --out directory")
     os.makedirs(args.out, exist_ok=True)
     report = ["# Výsledky – citační benchmark", "",
               f"Plánovaných záznamů: {len(runs)}; v analýze: {len(A)}; provozních selhání zahrnutých s nulovým skóre: "
               f"{sum(a['run_status'] == 'failed' for a in A)}; vyloučených chyb obsluhy: "
               f"{sum(r.get('run_status') == 'excluded' for r in runs)}. Intervaly: klastrový bootstrap podle případů "
               f"({args.boot} převzorkování, seed {args.seed}); podíly odpovědí: Wilson (jen běh 1).", ""]
+    if not args.final:
+        report += ["**SYNTETICKÉ LOKÁLNÍ TESTY – nikoli výsledky produktů.**" if args.synthetic else
+                   "**Předběžná / kalibrační analýza: G3 není použit, hypotézy nelze potvrzovat.**", ""]
+    elif gate.get("timing_deviations"):
+        report += ["**Časové odchylky od protokolu:** " + "; ".join(gate["timing_deviations"]) +
+                   ". Viz podepsaný záznam odchylek; výsledky nejsou plně protokolově konformní.", ""]
     if problems:
         report += [f"**Upozornění:** {len(problems)} problémů ve vstupu; {len(runs) - len(A)} běhů mimo analýzu "
                    "(--allow-missing). Výsledky nejsou finální.", ""]
@@ -472,7 +521,7 @@ def main():
     test = [a for a in A if a["split"] == "test"]
     first_test = [a for a in test if a["run_index"] == 1]
     matrix_errors = test_matrix_problems(first_test, cases, expected_systems)
-    confirmatory = not matrix_errors and not args.allow_missing
+    confirmatory = args.final and not matrix_errors and not args.allow_missing
 
     def sys_case(cond, system, metric="precision"):
         return case_values([a for a in first_test if a["condition"] == cond and a["system"] == system], metric)
@@ -519,7 +568,7 @@ def main():
     for name in ("H1", "H2"):
         if not any(h["hypothesis"] == name for h in hyp):
             hyp.append({"hypothesis": name, "comparison": "", "estimate": "", "ci_lo": "", "ci_hi": "",
-                        "n_cases": 0, "criterion": "; ".join(matrix_errors) or "exploratory mode or missing focus system",
+                        "n_cases": 0, "criterion": "; ".join(matrix_errors) or "G3 final mode required or missing focus system",
                         "supported": "not_evaluable"})
 
     write_csv(os.path.join(args.out, "hypotheses.csv"), hyp,
@@ -654,7 +703,7 @@ def main():
     # ---------------- validation of the automated number/name match against human S2 (dev split)
     split_of = {a["bid"]: a["split"] for a in A}
     auto = [(to_float(p.get("auto_match_ratio")), p["_rating"]) for p in pairs
-            if p.get("_cit") not in (None, "") and p.get("_rating") in RATINGS
+            if p.get("_cit") not in (None, "", "*") and p.get("_rating") in RATINGS
             and to_float(p.get("auto_match_ratio")) is not None and split_of.get(p["blind_answer_id"]) == "dev"]
     if auto:
         flag = ["S2" if r >= 0.8 else "other" for r, _ in auto]

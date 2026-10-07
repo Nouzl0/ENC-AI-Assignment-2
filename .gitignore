@@ -179,3 +179,22 @@ cython_debug/
 #  refer to https://docs.cursor.com/context/ignore-files
 .cursorignore
 .cursorindexingignore
+
+# Private benchmark artifacts: scripts also require paths outside this worktree.
+/annotation_key/
+/annotation/*/
+/runs/run_plan_*.csv*
+/runs/answers/
+/runs/screenshots/
+/results/
+/private/
+/data/cases_test.jsonl
+/data/source_evidence.csv
+/freeze/G[123]*.json
+/demo/data/
+/demo/runs/
+/demo/annotation/
+/demo/annotation_key/
+/demo/results/
+/demo/example/annotation/
+/demo/example/annotation_key/

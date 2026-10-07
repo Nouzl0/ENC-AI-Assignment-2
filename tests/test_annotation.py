@@ -55,9 +55,18 @@ class AnnotationTests(unittest.TestCase):
 
     def test_double_rating_share_rounds_up(self):
         for n in range(1, 41):
-            rows = [dict(blind_answer_id=f'A{i}', _system="sys", _condition="P2") for i in range(n)]
+            rows = [dict(blind_answer_id=f'A{i}', _phase="dev", _system="sys", _condition="P2") for i in range(n)]
             chosen = stratified_sample(rows, .25, random.Random(2026))
             self.assertGreaterEqual(len(chosen) / n, .25)
+
+    def test_combined_export_samples_each_phase_separately(self):
+        rows = [dict(blind_answer_id=f'A{phase}{i}', _phase=phase, _system="sys", _condition="P2")
+                for phase, n in (("dev", 20), ("val", 10), ("test", 10), ("repeat", 20)) for i in range(n)]
+        chosen = stratified_sample(rows, .25, random.Random(2026))
+        self.assertEqual(len(chosen), 16)
+        for phase in ("dev", "val", "test", "repeat"):
+            ids = {r["blind_answer_id"] for r in rows if r["_phase"] == phase}
+            self.assertGreaterEqual(len(chosen & ids) / len(ids), .25)
 
     def test_split_requires_new_pair_ids(self):
         row = dict(pair_id="A1-T2-1", blind_answer_id="A1", claim_id="T2a", citation_n="1")

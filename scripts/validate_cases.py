@@ -91,20 +91,23 @@ def jaccard(a, b):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--data-dir", default=DATA)
-    ap.add_argument("--no-test", action="store_true", help="do not open cases_test.jsonl")
+    ap.add_argument("--no-test", action="store_true", help="validate public dev/val only (default without --test-file)")
+    ap.add_argument("--test-file", help="explicit path to new holdout, never the published candidates")
     ap.add_argument("--write-hashes", action="store_true", help="write data/HASHES.txt")
     args = ap.parse_args()
 
-    splits = ["dev", "val"] + ([] if args.no_test else ["test"])
+    if args.no_test and args.test_file:
+        ap.error("--no-test and --test-file are mutually exclusive")
+    splits = ["dev", "val"] + (["test"] if args.test_file else [])
     errors, warnings = [], []
     cases = {}
     for s in splits:
-        path = os.path.join(args.data_dir, f"cases_{s}.jsonl")
+        path = args.test_file if s == "test" else os.path.join(args.data_dir, f"cases_{s}.jsonl")
         if not os.path.exists(path):
             errors.append(f"missing file {path}")
             continue
         try:
-            cases[s] = load_cases(s, args.data_dir)
+            cases[s] = load_cases(s, args.data_dir, args.test_file)
         except ValueError as e:
             errors.append(f"{path}: {e}")
             continue
@@ -145,7 +148,7 @@ def main():
             errors.append(f"{s}: edge-case share {share:.0%} < 20 %")
     if total:
         print(f"  all: {edge}/{total} = {edge / total:.0%}")
-    if not args.no_test and total < 40:
+    if args.test_file and total < 40:
         errors.append(f"benchmark has {total} cases (< 40 required)")
 
     if "test" in cases:
@@ -161,19 +164,19 @@ def main():
                     j = jaccard(tt, tokens(str(d.get("user_prompt", ""))))
                     if j >= DUP_THRESHOLD:
                         found = True
-                        errors.append(f"near-duplicate {t['task_id']} ~ {d['task_id']} (J={j:.2f})")
-                        print(f"  {t['task_id']} ~ {d['task_id']}: {j:.2f}")
+                        errors.append(f"near-duplicate {t.get('task_id', '?')} ~ {d.get('task_id', '?')} (J={j:.2f})")
+                        print(f"  {t.get('task_id', '?')} ~ {d.get('task_id', '?')}: {j:.2f}")
         if not found:
             print("  none")
 
     print("\n== SHA-256 ==")
     lines = []
     for s in splits:
-        path = os.path.join(args.data_dir, f"cases_{s}.jsonl")
+        path = args.test_file if s == "test" else os.path.join(args.data_dir, f"cases_{s}.jsonl")
         if os.path.exists(path):
             h = sha256_file(path)
-            lines.append(f"{h}  cases_{s}.jsonl")
-            print(f"  {h}  cases_{s}.jsonl")
+            lines.append(f"{h}  {'private_holdout' if s == 'test' else 'cases_' + s + '.jsonl'}")
+            print("  " + lines[-1])
     prompt_dir = os.path.join(os.path.dirname(os.path.abspath(args.data_dir)), "prompts")
     if os.path.isdir(prompt_dir):
         for name in sorted(os.listdir(prompt_dir)):
