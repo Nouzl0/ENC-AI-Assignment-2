@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "rationale": "Pre-G1 rounded approximation of public dev strata; no private questions. Scale bounds outwards for n>10; any change requires a recorded pre-G1 protocol revision, never selection by product results.",
+  "counts_per_10": {
+    "domain": {"veda_zdravi": [2, 2], "pravo": [2, 2], "it": [2, 2], "ekonomika": [2, 2], "historie_kultura": [2, 2]},
+    "language": {"cs": [4, 5], "en": [4, 5], "cs+en": [0, 1]},
+    "difficulty": {"easy": [1, 2], "medium": [5, 6], "hard": [3, 3]},
+    "task_type": {"fact": [5, 5], "primary_source": [3, 3], "synthesis": [2, 2]}
+  },
+  "edge_cases_per_10": [4, 5]
+}

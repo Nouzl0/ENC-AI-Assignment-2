@@ -41,15 +41,19 @@ python3 -m unittest discover -s tests -v  # pouze software; žádné produkty
   v protokolu, nastavit FOCUS na zahrnutý produkt a stejnou hodnotu v G1 config.
   Focus se nikdy nevybírá podle výsledků. Všechny score příkazy níže nesou --focus.
 - [ ] Vytvořit ≥10 nových testových úloh v `$WORK/holdout.jsonl`, schéma v2,
-  development_validation_test_split=test, nové unikátní task_id; ≥20 % edge.
+  development_validation_test_split=test, nové unikátní task_id; agregované kvóty podle
+  data/holdout_blueprint.json (včetně 4–5 edge na 10) a ruční kontrola významových duplikátů.
+  Případnou změnu kvót věcně odůvodnit před G1, nikdy podle výsledků.
   Nekopírovat CIT-031–040 z publikovaných kandidátů ani dev/val. U nových task_id není
   předepsaný prefix CIT, není však dovoleno použít DEMO pro reálné výsledky.
 - [ ] Nezávisle ověřit každý RF/OF dev/val/nového testu. Aktualizace návrhového gold je
   možná **před G1**, s odůvodněním v data/CHANGES.md, nikoli podle toho, co odpověděl produkt.
   Reference na budoucí či aktuální data nelze zaměnit za staré znalosti: vždy primární zdroj.
 - [ ] Vyplnit `$WORK/source_evidence.csv` z `data/source_evidence_TEMPLATE.csv`:
-  přesný fact_id RF1…/OF1…, reference_kind, přesná současná referenční hodnota,
-  valid_as_of, skutečný ověřovatel, URL, checked_at s offsetem, locator, shrnutí/krátký
+  přesný fact_id RF1…/OF1…, reference_kind, fact_text přesně podle RF/OF, zvlášť
+  reference_value jako skutečná ověřená hodnota (ne zástupný požadavek), valid_as_of
+  podle statické reference nebo UTC data kontroly u RUN_DAY, skutečný ověřovatel,
+  URL, checked_at s offsetem, locator, shrnutí/krátký
   úryvek, snapshot_file + SHA-256, verification_status=verified. Pro G1 mají všechny
   řádky verified_by identitu deklarovaného reference_checker. Nevydávat header za důkaz.
   checked_at nesmí následovat skutečné signed_at G1; nelze schválit kontrolu z budoucnosti.
@@ -106,6 +110,9 @@ Hodnotitelé dostanou pouze své *_to_rate*.csv a rubriku/daily reference, nikol
 jako *_rated_rater1.csv (před diskusí), *_rated_rater2.csv (jen vybraný vzorek); konsenzus
 jako pairs_rated.csv a answers_rated.csv. Stejná identita rater v answer i pair.
 Ruční segmentace: žádná nepřečtená část odpovědi, nové pair_id, n_claims a review=yes.
+Vyplnit constraint_results přesně pro RC1…RCn; correctness=2 vyžaduje všechna yes.
+Zdroj/formát nepočítat jako RF, vynechání OF nepenalizovat. V CIT-002 je přípustný
+jakýkoli odpovídající oficiální WHO podklad, není povinný konkrétní dokument z roku 2015.
 Pro každou citovanou/nedostupnou dvojici doložit zdrojové rozhodnutí podle rubriky.
 FAB značka bez zdrojového záznamu/URL: evidence_url nechat prázdné, nikoli vymyslet;
 locator a shrnutí popisují chybějící [n] v původní odpovědi/seznamu, snapshot + hash

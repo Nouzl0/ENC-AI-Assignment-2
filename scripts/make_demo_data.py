@@ -39,16 +39,18 @@ def make_cases(work):
     for split, start, size in (("dev", 1, 20), ("val", 21, 10), ("test", 31, 10)):
         rows = []
         for i in range(start, start + size):
+            j = (i - 1) % 10
             fact = f"The fixture value is {i}"
             rows.append(dict(task_id=f"DEMO-{i:03d}", schema_version=2, capability="citation_accuracy",
-                             task_type="fact", difficulty="easy", language="cs" if i % 2 else "en",
+                             task_type="fact" if j < 5 else "primary_source" if j < 8 else "synthesis",
+                             difficulty="easy" if j < 2 else "medium" if j < 7 else "hard", language="cs" if i % 2 else "en",
                              domain=DOMAINS[(i - 1) % 5], development_validation_test_split=split,
                              user_prompt=f"fixture_query_{i} fixture_topic_{i} fixture_marker_{i}?", context_or_files=[],
                              expected_properties=["give the synthetic fixture value"],
                              reference_answer_or_tests=dict(reference_answer=fact, key_facts=[fact], required_facts=[fact], optional_facts=[],
                                                             gold_sources=[dict(title="Synthetic source", publisher="fixture",
                                                                                url="https://fixture.invalid/source", supports=fact)]),
-                             edge_case_type="ambiguous" if i % 5 == 1 else "none", evaluation_method="synthetic human-rating fixture",
+                             edge_case_type="ambiguous" if j < 4 else "none", evaluation_method="synthetic human-rating fixture",
                              source_or_provenance="SYNTHETIC LOCAL TEST, not product results", reference_valid_as_of="2026-01-01",
                              rater_notes="Synthetic software-test input, not a factual benchmark reference."))
         (work / "data" / f"cases_{split}.jsonl").write_text("".join(json.dumps(r, ensure_ascii=False) + "\n" for r in rows), encoding="utf-8")
@@ -181,6 +183,7 @@ def create_fixture(out):
     work = Path(private_path(out))
     work.mkdir(parents=True, exist_ok=False)
     make_cases(work)
+    shutil.copyfile(Path(ROOT, "data/holdout_blueprint.json"), work / "data/holdout_blueprint.json")
     (work / "prompts").mkdir()
     for name in ("P1_baseline", "P2_structured", "P3A_candidate", "P3B_candidate"):
         for lang in ("cs", "en"):

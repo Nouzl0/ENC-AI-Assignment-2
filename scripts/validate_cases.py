@@ -13,6 +13,9 @@ Usage:
 """
 import argparse
 import collections
+import datetime as dt
+import json
+import math
 import os
 import re
 import sys
@@ -49,6 +52,13 @@ def validate_case(case, split):
             errors.append(f"{tid}: {field} must be a nonempty string")
     if case.get("development_validation_test_split") != split:
         errors.append(f"{tid}: split field does not match file {split}")
+    valid_as_of = case.get("reference_valid_as_of")
+    if valid_as_of != "RUN_DAY":
+        try:
+            if dt.date.fromisoformat(valid_as_of).isoformat() != valid_as_of:
+                raise ValueError("noncanonical date")
+        except (ValueError, TypeError):
+            errors.append(f"{tid}: reference_valid_as_of must be YYYY-MM-DD or RUN_DAY")
     for field, allowed in ALLOWED.items():
         if not isinstance(case.get(field), str) or case[field] not in allowed:
             errors.append(f"{tid}: invalid {field}={case.get(field)!r}")
@@ -74,6 +84,10 @@ def validate_case(case, split):
             errors.append(f"{tid}: duplicate {field}")
     if "required_facts" in ref and ref.get("key_facts") != ref["required_facts"]:
         errors.append(f"{tid}: key_facts must be the required_facts compatibility alias")
+    constraints = ref.get("required_constraints", [])
+    if (not isinstance(constraints, list) or not all(isinstance(c, str) and c.strip() for c in constraints)
+            or len(set(constraints)) != len(constraints)):
+        errors.append(f"{tid}: required_constraints must be a unique string list")
     gold = ref.get("gold_sources")
     if not isinstance(gold, list) or not gold or not all(isinstance(g, dict) and isinstance(g.get("url"), str)
                                                        and g["url"].startswith(("http://", "https://")) for g in gold):
@@ -87,6 +101,43 @@ def tokens(text):
 
 def jaccard(a, b):
     return len(a & b) / len(a | b) if a | b else 0.0
+
+
+def holdout_stratification_problems(rows, blueprint_path):
+    """Public aggregate quotas, scaled outwards for holdouts larger than ten."""
+    try:
+        with open(blueprint_path, encoding="utf-8") as f:
+            blueprint = json.load(f)
+        quotas = blueprint["counts_per_10"]
+        if (blueprint["schema_version"] != 1 or not isinstance(quotas, dict)
+                or set(quotas) != set(ALLOWED) - {"edge_case_type"}):
+            raise ValueError("invalid quota fields/schema")
+        errors = []
+        n = len(rows)
+        for field, allowed in ALLOWED.items():
+            if field == "edge_case_type":
+                continue
+            if not isinstance(quotas[field], dict) or set(quotas[field]) != allowed:
+                raise ValueError(f"missing quota categories: {field}")
+            for value, bounds in quotas[field].items():
+                if (not isinstance(bounds, list) or len(bounds) != 2
+                        or any(type(v) is not int for v in bounds) or not 0 <= bounds[0] <= bounds[1] <= 10):
+                    raise ValueError(f"invalid quota bounds: {field}/{value}")
+                lo, hi = math.floor(bounds[0] * n / 10), math.ceil(bounds[1] * n / 10)
+                actual = sum(c.get(field) == value for c in rows)
+                if not lo <= actual <= hi:
+                    errors.append(f"holdout quota {field}/{value}: {actual}, expected {lo}–{hi}")
+        bounds = blueprint["edge_cases_per_10"]
+        if (not isinstance(bounds, list) or len(bounds) != 2
+                or any(type(v) is not int for v in bounds) or not 2 <= bounds[0] <= bounds[1] <= 10):
+            raise ValueError("invalid edge quota")
+        lo, hi = math.floor(bounds[0] * n / 10), math.ceil(bounds[1] * n / 10)
+        actual = sum(c.get("edge_case_type") != "none" for c in rows)
+        if not lo <= actual <= hi:
+            errors.append(f"holdout quota edge cases: {actual}, expected {lo}–{hi}")
+        return errors
+    except (OSError, ValueError, KeyError, TypeError) as e:
+        return [f"holdout blueprint: {e}"]
 
 
 def main():
@@ -153,6 +204,7 @@ def main():
         errors.append(f"benchmark has {total} cases (< 40 required)")
 
     if "test" in cases:
+        errors += holdout_stratification_problems(cases["test"], os.path.join(args.data_dir, "holdout_blueprint.json"))
         n_test = len(cases["test"])
         if n_test < 10:
             errors.append(f"test split has {n_test} cases (< 10 required)")

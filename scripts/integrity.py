@@ -6,7 +6,7 @@ import math
 import os
 from pathlib import Path
 
-from common import (ROOT, SYSTEMS, META_FILL_COLUMNS, finite_number, load_all_cases,
+from common import (ROOT, SYSTEMS, META_FILL_COLUMNS, constraint_problems, finite_number, load_all_cases,
                     read_csv, required_facts, run_problems, sha256_file, unique_index)
 
 ATTESTATIONS = {
@@ -101,14 +101,23 @@ def source_evidence_problems(cases, path):
         for fid, fact, kind in facts:
             row = index.get((case["task_id"], fid), {})
             prefix = f"{case['task_id']}/{fid}"
-            if (row.get("verification_status") != "verified" or row.get("reference_value") != fact
+            if (row.get("verification_status") != "verified" or row.get("fact_text") != fact
+                    or not isinstance(row.get("reference_value"), str) or not row["reference_value"].strip()
                     or row.get("reference_kind") != kind or not row.get("verified_by")):
                 errors.append(f"{prefix}: missing verified evidence matching the current fact")
                 continue
             if not row.get("url", "").startswith(("https://", "http://")) or not row.get("locator") or not row.get("excerpt_or_summary"):
                 errors.append(f"{prefix}: missing URL/locator/excerpt or summary")
             try:
-                timestamp(row.get("checked_at"))
+                checked = timestamp(row.get("checked_at"))
+                valid_as_of = case.get("reference_valid_as_of")
+                if valid_as_of == "RUN_DAY":
+                    valid_as_of = checked.astimezone(dt.timezone.utc).date().isoformat()
+                if (not isinstance(valid_as_of, str)
+                        or dt.date.fromisoformat(valid_as_of).isoformat() != valid_as_of):
+                    raise ValueError("reference_valid_as_of must be YYYY-MM-DD or RUN_DAY")
+                if row.get("valid_as_of") != valid_as_of:
+                    raise ValueError("valid_as_of must match the static reference or UTC check date for RUN_DAY")
                 if not row.get("snapshot_sha256"):
                     raise ValueError("missing snapshot_sha256")
                 artifact(row.get("snapshot_file"), row["snapshot_sha256"])
@@ -123,11 +132,12 @@ def source_evidence_problems(cases, path):
 
 
 def holdout_problems(cases):
-    from validate_cases import validate_case, tokens, jaccard
+    from validate_cases import validate_case, tokens, jaccard, holdout_stratification_problems
     errors = []
     test = [c for c in cases.values() if c.get("development_validation_test_split") == "test"]
     if len(cases) < 40 or len(test) < 10:
         errors.append("assignment requires >=40 cases including >=10 private test cases")
+    errors += holdout_stratification_problems(test, str(Path(ROOT, "data/holdout_blueprint.json")))
     for split in ("dev", "val", "test"):
         rows = [c for c in cases.values() if c.get("development_validation_test_split") == split]
         for c in rows:
@@ -147,7 +157,7 @@ def holdout_problems(cases):
 
 def frozen_files(gate, inputs):
     """Research-critical repository files; candidate P3 stays editable until G2."""
-    fixed = ["PROTOCOL.md", "annotation/rubric.md", "data/cases_dev.jsonl", "data/cases_val.jsonl"]
+    fixed = ["PROTOCOL.md", "annotation/rubric.md", "data/cases_dev.jsonl", "data/cases_val.jsonl", "data/holdout_blueprint.json"]
     fixed += [str(p.relative_to(ROOT)) for p in Path(ROOT, "scripts").glob("*.py")]
     fixed += [f"prompts/{name}_{lang}.txt" for name in ("P1_baseline", "P2_structured") for lang in ("cs", "en")]
     paths = [str(Path(ROOT, p)) for p in fixed] if gate == "G1" else []
@@ -388,6 +398,8 @@ def final_rating_problems(runs, annotation_dir, key_dir, cases):
                 errors.append(f"{bid}: missing rater or rater evaluates their own run")
             if answer.get("correctness") not in {"0", "1", "2"} or answer.get("segmentation_reviewed") != "yes":
                 errors.append(f"{bid}: incomplete raw/final answer-level rating")
+            case = cases.get(outcomes[key[bid]["run_id"]]["task_id"], {})
+            errors += [f"{bid}: {e}" for e in constraint_problems(answer, case)]
             claims = {p["claim_id"] for p in rows if p["blind_answer_id"] == bid}
             if finite_number(answer.get("n_claims")) != len(claims):
                 errors.append(f"{bid}: raw/final claim count differs from rating units")
@@ -449,7 +461,7 @@ def final_rating_problems(runs, annotation_dir, key_dir, cases):
     # Every changed categorical rating needs a resolved adjudication record.
     disagreements = collect_csv(annotation_dir, "disagreements.csv")
     for kind, left, right, final_rows, id_field, fields in (
-            ("answer", first, second, final, "blind_answer_id", ("correctness", "n_claims", "key_facts_supported", "key_fact_evidence", "check_minutes")),
+            ("answer", first, second, final, "blind_answer_id", ("correctness", "n_claims", "key_facts_supported", "key_fact_evidence", "constraint_results", "check_minutes")),
             ("pair", pair_sets[1], pair_sets[2], pair_sets[0], "pair_id", ("claim_text", "citation_n", "url", "rating", "source_tier", "time_ok", "error_code", "rater_source_n"))):
         a, b, final_index = (unique_index(rows, id_field, kind) for rows in (left, right, final_rows))
         for iid in set(a) | set(b) | set(final_index):

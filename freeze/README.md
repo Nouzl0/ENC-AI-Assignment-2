@@ -32,7 +32,11 @@ odhalí to až nezávisle archivovaná původní kopie.
 
 - **G1:** pilotní kalibrace zaznamenána; autor promptu odlišný od správce holdoutu a
   nezávislého ověřovatele referencí; ≥40 úloh / ≥10 test, ≥20 % edge v každé sadě.
-  `source_evidence.csv` má přesně RF/OF všech aktuálních úloh, `verified`, správnou hodnotu,
+  Test navíc splňuje předem zmrazené veřejné kvóty data/holdout_blueprint.json.
+  `source_evidence.csv` má přesně RF/OF všech aktuálních úloh, `verified`, přesný fact_text
+  a zvlášť skutečně ověřenou reference_value; valid_as_of podle statické reference nebo
+  UTC dne kontroly u RUN_DAY. Správnost hodnoty potvrzuje člověk, ne textová rovnost.
+  Dále
   URL, čas, locator, krátký úryvek nebo vlastní shrnutí a snapshot + SHA-256. Nové reference
   musí být skutečně ověřeny člověkem. `repeat_task_ids`, systémy a validační kandidáti jsou
   předem stanovené; checked_at zdrojové kontroly nesmí následovat podpis G1.

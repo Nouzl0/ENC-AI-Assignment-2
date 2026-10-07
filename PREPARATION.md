@@ -54,6 +54,25 @@ připravený. Reálné benchmarky jsme nespustili.
 
 ## Co nadále provede kolega
 
+## Druhá revize po kritickém auditu
+
+| Etapa revize | Rozsah | Stav |
+| --- | --- | --- |
+| 1 | Férové RF/OF/RC, evidenční kontrakt, předem dané kvóty holdoutu | hotovo; kritická re-kontrola bez blokujících/středních nálezů |
+| 2 | Parser a přenositelná reprodukce | následuje |
+| 3 | Výběr P3, ratingy a interpretační diagnostiky | následuje |
+| 4 | Konzistentní dokumentace a předání | následuje |
+
+Revize 1: opraveny skryté požadavky, překryv RF a nezapsané rozšíření referencí,
+odděleny zdrojové/formální RC, fact_text vs skutečná ověřená reference_value.
+Holdout blueprint je veřejný agregát, nikoli vytvořený test. Kritický subagent našel
+bypass whitespace správnosti, chybějící referenční data, duplicitní JSON klíče a zbylá
+skrytá expected_properties; opraveno a re-kontrolováno. Ověřeno 54 unittestů na
+Pythonu 3.11.16 i 3.14.7, validace dev/val a git diff --check. Žádné nové ověření gold
+na webu ani produktové běhy neproběhly.
+
+## Co nadále provede kolega (platí i po revizi)
+
 Nový soukromý holdout, nezávislé ověření RF/OF, dostupnost a nastavení produktů, pilot,
 skutečné podpisy/archivace G1/G2/G3, dev/val výběr P3_final, produktové běhy, lidské ratingy,
 výsledky a závěrečná zpráva. Dokončení čtyř přípravných etap není dokončení experimentu.

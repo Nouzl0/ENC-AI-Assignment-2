@@ -106,6 +106,31 @@ def required_facts(case):
     return ref.get("required_facts", ref.get("key_facts", []))
 
 
+def unique_json_object(pairs):
+    result = {}
+    for key, value in pairs:
+        if key in result:
+            raise ValueError(f"duplicate JSON key: {key}")
+        result[key] = value
+    return result
+
+
+def constraint_problems(row, case):
+    """Question-level source/format constraints are not claim–citation facts."""
+    constraints = case.get("reference_answer_or_tests", {}).get("required_constraints", [])
+    try:
+        results = json.loads(row.get("constraint_results") or "{}", object_pairs_hook=unique_json_object)
+    except (ValueError, TypeError):
+        return ["constraint_results must be a JSON object"]
+    expected = {f"RC{i}" for i in range(1, len(constraints) + 1)}
+    if (not isinstance(results, dict) or set(results) != expected
+            or any(not isinstance(value, str) or value not in {"yes", "no", "unknown"} for value in results.values())):
+        return ["constraint_results must cover exactly RC1…RCn with yes/no/unknown"]
+    if str(row.get("correctness")).strip() == "2" and any(v != "yes" for v in results.values()):
+        return ["correctness=2 requires every question-level constraint to be met"]
+    return []
+
+
 def run_problems(row, require_terminal=True):
     """Validate outcome and numeric fields without consulting model answers."""
     errors = []

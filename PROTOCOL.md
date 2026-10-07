@@ -30,6 +30,11 @@ odchylku a dopad nebo změnit návrh před G1, ne tiše změnit experiment.
 - Záměrný mix pěti domén, CZ/EN/cs+en, faktů/primárních dokumentů/syntéz a obtížností;
   ≥20 % edge případů **v každé sadě**. Popsat skutečné počty a způsob týmového výběru,
   nejde o náhodný reprezentativní vzorek všech uživatelských dotazů.
+- Před G1 platí agregované kvóty `data/holdout_blueprint.json`: na 10 testů po 2 z pěti
+  domén, cs/en 4–5 každé a cs+en 0–1; easy/medium/hard 1–2/5–6/3;
+  fact/primary_source/synthesis 5/3/2; edge 4–5. Pro větší n meze škálovat ven.
+  Jde o přibližné zachování dev mixu, ne požadavek zadání. Změny odůvodnit před G1,
+  ne podle výsledků; správce navíc ručně kontroluje významové duplicity.
 - `published_test_candidates.jsonl` obsahuje veřejné historické CIT-031–040, není holdout.
   Nové testy vytvoří nezávislý správce mimo Git, bez kopírování zveřejněných otázek.
   Kontrola překryvu ID/Jaccard je pojistka, nikoli důkaz nepřítomnosti kontaminace.
@@ -37,9 +42,15 @@ odchylku a dopad nebo změnit návrh před G1, ne tiše změnit experiment.
   pro kontrolu hashů potřebuje přístup k soukromým souborům; autor dostává jen dev/val výstupy.
 - Schéma v2: `required_facts` = pouze požadavky otázky, `optional_facts` = bonus. Opuštění
   bonusu se netrestá; chybná dobrovolná fakta se hodnotí. `key_facts` je alias required.
+- Zdrojové/formální požadavky otázky jsou samostatné `required_constraints` (RC), nikoli
+  RF; správnost 2 vyžaduje všechny splněné. Referenční text obsahuje jen RF/OF, žádné
+  další neověřené rozšíření. Nevyžádaný konkrétní dokument není skrytým požadavkem.
 - Nezávislý ověřovatel před G1 doloží **všechny RF/OF** všech úloh: hodnotu, primární
   zdroj, locator, čas s offsetem, krátký úryvek/vlastní shrnutí, soukromý snapshot + SHA-256.
   Původní datované texty a URL nejsou důkaz, že byla tato kontrola dokončena.
+  V evidenci `fact_text` přesně identifikuje RF/OF, `reference_value` je skutečně ověřená
+  hodnota; tyto texty nemusí být totožné. `valid_as_of` odpovídá statické referenci nebo
+  UTC dni kontroly u RUN_DAY. Automatická kontrola nemůže potvrdit pravdivost hodnoty.
 - RUN_DAY hodnoty se ověřují pro každou dokončenou úlohu a den **v UTC**, zvlášť přes
   `run_day_evidence.csv`, přesně RF/OF a s kontrolou tentýž den. Zmrazený gold nepřepisovat.
   Hodnotitel musí dostat odpovídající denní reference, ne použít starý orientační údaj.

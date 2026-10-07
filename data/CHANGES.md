@@ -15,5 +15,21 @@ Původní data zůstávají v git historii. Nové referenční hodnoty ani údaj
 - CIT-002: odstraněno chybné synonymum „(přidaných)“. WHO pod volné cukry zahrnuje i cukry přirozeně přítomné
   v medu, sirupech a šťávách, nejen přidané. [Primární definice a doporučení WHO](https://www.who.int/news-room/detail/04-03-2015-who-calls-on-countries-to-reduce-sugars-intake-among-adults-and-children).
 
-**Ještě provést:** správce dat ověří každý povinný fakt a zdroj před G1, vyplní source_evidence.csv.
+## Druhá kritická revize: férovost a evidenční kontrakt (před G1)
+
+- CIT-002: povinná hodnota + libovolný odpovídající oficiální WHO podklad, nikoli skrytě
+  konkrétní dokument 2015/označení síly doporučení; dokument 2015 je OF.
+- CIT-004: dvě nepřekrývající se RF (výška + vysvětlení rozdílu), ne dvakrát stejná výška.
+- CIT-001/014/015/025 a další explicitní požadavky na zdroj/formát přesunuty do RC;
+  CIT-027 nevyžádané určení vydavatele odstraněno, CIT-028 rok zahrnut do hodnoty bez duplicity.
+- CIT-025: názvy požadovaných polí nahrazeny konkrétními draft hodnotami již uvedenými
+  v původní referenci. Nejde o nové nezávislé ověření.
+- Všech 30 referenčních textů nyní pouze RF/OF; nezapsaná rozšíření (např. ceny ESU,
+  novela cíle 2040) odstraněna, nikoli označena za nepravdivá. Nová fakta vyžadují OF + důkaz.
+- expected_properties sjednoceny s RF + RC ve všech 30 případech; nevynucují nevyžádaného
+  vydavatele (CIT-027) ani konkrétní portál pro text GDPR (CIT-023).
+- Evidence rozlišuje přesný fact_text a skutečnou reference_value. Zavedena předem
+  zveřejněná agregovaná stratifikace nového holdoutu; žádná nová otázka nevytvořena.
+
+**Ještě provést:** správce dat ověří každý povinný i volitelný fakt a zdroj před G1, vyplní source_evidence.csv.
 Prázdná šablona není důkaz dokončené kontroly. Dynamické hodnoty navíc ověřit v den skutečného běhu.

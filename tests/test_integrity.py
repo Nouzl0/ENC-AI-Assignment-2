@@ -236,20 +236,26 @@ class IntegrityTests(unittest.TestCase):
             for lang in ("cs", "en"):
                 (repo / "prompts" / f"{name}_{lang}.txt").write_text("synthetic {user_prompt}")
         (repo / "data/published_test_candidates.jsonl").write_text("")
+        (repo / "data/holdout_blueprint.json").write_bytes((ROOT / "data/holdout_blueprint.json").read_bytes())
         snapshot = private / "source.txt"
         snapshot.write_text("synthetic supporting source")
         evidence = []
         for split, start, count in (("dev", 0, 20), ("val", 20, 10), ("test", 30, 10)):
             cases = []
             for i in range(start, start + count):
-                c = dict(task_id=f"DEMO-{i}", schema_version=2, capability="citation_accuracy", task_type="fact", difficulty="easy",
-                         language="en", domain="it", development_validation_test_split=split,
+                j = i % 10
+                c = dict(task_id=f"DEMO-{i}", schema_version=2, capability="citation_accuracy",
+                         task_type="fact" if j < 5 else "primary_source" if j < 8 else "synthesis",
+                         difficulty="easy" if j < 2 else "medium" if j < 7 else "hard",
+                         language="cs" if j < 5 else "en",
+                         domain=["veda_zdravi", "pravo", "it", "ekonomika", "historie_kultura"][j % 5],
+                         development_validation_test_split=split,
                          user_prompt=f"unique_query_{i} unique_topic_{i} unique_marker_{i}", context_or_files=[], expected_properties=["fact"],
                          reference_answer_or_tests=dict(reference_answer="fact", key_facts=["fact"], required_facts=["fact"], optional_facts=[],
-                                                        gold_sources=[dict(url="https://example.org")]), edge_case_type="ambiguous",
+                                                        gold_sources=[dict(url="https://example.org")]), edge_case_type="ambiguous" if j < 4 else "none",
                          evaluation_method="human", source_or_provenance="synthetic fixture", reference_valid_as_of="2026-01-01")
                 cases.append(c)
-                evidence.append(dict(task_id=c["task_id"], fact_id="RF1", reference_kind="required", reference_value="fact",
+                evidence.append(dict(task_id=c["task_id"], fact_id="RF1", reference_kind="required", fact_text="fact", reference_value="fact", valid_as_of="2026-01-01",
                                      verified_by="synthetic checker", url="https://example.org", locator="fixture", excerpt_or_summary="synthetic source",
                                      checked_at="2026-01-01T00:00:00+00:00", snapshot_file=str(snapshot), snapshot_sha256=sha256_file(snapshot),
                                      verification_status="verified"))
@@ -281,6 +287,12 @@ class IntegrityTests(unittest.TestCase):
                 with self.assertRaisesRegex(ValueError, "frozen file changed"):
                     verify_freeze(path)
                 changed.write_bytes(original)
+                blueprint = repo / "data/holdout_blueprint.json"
+                original_blueprint = blueprint.read_bytes()
+                blueprint.write_bytes(original_blueprint + b"\n")
+                with self.assertRaisesRegex(ValueError, "frozen file changed"):
+                    verify_freeze(path)
+                blueprint.write_bytes(original_blueprint)
                 rows = read_csv(config["inputs"]["source_evidence"])
                 rows[0]["verification_status"] = "pending"
                 write_csv(config["inputs"]["source_evidence"], rows, list(rows[0]))

@@ -76,13 +76,17 @@ NA/S2 ani pro neexistující stránku s uvedenou URL. Tam zaznamenat kontrolovan
 ## 4. Odpověď a povinné vs. doplňkové fakty
 
 `required_facts` (alias `key_facts`) jsou pouze požadavky otázky a nutné opravy chybných předpokladů.
-`optional_facts` a rozšiřující referenční text jsou bonusový kontext. **Jejich vynechání nesnižuje skóre.**
+`optional_facts` jsou bonusový kontext. Referenční text obsahuje jen RF/OF, nikoli další
+nezapsaná tvrzení. **Vynechání OF nesnižuje skóre.** Zdrojové/formální požadavky otázky
+jsou samostatné `required_constraints` (RC), ne tvrzení ve jmenovateli pokrytí.
 Správné parafráze přijmout; fakt může být jednoznačný z otázky a odpovědi, není nutné opakovat rok otázky.
 Chybný dobrovolně přidaný fakt se ale počítá jako chyba.
 
 | Pole | Pravidlo |
 | --- | --- |
-| correctness | 2: všechny povinné fakty správné, žádná podstatná věcná chyba; 1: částečná odpověď/mírná nepřesnost; 0: chybně zodpovězený hlavní dotaz, neopravený falešný předpoklad, vymyšlená přesná hodnota nebo žádná odpověď |
+| correctness | 2: všechny RF správné, všechny RC splněné, žádná podstatná věcná chyba; 1: částečná odpověď/mírná nepřesnost nebo chybí požadovaný zdroj/formát při správném hlavním obsahu; 0: chybně zodpovězený hlavní dotaz, neopravený falešný předpoklad, vymyšlená přesná hodnota nebo žádná odpověď |
+| required_constraints | RC1… ze zadání, jen pro čtení; např. oficiální WHO, Eurostat, jazyk nebo časový limit zdrojů |
+| constraint_results | JSON přesně RC1…RCn → yes/no/unknown, např. {"RC1":"yes"}; při žádných RC `{}` (prázdné kompatibilní). Správnost 2 je možná jen při všech yes. Chybějící doklad = unknown, ne domyšlené splnění. |
 | n_key_facts | Počet required_facts; **neměnit** |
 | key_facts_supported | Počet správně uvedených povinných faktů s explicitní S2 podporou |
 | key_fact_evidence | JSON mapování RF1, RF2… na pair_id S2, např. {"RF1":["A123-T1-1"]}; bez podpory `{}`. Počet klíčů musí být key_facts_supported. Jeden pár může dokládat více faktů, jen pokud to zdroj skutečně umožňuje. |

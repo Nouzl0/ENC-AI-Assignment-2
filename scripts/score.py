@@ -34,7 +34,7 @@ import statistics
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from common import (PROMPTS, RATINGS, ROOT, SYSTEMS, finite_number, load_all_cases,  # noqa: E402
+from common import (PROMPTS, RATINGS, ROOT, SYSTEMS, constraint_problems, finite_number, load_all_cases,  # noqa: E402
                     read_csv, read_csv_glob, required_facts, run_problems, unique_index, validate_pair_rows, write_csv)
 from integrity import private_path, run_artifact_problems, verify_freeze, verify_plans
 
@@ -194,6 +194,10 @@ def load_answers(runs, key, pairs, answers, cases, allow_missing, meta=None):
         case = cases.get(run["task_id"], {})
         if not case:
             problems.append(f"run {run['run_id']}: unknown task_id")
+            continue
+        constraint_errors = [] if failed else constraint_problems(a, case)
+        if constraint_errors:
+            problems.extend(f"answer {bid}: {e}" for e in constraint_errors)
             continue
         kf, nkf = to_float(a.get("key_facts_supported")), to_float(a.get("n_key_facts"))
         minutes = to_float(a.get("check_minutes"))

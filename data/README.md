@@ -43,7 +43,7 @@ jsou soubory/hashy neměnné. Průchod validátorem není nezávislé ověření
 | `context_or_files` | vždy prázdné (bez příloh) |
 | `expected_properties` | co musí dobrá odpověď splnit (pro hodnotitele) |
 | `schema_version` | 2 pro revidované dev/val; nové soukromé testy musí použít stejné schéma |
-| `reference_answer_or_tests` | `reference_answer` (i kontext), `required_facts` (povinné; RF1…), `optional_facts` (bonus), `key_facts` (alias povinných), `gold_sources` (doklady k lidskému ověření) |
+| `reference_answer_or_tests` | `reference_answer` (jen RF/OF), `required_facts` (obsah; RF1…), `optional_facts` (bonus; OF1…), `required_constraints` (zdroj/formát; RC1…), `key_facts` (alias RF), `gold_sources` (doklady k lidskému ověření) |
 | `edge_case_type` | `none`, `false_premise`, `conflicting_evidence`, `missing_info`, `ambiguous`, `time_constraint`, `recent_change`, `cz_en_mix` |
 | `evaluation_method` | lidská rubrika + automatická kontrola URL + shoda s referencí (u dynamických: ověření v den běhu) |
 | `source_or_provenance` | původ dotazu a datum ověření |
@@ -52,8 +52,25 @@ jsou soubory/hashy neměnné. Průchod validátorem není nezávislé ověření
 
 ## Doklady a etika
 
+`holdout_blueprint.json` stanoví veřejné **agregované** kvóty před G1, nikoli otázky:
+pro 10 testů po 2 z každé domény, CZ 4–5 / EN 4–5 / mix 0–1, easy 1–2 / medium 5–6 /
+hard 3, fact 5 / primary_source 3 / synthesis 2 a 4–5 edge případů. Přibližují dev mix,
+nejsou dodatečnou podmínkou zadání učitele. Pro větší test se meze škálují ven (floor/ceil).
+Odůvodněná změna je možná jen před G1, se záznamem důvodu, nikdy podle výsledků produktů.
+Automatická kontrola překryvu nenahradí ruční kontrolu významových duplikátů správcem.
+
+RF neobsahují požadavky jako „cituj Eurostat“ ani nevyžádaný konkrétní dokument.
+Ty patří do RC; hodnotitel vyplní `constraint_results` a správnost 2 vyžaduje všechny RC=yes.
+RC nevstupují do jmenovatele pokrytí faktů. Každý dobrovolný fakt se dál hodnotí.
+`reference_answer` neobsahuje další nezapsaná tvrzení; rozšíření musí být uvedeno jako OF
+a nezávisle ověřeno. Draft gold (včetně názvu CIT-025) zde **není nově ověřený zdroj**.
+
 - `source_evidence_TEMPLATE.csv` → soukromé `source_evidence.csv`: před G1 každý RF/OF
-  všech skutečných úloh, přesná hodnota, nezávislý ověřovatel, primární zdroj a snapshot/hash.
+  všech skutečných úloh, `fact_text` přesně podle RF/OF a zvlášť `reference_value` jako
+  skutečná ověřená hodnota/odpověď (nikoli zkopírovaný zástupný požadavek).
+  `valid_as_of` odpovídá statické referenci; pro RUN_DAY je UTC datum `checked_at`.
+  Dále nezávislý ověřovatel, primární zdroj a snapshot/hash. Shodu hodnoty se zdrojem
+  a požadavkem posuzuje člověk; neprázdnost CSV není důkaz pravdivosti.
 - `annotation/run_day_evidence_TEMPLATE.csv` → soukromé `run_day_evidence.csv`: každý
   RF/OF dokončené RUN_DAY úlohy v každém skutečném UTC dni, včetně dev/val/repeat.
   Tento denní záznam doplňuje aktuální hodnotu, **nepřepisuje** zmrazenou referenci.
