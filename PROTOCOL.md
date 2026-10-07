@@ -68,7 +68,13 @@ P1/P2, data, rubrika i kód jsou od G1 neměnné; P3 kandidáti se upravují jen
 
 Před G1 zvolit jeden kandidát (P3A nebo P3B), nebo oba. Jedna plánovaná validační
 matice P2+kandidáti. Vybrat vyšší průměr hlavní metriky přes všechny systémy a úlohy;
-při rozdílu <0,02 vybrat kratší průměrnou délku CZ/EN šablony, při shodě P3A.
+při rozdílu <0,02 vybrat kratší průměrnou délku CZ/EN šablony (znaky včetně whitespace),
+při shodě P3A. Použít plnou přesnost, nikoli zaokrouhlená CSV; G2 přepočte skóre z
+neměnného `scoring_inputs.json` a ověří metriky i výběr. Snapshot vstupních řádků,
+skutečné ratingy, kandidáty a plány nezávisle archivovat; není to automatický důkaz
+pravdivosti ratingu. Pozdější testový export nesmí přepsat historické validační ratingy.
+Zdrojové rozhodnutí ve validaci včetně NA/FAB musí mít snapshot/hash a čas mezi koncem
+běhu a podpisem G2 (nejvýše 7 dní po běhu); nelze volit P3 z pozdější evidence.
 Jeden kandidát se vybere i bez zlepšení P2 a neúspěch se uvede. **Po validaci už žádné
 nové ladění na val/test**; další iterace by byla nový deklarovaný experiment.
 P3_final musí být přesná CZ/EN kopie vybraného skutečně měřeného kandidáta → G2.
@@ -95,6 +101,12 @@ P3_final musí být přesná CZ/EN kopie vybraného skutečně měřeného kandi
   tvrzení/citace na odpověď a deskriptivní Spearmanovu korelaci; ta neprokazuje příčinu.
 - A2: dostupnost/jazyk/doména → NA a výsledky podle jazyka. CZ/EN nejsou párované
   překlady, cs+en se ve výstupu slučuje do CZ; rozdíl není čistý jazykový efekt.
+- A3/H2: P1 často nemá explicitní značky, proto zisk P2 může odrážet **změnu atribuce
+  a formátu**, ne jen lepší retrieval či pravdivost. Vykázat podíl odpovědí s explicitní
+  citací a přesnost podmíněnou jejich přítomností (včetně n). Platí průměrná hlavní
+  přesnost = tento podíl × podmíněná přesnost; selhání/bez citací zůstávají v celkovém
+  efektu nulou. Podmíněná metrika vybírá jinou podmnožinu, není nový potvrzující test
+  ani důvod změnit H2 po výsledcích. Doplnit správnost, úplnost a RF pokrytí.
 
 ## 5. Metriky a nejistota
 
@@ -117,6 +129,16 @@ produkty nejsou další nezávislé replikace otázky. Správnost a podíly odpo
 P2 opakování zvlášť, SD průměrů běhů a změny správnosti jen na společných úlohách všech
 opakování. Pozdější okno směšuje náhodnost, změny zdrojů a produktu, ne čistý modelový šum.
 Deset testových úloh dává hrubé intervaly a nízkou sílu; nevýznamnost není důkaz rovnosti.
+Konstantní empirický vzorek může dát bootstrap CI [p,p], a to i u párového rozdílu.
+Není to nulová populační nejistota: zachovat flag `*_ci_diagnostic`/`ci_diagnostic`,
+uvést n a omezení účelového malého souboru. Binární podíly mají samostatný Wilson CI;
+nedělat z dvojic nezávislé replikace jen kvůli užším intervalům.
+
+Diagnostické enumy jsou povinné podle rubriky, explicitní unknown není kladný rating.
+Report vykazuje source_tier_checked/expected, time_checked/expected a ack_checked/
+expected; primární tier1_share dělí všemi explicitními dvojicemi, časová vhodnost a
+přiznání nejistoty jen rozhodnutými případy, vždy spolu s pokrytím. Neměnit definice
+podle toho, která pole zůstala neověřená.
 
 Explorační `annotation_effort_index` = přesnost − 0,1·L_norm − 0,1·T_norm;
 L/T jsou mediány end-to-end latence/času anotace dělené maximem mediánů mezi produkty
@@ -163,7 +185,10 @@ Test do 72 h, každá úloha napříč podmínkami/produkty do 24 h; repeat v n�
 Hodnotitel 1 všechny completed odpovědi, hodnotitel 2 předem náhodně vybrané ≥25 %
 v každém stratu fáze×produkt×podmínka, zaokrouhleno nahoru. Nikdo nehodnotí vlastní běh;
 v malém týmu může být nutný externí hodnotitel. Zaslepení je částečné, formát může
-prozradit podmínku. Raw listy před diskusí zachovat, finální konsenzus není raw IRR.
+prozradit podmínku. Oba dostávají stejné podklady bez automatických nápověd; ty jsou
+odděleně u správce a porovnávají se až po nezávislém ratingu. Před G1 projít plné offline
+kotvy v annotation/calibration.md a pilot CIT-001 + CIT-020. Raw listy před diskusí
+zachovat, finální konsenzus není raw IRR.
 Kappa S2/ostatní cíl ≥0,6, pět kategorií a správnost doplňkově, segmentace zvlášť;
 konstantní kategorie → kappa nedefinovaná, uvést n a surovou shodu. Nesrovnatelné jednotky
 jsou mimo kappu a pokrytí se hlásí. Každá změna final oproti raw1 a každá kategorická
@@ -172,7 +197,7 @@ neshoda potřebuje audit. Různý vlastní čas anotace dvou lidí není kategor
 | Brána | Skutečné podmínky (podrobnosti freeze/README.md) | Nyní |
 | --- | --- | --- |
 | G1 | pilot, role, dostupnost, nezávislé reference, nový soukromý holdout, parametry a hashe protokolu/dat/rubriky/P1/P2/kódu | nesplněno |
-| G2 | úplná validace, dev důvody změn, volba vítěze a přesná kopie CZ/EN P3, jeho hashe | nesplněno |
+| G2 | úplná validace, dev důvody změn, archiv ratingových vstupů, přepočtená volba vítěze a přesná kopie CZ/EN P3, jeho hashe | nesplněno |
 | G3 | úplná matice, provozní artefakty, původní nezávislé ratingy, audit neshod, source/RUN_DAY doklady, odchylky | nesplněno |
 
 Manifest je lidské prohlášení s hashy, ne kryptografické ověření identity. Nezávisle

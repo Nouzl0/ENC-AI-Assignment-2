@@ -6,7 +6,7 @@ import os
 from pathlib import Path
 from replay_paths import input_glob, resolve_input
 
-from common import (ROOT, SYSTEMS, META_FILL_COLUMNS, constraint_problems, finite_number, load_all_cases,
+from common import (ROOT, SYSTEMS, META_FILL_COLUMNS, constraint_problems, diagnostic_problems, finite_number, load_all_cases,
                     read_csv, required_facts, run_problems, sha256_file, unique_index)
 
 ATTESTATIONS = {
@@ -157,7 +157,7 @@ def holdout_problems(cases):
 
 def frozen_files(gate, inputs):
     """Research-critical repository files; candidate P3 stays editable until G2."""
-    fixed = ["PROTOCOL.md", "annotation/rubric.md", "data/cases_dev.jsonl", "data/cases_val.jsonl", "data/holdout_blueprint.json"]
+    fixed = ["PROTOCOL.md", "annotation/rubric.md", "annotation/calibration.md", "data/cases_dev.jsonl", "data/cases_val.jsonl", "data/holdout_blueprint.json"]
     fixed += [str(p.relative_to(ROOT)) for p in Path(ROOT, "scripts").glob("*.py")]
     fixed += [f"prompts/{name}_{lang}.txt" for name in ("P1_baseline", "P2_structured") for lang in ("cs", "en")]
     paths = [str(Path(ROOT, p)) for p in fixed] if gate == "G1" else []
@@ -195,10 +195,27 @@ def verify_freeze(path, gate=None):
         expected |= {private_path(r["snapshot_file"]) for r in read_csv(m["inputs"]["source_evidence"])}
     if m["gate"] == "G2":
         expected = {str(Path(ROOT, "prompts", f"P3_final_{lang}.txt")) for lang in ("cs", "en")}
-        expected |= {m["inputs"][k] for k in ("selection_record", "development_analysis", "validation_metrics")}
+        expected |= {m["inputs"][k] for k in ("selection_record", "development_analysis", "validation_metrics", "validation_scoring_inputs")}
+        expected |= {str(Path(ROOT, "prompts", f"{c}_candidate_{lang}.txt")) for c in m["config"]["val_candidates"] for lang in ("cs", "en")}
         expected.add(str(Path(ROOT, "prompts/CHANGELOG.md")))
         expected |= set(m["inputs"]["validation_plans"])
         expected |= {p + ".manifest.json" for p in m["inputs"]["validation_plans"]}
+        from selection import check_validation_metrics, validation_selection
+        runs = [r for p in m["inputs"]["validation_plans"] for r in read_csv(p)]
+        snapshot = read_json(m["inputs"]["validation_scoring_inputs"])
+        summary, cells = validation_selection(snapshot, runs, load_all_cases(os.path.join(ROOT, "data"), m["inputs"]["test_cases"]), m["config"], Path(ROOT, "prompts"))
+        if snapshot.get("mode") != "preliminary" or snapshot.get("freeze") != m["parent"]:
+            raise ValueError("validation snapshot parent/mode differs")
+        problems = validation_source_problems(snapshot, runs, timestamp(m["signed_at"]))
+        if problems:
+            raise ValueError("; ".join(problems))
+        check_validation_metrics(read_csv(m["inputs"]["validation_metrics"]), cells)
+        if summary != m.get("selection_summary") or summary["selected_candidate"] != m.get("selected_candidate"):
+            raise ValueError("selection_summary/selected_candidate differs from recomputed validation")
+        for r in runs:
+            expected |= {r[k] for k in ("answer_file", "raw_answer_file", "screenshot_file", "attempt1_file", "failure_artifact_file") if r.get(k) and os.path.isfile(resolve_input(r[k]))}
+        bids = {k["blind_answer_id"] for k in snapshot["tables"]["key"] if k["run_id"] in {r["run_id"] for r in runs}}
+        expected |= {p["evidence_snapshot"] for p in snapshot["tables"]["pairs"] if p.get("evidence_snapshot") and p["blind_answer_id"] in bids}
     if m["gate"] == "G3":
         expected = set(m["inputs"]["run_plans"])
         expected |= {p + ".manifest.json" for p in m["inputs"]["run_plans"]}
@@ -347,6 +364,54 @@ def collect_csv(directory, name):
     return [r for p in sorted(Path(resolve_input(directory)).rglob(name)) for r in read_csv(p)]
 
 
+def source_decision_problems(row, run, signed_at=None):
+    """Final citation decisions require timely local evidence, including NA/FAB logs."""
+    if row.get("citation_n") in {"", None}:
+        return []
+    try:
+        checked = timestamp(row.get("evidence_checked_at"))
+        end = timestamp(run["datetime_end"])
+        if not end <= checked <= end + dt.timedelta(days=7):
+            raise ValueError("source decision must be checked within 7 days after the run")
+        if signed_at is not None and checked > signed_at:
+            raise ValueError("gate signed_at precedes a source decision")
+        # A missing source marker still needs an original-answer/check-log snapshot.
+        missing_source = (row.get("rating") == "FAB" and row.get("citation_n") not in {"", "*", None}
+                          and not row.get("url") and not row.get("source_line"))
+        if (not all(row.get(k) for k in ("evidence_locator", "evidence_excerpt", "evidence_sha256"))
+                or (not missing_source and not row.get("evidence_url"))):
+            raise ValueError("missing source-decision evidence")
+        artifact(row.get("evidence_snapshot"), row["evidence_sha256"])
+    except ValueError as e:
+        return [f"{row['pair_id']}: {e}"]
+    return []
+
+
+def validation_source_problems(snapshot, runs, signed_at):
+    """Validated snapshot source decisions must already exist when G2 is signed."""
+    outcomes = {r["run_id"]: r for r in runs if r.get("phase") == "val"}
+    key = {k["blind_answer_id"]: outcomes[k["run_id"]] for k in snapshot["tables"]["key"] if k["run_id"] in outcomes}
+    return [e for p in snapshot["tables"]["pairs"] if p["blind_answer_id"] in key
+            for e in source_decision_problems(p, key[p["blind_answer_id"]], signed_at)]
+
+
+def validation_rating_binding_problems(snapshot, runs, annotation_dir, key_dir):
+    """Post-G2 validation ratings cannot silently change before final scoring."""
+    ids = {r["run_id"] for r in runs if r.get("phase") == "val"}
+    tables = snapshot["tables"]
+    keys = [k for k in tables["key"] if k["run_id"] in ids]
+    bids = {k["blind_answer_id"] for k in keys}
+    errors = []
+    for name, filename, directory, field in (("key", "blind_key.csv", key_dir, "blind_answer_id"),
+                                             ("answers", "answers_rated.csv", annotation_dir, "blind_answer_id"),
+                                             ("pairs", "pairs_rated.csv", annotation_dir, "pair_id")):
+        expected = keys if name == "key" else [r for r in tables[name] if r["blind_answer_id"] in bids]
+        current = [r for r in collect_csv(directory, filename) if r["blind_answer_id"] in bids]
+        if unique_index(expected, field, "G2 validation " + name) != unique_index(current, field, "G3 validation " + name):
+            errors.append("validation " + name + " changed since G2 scoring snapshot")
+    return errors
+
+
 def final_rating_problems(runs, annotation_dir, key_dir, cases):
     errors = []
     key = unique_index(collect_csv(key_dir, "blind_key.csv"), "blind_answer_id", "blind key")
@@ -401,6 +466,7 @@ def final_rating_problems(runs, annotation_dir, key_dir, cases):
                 errors.append(f"{bid}: incomplete raw/final answer-level rating")
             case = cases.get(outcomes[key[bid]["run_id"]]["task_id"], {})
             errors += [f"{bid}: {e}" for e in constraint_problems(answer, case)]
+            errors += [f"{bid}: {e}" for e in diagnostic_problems(answer, [p for p in rows if p["blind_answer_id"] == bid], case)]
             claims = {p["claim_id"] for p in rows if p["blind_answer_id"] == bid}
             if finite_number(answer.get("n_claims")) != len(claims):
                 errors.append(f"{bid}: raw/final claim count differs from rating units")
@@ -410,24 +476,8 @@ def final_rating_problems(runs, annotation_dir, key_dir, cases):
                 errors.append(f"{bid}: two raters must be distinct")
     # Snapshots for final source decisions; inaccessible/fabricated also need a check log.
     for row in pair_sets[0]:
-        if row.get("citation_n") in {"", None}:
-            continue
-        try:
-            checked = timestamp(row.get("evidence_checked_at"))
-            run = outcomes[key[row["blind_answer_id"]]["run_id"]]
-            end = timestamp(run["datetime_end"])
-            if not end <= checked <= end + dt.timedelta(days=7):
-                raise ValueError("source decision must be checked within 7 days after the run")
-            # A marker with no source has no URL to open. Its FAB decision still
-            # needs the original answer/check log as snapshot evidence of absence.
-            missing_source = (row.get("rating") == "FAB" and row.get("citation_n") not in {"", "*", None}
-                              and not row.get("url") and not row.get("source_line"))
-            if (not all(row.get(k) for k in ("evidence_locator", "evidence_excerpt", "evidence_sha256"))
-                    or (not missing_source and not row.get("evidence_url"))):
-                raise ValueError("missing source-decision evidence")
-            artifact(row.get("evidence_snapshot"), row["evidence_sha256"])
-        except ValueError as e:
-            errors.append(f"{row['pair_id']}: {e}")
+        if row.get("citation_n") not in {"", None}:
+            errors += source_decision_problems(row, outcomes[key[row["blind_answer_id"]]["run_id"]])
     # Dynamic references are separate dated evidence, not edits to frozen gold data.
     dynamic = collect_csv(annotation_dir, "run_day_evidence.csv")
     expected_dynamic = {}
@@ -462,7 +512,7 @@ def final_rating_problems(runs, annotation_dir, key_dir, cases):
     # Every changed categorical rating needs a resolved adjudication record.
     disagreements = collect_csv(annotation_dir, "disagreements.csv")
     for kind, left, right, final_rows, id_field, fields in (
-            ("answer", first, second, final, "blind_answer_id", ("correctness", "n_claims", "key_facts_supported", "key_fact_evidence", "constraint_results", "check_minutes")),
+            ("answer", first, second, final, "blind_answer_id", ("correctness", "n_claims", "key_facts_supported", "key_fact_evidence", "constraint_results", "acknowledges_uncertainty", "check_minutes")),
             ("pair", pair_sets[1], pair_sets[2], pair_sets[0], "pair_id", ("claim_text", "citation_n", "url", "rating", "source_tier", "time_ok", "error_code", "rater_source_n"))):
         a, b, final_index = (unique_index(rows, id_field, kind) for rows in (left, right, final_rows))
         for iid in set(a) | set(b) | set(final_index):

@@ -11,7 +11,7 @@ Examples (data steward only; see HANDOFF.md for prerequisites):
     python3 scripts/make_run_plan.py --phase dev --freeze "$WORK/G1.json" --out "$WORK/runs/run_plan_dev.csv"
     python3 scripts/make_run_plan.py --phase test --freeze "$WORK/G2.json" --out "$WORK/runs/run_plan_test.csv"
 Calibration before G1 is separate:
-    python3 scripts/make_run_plan.py --pilot --phase dev --only CIT-001,CIT-002 --out "$WORK/calibration/pilot.csv"
+    python3 scripts/make_run_plan.py --pilot --phase dev --only CIT-001,CIT-020 --out "$WORK/calibration/pilot.csv"
 --synthetic is only for local DEMO-* fixtures and anonymous sys_* systems.
 """
 import argparse

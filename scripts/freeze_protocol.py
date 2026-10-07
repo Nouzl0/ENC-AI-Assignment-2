@@ -16,7 +16,9 @@ from common import ROOT, SYSTEMS, load_all_cases, read_csv, required_facts, sha2
 from integrity import (ATTESTATIONS, artifact, collect_csv, config_problems, final_rating_problems,
                        frozen_files, holdout_problems, private_path, read_json,
                        run_artifact_problems, source_evidence_problems, timestamp,
-                       verify_freeze, verify_plans, write_json_new)
+                       verify_freeze, verify_plans, write_json_new, validation_rating_binding_problems,
+                       validation_source_problems)
+from selection import check_validation_metrics, validation_selection
 
 def template(gate):
     m = dict(schema_version=1, gate=gate, signed_by="", signed_at="",
@@ -30,7 +32,7 @@ def template(gate):
     else:
         m["parent_path"] = ""
         if gate == "G2":
-            m.update(selected_candidate="", inputs=dict(selection_record="", development_analysis="", validation_metrics="", validation_plans=[]))
+            m.update(selected_candidate="", inputs=dict(selection_record="", development_analysis="", validation_metrics="", validation_scoring_inputs="", validation_plans=[]))
         else:
             m["inputs"] = dict(run_plans=[], annotation_dir="", key_dir="", deviations_record="")
     return m
@@ -131,7 +133,7 @@ def prepare_manifest(config):
         chosen = m.get("selected_candidate")
         if chosen not in m["config"]["val_candidates"]:
             problems.append("selected P3 must be a prespecified validation candidate")
-        for k in ("selection_record", "development_analysis", "validation_metrics"):
+        for k in ("selection_record", "development_analysis", "validation_metrics", "validation_scoring_inputs"):
             inputs[k] = artifact(inputs[k])[0]
             paths.append(inputs[k])
         plans = inputs.get("validation_plans", [])
@@ -152,11 +154,23 @@ def prepare_manifest(config):
             problems += [f"{r['run_id']}: {e}" for e in run_artifact_problems(r)]
             if timestamp(r["datetime_end"]) > signed:
                 problems.append("G2 signed_at precedes a validation run outcome")
-        metrics = read_csv(inputs["validation_metrics"])
-        required = {(s, c) for s in m["config"]["systems"] for c in ["P2"] + m["config"]["val_candidates"]}
-        val = [r for r in metrics if r.get("split") == "val"]
-        if {(r.get("system"), r.get("condition")) for r in val} != required or any(int(r.get("n_cases", 0)) != 10 for r in val):
-            problems.append("validation_metrics must cover 10 validation tasks for every prespecified candidate/system")
+        snapshot = read_json(inputs["validation_scoring_inputs"])
+        summary, cells = validation_selection(snapshot, val_runs, cases, m["config"], Path(ROOT, "prompts"))
+        if snapshot.get("mode") != "preliminary" or snapshot.get("freeze") != m["parent"]:
+            problems.append("validation scoring snapshot must originate from this G1 preliminary analysis")
+        problems += validation_source_problems(snapshot, val_runs, signed)
+        check_validation_metrics(read_csv(inputs["validation_metrics"]), cells)
+        m["selection_summary"] = summary
+        if chosen != summary["selected_candidate"]:
+            problems.append("selected_candidate violates the prespecified precision/length/tie rule")
+        for c in m["config"]["val_candidates"]:
+            paths += [str(Path(ROOT, "prompts", f"{c}_candidate_{lang}.txt")) for lang in ("cs", "en")]
+        for r in val_runs:
+            paths += [r[k] for k in ("answer_file", "raw_answer_file", "screenshot_file", "attempt1_file", "failure_artifact_file")
+                      if r.get(k) and os.path.isfile(r[k])]
+        paths += [p["evidence_snapshot"] for p in snapshot["tables"]["pairs"]
+                  if p.get("evidence_snapshot") and p["blind_answer_id"] in
+                  {k["blind_answer_id"] for k in snapshot["tables"]["key"] if k["run_id"] in {r["run_id"] for r in val_runs}}]
         for lang in ("cs", "en"):
             final = str(Path(ROOT, "prompts", f"P3_final_{lang}.txt"))
             candidate = str(Path(ROOT, "prompts", f"{chosen}_candidate_{lang}.txt"))
@@ -195,6 +209,7 @@ def prepare_manifest(config):
                 if row.get(k) and os.path.isfile(row[k]):
                     paths.append(row[k])
         problems += gate_matrix_problems(runs, cases, m["config"])
+        problems += validation_rating_binding_problems(read_json(inputs["validation_scoring_inputs"]), runs, inputs["annotation_dir"], inputs["key_dir"])
         problems += final_rating_problems(runs, inputs["annotation_dir"], inputs["key_dir"], cases)
         from score import load_answers
         _, errors = load_answers(runs, collect_csv(inputs["key_dir"], "blind_key.csv"),

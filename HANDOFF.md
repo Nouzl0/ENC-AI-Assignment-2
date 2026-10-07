@@ -70,11 +70,14 @@ Kontrolu soukromého testu provádí jen správce (výstup obsahuje ID, ne celé
 python3 scripts/validate_cases.py --test-file "$WORK/holdout.jsonl"
 ```
 
-Pilot: dvě dev úlohy × zahrnuté produkty; kalibrace a nové ohodnocení po poslední úpravě
-rubriky. Pilot je **navíc**, klíč/plány/listy oddělené od analytických dat. Příklad pro 5 produktů:
+Nejprve oba hodnotitelé samostatně projdou [offline kotvy](annotation/calibration.md),
+včetně S1/S0/NA/FAB a correctness=1, a zaznamenají neshody/závěr. Poté skutečný pilot:
+dvě dev úlohy × zahrnuté produkty (běžná opora + chybějící informace), kalibrace a nové
+ohodnocení po poslední úpravě rubriky. Pilot je **navíc**, klíč/plány/listy oddělené
+od analytických dat. Příklad pro 5 produktů:
 
 ```bash
-python3 scripts/make_run_plan.py --pilot --phase dev --only CIT-001,CIT-002 \
+python3 scripts/make_run_plan.py --pilot --phase dev --only CIT-001,CIT-020 \
   --out "$WORK/calibration/run_plan_pilot.csv"
 # Skutečně provést pilot, vyplnit všechny stavy/artifact metadata podle runs/README.md.
 python3 scripts/check_citations.py --pilot --runs "$WORK/calibration/run_plan_pilot.csv" \
@@ -109,12 +112,16 @@ python3 scripts/score.py --freeze "$WORK/G1.json" --runs "$WORK/runs/run_plan_de
   --annotation-dir "$WORK/annotation" --key-dir "$WORK/key" --focus "$FOCUS" --out "$WORK/results/dev-v1"
 ```
 
-Hodnotitelé dostanou pouze své *_to_rate*.csv a rubriku/daily reference, nikoli klíč
-či výsledky s názvy systémů. Původní čtyři exportované listy **neměnit**. Hodnocení uložit
+Hodnotitelé dostanou pouze své *_to_rate*.csv a rubriku/kalibrační kotvy/daily reference,
+nikoli klíč či výsledky s názvy systémů. Oba hodnotí bez auto_suggestion, HTTP či match
+nápověd; `pairs_auto_checks.csv` zůstává u správce. Původní čtyři exportované listy **neměnit**. Hodnocení uložit
 jako *_rated_rater1.csv (před diskusí), *_rated_rater2.csv (jen vybraný vzorek); konsenzus
 jako pairs_rated.csv a answers_rated.csv. Stejná identita rater v answer i pair.
 Ruční segmentace: žádná nepřečtená část odpovědi, nové pair_id, n_claims a review=yes.
 Vyplnit constraint_results přesně pro RC1…RCn; correctness=2 vyžaduje všechna yes.
+U citovaných dvojic povinné source_tier=1/2/3/unknown; time_ok=yes/no/unknown u
+time_constraint, jinak na. acknowledges_uncertainty=yes/no/unknown u ambiguous/
+missing_info, jinak na. Prázdné pole nenahrazuje neznámý výsledek, report ukáže pokrytí.
 Zdroj/formát nepočítat jako RF, vynechání OF nepenalizovat. V CIT-002 je přípustný
 jakýkoli odpovídající oficiální WHO podklad, není povinný konkrétní dokument z roku 2015.
 Pro každou citovanou/nedostupnou dvojici doložit zdrojové rozhodnutí podle rubriky.
@@ -139,7 +146,11 @@ python3 scripts/score.py --freeze "$WORK/G1.json" --runs "$WORK/runs/run_plan_*.
   --annotation-dir "$WORK/annotation" --key-dir "$WORK/key" --focus "$FOCUS" --out "$WORK/results/val-v1"
 ```
 
-Podle pravidla v protokolu vybrat vítěze, také při nulovém/záporném zlepšení P2.
+Score uloží vedle metrik `scoring_inputs.json` s původními vstupními řádky před
+skórováním. Správce porovná snapshot s archivovanými finálními ratingy a plánem;
+soubor dál neměnit a nepřepisovat jej později kumulovaným testovým klíčem.
+G2 z něj znovu spočítá přesnost a podle pravidla v protokolu ověří vítěze, také při
+nulovém/záporném zlepšení P2. Volba používá plnou přesnost, ne zaokrouhlené CSV.
 Uložit písemný selection_record, metriku obou variant, délky a odůvodnění. Žádné další
 val ladění. Vítěze **teprve nyní** přesně zkopírovat do prompts/P3_final_cs.txt a _en.txt,
 zapsat skutečné hashe a dev/val důvody v CHANGELOG (nikoli editovat zmrazený PROTOCOL).
@@ -148,12 +159,15 @@ zapsat skutečné hashe a dev/val důvody v CHANGELOG (nikoli editovat zmrazený
 python3 scripts/freeze_protocol.py --template G2 --out "$WORK/G2.config.json"
 # parent_path=G1, selected_candidate=P3A/P3B, skutečná potvrzení/podpis;
 # inputs: development_analysis, selection_record, validation_metrics=val-v1/metrics.csv,
+# validation_scoring_inputs=val-v1/scoring_inputs.json,
 # validation_plans=[absolutní cesta k run_plan_val.csv].
 python3 scripts/freeze_protocol.py --seal "$WORK/G2.config.json" --out "$WORK/G2.json"
 python3 scripts/freeze_protocol.py --verify "$WORK/G2.json"
 ```
 
-Znovu nezávisle archivovat. Existence souborů P3 bez G2 nestačí.
+Znovu nezávisle archivovat manifest, snapshot i původní ratingy. Pozdější G3 odmítne
+změnu validačního klíče/finálních ratingů vůči G2. Nutná oprava = deklarovaná nová
+verze experimentu, ne tichý přepis. Existence souborů P3 bez G2 nestačí.
 
 ## 4. Test a opakování
 
@@ -171,7 +185,8 @@ python3 scripts/check_citations.py --freeze "$WORK/G2.json" --runs "$WORK/runs/r
 
 Všechna selhání i retry ponechat. Je dovoleno také jeden společný export test+repeat,
 ale nikdy neexportovat znovu stejné run_id. Dodržet 24/72/72h a source checks do 7 dnů;
-porušení zaznamenat, ne upravit časy. Automatický HTTP checker je nápověda, ne S2.
+porušení zaznamenat, ne upravit časy. Automatický HTTP checker je diagnostika pro
+správce a pozdější porovnání, ne nápověda nezávislým hodnotitelům ani důkaz S2.
 `--offline` přeskočí HTTP; v ostrém experimentu pak chybí automatická validace shody,
 což nelze prezentovat jako dokončenou. Paywall/403 nepovažovat automaticky za FAB.
 

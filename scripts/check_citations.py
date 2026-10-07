@@ -13,6 +13,7 @@ Output for raters (--out-dir, e.g. "$WORK/annotation/dev"):
 Output for the data steward only (--key-dir, e.g. "$WORK/key"):
     blind_key.csv      blind_answer_id -> run_id
     answers_meta.csv   format validity etc. (kept out of the raters' sheets)
+    pairs_auto_checks.csv  automated hints; neither independent rater receives them
     salt.txt           random salt for the blind IDs (created on first run, reused afterwards)
 
 Production requires the plan's G1/G2, private output/key directories and original
@@ -680,7 +681,7 @@ def main():
     pairs_out.sort(key=lambda p: (order[p["blind_answer_id"]], p["pair_id"]))
 
     a_fields = [k for k in answers_out[0] if not k.startswith("_") and k != "segmentation"]
-    p_fields = [k for k in pairs_out[0] if k != "segmentation"] if pairs_out else ["pair_id", "blind_answer_id", "claim_id", "citation_n", "rating"]
+    p_fields = [k for k in pairs_out[0] if k != "segmentation" and not k.startswith("auto_")] if pairs_out else ["pair_id", "blind_answer_id", "claim_id", "citation_n", "rating"]
     os.makedirs(args.out_dir, exist_ok=True)
     write_csv(os.path.join(args.out_dir, "answers_to_rate.csv"), answers_out, a_fields)
     write_csv(os.path.join(args.out_dir, "pairs_to_rate.csv"), pairs_out, p_fields)
@@ -688,11 +689,14 @@ def main():
     write_csv(os.path.join(args.out_dir, "answers_to_rate_rater2.csv"),
               [a for a in answers_out if a["blind_answer_id"] in chosen], a_fields)
     write_csv(os.path.join(args.out_dir, "pairs_to_rate_rater2.csv"),
-              [p for p in pairs_out if p["blind_answer_id"] in chosen], [k for k in p_fields if not k.startswith("auto_")])
+              [p for p in pairs_out if p["blind_answer_id"] in chosen], p_fields)
 
     new_ids = {r["blind_answer_id"] for r in key_out}
     merge_steward_file(os.path.join(args.key_dir, "blind_key.csv"), key_out, ["blind_answer_id", "run_id"], new_ids)
     merge_steward_file(os.path.join(args.key_dir, "answers_meta.csv"), meta_out, list(meta_out[0]), new_ids)
+    if pairs_out:
+        auto_fields = ["pair_id", "blind_answer_id"] + [k for k in pairs_out[0] if k.startswith("auto_")]
+        merge_steward_file(os.path.join(args.key_dir, "pairs_auto_checks.csv"), pairs_out, auto_fields, new_ids)
     # Original sample and sheets are immutable audit evidence, not rater labels.
     batch = os.path.join(args.key_dir, "batches", hashlib.sha256(os.path.abspath(args.out_dir).encode()).hexdigest()[:16], "annotation_batch.json")
     write_json_new(batch, {"rater2_ids": sorted(chosen), "answer_ids": sorted(a["blind_answer_id"] for a in answers_out),

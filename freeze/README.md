@@ -41,8 +41,20 @@ odhalí to až nezávisle archivovaná původní kopie.
   musí být skutečně ověřeny člověkem. `repeat_task_ids`, systémy a validační kandidáti jsou
   předem stanovené; checked_at zdrojové kontroly nesmí následovat podpis G1.
   Při 4 systémech je potřeba věcný důvod vyloučení, ne pouze menší pracnost.
-  Zmrazí se protokol, rubrika, dev/val, soukromý test, P1/P2, zdrojové důkazy a hodnoticí kód.
-- **G2:** vývojová analýza, validační metriky a záznam volby vítěze se uloží jako důkazy.
+  Zmrazí se protokol, rubrika včetně calibration.md, dev/val, soukromý test, P1/P2, zdrojové důkazy a hodnoticí kód.
+- **G2:** vývojová analýza, validační metriky, `validation_scoring_inputs` a záznam volby vítěze se uloží jako důkazy.
+  Kompletní předběžný score uloží `scoring_inputs.json`: neměnný snapshot vstupních
+  plánů, klíče, segmentace a finálních ratingů, nikoli náhradní živý adresář. Brána
+  přepočte přesnost z těchto ratingů, ověří každou validační buňku CSV a zvolí vítěze
+  z **nezaokrouhlených** průměrů; rozdíl <0,02 → kratší CZ/EN průměr (znaky včetně
+  whitespace), shodná délka → P3A. `selection_summary` uchová skóre, délky a P2 baseline.
+  Validace musí být kompletní včetně selhání; NaN/prázdné/duplicitní metriky se odmítnou.
+  Snapshot má rodiče G1, sváže se spolu se všemi plánovanými kandidáty, validačními
+  artefakty a source snapshoty. Není důkazem pravdivosti lidského ratingu: správce
+  před podpisem porovná s původními ratingy a nezávisle archivuje podklady.
+  Každé citované validační rozhodnutí má úplnou evidenci/snapshot s odpovídajícím
+  SHA-256, čas po běhu a nejvýše 7 dní po něm, ale vždy nejpozději při podpisu G2.
+  Stejná kontrola platí i při následném ověření manifestu.
   P3_final musí být přesná kopie vybraného předem plánovaného kandidáta v obou jazycích;
   hashe P3 a CHANGELOG se nově svážou s G1. Existence P3 souboru sama nestačí.
 - **G3:** úplná předem daná matice všech čtyř fází, včetně nulových provozních selhání;
@@ -54,6 +66,8 @@ odhalí to až nezávisle archivovaná původní kopie.
   RUN_DAY má právě jeden řádek pro každé RF/OF každé dokončené úlohy a dne v UTC,
   s kontrolou provedenou tentýž UTC den, hodnotou, URL, locatorem, úryvkem/shrnutím a
   snapshotem + SHA-256; čas kontroly nesmí předcházet údajnému dni ani následovat G3.
+  Validační klíč a finální ratingy musejí být stejné jako ve snapshotu G2; pozdější
+  kumulace test/repeat klíče je možná, přepsání historické validace nikoli.
   Soukromé ratingy
   musí mít `rater` shodný v answer i pair řádcích. Provozní a source artefakty se zahashují.
   Časové odchylky 24/72/72 h se zachovají v manifestu a reportu; záznam odchylek je povinný
@@ -90,6 +104,8 @@ fázemi; původní čtyři `*_to_rate*.csv` zachovejte, ratingy pište do kopií
 hodnotitele a hashe originálů se uloží do soukromého `annotation_batch.json`. HTTP pokusy
 ukládají snapshoty, timestamp, finální URL a hash; ořezání 3 MB je označené. Automatické
 snapshoty ani entity-match nejsou důkaz S2, člověk musí zkontrolovat obsah a případné ořezání.
+Automatické sloupce jsou pouze v `key_dir/pairs_auto_checks.csv`, nikoli v listu některého
+hodnotitele. Porovnání auto-match s lidmi nastává až po nezávislém ratingu.
 
 `score.py` bez `--final` je vždy předběžná analýza. Finální potvrzování H1/H2 vyžaduje G3,
 jeho přesnou sadu plánů/ratingů, plnou matici a zmrazené parametry. Výstupy ukládejte do

@@ -5,7 +5,7 @@ import unittest
 
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(__file__)), "scripts"))
 from common import finite_number, run_problems, validate_pair_rows
-from score import cohen_kappa, load_answers, repeat_summary, test_matrix_problems
+from score import attribution_summary, bootstrap_ci, bootstrap_diagnostic, cohen_kappa, load_answers, repeat_summary, test_matrix_problems, wilson
 
 
 def fixture():
@@ -14,15 +14,44 @@ def fixture():
                answer_file="answer.txt", retries="0", first_attempt_ok="yes", final_attempt_ok="yes",
                latency_s="2", first_attempt_latency_s="2")
     key = dict(blind_answer_id="A1", run_id="r1")
-    pair = dict(pair_id="A1-T1-1", blind_answer_id="A1", claim_id="T1", citation_n="1", rating="S2")
+    pair = dict(pair_id="A1-T1-1", blind_answer_id="A1", claim_id="T1", citation_n="1", rating="S2", source_tier="1", time_ok="na")
     answer = dict(blind_answer_id="A1", correctness="2", n_key_facts="1",
-                  key_facts_supported="1", key_fact_evidence='{"RF1": ["A1-T1-1"]}', check_minutes="1", n_claims="1", segmentation_reviewed="yes")
+                  key_facts_supported="1", key_fact_evidence='{"RF1": ["A1-T1-1"]}', check_minutes="1", n_claims="1", segmentation_reviewed="yes", acknowledges_uncertainty="na")
     cases = {"TEST": dict(development_validation_test_split="test", language="en",
                          reference_answer_or_tests={"key_facts": ["required"]})}
     return run, key, pair, answer, cases
 
 
 class ScoringIntegrityTests(unittest.TestCase):
+    def test_diagnostics_are_explicit_and_unknown_does_not_improve_coverage(self):
+        run, key, pair, answer, cases = fixture()
+        cases["TEST"]["edge_case_type"] = "time_constraint"
+        pair["source_tier"] = "unknown"; pair["time_ok"] = "unknown"
+        scored, problems = load_answers([run], [key], [pair], [answer], cases, False)
+        self.assertEqual(problems, [])
+        self.assertEqual((scored[0]["n_tier_checked"], scored[0]["n_time_checked"], scored[0]["n_time_expected"]), (0, 0, 1))
+        for field in ("source_tier", "time_ok"):
+            bad = dict(pair); bad[field] = ""
+            self.assertTrue(load_answers([run], [key], [bad], [answer], cases, False)[1])
+        cases["TEST"]["edge_case_type"] = "ambiguous"; pair["time_ok"] = "na"
+        for ack in ("", "na", "maybe"):
+            answer["acknowledges_uncertainty"] = ack
+            self.assertTrue(load_answers([run], [key], [pair], [answer], cases, False)[1])
+        answer["acknowledges_uncertainty"] = "unknown"
+        self.assertEqual(load_answers([run], [key], [pair], [answer], cases, False)[1], [])
+
+    def test_h2_decomposition_and_constant_bootstrap_warning(self):
+        items = [dict(n_pairs=1, precision=1), dict(n_pairs=0, precision=0)]
+        summary = attribution_summary(items)
+        self.assertEqual(summary["explicit_answer_share"], .5)
+        self.assertEqual(summary["precision_given_explicit"], 1)
+        self.assertEqual(summary["precision_given_explicit_n"], 1)
+        self.assertIsNone(attribution_summary([items[1]])["precision_given_explicit"])
+        values = {i: 1 for i in range(10)}
+        self.assertEqual(bootstrap_ci(values, 200, 2026), (1, 1, 1))
+        self.assertEqual(bootstrap_diagnostic(values), "constant_empirical_sample")
+        self.assertLess(wilson(10, 10)[1], 1)
+
     def test_failed_run_without_answer_is_zero_not_dropped(self):
         run, key, pair, answer, cases = fixture()
         failed = dict(run, run_id="r2", task_id="FAIL", run_status="failed", failure_type="product_outage",

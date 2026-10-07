@@ -142,7 +142,7 @@ class IntegrityTests(unittest.TestCase):
                      operator="operator", datetime_start="2026-01-01T10:00:00+00:00", datetime_end="2026-01-01T10:00:02+00:00") for i in range(1, 5)]
         keys = [dict(blind_answer_id=f"A{i}", run_id=f"r{i}") for i in range(1, 5)]
         answers = [dict(blind_answer_id=f"A{i}", correctness="0", n_claims="1", key_facts_supported="0", key_fact_evidence="{}",
-                        check_minutes="1", segmentation_reviewed="yes", rater="rater1") for i in range(1, 5)]
+                        check_minutes="1", segmentation_reviewed="yes", acknowledges_uncertainty="na", rater="rater1") for i in range(1, 5)]
         pairs = [dict(blind_answer_id=f"A{i}", pair_id=f"A{i}-T1-none", claim_id="T1", claim_text="synthetic claim",
                       citation_n="", rating="", source_tier="", time_ok="", rater="rater1") for i in range(1, 5)]
         write_csv(key / "blind_key.csv", keys, list(keys[0]))
@@ -171,12 +171,49 @@ class IntegrityTests(unittest.TestCase):
             write_csv(annotation / "disagreements.csv", logs, list(logs[0]))
             self.assertEqual(integrity.final_rating_problems(runs, annotation, key, cases), [])
 
+    def test_gate_rejects_blank_diagnostics_in_each_independent_answer_sheet(self):
+        with tempfile.TemporaryDirectory() as directory:
+            annotation, key, runs, cases, _, _ = self.rating_fixture(directory)
+            for name in ("answers_rated.csv", "answers_rated_rater1.csv", "answers_rated_rater2.csv"):
+                path = annotation / name
+                original = path.read_bytes()
+                try:
+                    rows = read_csv(path); rows[0]["acknowledges_uncertainty"] = ""
+                    write_csv(path, rows, list(rows[0]))
+                    errors = integrity.final_rating_problems(runs, annotation, key, cases)
+                    self.assertTrue(any("acknowledges_uncertainty must" in e for e in errors), name)
+                finally:
+                    path.write_bytes(original)
+
+    def test_validation_source_evidence_is_complete_and_checked_before_G2(self):
+        with tempfile.TemporaryDirectory() as directory:
+            _, key, runs, _, _, pairs = self.rating_fixture(directory)
+            runs = [dict(r, phase="val") for r in runs]
+            source = Path(directory, "source.txt")
+            source.write_text("SYNTHETIC source decision log, not human evidence")
+            pairs[0].update(citation_n="1", rating="S2", evidence_url="https://fixture.invalid/source",
+                            evidence_checked_at="2026-01-01T10:00:03+00:00", evidence_locator="fixture line 1",
+                            evidence_excerpt="fictional support", evidence_snapshot=str(source), evidence_sha256=sha256_file(source))
+            snapshot = dict(tables=dict(key=read_csv(key / "blind_key.csv"), pairs=pairs))
+            signed = timestamp("2026-01-01T12:00:00+00:00")
+            self.assertEqual(integrity.validation_source_problems(snapshot, runs, signed), [])
+            for field, value in (("evidence_checked_at", ""), ("evidence_checked_at", "2026-01-01T09:59:00+00:00"),
+                                 ("evidence_checked_at", "2026-01-04T10:00:00+00:00"), ("evidence_checked_at", "2026-01-09T10:00:00+00:00"),
+                                 ("evidence_locator", ""), ("evidence_snapshot", ""), ("evidence_sha256", "0" * 64)):
+                with self.subTest(field=field, value=value):
+                    bad = copy.deepcopy(snapshot); bad["tables"]["pairs"][0][field] = value
+                    self.assertTrue(integrity.validation_source_problems(bad, runs, signed))
+            # Dev rows are not validation evidence; uncited rows need no source check.
+            snapshot["tables"]["pairs"][0]["citation_n"] = ""
+            self.assertEqual(integrity.validation_source_problems(snapshot, runs, signed), [])
+
     def test_missing_source_fab_needs_absence_evidence_not_an_invented_url(self):
         with tempfile.TemporaryDirectory() as directory:
             annotation, key, runs, cases, _, pairs = self.rating_fixture(directory)
             snapshot = Path(directory, "missing-source.txt")
             snapshot.write_text("Synthetic original answer cites [9]; source list only has [1].")
             pairs[0].update(pair_id="A1-T1-9", citation_n="9", rating="FAB", url="", source_line="",
+                            source_tier="unknown", time_ok="na",
                             evidence_url="", evidence_checked_at="2026-01-01T10:00:03+00:00",
                             evidence_locator="original answer and complete source list",
                             evidence_excerpt="Marker [9] has no source entry (synthetic test).",
@@ -232,7 +269,7 @@ class IntegrityTests(unittest.TestCase):
         private.mkdir()
         for name in ("data", "scripts", "prompts", "annotation"):
             (repo / name).mkdir(parents=True)
-        for name in ("PROTOCOL.md", "annotation/rubric.md", "scripts/dummy.py"):
+        for name in ("PROTOCOL.md", "annotation/rubric.md", "annotation/calibration.md", "scripts/dummy.py"):
             (repo / name).write_text("synthetic fixture, not actual research approval")
         for name in ("P1_baseline", "P2_structured"):
             for lang in ("cs", "en"):
@@ -330,13 +367,17 @@ class IntegrityTests(unittest.TestCase):
                     write_csv(p, rows, list(rows[0]))
                     bind_plan(p, read_csv(p), g1, prompts_dir=str(repo / "prompts"))
                     plans.append(p)
-                metrics = [dict(split="val", system=s, condition=c, n_cases="10") for s in config["config"]["systems"] for c in ("P2", "P3A", "P3B")]
-                metrics_path = str(private / "metrics.csv")
-                write_csv(metrics_path, metrics, list(metrics[0]))
+                annotation, key = private / "annotation", private / "key"
+                annotation.mkdir(); key.mkdir()
+                val_result = private / "val-results"
+                self.score_fixture(repo, private, g1, val_result)
+                metrics_path = str(val_result / "metrics.csv")
                 g2config = template("G2")
                 g2config.update(parent_path=g1, signed_by="synthetic signer", signed_at="2026-01-02T00:00:00+00:00", selected_candidate="P3A")
                 g2config["attestations"] = {k: True for k in g2config["attestations"]}
-                g2config["inputs"] = dict(selection_record=str(log), development_analysis=str(log), validation_metrics=metrics_path, validation_plans=[plans[1]])
+                g2config["inputs"] = dict(selection_record=str(log), development_analysis=str(log), validation_metrics=metrics_path,
+                                          validation_scoring_inputs=str(val_result / "scoring_inputs.json"), validation_plans=[plans[1]])
+                self.assert_bad_g2_inputs_rejected(g2config)
                 g2 = str(private / "G2.json")
                 write_json_new(g2, prepare_manifest(g2config))
                 self.assertEqual(verify_freeze(g2)["gate"], "G2")
@@ -346,8 +387,6 @@ class IntegrityTests(unittest.TestCase):
                     write_csv(p, rows, list(rows[0]))
                     bind_plan(p, read_csv(p), g2, prompts_dir=str(repo / "prompts"))
                     plans.append(p)
-                annotation, key = private / "annotation", private / "key"
-                annotation.mkdir(); key.mkdir()
                 g3config = template("G3")
                 g3config.update(parent_path=g2, signed_by="synthetic signer", signed_at="2026-01-05T00:00:00+00:00")
                 g3config["attestations"] = {k: True for k in g3config["attestations"]}
@@ -378,6 +417,157 @@ class IntegrityTests(unittest.TestCase):
                     verify_freeze(g3)
                 log.write_text("synthetic outage log (not a benchmark result)")
                 self.assert_relocated_replay(repo, private, argv)
+
+    def score_fixture(self, repo, private, gate, result, final=False):
+        argv = ["score.py", "--freeze", str(gate), "--runs", str(private / "run_plan_*.csv"),
+                "--annotation-dir", str(private / "annotation"), "--key-dir", str(private / "key"),
+                "--data-dir", str(repo / "data"), "--prompts-dir", str(repo / "prompts"),
+                "--out", str(result), "--focus", "chatgpt"] + (["--final"] if final else [])
+        with patch.object(score, "ROOT", str(repo)), patch.object(score, "PROMPTS", str(repo / "prompts")), patch.object(sys, "argv", argv):
+            score.main()
+        return argv
+
+    def test_completed_positive_g1_g2_g3_pipeline_and_portable_replay(self):
+        """Known local labels, fake gates in a temp repo, zero product/network calls."""
+        with tempfile.TemporaryDirectory() as directory:
+            repo, private, config = self.make_g1_fixture(directory)
+            config["config"]["focus"] = "chatgpt"
+            for c in ("P3A", "P3B"):
+                for lang in ("cs", "en"):
+                    (repo / "prompts" / f"{c}_candidate_{lang}.txt").write_text(f"synthetic {c} {{user_prompt}}")
+            (repo / "prompts/CHANGELOG.md").write_text("SYNTHETIC test, no real dev evidence or winner")
+            (private / "annotation").mkdir(); (private / "key").mkdir()
+            source = private / "source.txt"
+            source.write_text("SYNTHETIC source: fixture facts 1-9 supported; fact 10 contradicted. Not a factual benchmark.")
+            # Update the fixture evidence hash BEFORE the fake G1.
+            evidence = read_csv(private / "source_evidence.csv")
+            for row in evidence:
+                row["snapshot_sha256"] = sha256_file(source)
+            write_csv(private / "source_evidence.csv", evidence, list(evidence[0]))
+            with patch.object(integrity, "ROOT", str(repo)), patch.object(freeze_protocol, "ROOT", str(repo)):
+                g1 = str(private / "G1.json")
+                write_json_new(g1, prepare_manifest(config))
+                plans, expected = [], {}
+
+                def collect_phase(phase, gate):
+                    start, count = (0, 20) if phase == "dev" else (20, 10) if phase == "val" else (30, 10)
+                    conds = ["P2"] if phase in {"dev", "repeat"} else ["P2", "P3A", "P3B"] if phase == "val" else ["P1", "P2", "P3"]
+                    rows = self.failed_fixture_rows(repo, source, phase, start, count, conds, [2, 3] if phase == "repeat" else [1])
+                    for r in rows:
+                        i = int(r["task_id"].split("-")[-1])
+                        p2 = (8 + i % 2) if r["system"] == "chatgpt" else 5
+                        k = p2 - (2 + i % 2) if r["condition"] == "P1" else p2 if r["condition"] == "P2" else 6 if r["condition"] == "P3A" else 9
+                        text = "ANSWER:\n" + " ".join(f"Fixture fact number {j} is present [1]." for j in range(1, 11)) + "\nSOURCES:\n[1] https://fixture.invalid/source\nCONFIDENCE: synthetic"
+                        answer = private / (r["run_id"] + ".txt")
+                        answer.write_text(text)
+                        r.update(run_status="completed", failure_type="none", first_attempt_ok="yes", final_attempt_ok="yes",
+                                 answer_file=str(answer), answer_sha256=sha256_file(answer), raw_answer_file=str(answer), raw_answer_sha256=sha256_file(answer),
+                                 failure_artifact_file="", failure_artifact_sha256="", search_used="yes", n_sources_shown="1")
+                        expected[r["run_id"]] = k / 10
+                    plan = str(private / f"run_plan_{phase}.csv")
+                    write_csv(plan, rows, list(rows[0])); bind_plan(plan, read_csv(plan), gate, prompts_dir=str(repo / "prompts"))
+                    plans.append(plan)
+                    ad = private / "annotation" / phase
+                    argv = ["check_citations.py", "--freeze", gate, "--runs", plan, "--data-dir", str(repo / "data"),
+                            "--out-dir", str(ad), "--key-dir", str(private / "key"), "--offline", "--salt", "synthetic-positive-fixture"]
+                    with patch.object(check_citations, "ROOT", str(repo)), patch.object(sys, "argv", argv):
+                        check_citations.main()
+                    keys = {k["blind_answer_id"]: k["run_id"] for k in read_csv(private / "key/blind_key.csv")}
+                    for suffix, rater in (("", "fixture rater1"), ("_rater2", "fixture rater2")):
+                        pairs = read_csv(ad / f"pairs_to_rate{suffix}.csv")
+                        answers = read_csv(ad / f"answers_to_rate{suffix}.csv")
+                        support = {}
+                        for p in pairs:
+                            bid = p["blind_answer_id"]
+                            k = round(expected[keys[bid]] * 10)
+                            p.update(rating="S2" if int(p["claim_id"][1:]) <= k else "S0", source_tier="1", time_ok="na", rater=rater,
+                                     evidence_url="https://fixture.invalid/source", evidence_checked_at="2026-01-01T10:00:03+00:00" if phase in {"dev", "val"} else "2026-01-04T10:00:00+00:00",
+                                     evidence_locator="local fictional fixture", evidence_excerpt="SYNTHETIC predetermined label, not human verification",
+                                     evidence_snapshot=str(source), evidence_sha256=sha256_file(source))
+                            if p["rating"] == "S2":
+                                support.setdefault(bid, p["pair_id"])
+                        for a in answers:
+                            a.update(correctness="2", n_claims="10", segmentation_reviewed="yes", key_facts_supported="1",
+                                     key_fact_evidence=json.dumps({"RF1": [support[a["blind_answer_id"]]]}), constraint_results="{}",
+                                     acknowledges_uncertainty="yes" if int(a["task_id"].split("-")[-1]) % 10 < 4 else "na",
+                                     check_minutes="1", rater=rater, comment="SYNTHETIC fixture only")
+                        for name, values in (("pairs", pairs), ("answers", answers)):
+                            write_csv(ad / f"{name}_rated{'_rater2' if suffix else '_rater1'}.csv", values, list(values[0]))
+                            if not suffix:
+                                write_csv(ad / f"{name}_rated.csv", values, list(values[0]))
+
+                collect_phase("dev", g1); collect_phase("val", g1)
+                val_result = private / "val-results"
+                self.score_fixture(repo, private, g1, val_result)
+                for lang in ("cs", "en"):
+                    shutil.copyfile(repo / "prompts" / f"P3B_candidate_{lang}.txt", repo / "prompts" / f"P3_final_{lang}.txt")
+                g2config = template("G2")
+                g2config.update(parent_path=g1, signed_by="synthetic signer", signed_at="2026-01-01T12:00:00+00:00", selected_candidate="P3B")
+                g2config["attestations"] = {k: True for k in g2config["attestations"]}
+                g2config["inputs"] = dict(selection_record=str(source), development_analysis=str(source), validation_metrics=str(val_result / "metrics.csv"),
+                                          validation_scoring_inputs=str(val_result / "scoring_inputs.json"), validation_plans=[plans[1]])
+                snapshot_path = val_result / "scoring_inputs.json"
+                original_snapshot = snapshot_path.read_bytes()
+                valid_manifest = prepare_manifest(g2config)
+                snapshot = json.loads(original_snapshot)
+                val_ids = {k["blind_answer_id"] for k in snapshot["tables"]["key"] if k["run_id"].startswith("val-")}
+                bad_pair = next(p for p in snapshot["tables"]["pairs"] if p["blind_answer_id"] in val_ids)
+                bad_pair["evidence_checked_at"] = "2026-01-04T10:00:00+00:00"
+                snapshot_path.write_text(json.dumps(snapshot))
+                with self.assertRaisesRegex(ValueError, "signed_at precedes a source decision"):
+                    prepare_manifest(g2config)
+                # Even a manually rehashed manifest cannot bypass the verify guard.
+                valid_manifest["files"][str(snapshot_path)] = sha256_file(snapshot_path)
+                bad_gate = private / "tampered-G2.json"
+                write_json_new(bad_gate, valid_manifest)
+                with self.assertRaisesRegex(ValueError, "signed_at precedes a source decision"):
+                    verify_freeze(str(bad_gate))
+                snapshot_path.write_bytes(original_snapshot)
+                g2 = str(private / "G2.json"); write_json_new(g2, prepare_manifest(g2config))
+                self.assertEqual(verify_freeze(g2)["selection_summary"]["selected_candidate"], "P3B")
+                collect_phase("test", g2); collect_phase("repeat", g2)
+                g3config = template("G3")
+                g3config.update(parent_path=g2, signed_by="synthetic signer", signed_at="2026-01-05T00:00:00+00:00")
+                g3config["attestations"] = {k: True for k in g3config["attestations"]}
+                g3config["inputs"] = dict(run_plans=plans, annotation_dir=str(private / "annotation"), key_dir=str(private / "key"), deviations_record=str(source))
+                # G3 rejects a post-selection change, even if made in all rating versions.
+                val_answers = private / "annotation/val/answers_rated.csv"
+                original = val_answers.read_bytes()
+                values = read_csv(val_answers); values[0]["comment"] = "changed after G2"
+                write_csv(val_answers, values, list(values[0]))
+                with self.assertRaisesRegex(ValueError, "changed since G2"):
+                    prepare_manifest(g3config)
+                val_answers.write_bytes(original)
+                g3 = str(private / "G3.json"); write_json_new(g3, prepare_manifest(g3config))
+                argv = self.score_fixture(repo, private, g3, private / "final-results", final=True)
+                actual = read_csv(private / "final-results/answer_metrics.csv")
+                self.assertEqual(len(actual), 500)
+                for a in actual:
+                    self.assertAlmostEqual(float(a["precision"]), expected[a["run_id"]])
+                hypotheses = read_csv(private / "final-results/hypotheses.csv")
+                self.assertEqual([h["supported"] for h in hypotheses], ["yes", "yes"])
+                self.assertAlmostEqual(float(hypotheses[0]["estimate"]), .35)
+                self.assertAlmostEqual(float(hypotheses[1]["estimate"]), .25)
+                self.assert_relocated_replay(repo, private, argv)
+
+    def assert_bad_g2_inputs_rejected(self, config):
+        path = Path(config["inputs"]["validation_metrics"])
+        original = path.read_bytes()
+        rows = read_csv(path)
+        for precision in ("", "NaN", "inf", "-1", "1.5", "1"):
+            bad = copy.deepcopy(rows)
+            next(r for r in bad if r["split"] == "val")["precision"] = precision
+            write_csv(path, bad, list(rows[0]))
+            with self.assertRaisesRegex(ValueError, "precision"):
+                prepare_manifest(config)
+        write_csv(path, rows + [next(r for r in rows if r["split"] == "val")], list(rows[0]))
+        with self.assertRaisesRegex(ValueError, "duplicate"):
+            prepare_manifest(config)
+        path.write_bytes(original)
+        bad = copy.deepcopy(config)
+        bad["selected_candidate"] = "P3B"
+        with self.assertRaisesRegex(ValueError, "tie rule"):
+            prepare_manifest(bad)
 
     def assert_relocated_replay(self, repo, private, original_argv):
         """Two machines, original locations gone, signed bytes intact."""
@@ -428,8 +618,9 @@ class IntegrityTests(unittest.TestCase):
             for cond in conditions:
                 for system in template("G1")["config"]["systems"]:
                     for ri in indices:
-                        prompt = {"P1": "P1_baseline", "P2": "P2_structured", "P3": "P3_final", "P3A": "P3A_candidate", "P3B": "P3B_candidate"}[cond] + "_en.txt"
-                        rows.append(dict(run_id=f'{phase}-DEMO-{i}-{cond}-{system}-{ri}', phase=phase, split=split, task_id=f"DEMO-{i}", language="en",
+                        lang = "cs" if i % 10 < 5 else "en"
+                        prompt = {"P1": "P1_baseline", "P2": "P2_structured", "P3": "P3_final", "P3A": "P3A_candidate", "P3B": "P3B_candidate"}[cond] + f"_{lang}.txt"
+                        rows.append(dict(run_id=f'{phase}-DEMO-{i}-{cond}-{system}-{ri}', phase=phase, split=split, task_id=f"DEMO-{i}", language=lang,
                                          condition=cond, system=system, run_index=str(ri), prompt_file=prompt, prompt_sha256=sha256_file(repo / "prompts" / prompt),
                                          run_status="failed", failure_type="product_outage", first_attempt_ok="no", final_attempt_ok="no", retries="0",
                                          latency_s="2", first_attempt_latency_s="2", datetime_start=f"2026-01-{day}T10:00:00+00:00",

@@ -28,6 +28,9 @@ class PipelineTests(unittest.TestCase):
         agreement = read_csv(self.work / "results/agreement.csv")
         self.assertTrue(any(r["measure"] == "explicit pairs S2 vs other" and r["kappa"] == "1.000" for r in agreement))
         self.assertTrue(any(r["measure"] == "answer correctness 0-2" and r["kappa"] == "1.000" for r in agreement))
+        report = (self.work / "results/report.md").read_text(encoding="utf-8")
+        self.assertIn("nikdy podklad nezávislého ratingu ani důkaz S2", report)
+        self.assertNotIn("nápověda, pokud", report)
         rows = read_csv(self.work / "results/answer_metrics.csv")
         self.assertTrue(any(r["run_status"] == "completed" and r["first_ok"] == "no" and r["final_ok"] == "yes" for r in rows))
         self.assertEqual(len(read_csv(self.work / "key/blind_key.csv")), 442)
@@ -44,6 +47,23 @@ class PipelineTests(unittest.TestCase):
         for name in ("metrics.csv", "hypotheses.csv", "agreement.csv", "report.md"):
             self.assertEqual((self.work / "results" / name).read_bytes(), (other / "results" / name).read_bytes(), name)
         self.assertEqual(read_csv(self.work / "key/blind_key.csv"), read_csv(other / "key/blind_key.csv"))
+
+    def test_independent_raters_get_equal_inputs_without_automated_hints(self):
+        auto = {r["pair_id"]: r for r in read_csv(self.work / "key/pairs_auto_checks.csv")}
+        self.assertTrue(auto)
+        self.assertIn("auto_suggestion", next(iter(auto.values())))
+        for phase in ("dev", "val", "test", "repeat"):
+            for kind, identity in (("pairs", "pair_id"), ("answers", "blind_answer_id")):
+                first = read_csv(self.work / f"annotation/{phase}/{kind}_to_rate.csv")
+                second = read_csv(self.work / f"annotation/{phase}/{kind}_to_rate_rater2.csv")
+                self.assertTrue(first and second)
+                self.assertEqual(list(first[0]), list(second[0]))
+                self.assertFalse(any(k.startswith("auto_") for k in first[0]))
+                indexed = {r[identity]: r for r in first}
+                for row in second:
+                    self.assertEqual(row, indexed[row[identity]])
+                if kind == "pairs":
+                    self.assertTrue(set(indexed) <= set(auto))
 
     def score_args(self, out):
         return ("--synthetic", "--runs", self.work / "runs/run_plan_*.csv", "--annotation-dir", self.work / "annotation",

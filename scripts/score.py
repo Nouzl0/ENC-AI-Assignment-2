@@ -11,6 +11,7 @@ Inputs (all CSV):
 
 Outputs (private --out): metrics.csv, answer_metrics.csv, hypotheses.csv,
 agreement.csv, report.md. Production --final requires the G3-bound inputs.
+Complete preliminary analyses also save scoring_inputs.json for reproducible G2 selection.
 
 Definitions follow the frozen protocol:
     precision_a = #S2 explicit pairs / #explicit pairs (0 without explicit citations)
@@ -26,6 +27,7 @@ Usage:
 """
 import argparse
 import collections
+import copy
 import json
 import math
 import os
@@ -34,7 +36,7 @@ import statistics
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from common import (PROMPTS, RATINGS, ROOT, SYSTEMS, constraint_problems, finite_number, load_all_cases,  # noqa: E402
+from common import (PROMPTS, RATINGS, ROOT, SYSTEMS, constraint_problems, diagnostic_problems, finite_number, load_all_cases,  # noqa: E402
                     read_csv, read_csv_glob, required_facts, run_problems, sha256_file, unique_index, validate_pair_rows, write_csv)
 from integrity import private_path, run_artifact_problems, verify_freeze, verify_plans, write_json_new
 from replay_paths import configure_path_map, resolve_input
@@ -82,6 +84,20 @@ def wilson(k, n, z=1.959964):
     centre = (p + z * z / (2 * n)) / den
     half = z * math.sqrt(p * (1 - p) / n + z * z / (4 * n * n)) / den
     return p, max(0.0, centre - half), min(1.0, centre + half)
+
+
+def bootstrap_diagnostic(values):
+    values = [v for v in values.values() if v is not None]
+    if len(values) < 2:
+        return "insufficient_cases"
+    return "constant_empirical_sample" if max(values) == min(values) else "ok"
+
+
+def attribution_summary(items):
+    explicit = [a for a in items if a["n_pairs"] > 0]
+    return dict(explicit_answer_share=len(explicit) / len(items) if items else None,
+                explicit_answer_n=len(explicit), precision_given_explicit=mean([a["precision"] for a in explicit]),
+                precision_given_explicit_n=len(explicit))
 
 
 def cohen_kappa(a, b):
@@ -196,7 +212,7 @@ def load_answers(runs, key, pairs, answers, cases, allow_missing, meta=None):
         if not case:
             problems.append(f"run {run['run_id']}: unknown task_id")
             continue
-        constraint_errors = [] if failed else constraint_problems(a, case)
+        constraint_errors = [] if failed else constraint_problems(a, case) + diagnostic_problems(a, rows, case)
         if constraint_errors:
             problems.extend(f"answer {bid}: {e}" for e in constraint_errors)
             continue
@@ -242,6 +258,8 @@ def load_answers(runs, key, pairs, answers, cases, allow_missing, meta=None):
             "n_unlinked": len(unlinked),
             "unlinked_support": sum(p["_rating"] == "S2" for p in unlinked) / len(unlinked) if unlinked else None,
             "n_tier1": sum(1 for p in cited if (p.get("source_tier") or "").strip() == "1"),
+            "n_tier_checked": sum(1 for p in cited if p.get("source_tier") in {"1", "2", "3"}),
+            "n_time_expected": len(cited) if case.get("edge_case_type") == "time_constraint" else 0,
             "n_time_checked": sum(1 for p in cited if (p.get("time_ok") or "").strip().lower() in {"yes", "no"}),
             "n_time_ok": sum(1 for p in cited if (p.get("time_ok") or "").strip().lower() == "yes"),
             "check_minutes": minutes,
@@ -356,6 +374,7 @@ def main():
     meta = unique_index(collect("answers_meta.csv", args.key_dir) or collect("answers_meta.csv"), "blind_answer_id", "answers meta")
     pairs = collect("pairs_rated.csv")
     answers_raw = collect("answers_rated.csv")
+    input_tables = copy.deepcopy(dict(runs=runs, key=key, pairs=pairs, answers=answers_raw, meta=list(meta.values())))
     if not runs:
         raise SystemExit("no run metadata found")
     try:
@@ -412,9 +431,15 @@ def main():
         source_path = os.path.realpath(resolve_input(directory))
         if out_path == source_path or out_path.startswith(source_path + os.path.sep):
             raise SystemExit("analysis output must not modify bound annotation/key directories")
-    if any(os.path.exists(os.path.join(args.out, n)) for n in ("metrics.csv", "answer_metrics.csv", "hypotheses.csv", "agreement.csv", "report.md")):
+    if any(os.path.exists(os.path.join(args.out, n)) for n in ("metrics.csv", "answer_metrics.csv", "hypotheses.csv", "agreement.csv", "report.md", "scoring_inputs.json")):
         raise SystemExit("Refusing to overwrite analysis outputs; use a new versioned --out directory")
     os.makedirs(args.out, exist_ok=True)
+    if not args.final and not args.allow_missing:
+        write_json_new(os.path.join(args.out, "scoring_inputs.json"), {
+            "schema_version": 1, "kind": "scoring_input_snapshot", "tables": input_tables,
+            "freeze": {"path": private_path(args.freeze), "sha256": sha256_file(args.freeze)} if not args.synthetic and not args.pilot else None,
+            "mode": "synthetic" if args.synthetic else "pilot" if args.pilot else "preliminary",
+        })
     report = ["# Výsledky – citační benchmark", "",
               f"Plánovaných záznamů: {len(runs)}; v analýze: {len(A)}; provozních selhání zahrnutých s nulovým skóre: "
               f"{sum(a['run_status'] == 'failed' for a in A)}; vyloučených chyb obsluhy: "
@@ -448,6 +473,8 @@ def main():
         for m in ("precision", "recall", "precision_noNA", "kf_cov", "unlinked_support"):
             p, lo, hi = bootstrap_ci(case_values(items, m), args.boot, args.seed)
             row[m], row[m + "_lo"], row[m + "_hi"] = p, lo, hi
+            row[m + "_ci_diagnostic"] = bootstrap_diagnostic(case_values(items, m))
+        row.update(attribution_summary(items))
         first = [a for a in items if a["run_index"] == 1 and a["correct"] is not None]
         p, lo, hi = wilson(sum(a["correct"] for a in first), len(first))
         row["correct_share"], row["correct_lo"], row["correct_hi"] = p, lo, hi
@@ -457,12 +484,18 @@ def main():
         row["fab_rate"] = sum(a["n_fab"] for a in items) / npairs if npairs else None
         row["na_rate"] = sum(a["n_na"] for a in items) / npairs if npairs else None
         row["tier1_share"] = sum(a["n_tier1"] for a in items) / npairs if npairs else None
+        row["source_tier_expected"] = npairs
+        row["source_tier_checked"] = sum(a["n_tier_checked"] for a in items)
         all_pairs = npairs + sum(a["n_unlinked"] for a in items)
         row["unlinked_rate"] = sum(a["n_unlinked"] for a in items) / all_pairs if all_pairs else None
         tchk = sum(a["n_time_checked"] for a in items)
+        row["time_expected"] = sum(a["n_time_expected"] for a in items)
+        row["time_checked"] = tchk
         row["time_ok_share"] = sum(a["n_time_ok"] for a in items) / tchk if tchk else None
         unc = [a for a in items if a["edge"] in {"missing_info", "ambiguous"} and a["ack"] in {"yes", "no"}]
         row["ack_uncertainty_share"] = sum(1 for a in unc if a["ack"] == "yes") / len(unc) if unc else None
+        row["ack_expected"] = sum(a["run_status"] == "completed" and a["edge"] in {"missing_info", "ambiguous"} for a in items)
+        row["ack_checked"] = len(unc)
         row["claims_per_answer"] = mean([a["n_claims"] for a in items])
         row["citations_per_answer"] = mean([a["n_pairs"] for a in items])
         lat = [a["latency"] for a in items if a["latency"] is not None]
@@ -542,6 +575,22 @@ def main():
                           f"{fnum(r['latency_median'], digits=1)} | {fnum(r['utility'])} | {r['pareto']} |")
         report.append("")
 
+    report += ["## Diagnostiky atribuce a pokrytí kontrol", "",
+               "H2 měří celý efekt P2 včetně explicitního přiřazení zdrojů: P1 seznam URL nevyžaduje atribuci ke tvrzení. "
+               "Nejde o čistý efekt kvality retrieval/generation. Přesnost při alespoň jedné explicitní citaci je "
+               "deskriptivní výsledek na vybrané podmnožině, ne náhradní hlavní metrika či další potvrzovací test.", "",
+               "| Sada/podmínka | Systém | Odpovědi s explicitní citací (n/N) | Přesnost jen těchto odpovědí % | Tier kontrola n/expected | Čas n/expected | Nejistota n/expected |",
+               "| --- | --- | --- | --- | --- | --- | --- |"]
+    for r in metrics:
+        report.append(f"| {r['split']}/{r['condition']} | {r['system']} | {r['explicit_answer_n']}/{r['n_answers']} | "
+                      f"{fnum(r['precision_given_explicit'], True)} | {r['source_tier_checked']}/{r['source_tier_expected']} | "
+                      f"{r['time_checked']}/{r['time_expected']} | {r['ack_checked']}/{r['ack_expected']} |")
+    report += ["", "unknown se nepočítá mezi dokončené kontroly; jejich podíly proto číst vždy s n/expected. "
+               "tier1_share používá všechny explicitní páry, včetně unknown (konzervativní podíl doložených tier1).", "",
+               "**Nejistota:** konstantní empirický vzorek může dát bootstrap CI [p,p]; nejde o jistotu "
+               "v populaci ani důkaz nulové variability. CSV *_ci_diagnostic / ci_diagnostic označují tuto degeneraci "
+               "a nedostatek případů. Účelový malý vzorek a bootstrap nepostihují změny produktu, zdrojů ani nové domény.", ""]
+
     report += ["## Provoz a lidská práce (první běhy)", "",
                "| Sada/podmínka | Systém | Selhání | 1. pokus OK % | Konečný pokus OK % | Opakování % | Latence medián/p90 s | Anotace medián min (n) |",
                "| --- | --- | --- | --- | --- | --- | --- | --- |"]
@@ -583,6 +632,7 @@ def main():
         hyp.append({"hypothesis": "H1", "comparison": f"{args.focus} − průměr ostatních, P2, přesnost",
                     "estimate": fnum(p, digits=4), "ci_lo": fnum(lo, digits=4), "ci_hi": fnum(hi, digits=4),
                     "n_cases": len(diffs), "criterion": f">= {args.h1_margin} a CI nad 0",
+                    "ci_diagnostic": bootstrap_diagnostic(diffs),
                     "ci_above_margin": "yes" if lo is not None and lo >= args.h1_margin else "no",
                     "supported": "yes" if supported else "no"})
     else:
@@ -605,6 +655,7 @@ def main():
         hyp.append({"hypothesis": "H2", "comparison": "P2 − P1, průměr přes systémy, přesnost",
                     "estimate": fnum(p, digits=4), "ci_lo": fnum(lo, digits=4), "ci_hi": fnum(hi, digits=4),
                     "n_cases": len(avg), "criterion": f">= {args.h2_margin}, CI nad 0 a zlepšení u >= {need} systémů (zlepšeno: {improved}/{len(per_sys)})",
+                    "ci_diagnostic": bootstrap_diagnostic(avg),
                     "ci_above_margin": "yes" if lo is not None and lo >= args.h2_margin else "no",
                     "supported": "yes" if supported else "no"})
     for name in ("H1", "H2"):
@@ -614,7 +665,7 @@ def main():
                         "ci_above_margin": "not_evaluable", "supported": "not_evaluable"})
 
     write_csv(os.path.join(args.out, "hypotheses.csv"), hyp,
-              ["hypothesis", "comparison", "estimate", "ci_lo", "ci_hi", "n_cases", "criterion", "ci_above_margin", "supported"])
+              ["hypothesis", "comparison", "estimate", "ci_lo", "ci_hi", "n_cases", "criterion", "ci_diagnostic", "ci_above_margin", "supported"])
     if hyp:
         report += ["| Hypotéza | Porovnání | Odhad | 95% CI | Případů | Kritérium | Podpořena |",
                    "| --- | --- | --- | --- | --- | --- | --- |"]
@@ -749,9 +800,10 @@ def main():
 
     # ---------------- validation of the automated number/name match against human S2 (dev split)
     split_of = {a["bid"]: a["split"] for a in A}
-    auto = [(to_float(p.get("auto_match_ratio")), p["_rating"]) for p in pairs
+    auto_checks = unique_index(collect("pairs_auto_checks.csv", args.key_dir), "pair_id", "automated checks")
+    auto = [(to_float(auto_checks.get(p["pair_id"], {}).get("auto_match_ratio")), p["_rating"]) for p in pairs
             if p.get("_cit") not in (None, "", "*") and p.get("_rating") in RATINGS
-            and to_float(p.get("auto_match_ratio")) is not None and split_of.get(p["blind_answer_id"]) == "dev"]
+            and to_float(auto_checks.get(p["pair_id"], {}).get("auto_match_ratio")) is not None and split_of.get(p["blind_answer_id"]) == "dev"]
     if auto:
         flag = ["S2" if r >= 0.8 else "other" for r, _ in auto]
         human = ["S2" if h == "S2" else "other" for _, h in auto]
@@ -767,8 +819,8 @@ def main():
         report += ["## Shoda hodnotitelů a validace automatiky", "", "| Míra | n | Cohenova kappa | Shoda / hodnota |", "| --- | --- | --- | --- |"]
         for g in agr:
             report.append(f"| {g['measure']} | {g['n']} | {g['kappa']} | {g['agreement']} |")
-        report += ["", "Cíl protokolu: kappa (S2 vs ostatní) alespoň 0,6. Automatický příznak shody se použije jen jako "
-                   "nápověda, pokud je jeho kappa s lidským hodnocením pod 0,4.", ""]
+        report += ["", "Cíl protokolu: kappa (S2 vs ostatní) alespoň 0,6. Automatická shoda je pouze "
+                   "deskriptivní post-rating diagnostika u správce dat; nikdy podklad nezávislého ratingu ani důkaz S2.", ""]
 
     with open(os.path.join(args.out, "report.md"), "w", encoding="utf-8") as f:
         f.write("\n".join(report) + "\n")

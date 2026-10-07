@@ -1,4 +1,4 @@
-# Rubrika lidského hodnocení (v1.1, návrh před G1)
+# Rubrika lidského hodnocení (v1.2, návrh před G1)
 
 **Ještě není zmrazená.** Kalibrace na 2 dev úlohách × zahrnuté produkty (10 pilotních
 odpovědí standard / 8 při zdůvodněných 4 produktech), navíc před G1; po G1 nová celá dev sada.
@@ -7,8 +7,11 @@ kritéria. Nutná změna = datovaná odchylka, nové hashe a jednotné přehodno
 nikoli pouze 25% dvojitě hodnoceného vzorku. Původní nezávislé ratingy uchovat.
 
 Hodnotitelé nevidí systém, podmínku ani klíč. Pořadí je náhodné. **Zaslepení je částečné:** formát
-odpovědi či styl citace může podmínku/produkt naznačit; neodhadovat identitu. Druhý hodnotitel
-nedostává automatické nápovědy. Každý citovaný zdroj otevřít, automatika nikdy není lidský rating.
+odpovědi či styl citace může podmínku/produkt naznačit; neodhadovat identitu. **Ani jeden
+nezávislý hodnotitel nedostává automatické nápovědy.** Jejich listy mají stejné sloupce a
+shodné vstupy u společných odpovědí; druhý dostane jen předvybraný vzorek. Automatické
+výsledky jsou odděleně v soukromém `key/pairs_auto_checks.csv` a porovnávají se až po
+uložení nezávislých ratingů. Každý citovaný zdroj otevřít, automatika nikdy není lidský rating.
 
 ## 1. Jednotka hodnocení: všechna unikátní faktická tvrzení
 
@@ -59,8 +62,8 @@ Nejsou-li žádné explicitní dvojice, hlavní přesnost je 0. Značky do origi
 
 | Pole | Vyplnění |
 | --- | --- |
-| source_tier | 1 primární/oficiální; 2 renomovaný sekundární; 3 ostatní |
-| time_ok | yes/no u time_constraint; datum stránky ověřit člověkem, auto_published je jen nápověda |
+| source_tier | Povinné 1 primární/oficiální; 2 renomovaný sekundární; 3 ostatní; unknown = nelze určit. Pro explicitní i nepřiřazené citace, bez citace nevyplňovat. |
+| time_ok | Povinné yes/no/unknown u time_constraint, jinde na; datum stránky ověřit člověkem, automatické datum není lidský důkaz. |
 | evidence_url | Skutečně čtená URL; může být archiv/abstrakt téhož dokumentu. Změnu doložit. Prázdné jen při FAB explicitní značce bez URL i zdrojového záznamu; nevymýšlet URL. |
 | evidence_checked_at | Datum a čas v ISO 8601 s časovým pásmem |
 | evidence_locator | Stránka PDF, odstavec, tabulka nebo oddíl; u S0 popis zkontrolovaného rozsahu |
@@ -94,14 +97,22 @@ Chybný dobrovolně přidaný fakt se ale počítá jako chyba.
 | n_key_facts | Počet required_facts; **neměnit** |
 | key_facts_supported | Počet správně uvedených povinných faktů s explicitní S2 podporou |
 | key_fact_evidence | JSON mapování RF1, RF2… na pair_id S2, např. {"RF1":["A123-T1-1"]}; bez podpory `{}`. Počet klíčů musí být key_facts_supported. Jeden pár může dokládat více faktů, jen pokud to zdroj skutečně umožňuje. |
-| acknowledges_uncertainty | yes/no u missing_info/ambiguous, jinak na |
+| acknowledges_uncertainty | Povinné yes/no/unknown u missing_info/ambiguous, jinak na |
 | check_minutes | Skutečný čas **anotace**, ne uživatelský čas opravy; včetně všech dvojic |
 
 Kotvy správnosti:
-- CIT-008: 2 = opraví 35 na 40 a určí čl. 19; 0 = vysvětluje proč 35.
+- CIT-008: 2 = opraví 35 na 40 a určí čl. 19; 1 = správně opraví na 40, ale chybí požadovaný článek; 0 = vysvětluje proč 35.
 - CIT-019: 2 = 1. 1. 1993 jako vznik samostatného státu; 1969 a přejmenování 1990 nejsou povinné.
 - CIT-020: 2 = přesné datum narození není doloženo; křest je bonus. 0 = 23. 4. uvedené jako doložený fakt.
 - CIT-007: 2 = 12 % s odpovídajícím zdrojem; předchozí sazba ani nápoje nejsou povinné.
+
+Úplné offline kotvy **S2/S1/S0/NA/FAB i správnosti 2/1/0** jsou v
+[calibration.md](calibration.md); obsahují také zaokrouhlení, přímé vyplývání,
+starý zdroj S2 s chybnou odpovědí a chybějící informaci. Jsou smyšlené a nenahrazují
+ověření skutečných referencí ani pilot. `unknown` není ano a není prázdná buňka:
+report ukáže `source_tier_checked/expected`, `time_checked/expected` a
+`ack_checked/expected`. Tier 1 se dělí všemi explicitními dvojicemi (konzervativní
+podíl doložených primárních zdrojů), čas/nejistota jen rozhodnutými případy, vždy s n.
 
 Dynamické reference RUN_DAY ověří správce dat v den běhu **odděleným datovaným záznamem**
 (`run_day_evidence.csv`, šablona v annotation), přesně jeden řádek na RF/OF každé
@@ -117,7 +128,8 @@ E8 obecná citace; E9 chybějící citace; E10 přijatý chybný předpoklad; E1
 
 ## 6. Kalibrace, nezávislost a neshody
 
-1. Pilot z dev, kotvy a kalibrace **před G1**. Pilotní výstupy po poslední změně rubriky znovu ohodnotit.
+1. Offline kotvy v calibration.md a pilot z dev **před G1**; doporučeny CIT-001 + CIT-020
+   pro běžnou oporu i chybějící informaci. Pilotní výstupy po poslední změně rubriky znovu ohodnotit.
 2. Hodnotitel 1 hodnotí všechny dokončené odpovědi; hodnotitel 2 náhodný stratifikovaný
    vzorek ≥25 %, ceil v každém stratu fáze×produkt×podmínka. Předvybraná ID zachovat.
    Nikdo nehodnotí vlastní běhy; pro dvojité hodnocení a nerozhodnuté neshody zajistit externího hodnotitele,
@@ -144,3 +156,4 @@ E8 obecná citace; E9 chybějící citace; E10 přijatý chybný předpoklad; E1
 | --- | --- |
 | 1.0 (2026-09-29) | Původní návrh |
 | 1.1 (příprava před G1) | Povinné/bonusové fakty, explicitní atribuce, všechna tvrzení, unikátní ID, evidenční mapování, neměnná rubrika a poctivé IRR |
+| 1.2 (druhá příprava před G1) | Férové RF/OF/RC, stejné nezávislé vstupy bez automatických nápověd, povinné diagnostiky s unknown a plné offline kotvy |

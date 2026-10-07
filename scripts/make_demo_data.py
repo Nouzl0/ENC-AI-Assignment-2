@@ -126,7 +126,7 @@ def rate_export(work, phase, expected):
             e = expected[key[pair["blind_answer_id"]]]
             cit = pair["citation_n"]
             rating = {0: "S2", 1: "S1", 2: "S0", 3: "NA", 4: "FAB", 6: "S2", 7: "S2"}.get(e["mode"], "") if cit else ""
-            pair.update(rating=rating, source_tier="1" if rating else "", time_ok="", rater=rater,
+            pair.update(rating=rating, source_tier="1" if rating else "", time_ok="na" if cit else "", rater=rater,
                         rater_source_n="1" if cit == "*" else "", error_code={"S1": "E3", "S0": "E2", "FAB": "E1"}.get(rating, "") if cit else "E9")
             if cit:
                 pair.update(evidence_url="https://fixture.invalid/source", evidence_checked_at="2026-01-05T10:00:00+00:00",
@@ -140,7 +140,7 @@ def rate_export(work, phase, expected):
             answer.update(correctness="2" if e["correct"] else "1" if e["mode"] in (1, 7) else "0",
                           n_claims=str(len({p["claim_id"] for p in units})), segmentation_reviewed="yes",
                           key_facts_supported=str(e["kf_cov"]), key_fact_evidence=json.dumps({"RF1": [support[0]]} if e["kf_cov"] else {}),
-                          acknowledges_uncertainty="yes" if e["mode"] == 3 else "no", check_minutes="3" if not suffix else "4",
+                          acknowledges_uncertainty=("yes" if e["mode"] == 3 else "no") if (int(answer["task_id"].split("-")[-1]) - 1) % 10 < 4 else "na", check_minutes="3" if not suffix else "4",
                           rater=rater, comment="Synthetic rating fixture; no human experiment.")
         rated = "_rater2" if suffix else "_rater1"
         write_csv(ad / f"answers_rated{rated}.csv", answers, list(answers[0]))

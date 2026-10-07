@@ -60,7 +60,7 @@ připravený. Reálné benchmarky jsme nespustili.
 | --- | --- | --- |
 | 1 | Férové RF/OF/RC, evidenční kontrakt, předem dané kvóty holdoutu | hotovo; kritická re-kontrola bez blokujících/středních nálezů |
 | 2 | Parser a přenositelná reprodukce | hotovo; kritická re-kontrola bez blokujících/středních nálezů |
-| 3 | Výběr P3, ratingy a interpretační diagnostiky | následuje |
+| 3 | Výběr P3, ratingy a interpretační diagnostiky | hotovo; kritická re-kontrola bez blokujících/středních nálezů |
 | 4 | Konzistentní dokumentace a předání | následuje |
 
 Revize 1: opraveny skryté požadavky, překryv RF a nezapsané rozšíření referencí,
@@ -77,6 +77,18 @@ závorky v markdown URL, tučné zdrojové řádky, záměnu primárního odkazu
 cross-overlap mapy; opraveno a re-kontrolováno. Ověřeno 61 unittestů na Pythonu
 3.11.16 i 3.14.7, dvě přesunutí se smazanými původními cestami, loopback HTTP,
 validace dev/val a git diff --check. Žádný produktový benchmark neproběhl.
+
+Revize 3: G2 znovu počítá volbu P3 z neměnného snapshotu ratingů v plné přesnosti,
+váže všechny kandidáty a G3 odmítá pozdější změny validačních ratingů. Oba hodnotitelé
+dostávají stejné podklady bez automatických nápověd; nové offline kotvy pokrývají všechny
+kategorie. Povinné diagnostické enumy mají vykázané pokrytí; report odděluje atribuci od
+podmíněné přesnosti a varuje u konstantního bootstrap vzorku. Přibyl pozitivní kompletní
+G1→G2→G3 test a jeho dvě přenesené reprodukce, stále výhradně na smyšlených fixtures.
+Kritický subagent odhalil validační source check datovaný po podpisu G2: opraven společný
+guard úplnosti/hashů/časů při seal i verify a regresní test. Opraveny také hraniční tolerance
+volby P3 a zbylá textová nápověda. Re-kontrola bez blokujících/středních nálezů.
+Ověřeno 70 unittestů na Pythonu 3.11.16 i 3.14.7, validace dev/val, syntaxe 3.9 a
+git diff --check. Runtime 3.9 ani vzdálené CI nebyly ověřeny; produktové běhy neproběhly.
 
 ## Co nadále provede kolega (platí i po revizi)
 

@@ -83,6 +83,23 @@ def unique_index(rows, field, label):
     return out
 
 
+def diagnostic_problems(answer, pairs, case):
+    """Unknown is explicit missing evidence, not an empty or favorable denominator."""
+    errors = []
+    uncertain = case.get("edge_case_type") in {"missing_info", "ambiguous"}
+    if answer.get("acknowledges_uncertainty") not in ({"yes", "no", "unknown"} if uncertain else {"na"}):
+        errors.append("acknowledges_uncertainty must be yes/no/unknown on ambiguous/missing_info, otherwise na")
+    timed = case.get("edge_case_type") == "time_constraint"
+    for pair in pairs:
+        if pair.get("citation_n") in {None, ""}:
+            continue
+        if pair.get("source_tier") not in {"1", "2", "3", "unknown"}:
+            errors.append(f"{pair.get('pair_id')}: source_tier must be 1/2/3/unknown")
+        if pair.get("time_ok") not in ({"yes", "no", "unknown"} if timed else {"na"}):
+            errors.append(f"{pair.get('pair_id')}: time_ok must be yes/no/unknown on time_constraint, otherwise na")
+    return errors
+
+
 def validate_pair_rows(rows, label):
     unique_index(rows, "pair_id", label)
     identities = set()
