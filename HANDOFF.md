@@ -8,6 +8,12 @@ Reprodukce na jiné cestě/počítači: viz freeze/README.md, `--path-map` pouze
 a finální replay. Předat učiteli autorizovaný kompletní soukromý balíček i přesný commit;
 nepřepisovat původní absolutní cesty uvnitř podepsaných souborů.
 
+**Krátce, co jsme změnili a proč:** Zpřesnili jsme férové reference a holdout, opravili
+parser a přenositelnost, zajistili přepočitatelný výběr P3 a stejné podklady pro nezávislé
+hodnotitele. Přidali jsme kalibrační kotvy, ukázku evidence a interpretační kontroly,
+aby učitel mohl postup skutečně ověřit; výkon produktů jsme neměřili. Níže je tvůj
+postup pro reálná data, podpisy a závěry.
+
 ## 0. Role a izolovaný pracovní prostor
 
 - Správce dat vytvoří nový holdout a provádí CLI; nezávislý ověřovatel kontroluje reference.
@@ -61,6 +67,16 @@ python3 -m unittest discover -s tests -v  # pouze software; žádné produkty
   úryvek, snapshot_file + SHA-256, verification_status=verified. Pro G1 mají všechny
   řádky verified_by identitu deklarovaného reference_checker. Nevydávat header za důkaz.
   checked_at nesmí následovat skutečné signed_at G1; nelze schválit kontrolu z budoucnosti.
+- [ ] Pro pochopení CSV projít [vyplněnou DEMO ukázku](data/evidence_examples.md): statické
+  RF/OF a RUN_DAY změnu se skutečnými lokálními hashi. Generovat do samostatné DEMO
+  složky, **nikdy do ostrého WORK**; DEMO_NOT_VERIFIED nelze vydávat za lidské ověření.
+- [ ] Zvolit standard nebo úspornou **pětiproduktovou** variantu podle PROTOCOL §6:
+  500+10 běhů / 140 druhých hodnocení / odhad 99,7 h, nebo 400+10 / 115 / 80,1 h.
+  Úsporná varianta má `config.val_candidates=["P3A"]` **nebo** `["P3B"]` a přesně 5
+  předem určených nových testových `config.repeat_task_ids`, stále všech 5 systems.
+  Zapsat variantu/důvod do pilot_record; výchozí G1 šablona sama úsporný plán nezvolí.
+  Čtyřproduktová varianta 320+8 je jen s písemným důvodem přístupu/nevhodnosti pátého,
+  nikoli pouhé pracovní úspory.
 - [ ] Předem vybrat repeat_task_ids (10 standard / 5 úsporně), jeden/dva P3 kandidáty,
   účetní postup pro ceny a kapacitu lidí na 72h okna. Odhad práce viz protokol.
 
@@ -85,7 +101,8 @@ python3 scripts/check_citations.py --pilot --runs "$WORK/calibration/run_plan_pi
 # Vyplnit ratingové kopie, uložit kalibraci, role, nastavení a závěr do records/pilot.txt.
 ```
 
-V úsporné variantě přidat `--systems` se čtyřmi předem zvolenými identifikátory.
+Pouze při věcně zdůvodněném vyloučení pátého přidat do pilotu `--systems` se čtyřmi
+předem zvolenými identifikátory. Úsporná pětiproduktová varianta tuto volbu nepoužívá.
 G1 šablonu vyplnit pravdivě, včetně config/roles/inputs (holdout, evidence a pilot_record):
 
 ```bash
@@ -151,7 +168,9 @@ skórováním. Správce porovná snapshot s archivovanými finálními ratingy a
 soubor dál neměnit a nepřepisovat jej později kumulovaným testovým klíčem.
 G2 z něj znovu spočítá přesnost a podle pravidla v protokolu ověří vítěze, také při
 nulovém/záporném zlepšení P2. Volba používá plnou přesnost, ne zaokrouhlené CSV.
-Uložit písemný selection_record, metriku obou variant, délky a odůvodnění. Žádné další
+Uložit písemný selection_record, metriku všech plánovaných kandidátů i P2, délky a
+odůvodnění. Ještě před podpisem G2 musí být validační source rozhodnutí kompletní,
+se snapshoty/hashy a skutečnými časy po běhu, do 7 dnů a nejpozději při podpisu. Žádné další
 val ladění. Vítěze **teprve nyní** přesně zkopírovat do prompts/P3_final_cs.txt a _en.txt,
 zapsat skutečné hashe a dev/val důvody v CHANGELOG (nikoli editovat zmrazený PROTOCOL).
 
@@ -228,8 +247,14 @@ od silnějšího tvrzení efekt≥margin. Nesmí chybět nejistota, n, provozní
 úspěšnost, neznámé ceny, lidská práce a ≥8 unikátních chybových/úspěšných úloh podle
 analysis/README.md. Příčinu bez důkazu označit unknown; změna P3 není důkaz opravy mechanismu.
 Praktické závěry omezit na testované produkty a období.
+H2 rozlišit pomocí podílu odpovědí s explicitní citací a podmíněné přesnosti včetně n;
+zisk atribuce není důkaz lepšího retrievalu/pravdivosti. U source/time/ack diagnostik
+vykázat checked/expected, ne neznámé hodnoty jako dobré výsledky. Nulová šířka
+konstantního bootstrap CI neznamená nulovou populační nejistotu.
 
 Učitel dostane propojené artefakty podle README, manifesty a kontrolovatelné důkazy.
 Po G3 lze publikovat schválený odsanitizovaný balíček: bez tokenů, osobních údajů,
 privátních cest, klíčů předčasného zaslepení a neautorizovaných úplných zdrojových textů.
 Samotný `results/report.md` není hotová závěrečná práce.
+Ve zprávě vyplnit všech 8 částí mapování odevzdání a krok reprodukce po přesunu včetně
+`replay_provenance.json`; veřejný sanitizovaný export nenahrazuje autorizovaný auditní balíček.

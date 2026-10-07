@@ -157,13 +157,26 @@ Náklady oddělit: předplatné, případný mezní poplatek, lidská práce; ne
 | repeat | 10 předem určených testových | P2 | 2 a 3 | 100 |
 
 Standard: **500 analytických + 10 pilotních navíc**. Pilot = 2 dev úlohy × produkty
-před G1 pro kalibraci; po G1 celá dev sada nově. Úsporný, předem zdůvodněný návrh:
-4 produkty, val P2+1 kandidát, opakování na 5 předem určených nových testech →
-80+80+120+40 = **320 analytických + 8 pilotních navíc**. Nevybírat repeat úlohy podle výsledků.
+před G1 pro kalibraci; po G1 celá dev sada nově. Pokud kapacita nestačí, doporučená
+úspora zachová **všech pět produktů**, ale před G1 naplánuje jen jeden P3 kandidát
+a 5 opakovaných testových úloh. Finální test stále obsahuje P1/P2/P3 pro všechny produkty.
 
-Pokud vše skončí odpovědí, ceil(25 % v každém stratu fáze×produkt×podmínka) =
-**140** druhých hodnocení standard / **92** úsporně. Hrubý rozpočet při 10 min
-na odběh+první anotaci a 7 min na druhou: **99,7 h / 64,1 h**, nikoli původních 98 h.
+| Varianta před G1 | Produktů | Val kandidáti | Repeat úloh | Dev + val + test + repeat | Analytické / pilot navíc | Druhá hodnocení | Hrubý čas |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| Standard (výchozí šablona) | 5 | P3A + P3B | 10 | 100 + 150 + 150 + 100 | 500 / 10 | 140 | 99,7 h |
+| Úsporná se všemi produkty | 5 | P3A **nebo** P3B | 5 | 100 + 100 + 150 + 50 | 400 / 10 | 115 | 80,1 h |
+| Jen při odůvodněné nedostupnosti/nevhodnosti pátého | 4 | P3A **nebo** P3B | 5 | 80 + 80 + 120 + 40 | 320 / 8 | 92 | 64,1 h |
+
+Před G1 uložit zvolenou variantu, zdůvodnění a přesná repeat_task_ids do pilot_record
+a G1 config; `val_candidates` má jeden či dva členy, `repeat_task_ids` 5 či 10 nových
+testových ID. Autor promptu dostane informaci o velikosti, nikoli jejich obsah/identity.
+Nejde o automatické přepnutí podle času, dostupnosti nebo skóre po G1. Repeat subset
+správce vybere před výsledky, nikoli jen úspěšné úlohy. Čtyři produkty nejsou běžná
+varianta na úsporu práce: vyloučení pátého vyžaduje věcný písemný důvod.
+
+Počty druhých hodnocení předpokládají všechny běhy completed a ceil(25 % v každém
+stratu fáze×produkt×podmínka). Hrubý rozpočet počítá 10 min na odběh+první anotaci
+a 7 min na druhou: **99,7 / 80,1 / 64,1 h**, nikoli původních 98 h.
 Nejde o naměřený čas; **navíc** pilot, příprava a ověřování referencí, správa dat,
 řešení neshod, analýza a zpráva, čekání na limity a náhradní běhy. Před G1 ověřit kapacitu
 lidí a účtů, rozdělit role a rezervovat 72h okna; jinak neslibovat proveditelnost.

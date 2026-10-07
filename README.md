@@ -8,7 +8,8 @@ výsledky zatím neexistují. Benchmark provede kolega podle [HANDOFF.md](HANDOF
 ## Co je autoritativní
 
 - [PROTOCOL.md](PROTOCOL.md): návrh metodiky k lidskému schválení a zmrazení na G1.
-- [Rubrika](annotation/rubric.md), [brány a integrita](freeze/README.md),
+- [Rubrika](annotation/rubric.md), [offline kalibrační kotvy](annotation/calibration.md),
+  [brány a integrita](freeze/README.md),
   [běhy a metadata](runs/README.md), [historie promptů](prompts/CHANGELOG.md).
 - [PREPARATION.md](PREPARATION.md): etapy úprav a jejich kritické kontroly.
 - Původní DOCX je **historický návrh**, nikoli aktuální zmrazený protokol. Vnější původní
@@ -25,6 +26,8 @@ bash demo/run_demo.sh
 python3 scripts/make_demo_data.py
 # Volitelné zachování syntetických artefaktů v NOVÉ složce mimo repo:
 python3 scripts/make_demo_data.py --out "$HOME/czai-synthetic-v1"
+# Vyplněná reference evidence na smyšlených datech (žádné ověření gold):
+python3 scripts/make_evidence_example.py --out "$HOME/czai-evidence-DEMO-v1"
 ```
 
 Testy zahrnují skutečné CLI řetězce plán → syntetická odpověď → parser → zaslepený
@@ -33,7 +36,8 @@ nejde o nezávisle vygenerované náhodné výsledkové CSV. HTTP testy použív
 krátkodobý server na `127.0.0.1`, nikoli veřejný web. Výchozí artefakty se odstraní.
 Režim `--synthetic` používá DEMO-* / sys_*, nepotvrzuje H1/H2 a nesmí s `--final`.
 Gate test navíc kontroluje finální scoring v izolované falešné kopii repo s testovacími
-identitami; tím neuděluje skutečné G1/G2/G3. CI workflow je nastavený na stejné
+identitami pro selhání i úspěšné odpovědi a dva read-only replaye po přesunutí;
+tím neuděluje skutečné G1/G2/G3. CI workflow je nastavený na stejné
 softwarové testy, nikoli produktové benchmarky; stav vzdáleného CI ověřit zvlášť.
 
 ## Data a soukromí
@@ -43,6 +47,9 @@ kandidátů** v `data/published_test_candidates.jsonl`. Ty nejsou skutečným sk
 Přejmenování neodstranilo historii. Nový správce připraví ≥10 nových testových úloh
 mimo Git; teprve s nimi je splněno ≥40 experimentálních úloh / ≥10 test.
 Číselné a datované reference se musí nezávisle doložit; samotný validátor neověřuje pravdu.
+[Vyplněné příklady evidence](data/evidence_examples.md) ukazují rozdíl fact_text/hodnota,
+statické RF/OF a RUN_DAY se snapshoty/hashy. Výstupy DEMO_NOT_VERIFIED jsou záměrně
+neschválitelné, nelze je přejmenovat na skutečné gold důkazy.
 
 Všechny reálné plány, odpovědi, ratingy, klíče, snapshoty i výsledky jsou **mimo worktree**.
 `.gitignore` není řízení přístupu. Holdout a jeho důkazy nesmí vidět autor promptu před G2;
@@ -54,7 +61,8 @@ nikoli celý pracovní adresář nebo `answer_metrics.csv` s názvy systémů.
 1. Role, dostupnost produktů, nový holdout, nezávislé zdrojové důkazy a pilot navíc.
 2. Podepsat a nezávisle archivovat **G1**; poté nově sebrat celou dev sadu.
 3. Analýza dev → obecné změny P3 → jednorázová plánovaná validace.
-4. Výběr P3, přesná kopie vítěze CZ/EN, záznam volby → **G2**.
+4. Přepočet P3 z archivovaného scoring_inputs.json v plné přesnosti, kontrola časů
+   validačních zdrojových rozhodnutí, přesná kopie vítěze CZ/EN, záznam volby → **G2**.
 5. Test P1/P2/P3 a oddělená opakování P2; uchovat selhání i první pokusy.
 6. Nezávislé ratingy, ≥25 % po fázi×systému×podmínce, audit neshod/změn → **G3**.
 7. `score.py --final` s G3 → výsledky, analýza ≥8 unikátních úloh, závěrečná zpráva.
@@ -70,11 +78,23 @@ P3 souboru sama o sobě neotevře test či finální analýzu.
 | Benchmarková data | data/ + schéma + evidence šablona | nové soukromé testy, nezávisle ověřené reference |
 | Prompty a verze | prompts/ + CHANGELOG | dev důvody úprav, validační výběr, P3_final |
 | Metadata běhů | generátor, runs/README.md | kompletní vyplněné plány, původní výstupy a artefakty |
-| Hodnoticí postup/kód | scripts/, rubrika, tests/ | skutečné nezávislé ratingy a zdrojová rozhodnutí |
+| Hodnoticí postup/kód | scripts/, rubrika, kalibrační kotvy, tests/ | skutečné nezávislé ratingy a zdrojová rozhodnutí |
 | Výsledky s nejistotou | score.py | G3 výsledky, náklady a limity měření |
 | Analýza chyb | analysis/ + CSV šablona | ≥8 unikátních úloh včetně úspěchů a protipříkladů |
 | Závěrečná zpráva | REPORT_TEMPLATE.md | závěry založené výhradně na skutečných datech |
 
-Celá standardní matice má 500 analytických záznamů + 10 kalibračních navíc. Předem
-zdůvodněná čtyřproduktová varianta má 320 + 8. Hrubý plán práce v protokolu není naměřený
-čas a nezahrnuje přípravu referencí; dostupnost a harmonogram ověřit před G1.
+Celá standardní matice má **500 analytických + 10 pilotních** záznamů. Doporučená
+úsporná varianta zachová všech 5 produktů: jeden P3 kandidát a 5 repeat úloh před G1 →
+**400 + 10**, odhad práce 80,1 místo 99,7 h. Pouze při doložené nedostupnosti/nevhodnosti
+pátého je možných 320 + 8 se čtyřmi produkty; samotná úspora práce nestačí.
+Hrubý plán v protokolu není naměřený čas a nezahrnuje přípravu referencí a další práce;
+dostupnost, role a harmonogram ověřit před G1. Detail konfigurace: HANDOFF §1 / PROTOCOL §6.
+
+Interpretace výsledků má odlišit atribuci od pravdivosti: H2 doplnit podílem odpovědí
+s explicitní citací a podmíněnou přesností s n; diagnostiky source/time/ack vykázat
+spolu s pokrytím. Konstantní bootstrap CI není důkaz jistoty. Oba hodnotitelé dostávají
+stejné zaslepené podklady bez automatických nápověd.
+
+Oprávněná reprodukce na jiném počítači vyžaduje **kompletní soukromý G3 balíček**,
+přesný commit, read-only mapu cest a původní parametry; podepsané JSON/CSV nepřepisovat.
+Postup a `replay_provenance.json`: [freeze/README.md](freeze/README.md).

@@ -11,6 +11,7 @@ návrhový záznam, nikoli nezávislé schválení nebo datum budoucího benchma
 | P2 v1.0 | P2_structured_cs.txt / _en.txt | 2026-09-29 | tým | Role, cíl, 8 pravidel, schéma výstupu, postup při nejistotě | Návrh před měřením; znalost návrhových dat nelze vyloučit | zaznamenat při G1 |
 | P3-A v0.1 (návrh) | P3A_candidate_cs.txt / _en.txt | 2026-09-29 | tým | Pravidlo 2: doslovný úryvek ze zdroje (≤ 25 slov) ke každému tvrzení | Hypotéza E2/E5; **doložit ≥3 chybnými dev odpověďmi, jinak upravit/přiznat nepotvrzení** | zaznamenat při val |
 | P3-B v0.1 (návrh) | P3B_candidate_cs.txt / _en.txt | 2026-09-29 | tým | P3-A + pravidlo 9: kontrola tvrzení před odesláním | Hypotéza E2/E3, **zatím nepotvrzená** | zaznamenat při val |
+| P3-B v0.2 (aktuální návrh před G1) | P3B_candidate_cs.txt / _en.txt | přípravná revize, před měřením | příprava s AI asistencí | Pravidlo 9 uznává výslovnou oporu i transparentní přímé vyplývání, zaokrouhlení/výpočet bez nedoložených předpokladů | Soulad s rubrikou; **není dev optimalizace ani naměřené zlepšení**, skutečné dev důvody nadále doplnit | zaznamenat při val |
 | P3 v1.0 (budoucí, dosud nevytvořen) | P3_final_cs.txt / _en.txt | doplnit skutečné datum po val | doplnit autora | Přesná kopie vybraného změřeného kandidáta | Doplnit val metriky, délky a pravidlo výběru | skutečné CZ/EN hashe do G2 |
 
 ## Pravidla

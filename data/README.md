@@ -71,6 +71,8 @@ a nezávisle ověřeno. Draft gold (včetně názvu CIT-025) zde **není nově o
   `valid_as_of` odpovídá statické referenci; pro RUN_DAY je UTC datum `checked_at`.
   Dále nezávislý ověřovatel, primární zdroj a snapshot/hash. Shodu hodnoty se zdrojem
   a požadavkem posuzuje člověk; neprázdnost CSV není důkaz pravdivosti.
+  [Vyplněná offline ukázka](evidence_examples.md) obsahuje statické RF/OF i dvě RUN_DAY
+  reference se snapshoty/hashi; výrazně označená DEMO, záměrně neschválitelná jako gold.
 - `annotation/run_day_evidence_TEMPLATE.csv` → soukromé `run_day_evidence.csv`: každý
   RF/OF dokončené RUN_DAY úlohy v každém skutečném UTC dni, včetně dev/val/repeat.
   Tento denní záznam doplňuje aktuální hodnotu, **nepřepisuje** zmrazenou referenci.

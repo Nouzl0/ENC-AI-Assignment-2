@@ -52,8 +52,6 @@ dočasná CLI fixture, validace dev/val, syntaxe Pythonu 3.9 a `git diff --check
 Skutečný runtime Pythonu 3.9 ani vzdálené CI zde ověřeny nebyly; CI workflow je pouze
 připravený. Reálné benchmarky jsme nespustili.
 
-## Co nadále provede kolega
-
 ## Druhá revize po kritickém auditu
 
 | Etapa revize | Rozsah | Stav |
@@ -61,7 +59,7 @@ připravený. Reálné benchmarky jsme nespustili.
 | 1 | Férové RF/OF/RC, evidenční kontrakt, předem dané kvóty holdoutu | hotovo; kritická re-kontrola bez blokujících/středních nálezů |
 | 2 | Parser a přenositelná reprodukce | hotovo; kritická re-kontrola bez blokujících/středních nálezů |
 | 3 | Výběr P3, ratingy a interpretační diagnostiky | hotovo; kritická re-kontrola bez blokujících/středních nálezů |
-| 4 | Konzistentní dokumentace a předání | následuje |
+| 4 | Konzistentní dokumentace a předání | hotovo; kritická kontrola bez blokujících/středních nálezů |
 
 Revize 1: opraveny skryté požadavky, překryv RF a nezapsané rozšíření referencí,
 odděleny zdrojové/formální RC, fact_text vs skutečná ověřená reference_value.
@@ -89,6 +87,22 @@ guard úplnosti/hashů/časů při seal i verify a regresní test. Opraveny tak�
 volby P3 a zbylá textová nápověda. Re-kontrola bez blokujících/středních nálezů.
 Ověřeno 70 unittestů na Pythonu 3.11.16 i 3.14.7, validace dev/val, syntaxe 3.9 a
 git diff --check. Runtime 3.9 ani vzdálené CI nebyly ověřeny; produktové běhy neproběhly.
+
+Revize 4: sjednoceny README, HANDOFF a šablona zprávy s aktuálními guardy, rubrikou,
+výběrem P3, diagnostikami a přenositelnou reprodukcí. Doplněno explicitní mapování všech
+osmi povinných výstupů zadání a krátké vysvětlení pro kolegu. Úsporná varianta zachovává
+všech pět produktů: 400 analytických + 10 pilotních běhů, při všech completed odpovědích
+115 druhých hodnocení; 80,1 h je hrubý předpoklad, nikoli měření či úplný rozpočet.
+Čtyři produkty zůstávají možné jen s věcným písemným odůvodněním vyloučení pátého.
+Nová vyplněná offline DEMO evidence ukazuje RF/OF, statickou i RUN_DAY platnost a
+snapshoty/hashy, ale status DEMO_NOT_VERIFIED záměrně neprojde jako ověřený gold.
+P3B návrh nyní uznává transparentní přímé vyplývání/zaokrouhlení stejně jako rubrika;
+nejde o dev optimalizaci ani naměřené zlepšení. Čtyři nové regresní testy kontrolují
+evidenci, odmítnutí přepsání/nepřípustných cest a skutečný syntetický generátor úsporné
+matice se vzorkem rater2. Kritická kontrola bez blokujících/středních nálezů.
+Ověřeno 74 unittestů na Pythonu 3.11.16 i 3.14.7, validace dev/val, syntaxe 3.9
+(21 souborů) a git diff --check. Runtime 3.9 ani vzdálené CI nebyly ověřeny;
+žádné skutečné gold ověření, podpisy bran ani produktové benchmarky neproběhly.
 
 ## Co nadále provede kolega (platí i po revizi)
 
