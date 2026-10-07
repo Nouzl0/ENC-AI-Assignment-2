@@ -1,100 +1,121 @@
-# Rubrika lidského hodnocení (verze 1.0)
+# Rubrika lidského hodnocení (v1.1, návrh před G1)
 
-Zmrazení: na bráně G1 po kalibraci na 10 pilotních odpovědích. Pozdější upřesnění (v1.x) jen před hodnocením validační sady a vždy se zápisem v historii dole.
+**Ještě není zmrazená.** Kalibrace na 10 pilotních odpovědích z dev → G1. Po G1 nelze potichu měnit
+kritéria. Nutná změna = datovaná odchylka, nové hashe a jednotné přehodnocení všech dotčených odpovědí,
+nikoli pouze 25% dvojitě hodnoceného vzorku. Původní nezávislé ratingy uchovat.
 
-Hodnotíme dvě věci: **dvojice tvrzení–citace** (`pairs_to_rate.csv`) a **odpověď jako celek** (`answers_to_rate.csv`).
-Hodnotitel nevidí systém ani podmínku. Každý zdroj otevře v prohlížeči, i když automatická kontrola něco navrhuje.
-Kotvy pocházejí jen z vývojové sady.
+Hodnotitelé nevidí systém, podmínku ani klíč. Pořadí je náhodné. **Zaslepení je částečné:** formát
+odpovědi či styl citace může podmínku/produkt naznačit; neodhadovat identitu. Druhý hodnotitel
+nedostává automatické nápovědy. Každý citovaný zdroj otevřít, automatika nikdy není lidský rating.
 
-## 1. Dělení na tvrzení (stejná pravidla pro všechny podmínky)
+## 1. Jednotka hodnocení: všechna unikátní faktická tvrzení
 
-Skript navrhne výchozí dělení: u P2/P3 převezme seznam `TVRZENÍ` / `CLAIMS` (`segmentation = system`),
-u P1 rozdělí text po větách (`segmentation = auto_sentence`). **Hodnotitel pak u každé odpovědi, bez ohledu na podmínku,
-použije stejná pravidla:**
+- Číslo, datum, jméno, definice, vztah nebo kauzální výrok, který lze ověřit. Projít **celou odpověď**,
+  nejen seznam TVRZENÍ/CLAIMS. Není limit osmi tvrzení.
+- Skript navrhne věty z ODPOVĚĎ/ANSWER i seznam tvrzení. Exact duplicity sjednotí; významové duplicity
+  sjednotí člověk. Počítat stejný fakt jednou, zachovat jeho skutečně přiřazené citace.
+- Složený výrok rozdělit na atomické tvrzení (T2a/T2b); nezdědit citaci, která patřila jen jinému výroku.
+- Citovaný úryvek P3 slouží jako důkaz, není dalším tvrzením asistenta. Ověřit věrnost i relevanci úryvku.
+- Doplnit přehlédnuté tvrzení (Tx1, …); odstranit nefaktickou vatu. Odmítnutí může mít n_claims=0.
+- Každý řádek musí mít **unikátní** `pair_id = <blind_answer_id>-<claim_id>-<citation_n nebo none>`.
+  Při rozdělení změnit i pair_id: např. A123-T2a-1 a A123-T2b-1. Jinak skórování skončí chybou.
+- Aktualizovat `n_claims` na počet unikátních claim_id a potvrdit `segmentation_reviewed=yes`.
 
-- Faktické tvrzení = číslo, datum, jméno, definice, vztah nebo kauzální výrok, který lze ověřit.
-- Složené tvrzení se dvěma fakty rozdělí na dva řádky (kopie řádku, `claim_id` T2a/T2b; citace zůstává u obou).
-- Faktické tvrzení z části ODPOVĚĎ, které v seznamu TVRZENÍ chybí, doplní jako nový řádek (`claim_id` Tx1, …).
-- Větu bez faktického obsahu („Doufám, že to pomůže.") smaže.
-- Zachová nejvýš 8 tvrzení v pořadí výskytu v celé odpovědi.
+Stejný postup platí pro P1, P2 i P3. Počet navržených tvrzení není hotová lidská segmentace.
 
-Shodu v dělení (počet tvrzení na odpověď) mezi hodnotiteli vykazuje `score.py`, protože rozdílné dělení v P1 a P2 by jinak
-mohlo zkreslit hypotézu H2.
+## 2. Rating explicitní dvojice tvrzení–citace
 
-## 2. Hodnocení dvojice tvrzení–citace (`rating`)
+Otevřít URL → najít pasáž → zvolit první vyhovující kategorii:
 
-Postup: otevřete URL → najděte místo, které tvrzení dokládá → zvolte první sedící kategorii.
-
-| Hodnocení | Pravidlo | Kotva (vývojová sada) |
+| Rating | Pravidlo | Kotva z dev |
 | --- | --- | --- |
-| **FAB** | URL/DOI neexistuje (404/410/DNS i při druhém pokusu) a stránku nenajdete ani v archivu (web.archive.org); nebo značka [n] nemá záznam ve zdrojích | Vymyšlený DOI; `[3]` v textu, ale ve zdrojích jen [1] a [2] |
-| **NA** | Stránka existuje, ale obsah nelze přečíst: paywall bez abstraktu, přihlášení, 403, nečitelné PDF | Článek NEJM (CIT-001) za paywallem bez abstraktu |
-| **S2** | Zdroj tvrzení výslovně uvádí nebo z něj přímo plyne; čísla sedí v uvedené přesnosti | „Sněžka měří 1603 m" + stránka ČÚZK s 1603,296 m (CIT-004) |
-| **S1** | Zdroj podporuje jen část tvrzení, nebo je tvrzení silnější či obecnější než zdroj | „Nový stavební zákon platí od 1. 1. 2024 pro všechny stavby" + zdroj, který mluví jen o vyhrazených stavbách (CIT-005) |
-| **S0** | Zdroj tvrzení neobsahuje nebo mu odporuje | „Poločas rozpadu C-14 je podle NNDC 5 568 let" + stránka NNDC s 5 700 ± 30 let (CIT-003) |
+| FAB | URL/DOI/dokument skutečně neexistuje ani po druhé kontrole a hledání v archivu; nebo značka nemá zdroj | Vymyšlený DOI, [3] bez zdroje |
+| NA | Obsah nelze ověřit: paywall bez abstraktu, login, 403, nečitelné PDF; nedostupnost není důkaz neexistence | Nepřístupný plný článek CIT-001; dostupný abstrakt naopak lze hodnotit |
+| S2 | Zdroj výslovně uvádí tvrzení nebo z něj přímo plyne; stejná přesnost čísel | ČÚZK 1603,296 m → 1603 m (CIT-004) |
+| S1 | Podporuje jen část nebo užší/slabší výrok | Vyhrazené stavby zaměněné za všechny (CIT-005) |
+| S0 | Tvrzení neobsahuje nebo mu odporuje | NNDC 5700 ± 30 oproti tvrzení 5568 (CIT-003) |
 
-**Tolerance čísel:** zaokrouhlení na přesnost, kterou tvrzení uvádí, je S2 (1603,296 m → „1603 m"). Jiná hodnota je S0, nikoli S1.
-Data musí sedět přesně (den, měsíc, rok), pokud je tvrzení uvádí. Procenta: rozdíl jen zaokrouhlením = S2.
+Zaokrouhlení podle uvedené přesnosti je S2, jiné číslo S0, nikoli S1. Datum musí sedět v přesnosti tvrzení.
+Starý zdroj, který opravdu tvrdí starou hodnotu, může být S2, ale nese E6 a snižuje správnost odpovědi.
+S2 hodnotí vztah ke zdroji, **není automaticky pravda nebo správná odpověď**.
 
-**Zastaralý, ale podporující zdroj:** pokud starý zdroj tvrzení opravdu uvádí, je to **S2** (citace je správná), ale do `error_code` napište **E6** a správnost odpovědi snižte. Příklad: „ESU končí 13. 10. 2026" + článek z roku 2025 (CIT-010).
+Více explicitních citací = každý pár zvlášť; úplnost vyžaduje aspoň jednu explicitní S2 u tvrzení.
+`citation_n` prázdné = nevyplňovat rating, označit E9. URL může být chybějící, pokud je FAB kvůli neexistující značce.
 
-**Nepřiřazené citace** (`citation_n = *`, zdroje jen na konci odpovědi): do `rater_source_n` napište číslo zdroje, který tvrzení podporuje nejlépe, a hodnoťte tento zdroj. Pokud žádný, napište nejbližší a dejte S0.
+### Nepřiřazený seznam zdrojů (`citation_n=*`)
 
-**Více citací u jednoho tvrzení:** každá dvojice se hodnotí zvlášť. Tvrzení je „podložené" (úplnost), pokud má aspoň jednu S2.
+Člověk může do `rater_source_n` vybrat nejlépe podporující zdroj a ohodnotit jej. To měří pouze
+**diagnostickou dohledatelnou podporu** (`unlinked_support`), nikoli správnost atribuce asistenta.
+Tyto řádky nevstupují do hlavní přesnosti, úplnosti, pokrytí povinných faktů ani hlavní kappy.
+Nejsou-li žádné explicitní dvojice, hlavní přesnost je 0. Značky do originální odpovědi nedoplňovat.
 
-**Necitované tvrzení** (`citation_n` prázdné): nehodnotí se `rating`, jen případně `error_code = E9`.
+## 3. Důkaz a diagnostika dvojice
 
-## 3. Další sloupce dvojice
-
-| Sloupec | Hodnoty | Pravidlo |
-| --- | --- | --- |
-| `source_tier` | 1 / 2 / 3 | 1 = primární nebo oficiální (zákon, úřad, původní studie, standard, instituce sama o sobě); 2 = renomovaný sekundární (encyklopedie, velké médium, odborný web); 3 = ostatní (agregátor, blog, diskuse, SEO web) |
-| `time_ok` | yes / no / prázdné | Jen u `time_constraint_case = yes`: splňuje zdroj limit stáří? Datum hledejte na stránce, `auto_published` je jen nápověda |
-| `error_code` | E1–E11 | U každé dvojice s hodnocením jiným než S2 (a u E6/E9 viz výše). Jeden hlavní kód |
-| `comment` | text | Krátce: kde ve zdroji je / není doklad |
-
-## 4. Hodnocení odpovědi (`answers_to_rate.csv`)
-
-| Sloupec | Hodnoty | Pravidlo |
-| --- | --- | --- |
-| `correctness` | 0 / 1 / 2 | 2 = všechny `key_facts` správně a chybný předpoklad opraven; 1 = část klíčových faktů chybí nebo je nepřesná, nebo odpověď nevysvětlí nejednoznačnost; 0 = chybná odpověď, přijatý chybný předpoklad, vymyšlená přesná hodnota tam, kde neexistuje, nebo žádná odpověď |
-| `key_facts_supported` | 0 … `n_key_facts` | Kolik z `key_facts` odpověď **uvádí správně a zároveň dokládá citací hodnocenou S2**. Slouží ke kontrole alternativy A1 (systém, který řekne méně, nemá vyšší pokrytí) |
-| `acknowledges_uncertainty` | yes / no / na | U `missing_info` a `ambiguous`: přizná odpověď nejistotu nebo rozliší výklady? Jinak `na` |
-| `check_minutes` | číslo | Čas hodnocení celé odpovědi včetně všech jejích dvojic (stopky), v minutách |
-
-**Kotvy správnosti (vývojová sada):**
-
-- CIT-008 (Senát, chybný předpoklad 35 let): 2 = opraví na 40 let a cituje čl. 19 Ústavy; 0 = vysvětluje, „proč 35".
-- CIT-020 (Shakespeare): 2 = datum narození není známo, křest 26. 4. 1564; 1 = uvede 23. 4. jako tradici bez zmínky o křtu; 0 = „narodil se 23. 4. 1564" jako fakt.
-- CIT-019 (vznik ČR): 2 = rozliší 1969, 1990, 1993; 1 = jen 1. 1. 1993 se zdrojem; 0 = jiné datum.
-
-U dynamických případů (`reference_valid_as_of = RUN_DAY`) ověřte referenci na oficiální stránce v den běhu a do `comment` napište hodnotu, kterou jste ověřili.
-
-## 5. Kódy chyb
-
-| Kód | Typ chyby |
+| Pole | Vyplnění |
 | --- | --- |
-| E1 | Vymyšlený zdroj (URL, DOI nebo dokument neexistuje) |
-| E2 | Nepodporující zdroj (existuje, tvrzení neobsahuje) |
-| E3 | Přehnané zobecnění (zdroj říká méně / něco užšího) |
-| E4 | Záměna citací (fakt je v jiném citovaném zdroji) |
-| E5 | Zkreslené číslo nebo datum |
-| E6 | Zastaralý zdroj / porušení časového limitu |
-| E7 | Méně kvalitní zdroj, i když existuje primární |
-| E8 | Obecná citace (domovská stránka, výsledky vyhledávání) |
-| E9 | Chybějící citace u faktického tvrzení |
-| E10 | Přijatý chybný předpoklad |
-| E11 | Ignorovaný rozpor mezi zdroji |
+| source_tier | 1 primární/oficiální; 2 renomovaný sekundární; 3 ostatní |
+| time_ok | yes/no u time_constraint; datum stránky ověřit člověkem, auto_published je jen nápověda |
+| evidence_url | Skutečně čtená URL; může být archiv/abstrakt téhož dokumentu. Změnu doložit. |
+| evidence_checked_at | Datum a čas v ISO 8601 s časovým pásmem |
+| evidence_locator | Stránka PDF, odstavec, tabulka nebo oddíl; u S0 popis zkontrolovaného rozsahu |
+| evidence_excerpt | Krátký vlastní popis nebo nejvýše 25 slov z jednoho zdroje; respektovat práva |
+| evidence_snapshot, evidence_sha256 | Cesta k uloženému snímku/exportu a SHA-256; neukládat jen URL k měnící se stránce |
+| evidence_archive_url | Archivovaná URL, pokud existuje a lze ji použít |
+| error_code | Jeden hlavní E1–E11; E6/E7 může být i při S2 |
+| rater, comment | Identifikátor hodnotitele a zdůvodnění |
 
-## 6. Kalibrace, dvojité hodnocení a neshody
+Doklad nedostupnosti je také důkaz (např. snímek 403), nikoli falešná pasáž. Snapshoty s copyrightem
+uchovat pro kontrolu soukromě, veřejný balíček nemusí zveřejňovat celý obsah stránky.
 
-1. **Kalibrace (pilot, týden T3):** tým spustí 2 vývojové případy na všech 5 systémech (10 odpovědí, jsou součástí fáze dev). Všichni hodnotitelé je ohodnotí, porovnají výsledky a upřesní tuto rubriku. Pak se rubrika zmrazí (G1).
-2. **Samostatné hodnocení:** 1. hodnotitel vyplní `pairs_to_rate.csv` a `answers_to_rate.csv` a **před jakoukoli diskusí** je uloží jako `pairs_rated_rater1.csv` a `answers_rated_rater1.csv`. 2. hodnotitel samostatně vyplní `*_to_rate_rater2.csv` (25 % odpovědí) a uloží je jako `pairs_rated_rater2.csv` a `answers_rated_rater2.csv`.
-3. **Shoda:** `score.py` spočítá Cohenovu kappu mezi soubory `*_rater1.csv` a `*_rater2.csv`, tedy před smířením. Cíl: kappa (S2 vs. ostatní) ≥ 0,6. Při nižší hodnotě upřesnit rubriku a dvojitě hodnocené odpovědi ohodnotit znovu.
-4. **Neshody:** hodnotitelé je proberou; když se nedohodnou, rozhodne třetí. Každou zapsat do `disagreements.csv`. Výsledné (dohodnuté) hodnoty jdou do finálních `pairs_rated.csv` a `answers_rated.csv`; soubory `*_rater1.csv` se už nemění.
+## 4. Odpověď a povinné vs. doplňkové fakty
 
-## Historie rubriky
+`required_facts` (alias `key_facts`) jsou pouze požadavky otázky a nutné opravy chybných předpokladů.
+`optional_facts` a rozšiřující referenční text jsou bonusový kontext. **Jejich vynechání nesnižuje skóre.**
+Správné parafráze přijmout; fakt může být jednoznačný z otázky a odpovědi, není nutné opakovat rok otázky.
+Chybný dobrovolně přidaný fakt se ale počítá jako chyba.
 
-| Verze | Datum | Změna | Důvod |
-| --- | --- | --- | --- |
-| 1.0 | 2026-09-29 | První verze | — |
+| Pole | Pravidlo |
+| --- | --- |
+| correctness | 2: všechny povinné fakty správné, žádná podstatná věcná chyba; 1: částečná odpověď/mírná nepřesnost; 0: chybně zodpovězený hlavní dotaz, neopravený falešný předpoklad, vymyšlená přesná hodnota nebo žádná odpověď |
+| n_key_facts | Počet required_facts; **neměnit** |
+| key_facts_supported | Počet správně uvedených povinných faktů s explicitní S2 podporou |
+| key_fact_evidence | JSON mapování RF1, RF2… na pair_id S2, např. {"RF1":["A123-T1-1"]}; bez podpory `{}`. Počet klíčů musí být key_facts_supported. Jeden pár může dokládat více faktů, jen pokud to zdroj skutečně umožňuje. |
+| acknowledges_uncertainty | yes/no u missing_info/ambiguous, jinak na |
+| check_minutes | Skutečný čas **anotace**, ne uživatelský čas opravy; včetně všech dvojic |
+
+Kotvy správnosti:
+- CIT-008: 2 = opraví 35 na 40 a určí čl. 19; 0 = vysvětluje proč 35.
+- CIT-019: 2 = 1. 1. 1993 jako vznik samostatného státu; 1969 a přejmenování 1990 nejsou povinné.
+- CIT-020: 2 = přesné datum narození není doloženo; křest je bonus. 0 = 23. 4. uvedené jako doložený fakt.
+- CIT-007: 2 = 12 % s odpovídajícím zdrojem; předchozí sazba ani nápoje nejsou povinné.
+
+Dynamické reference RUN_DAY ověří správce dat v den běhu **odděleným datovaným záznamem**
+(source_evidence.csv), včetně hodnoty, ukazatele a platnosti. Zmrazenou referenci nepřepisovat.
+
+## 5. Kódy chyb (jednou za unikátní tvrzení a kód)
+
+E1 vymyšlený zdroj; E2 nepodporující zdroj; E3 přehnané zobecnění; E4 záměna citací;
+E5 zkreslené číslo/datum; E6 zastaralost/časový limit; E7 nevhodná kvalita zdroje;
+E8 obecná citace; E9 chybějící citace; E10 přijatý chybný předpoklad; E11 ignorovaný rozpor.
+
+## 6. Kalibrace, nezávislost a neshody
+
+1. Pilot z dev, kotvy a kalibrace **před G1**. Pilotní výstupy po poslední změně rubriky znovu ohodnotit.
+2. Hodnotitel 1 hodnotí všechny dokončené odpovědi; hodnotitel 2 náhodný stratifikovaný vzorek ≥25 %.
+   Nikdo nehodnotí vlastní běhy; pro dvojité hodnocení a nerozhodnuté neshody zajistit externího hodnotitele,
+   pokud dvoučlenný tým tyto role nezvládne oddělit. Po selhání bez odpovědi se nulové skóre odvozuje z manifestu.
+3. Nezávislé listy před diskusí uložit jako *_rated_rater1.csv / *_rated_rater2.csv a dál je neměnit.
+   Score odmítá duplicity. U různých segmentací počítá kappu jen ze srovnatelných odpovědí a ztrátu pokrytí hlásí.
+   Počet tvrzení je jen hrubá diagnostika, ne důkaz shodných hranic. Je-li nutné sjednocení jednotek,
+   provést je bez znalosti ratingů a nové nezávislé hodnocení verzi označit; původní data archivovat mimo aktivní vstup.
+4. Kappa S2 vs ostatní cíl ≥0,6. Konstantní ratingy → kappa nedefinovaná (uvést surovou shodu a n).
+   Nízká kappa po G1 je výsledek/limit, ne povolení přepsat jen problematický vzorek.
+5. Neshody zapsat do disagreements.csv; nerozhodnuté řeší třetí člověk. Teprve poté vznikají finální
+   pairs_rated.csv / answers_rated.csv. Finální konsenzus se nepoužije pro výpočet nezávislé shody.
+
+## Historie
+
+| Verze | Změna |
+| --- | --- |
+| 1.0 (2026-09-29) | Původní návrh |
+| 1.1 (příprava před G1) | Povinné/bonusové fakty, explicitní atribuce, všechna tvrzení, unikátní ID, evidenční mapování, neměnná rubrika a poctivé IRR |

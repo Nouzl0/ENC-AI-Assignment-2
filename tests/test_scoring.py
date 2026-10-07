@@ -16,8 +16,9 @@ def fixture():
     key = dict(blind_answer_id="A1", run_id="r1")
     pair = dict(pair_id="A1-T1-1", blind_answer_id="A1", claim_id="T1", citation_n="1", rating="S2")
     answer = dict(blind_answer_id="A1", correctness="2", n_key_facts="1",
-                  key_facts_supported="1", check_minutes="1", n_claims="1")
-    cases = {"TEST": dict(development_validation_test_split="test", language="en")}
+                  key_facts_supported="1", key_fact_evidence='{"RF1": ["A1-T1-1"]}', check_minutes="1", n_claims="1", segmentation_reviewed="yes")
+    cases = {"TEST": dict(development_validation_test_split="test", language="en",
+                         reference_answer_or_tests={"key_facts": ["required"]})}
     return run, key, pair, answer, cases
 
 
@@ -71,6 +72,28 @@ class ScoringIntegrityTests(unittest.TestCase):
         self.assertEqual(problems, [])
         self.assertAlmostEqual(scored[0]["precision"], 1 / 3)
         self.assertEqual(scored[0]["precision_noNA"], 0.5)
+
+    def test_unlinked_source_list_cannot_repair_main_attribution(self):
+        run, key, pair, answer, cases = fixture()
+        pair.update(pair_id="A1-T1-*", citation_n="*")
+        answer.update(key_facts_supported="0", key_fact_evidence="{}")
+        scored, problems = load_answers([run], [key], [pair], [answer], cases, False)
+        self.assertEqual(problems, [])
+        self.assertEqual(scored[0]["precision"], 0)
+        self.assertEqual(scored[0]["recall"], 0)
+        self.assertEqual(scored[0]["kf_cov"], 0)
+        self.assertEqual(scored[0]["unlinked_support"], 1)
+        answer.update(key_facts_supported="1", key_fact_evidence='{"RF1": ["A1-T1-*"]}')
+        scored, problems = load_answers([run], [key], [pair], [answer], cases, False)
+        self.assertEqual(scored, [])
+        self.assertTrue(problems)
+
+    def test_required_fact_denominator_is_not_editable_by_rater(self):
+        run, key, pair, answer, cases = fixture()
+        answer["n_key_facts"] = "2"
+        scored, problems = load_answers([run], [key], [pair], [answer], cases, False)
+        self.assertEqual(scored, [])
+        self.assertTrue(problems)
 
     def test_uncited_e9_and_duplicate_citation_error_count(self):
         run, key, pair, answer, cases = fixture()

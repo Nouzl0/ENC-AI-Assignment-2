@@ -5,7 +5,7 @@ G1/G2/G3 dosud **nejsou splněny**. Nevytváříme výsledky produktů, vítězn
 | Etapa | Rozsah | Stav |
 | --- | --- | --- |
 | 1 | Integrita skórování, selhání, úplnost matice, regresní testy | hotovo; kritická kontrola + re-kontrola bez blokujících nálezů |
-| 2 | Rubrika, povinné vs. doplňkové fakty, explicitní citace, důkazy | čeká |
+| 2 | Rubrika, povinné vs. doplňkové fakty, explicitní citace, důkazy | hotovo; kritická kontrola + re-kontrola bez blokujících nálezů |
 | 3 | Soukromý holdout, ověřitelné brány a ochrana artefaktů | čeká |
 | 4 | End-to-end testy, konzistentní dokumentace a předání kolegovi | čeká |
 
@@ -18,3 +18,11 @@ Opravené nálezy subagenta: přejmenované kopie hodnoticích jednotek v raw IR
 počet tvrzení a normalizace desetinné čárky v run_index. Re-kontrola bez blokujícího nálezu.
 Ověřeno: 14 unittestů, validace dev/val, offline syntetický smoke v dočasné kopii, `git diff --check`.
 Smoke náhodných CSV zatím není plný end-to-end test; ten nahradí etapa 4.
+
+## Kontrola etapy 2
+
+Opravené nálezy subagenta: podpůrné úryvky v ANSWER i CLAIMS, konzervativní deduplikace
+zachovávající významové symboly a zaokrouhlení vzorku druhého hodnotitele nahoru (≥25 %).
+Re-kontrola bez blokujícího nálezu. Ověřeno: 26 unittestů, validace dev/val, offline
+syntetický smoke v dočasné kopii a `git diff --check`. Zdroje všech referencí nadále musí
+nezávisle ověřit kolega; nová rubrika není podepsané G1 ani hotové hodnocení.

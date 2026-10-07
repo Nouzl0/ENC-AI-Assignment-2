@@ -93,6 +93,14 @@ def validate_pair_rows(rows, label):
         if not all(identity[:2]) or identity in identities:
             raise ValueError(f"{label}: duplicate or missing claim-citation identity: {identity}")
         identities.add(identity)
+        expected_id = f"{identity[0]}-{identity[1]}-{cit or 'none'}"
+        if row["pair_id"] != expected_id:
+            raise ValueError(f"{label}: pair_id must be {expected_id!r}; regenerate after splitting claims")
+
+
+def required_facts(case):
+    ref = case.get("reference_answer_or_tests", {})
+    return ref.get("required_facts", ref.get("key_facts", []))
 
 
 def run_problems(row, require_terminal=True):

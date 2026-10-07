@@ -23,16 +23,16 @@ Směr B (výzkum podložený zdroji). Návrh podle schopností produktu → výs
   klíčových faktů (podíl `key_facts`, které odpověď uvádí a dokládá citací S2); Spearman(počet tvrzení, přesnost).
 - **A2 (alternativa):** rozdíly způsobí dostupnost zdrojů / čeština → NA zvlášť, výsledky CZ vs. EN.
 
-## Metriky (definice zmrazeny)
+## Metriky (návrh definic k zmrazení na G1)
 
 | Role | Metrika | Definice |
 | --- | --- | --- |
-| Hlavní | Citační přesnost | #S2 dvojic / #všech dvojic v odpovědi (0 bez citací); NA a FAB = selhání; systém = průměr přes případy |
-| Vedlejší 1 | Úplnost citací | #tvrzení s ≥ 1 citací S2 / #hodnocených tvrzení (max. 8 na odpověď) |
-| Vedlejší 2 | Správnost odpovědi | podíl odpovědí se skóre 2 (škála 0–2 proti referenci a key_facts) |
+| Hlavní | Přesnost explicitní atribuce | #S2 explicitních dvojic / #všech explicitních dvojic v odpovědi (0 bez přiřazených citací); NA a FAB = selhání; systém = průměr přes případy |
+| Vedlejší 1 | Úplnost citací | #unikátních tvrzení s ≥ 1 explicitní citací S2 / #všech unikátních faktických tvrzení celé odpovědi (0 bez tvrzení) |
+| Vedlejší 2 | Správnost odpovědi | podíl odpovědí se skóre 2 (škála 0–2 proti required_facts, nikoli bonusovým detailům) |
 | Diagnostika | pokrytí klíčových faktů, FAB %, NA %, zdroje úrovně 1 %, dodržení časového limitu, přiznání nejistoty, tvrzení a citace na odpověď, nepřiřazené citace, podíl běhů s vyhledáváním, validita formátu P2/P3 | viz návrh |
 | Provoz | medián a p90 latence, kola, zobrazená vyhledávání, náklady, míra opakování, čas lidské kontroly | viz návrh |
-| Užitek | Přesnost − 0,1 · L_norm − 0,1 · T_norm | L, T = medián / maximum mezi systémy v dané podmínce; plus Pareto-fronta přesnost × latence |
+| Explorační index | Přesnost − 0,1 · L_norm − 0,1 · T_norm | L = end-to-end latence, T = čas anotace; medián / maximum mezi systémy v dané podmínce; není uživatelský čas oprav ani obecný užitek. Plus Pareto přesnost × latence. |
 
 Nejistota: klastrový bootstrap podle případů (10 000, seed 2026), párový bootstrap rozdílů, Wilson (běh 1),
 SD mezi 3 běhy P2, Cohenova kappa mezi hodnoceními **před smířením** (cíl ≥ 0,6 pro S2 vs. ostatní), shoda v dělení na tvrzení.
@@ -49,6 +49,11 @@ Režim `--allow-missing` vyloučí celou nekompletně hodnocenou odpověď a nik
 Duplicitní identifikátory jsou chyba, ne další měření. Chybové kódy se počítají jednou za tvrzení a kód
 (včetně E9 bez citace). Kappa při jediné konstantní kategorii je nedefinovaná; nesrovnatelné segmentace
 jsou vykázány mimo kappu, ne potichu sloučeny. Finální konsenzus nikdy nenahrazuje nezávislé ratingy pro IRR.
+
+Nepřiřazený seznam zdrojů se hodnotí pouze diagnosticky (`unlinked_support`); dodatečný výběr zdroje
+člověkem nesmí opravovat hlavní atribuci, úplnost ani pokrytí. Pokrytí používá jen `required_facts`
+se správným tvrzením a explicitní S2; mapování RF1… na pair_id je auditovatelné v `key_fact_evidence`.
+Bonusový kontext se nevyžaduje, ale chybná dobrovolně přidaná tvrzení se hodnotí. Viz `data/CHANGES.md`.
 
 ## Plán běhů
 

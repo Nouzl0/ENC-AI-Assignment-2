@@ -12,11 +12,11 @@ Inputs (all CSV):
 Outputs (results/): metrics.csv, hypotheses.csv, agreement.csv, report.md
 
 Definitions follow the frozen protocol:
-    precision_a = #S2 pairs / #pairs in answer a (0 if the answer has no citation)
-    recall_a    = #claims with >= 1 S2 citation / #claims in answer a
+    precision_a = #S2 explicit pairs / #explicit pairs (0 without explicit citations)
+    recall_a    = #unique claims with >= 1 explicit S2 / #all unique factual claims
     correct_a   = 1 if correctness == 2 else 0
     key_fact_coverage_a = key_facts_supported / n_key_facts (key facts stated AND backed by an S2 citation)
-    System value = mean over cases of the per-case mean over runs.
+    Primary system value = mean over cases of first runs; repeats are a separate matched sensitivity analysis.
     95 % CI: cluster bootstrap over cases (10 000 resamples, seed 2026); Wilson for binary shares.
 
 Usage:
@@ -25,6 +25,7 @@ Usage:
 """
 import argparse
 import collections
+import json
 import math
 import os
 import random
@@ -33,7 +34,7 @@ import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from common import (PROMPTS, RATINGS, ROOT, SYSTEMS, finite_number, load_all_cases,  # noqa: E402
-                    read_csv, read_csv_glob, run_problems, unique_index, validate_pair_rows, write_csv)
+                    read_csv, read_csv_glob, required_facts, run_problems, unique_index, validate_pair_rows, write_csv)
 
 
 # ----------------------------------------------------------------- statistics helpers
@@ -182,7 +183,8 @@ def load_answers(runs, key, pairs, answers, cases, allow_missing, meta=None):
             problems.append(f"answer {bid}: correctness {corr!r} not in 0/1/2")
             continue
         rows = [] if failed else pairs_by_bid.get(bid, [])
-        cited = [p for p in rows if p["_cit"] != "" and p["_rating"] in RATINGS]
+        unlinked = [p for p in rows if p["_cit"] == "*" and p["_rating"] in RATINGS]
+        cited = [p for p in rows if p["_cit"] not in {"", "*"} and p["_rating"] in RATINGS]
         claims = sorted({p["claim_id"] for p in rows})
         supported = {p["claim_id"] for p in cited if p["_rating"] == "S2"}
         s2 = sum(1 for p in cited if p["_rating"] == "S2")
@@ -197,9 +199,23 @@ def load_answers(runs, key, pairs, answers, cases, allow_missing, meta=None):
                            or not kf.is_integer() or not 0 <= kf <= nkf or minutes is None or minutes < 0):
             problems.append(f"answer {bid}: invalid key-fact counts or check_minutes")
             continue
+        if not failed:
+            expected_nkf = len(required_facts(case))
+            try:
+                evidence = json.loads(a.get("key_fact_evidence", ""))
+            except (TypeError, ValueError):
+                evidence = None
+            valid_pairs = {p["pair_id"] for p in cited if p["_rating"] == "S2"}
+            valid_facts = {f"RF{i}" for i in range(1, expected_nkf + 1)}
+            valid_evidence = (isinstance(evidence, dict) and set(evidence) <= valid_facts
+                              and all(isinstance(ids, list) and ids and all(isinstance(pid, str) and pid in valid_pairs for pid in ids)
+                                      for ids in evidence.values()))
+            if nkf != expected_nkf or not valid_evidence or len(evidence) != kf:
+                problems.append(f"answer {bid}: required-fact denominator/evidence invalid (only explicit S2 pairs count)")
+                continue
         declared_claims = to_float(a.get("n_claims"))
-        if not failed and (declared_claims is None or declared_claims != len(claims)):
-            problems.append(f"answer {bid}: n_claims does not match final segmentation")
+        if not failed and (declared_claims is None or declared_claims != len(claims) or a.get("segmentation_reviewed") != "yes"):
+            problems.append(f"answer {bid}: n_claims does not match final segmentation or human review is missing")
             continue
         out.append({
             "bid": bid, "run_id": run["run_id"], "system": run["system"],
@@ -216,7 +232,8 @@ def load_answers(runs, key, pairs, answers, cases, allow_missing, meta=None):
             "n_claims": len(claims), "n_pairs": len(cited),
             "n_fab": sum(1 for p in cited if p["_rating"] == "FAB"),
             "n_na": sum(1 for p in cited if p["_rating"] == "NA"),
-            "n_unlinked": sum(1 for p in cited if p["_cit"] == "*"),
+            "n_unlinked": len(unlinked),
+            "unlinked_support": sum(p["_rating"] == "S2" for p in unlinked) / len(unlinked) if unlinked else None,
             "n_tier1": sum(1 for p in cited if (p.get("source_tier") or "").strip() == "1"),
             "n_time_checked": sum(1 for p in cited if (p.get("time_ok") or "").strip().lower() in {"yes", "no"}),
             "n_time_ok": sum(1 for p in cited if (p.get("time_ok") or "").strip().lower() == "yes"),
@@ -358,7 +375,7 @@ def main():
     for (split, cond, system), items in sorted(groups.items()):
         row = {"split": split, "condition": cond, "system": system,
                "n_cases": len({a["task_id"] for a in items}), "n_answers": len(items)}
-        for m in ("precision", "recall", "precision_noNA", "kf_cov"):
+        for m in ("precision", "recall", "precision_noNA", "kf_cov", "unlinked_support"):
             p, lo, hi = bootstrap_ci(case_values(items, m), args.boot, args.seed)
             row[m], row[m + "_lo"], row[m + "_hi"] = p, lo, hi
         first = [a for a in items if a["run_index"] == 1 and a["correct"] is not None]
@@ -370,7 +387,8 @@ def main():
         row["fab_rate"] = sum(a["n_fab"] for a in items) / npairs if npairs else None
         row["na_rate"] = sum(a["n_na"] for a in items) / npairs if npairs else None
         row["tier1_share"] = sum(a["n_tier1"] for a in items) / npairs if npairs else None
-        row["unlinked_rate"] = sum(a["n_unlinked"] for a in items) / npairs if npairs else None
+        all_pairs = npairs + sum(a["n_unlinked"] for a in items)
+        row["unlinked_rate"] = sum(a["n_unlinked"] for a in items) / all_pairs if all_pairs else None
         tchk = sum(a["n_time_checked"] for a in items)
         row["time_ok_share"] = sum(a["n_time_ok"] for a in items) / tchk if tchk else None
         unc = [a for a in items if a["edge"] in {"missing_info", "ambiguous"} and a["ack"] in {"yes", "no"}]
@@ -421,6 +439,9 @@ def main():
     mfields = list(metrics[0].keys()) if metrics else []
     write_csv(os.path.join(args.out, "metrics.csv"),
               [{k: (fnum(v, digits=4) if isinstance(v, float) else v) for k, v in r.items()} for r in metrics], mfields)
+    answer_fields = [k for k in A[0] if k not in {"bid", "errors"}] + ["errors"] if A else ["run_id"]
+    write_csv(os.path.join(args.out, "answer_metrics.csv"),
+              [dict(a, errors=";".join(a["errors"])) for a in A], answer_fields)
 
     def ci(r, m, pct=True):
         p, lo, hi = r.get(m), r.get(m + "_lo"), r.get(m + "_hi")
@@ -601,15 +622,15 @@ def main():
         if incompatible:
             report += [f"**Nesrovnatelná segmentace:** {len(incompatible)} dvojitě hodnocených odpovědí mimo kappu dvojic; "
                        "nejprve sjednotit jednotky bez znalosti ratingů a provést nové nezávislé hodnocení.", ""]
-        r1 = {p["pair_id"]: (p.get("rating") or "").strip().upper() for p in pairs1_raw if (p.get("citation_n") or "").strip() != ""}
+        r1 = {p["pair_id"]: (p.get("rating") or "").strip().upper() for p in pairs1_raw if (p.get("citation_n") or "").strip() not in {"", "*"}}
         r2 = {p["pair_id"]: (p.get("rating") or "").strip().upper() for p in pairs2
-              if (p.get("citation_n") or "").strip() != "" and p["blind_answer_id"] not in incompatible}
+              if (p.get("citation_n") or "").strip() not in {"", "*"} and p["blind_answer_id"] not in incompatible}
         common = [k for k in r2 if k in r1 and r1[k] in RATINGS and r2[k] in RATINGS]
         a_, b_ = [r1[k] for k in common], [r2[k] for k in common]
         k5, po5 = cohen_kappa(a_, b_)
         kb, pob = cohen_kappa(["S2" if x == "S2" else "other" for x in a_], ["S2" if x == "S2" else "other" for x in b_])
-        agr.append({"measure": "pairs S2 vs other", "n": len(common), "kappa": fnum(kb), "agreement": fnum(pob)})
-        agr.append({"measure": "pairs 5 categories", "n": len(common), "kappa": fnum(k5), "agreement": fnum(po5)})
+        agr.append({"measure": "explicit pairs S2 vs other", "n": len(common), "kappa": fnum(kb), "agreement": fnum(pob)})
+        agr.append({"measure": "explicit pairs 5 categories", "n": len(common), "kappa": fnum(k5), "agreement": fnum(po5)})
         # segmentation agreement: number of claims per answer
         def n_claims(rows):
             out = collections.defaultdict(set)

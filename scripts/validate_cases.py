@@ -34,6 +34,52 @@ EXPECTED_SIZES = {"dev": 20, "val": 10, "test": 10}
 DUP_THRESHOLD = 0.5
 
 
+def validate_case(case, split):
+    """Validate types before consumers can crash or use a bonus as a denominator."""
+    errors = []
+    if not isinstance(case, dict):
+        return [f"{split}: case must be an object"]
+    tid = case.get("task_id", "?")
+    for field in REQUIRED:
+        if field not in case or case[field] in (None, ""):
+            errors.append(f"{tid}: missing field {field}")
+    for field in ("task_id", "capability", "user_prompt", "evaluation_method", "source_or_provenance"):
+        if not isinstance(case.get(field), str) or not case[field].strip():
+            errors.append(f"{tid}: {field} must be a nonempty string")
+    if case.get("development_validation_test_split") != split:
+        errors.append(f"{tid}: split field does not match file {split}")
+    for field, allowed in ALLOWED.items():
+        if not isinstance(case.get(field), str) or case[field] not in allowed:
+            errors.append(f"{tid}: invalid {field}={case.get(field)!r}")
+    if not isinstance(case.get("context_or_files"), list):
+        errors.append(f"{tid}: context_or_files must be a list (empty is allowed)")
+    properties = case.get("expected_properties")
+    if not isinstance(properties, list) or not properties or not all(isinstance(p, str) and p.strip() for p in properties):
+        errors.append(f"{tid}: expected_properties must be a nonempty string list")
+    ref = case.get("reference_answer_or_tests")
+    if not isinstance(ref, dict):
+        return errors + [f"{tid}: reference_answer_or_tests must be an object"]
+    if not isinstance(ref.get("reference_answer"), str) or not ref["reference_answer"].strip():
+        errors.append(f"{tid}: empty reference_answer")
+    for field in ("key_facts", "required_facts", "optional_facts"):
+        if field not in ref and field != "key_facts":
+            if case.get("schema_version") == 2:
+                errors.append(f"{tid}: schema v2 requires {field}")
+            continue
+        facts = ref.get(field)
+        if not isinstance(facts, list) or (field != "optional_facts" and not facts) or not all(isinstance(f, str) and f.strip() for f in facts):
+            errors.append(f"{tid}: invalid {field} string list")
+        elif len(set(facts)) != len(facts):
+            errors.append(f"{tid}: duplicate {field}")
+    if "required_facts" in ref and ref.get("key_facts") != ref["required_facts"]:
+        errors.append(f"{tid}: key_facts must be the required_facts compatibility alias")
+    gold = ref.get("gold_sources")
+    if not isinstance(gold, list) or not gold or not all(isinstance(g, dict) and isinstance(g.get("url"), str)
+                                                       and g["url"].startswith(("http://", "https://")) for g in gold):
+        errors.append(f"{tid}: gold_sources missing or without http URL")
+    return errors
+
+
 def tokens(text):
     return {t for t in re.findall(r"\w+", text.lower()) if len(t) >= 3}
 
@@ -57,46 +103,34 @@ def main():
         if not os.path.exists(path):
             errors.append(f"missing file {path}")
             continue
-        cases[s] = load_cases(s, args.data_dir)
+        try:
+            cases[s] = load_cases(s, args.data_dir)
+        except ValueError as e:
+            errors.append(f"{path}: {e}")
+            continue
+        for c in cases[s]:
+            errors.extend(validate_case(c, s))
+        cases[s] = [c for c in cases[s] if isinstance(c, dict)]
 
     seen = set()
     for s, rows in cases.items():
         if len(rows) != EXPECTED_SIZES[s]:
             warnings.append(f"{s}: {len(rows)} cases (plan: {EXPECTED_SIZES[s]})")
         for c in rows:
-            tid = c.get("task_id", "?")
+            tid = str(c.get("task_id", "?"))
             if tid in seen:
                 errors.append(f"duplicate task_id {tid}")
             seen.add(tid)
-            for field in REQUIRED:
-                if field not in c or c[field] in (None, ""):
-                    if field != "context_or_files":
-                        errors.append(f"{tid}: missing field {field}")
-            if c.get("development_validation_test_split") != s:
-                errors.append(f"{tid}: split field does not match file {s}")
-            for field, allowed in ALLOWED.items():
-                if c.get(field) not in allowed:
-                    errors.append(f"{tid}: invalid {field}={c.get(field)!r}")
-            ref = c.get("reference_answer_or_tests", {})
-            if not ref.get("reference_answer"):
-                errors.append(f"{tid}: empty reference_answer")
-            if not ref.get("key_facts"):
-                errors.append(f"{tid}: empty key_facts")
-            gold = ref.get("gold_sources", [])
-            if not gold or not all(str(g.get("url", "")).startswith("http") for g in gold):
-                errors.append(f"{tid}: gold_sources missing or without http URL")
-            if not c.get("expected_properties"):
-                errors.append(f"{tid}: empty expected_properties")
 
     # Stratification table (aggregates only)
     print("\n== Stratification ==")
     for field in ["domain", "language", "task_type", "difficulty", "edge_case_type"]:
         print(f"\n{field}:")
-        values = sorted({c.get(field) for rows in cases.values() for c in rows})
+        values = sorted({str(c.get(field)) for rows in cases.values() for c in rows})
         header = "  " + "value".ljust(22) + "".join(s.rjust(7) for s in cases)
         print(header)
         for v in values:
-            counts = [sum(1 for c in cases[s] if c.get(field) == v) for s in cases]
+            counts = [sum(1 for c in cases[s] if str(c.get(field)) == v) for s in cases]
             print("  " + str(v).ljust(22) + "".join(str(n).rjust(7) for n in counts))
 
     print("\n== Edge-case share (requirement: >= 20 %) ==")
@@ -121,10 +155,10 @@ def main():
         print(f"\n== Near-duplicates test vs dev/val (Jaccard >= {DUP_THRESHOLD}) ==")
         found = False
         for t in cases["test"]:
-            tt = tokens(t["user_prompt"])
+            tt = tokens(str(t.get("user_prompt", "")))
             for s in ("dev", "val"):
                 for d in cases.get(s, []):
-                    j = jaccard(tt, tokens(d["user_prompt"]))
+                    j = jaccard(tt, tokens(str(d.get("user_prompt", ""))))
                     if j >= DUP_THRESHOLD:
                         found = True
                         errors.append(f"near-duplicate {t['task_id']} ~ {d['task_id']} (J={j:.2f})")

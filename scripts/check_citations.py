@@ -24,6 +24,7 @@ import collections
 import csv
 import hashlib
 import html
+import math
 import os
 import random
 import re
@@ -36,9 +37,8 @@ import urllib.parse
 import urllib.request
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from common import ROOT, load_all_cases, read_csv_glob, run_problems, unique_index, write_csv  # noqa: E402
+from common import ROOT, load_all_cases, read_csv_glob, required_facts, run_problems, unique_index, write_csv  # noqa: E402
 
-MAX_CLAIMS = 8
 STRUCTURED = {"P2", "P3", "P3A", "P3B"}
 UA = "Mozilla/5.0 (X11; Linux x86_64) CZAI-citation-benchmark/1.0 (student project)"
 
@@ -138,6 +138,11 @@ def split_sentences(text):
     return [s for s in out if s]
 
 
+def strip_support_quotes(text):
+    """Remove P3 evidence quotations, not the original recorded answer."""
+    return re.sub(r'(\[[\d\s,;–-]+\])\s*(?:"[^"]*"|„[^“]*“|“[^”]*”)', r'\1', text)
+
+
 # ----------------------------------------------------------------- parsing
 def parse_answer(text):
     lines = text.splitlines()
@@ -217,20 +222,37 @@ def parse_answer(text):
     claim_lines = [sup_to_markers(l, known) for l in claim_lines]
 
     # ---- claims
-    claims, segmentation = [], "system"
+    listed, segmentation = [], "system"
     for line in claim_lines:
         s = re.sub(r"^\d+[.)]\s+", "", strip_md(line))
         if not s:
             continue
         m = CLAIM_LABEL_RE.match(s)
-        claims.append((m.group(1) if m else s).strip())
-    if not claims:
+        # P3 support quotations are evidence, not an extra generated factual claim.
+        claim = (m.group(1) if m else s).strip()
+        claim = strip_support_quotes(claim)
+        listed.append(claim)
+    if not listed:
         segmentation = "auto_sentence"
-        paragraph = " ".join(strip_md(l) for l in body_lines)
-        for sent in split_sentences(paragraph):
-            if len(re.findall(r"\w+", MARK_RE.sub("", sent))) >= 3:
-                claims.append(sent)
-    claims = claims[:MAX_CLAIMS]
+    elif body_lines:
+        segmentation = "mixed_review"
+    paragraph = strip_support_quotes(" ".join(strip_md(l) for l in body_lines))
+    candidates = split_sentences(paragraph) + listed
+    claims, seen = [], {}
+    for claim in candidates:
+        # Only whitespace, citation markers and terminal sentence punctuation
+        # differ automatically. Signs, units and internal punctuation are semantic.
+        key = re.sub(r"\s+", " ", MARK_RE.sub("", claim)).strip().rstrip(".!?").strip().casefold()
+        if not key:
+            continue
+        if key in seen:
+            i = seen[key]
+            old_marks = set(parse_markers(claims[i]))
+            new = [n for n in parse_markers(claim) if n not in old_marks]
+            claims[i] += "".join(f" [{n}]" for n in new)
+        else:
+            seen[key] = len(claims)
+            claims.append(claim)
 
     fmt = {"has_answer": bool(sections.get("answer")), "has_claims": bool(sections.get("claims")),
            "has_sources": bool(sections.get("sources")), "has_confidence": bool(sections.get("confidence"))}
@@ -380,7 +402,7 @@ def stratified_sample(answer_rows, share, rng):
     chosen = set()
     for key in sorted(groups):
         ids = sorted(groups[key])
-        k = max(1, round(len(ids) * share))
+        k = max(1, math.ceil(len(ids) * share))
         chosen.update(rng.sample(ids, min(k, len(ids))))
     return chosen
 
@@ -493,17 +515,20 @@ def main():
             "blind_answer_id": bid, "task_id": r["task_id"], "language": r["language"],
             "question": case.get("user_prompt", ""), "reference_answer": ref.get("reference_answer", ""),
             "reference_valid_as_of": case.get("reference_valid_as_of", ""),
-            "key_facts": " | ".join(ref.get("key_facts", [])), "n_key_facts": len(ref.get("key_facts", [])),
+            "key_facts": " | ".join(f"RF{i}: {fact}" for i, fact in enumerate(required_facts(case), 1)),
+            "optional_facts": " | ".join(ref.get("optional_facts", [])), "n_key_facts": len(required_facts(case)),
             "expected_properties": " | ".join(case.get("expected_properties", [])),
             "rater_notes": case.get("rater_notes", ""), "answer_text": text.strip(),
             "parsed_sources": "\n".join(f"[{n}] {s['url']}" for n, s in sorted(sources.items())),
             "segmentation": seg, "n_claims": len(claims), "n_sources": len(sources),
-            "correctness": "", "key_facts_supported": "", "acknowledges_uncertainty": "",
+            "segmentation_reviewed": "",
+            "correctness": "", "key_facts_supported": "", "key_fact_evidence": "", "acknowledges_uncertainty": "",
             "check_minutes": "", "rater": "", "comment": "",
             "_system": r["system"], "_condition": r["condition"],
         })
         key_out.append({"blind_answer_id": bid, "run_id": r["run_id"]})
         meta_out.append({"blind_answer_id": bid, "run_id": r["run_id"], "format_valid": fmt_valid,
+                         "segmentation": seg,
                          **{k: ("yes" if v else "no") for k, v in fmt.items()}})
         edge = case.get("edge_case_type", "")
         for ci, claim in enumerate(claims, 1):
@@ -535,6 +560,8 @@ def main():
                     "auto_suggestion": sug,
                     "time_constraint_case": "yes" if edge == "time_constraint" else "",
                     "rater_source_n": "", "rating": "", "source_tier": "", "time_ok": "",
+                    "evidence_url": "", "evidence_checked_at": "", "evidence_locator": "", "evidence_excerpt": "",
+                    "evidence_snapshot": "", "evidence_sha256": "", "evidence_archive_url": "",
                     "error_code": "", "rater": "", "comment": "",
                 })
 
@@ -542,8 +569,8 @@ def main():
     order = {a["blind_answer_id"]: i for i, a in enumerate(answers_out)}
     pairs_out.sort(key=lambda p: (order[p["blind_answer_id"]], p["pair_id"]))
 
-    a_fields = [k for k in answers_out[0] if not k.startswith("_")]
-    p_fields = list(pairs_out[0]) if pairs_out else ["pair_id"]
+    a_fields = [k for k in answers_out[0] if not k.startswith("_") and k != "segmentation"]
+    p_fields = [k for k in pairs_out[0] if k != "segmentation"] if pairs_out else ["pair_id", "blind_answer_id", "claim_id", "citation_n", "rating"]
     os.makedirs(args.out_dir, exist_ok=True)
     write_csv(os.path.join(args.out_dir, "answers_to_rate.csv"), answers_out, a_fields)
     write_csv(os.path.join(args.out_dir, "pairs_to_rate.csv"), pairs_out, p_fields)
@@ -551,7 +578,7 @@ def main():
     write_csv(os.path.join(args.out_dir, "answers_to_rate_rater2.csv"),
               [a for a in answers_out if a["blind_answer_id"] in chosen], a_fields)
     write_csv(os.path.join(args.out_dir, "pairs_to_rate_rater2.csv"),
-              [p for p in pairs_out if p["blind_answer_id"] in chosen], p_fields)
+              [p for p in pairs_out if p["blind_answer_id"] in chosen], [k for k in p_fields if not k.startswith("auto_")])
 
     merge_steward_file(os.path.join(args.key_dir, "blind_key.csv"), key_out, ["blind_answer_id", "run_id"], ids)
     merge_steward_file(os.path.join(args.key_dir, "answers_meta.csv"), meta_out, list(meta_out[0]), ids)

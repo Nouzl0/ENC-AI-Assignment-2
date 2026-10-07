@@ -1,15 +1,18 @@
 # Benchmarková data
 
-40 syntetických faktických dotazů vytvořených týmem; referenční odpovědi a `gold_sources` ověřeny na otevřených zdrojích 29. 9. 2026.
+40 týmových návrhů faktických dotazů. Datované původní reference jsou **návrh**, nikoli protokol
+dokončené nezávislé kontroly. Před G1 správce dat ověří každý povinný fakt a vyplní
+`source_evidence.csv` podle šablony. Aktuální změny dev/val: `CHANGES.md`.
 
 | Soubor | Případy | Použití |
 | --- | --- | --- |
 | `cases_dev.jsonl` | CIT-001 – CIT-020 | ladění promptů, validátorů a rubriky |
 | `cases_val.jsonl` | CIT-021 – CIT-030 | výběr kandidáta P3 |
-| `cases_test.jsonl` | CIT-031 – CIT-040 | **držená stranou** – otevřít až po zmrazení P3 (brána G2) |
+| `cases_test.jsonl` | CIT-031 – CIT-040 | původní **publikovaní kandidáti**, nelze garantovat utajení |
 
-**Autor promptu tento soubor neotevírá.** Správce dat ho po stažení balíčku přesune mimo sdílenou složku (hash zůstává
-v `PROTOCOL.md`) a vrátí ho až na bráně G2.
+Soubor byl commitnut do Git; pouhé přesunutí neodstraní historii ani neobnoví utajení. To není důkaz,
+že už je každý produkt kontaminovaný, ale původní soubor nelze prezentovat jako zaručeně skrytý.
+Nový skutečný holdout připraví nezávislý správce mimo repozitář; autor promptu jej před G2 neuvidí.
 Část otázek s protichůdnými zdroji rozpor záměrně nenaznačuje (kontrola, že P2 nezvýhodňuje jen navádění).
 
 Pro kontrolu bez otevření použijte `python3 scripts/validate_cases.py --no-test`
@@ -29,7 +32,8 @@ Pro kontrolu bez otevření použijte `python3 scripts/validate_cases.py --no-te
 | `user_prompt` | otázka, která se vloží do šablony promptu |
 | `context_or_files` | vždy prázdné (bez příloh) |
 | `expected_properties` | co musí dobrá odpověď splnit (pro hodnotitele) |
-| `reference_answer_or_tests` | `reference_answer`, `key_facts` (pro správnost 0–2), `gold_sources` (ověřené URL) |
+| `schema_version` | 2 pro revidované dev/val; nové soukromé testy musí použít stejné schéma |
+| `reference_answer_or_tests` | `reference_answer` (i kontext), `required_facts` (povinné; RF1…), `optional_facts` (bonus), `key_facts` (alias povinných), `gold_sources` (doklady k lidskému ověření) |
 | `edge_case_type` | `none`, `false_premise`, `conflicting_evidence`, `missing_info`, `ambiguous`, `time_constraint`, `recent_change`, `cz_en_mix` |
 | `evaluation_method` | lidská rubrika + automatická kontrola URL + shoda s referencí (u dynamických: ověření v den běhu) |
 | `source_or_provenance` | původ dotazu a datum ověření |
@@ -37,3 +41,5 @@ Pro kontrolu bez otevření použijte `python3 scripts/validate_cases.py --no-te
 | `rater_notes` | časté chyby a tolerance pro hodnotitele |
 
 Etika: žádné osobní údaje, důvěrná data, soukromé konverzace ani autorsky chráněné texty; jen veřejně dostupná fakta.
+Snapshoty zdrojů nejsou automaticky volně šiřitelné. Uchovat soukromě pro audit, krátké výňatky či vlastní popisy
+v source_evidence.csv; nezveřejňovat paywallový obsah. RUN_DAY evidence se přidává datovaně, ne přepisem reference.

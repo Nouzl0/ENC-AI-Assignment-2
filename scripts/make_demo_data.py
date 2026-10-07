@@ -52,7 +52,7 @@ def make_cases(rng):
                 "domain": DOMAINS[i % 5], "development_validation_test_split": split,
                 "user_prompt": "DEMO " + " ".join(rng.sample(WORDS, 6)) + f" {n}?",
                 "context_or_files": [], "expected_properties": ["demo"],
-                "reference_answer_or_tests": {"reference_answer": "demo", "key_facts": ["demo"],
+                "reference_answer_or_tests": {"reference_answer": "demo", "key_facts": ["demo1", "demo2", "demo3"],
                                               "gold_sources": [{"title": "demo", "publisher": "demo",
                                                                 "url": "http://127.0.0.1:8765/demo.html", "supports": "demo"}]},
                 "edge_case_type": edge, "evaluation_method": "demo",
@@ -124,8 +124,12 @@ def main():
                                           {"S1": "E3", "S0": "E2", "FAB": "E1"}.get(rating, "")})
                         prec = s2_total / n_cited if n_cited else 0
                         corr = "2" if rng.random() < 0.3 + 0.6 * prec else rng.choice(["0", "1"])
+                        supported_ids = [p["pair_id"] for p in pairs if p["blind_answer_id"] == bid and p["rating"] == "S2"]
+                        nk = min(3, round(3 * prec * rng.uniform(0.7, 1.1))) if supported_ids else 0
                         answers.append({"blind_answer_id": bid, "correctness": corr, "n_key_facts": 3, "n_claims": n_claims,
-                                        "key_facts_supported": min(3, round(3 * prec * rng.uniform(0.7, 1.1))),
+                                        "segmentation_reviewed": "yes",
+                                        "key_facts_supported": nk,
+                                        "key_fact_evidence": json.dumps({f"RF{i}": [supported_ids[0]] for i in range(1, nk + 1)}),
                                         "acknowledges_uncertainty": rng.choice(["yes", "no"]),
                                         "check_minutes": round(rng.uniform(3, 11), 1), "rater": "demo1"})
 
@@ -136,7 +140,7 @@ def main():
     pf = ["pair_id", "blind_answer_id", "claim_id", "citation_n", "rating", "source_tier", "time_ok",
           "error_code", "auto_match_ratio"]
     write_csv(os.path.join(ad, "pairs_rated.csv"), pairs, pf)
-    af = ["blind_answer_id", "correctness", "n_key_facts", "n_claims", "key_facts_supported", "acknowledges_uncertainty",
+    af = ["blind_answer_id", "correctness", "n_key_facts", "n_claims", "segmentation_reviewed", "key_facts_supported", "key_fact_evidence", "acknowledges_uncertainty",
           "check_minutes", "rater"]
     write_csv(os.path.join(ad, "answers_rated.csv"), answers, af)
     # rater 1 before reconciliation = final values here (demo); a real project keeps the raw file
