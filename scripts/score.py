@@ -9,7 +9,8 @@ Inputs (all CSV):
     annotation/<phase>/pairs_rated_rater1.csv, answers_rated_rater1.csv  rater 1 BEFORE reconciliation
     annotation/<phase>/pairs_rated_rater2.csv, answers_rated_rater2.csv  rater 2 (25 % subset)
 
-Outputs (results/): metrics.csv, hypotheses.csv, agreement.csv, report.md
+Outputs (private --out): metrics.csv, answer_metrics.csv, hypotheses.csv,
+agreement.csv, report.md. Production --final requires the G3-bound inputs.
 
 Definitions follow the frozen protocol:
     precision_a = #S2 explicit pairs / #explicit pairs (0 without explicit citations)
@@ -20,8 +21,8 @@ Definitions follow the frozen protocol:
     95 % CI: cluster bootstrap over cases (10 000 resamples, seed 2026); Wilson for binary shares.
 
 Usage:
-    python3 scripts/score.py
-    python3 scripts/score.py --runs "demo/runs/*.csv" --annotation-dir demo/annotation --out demo/results --focus sys_D
+    See HANDOFF.md for private G1/G2 exploratory and G3 final commands.
+    python3 scripts/make_demo_data.py  # disposable, synthetic integration test
 """
 import argparse
 import collections
@@ -250,6 +251,7 @@ def load_answers(runs, key, pairs, answers, cases, allow_missing, meta=None):
             "first_ok": (run.get("first_attempt_ok") or "").strip().lower(),
             "final_ok": run.get("final_attempt_ok", ""),
             "first_latency": to_float(run.get("first_attempt_latency_s")),
+            "cost_note": run.get("cost_note", ""),
             "errors": [code for _, code in sorted({(p["claim_id"], p.get("error_code", "").strip())
                         for p in rows if p.get("error_code", "").strip()})],
             "prompt_file": run.get("prompt_file", ""),
@@ -447,6 +449,7 @@ def main():
         lat = [a["latency"] for a in items if a["latency"] is not None]
         row["latency_median"] = statistics.median(lat) if lat else None
         row["latency_p90"] = quantile(lat, 0.9) if lat else None
+        row["latency_n"] = len(lat)
         row["retry_rate"] = mean([1 if a["retries"] > 0 else 0 for a in items])
         fo = [a for a in items if a["first_ok"] in {"yes", "no"}]
         row["first_attempt_success"] = sum(1 for a in fo if a["first_ok"] == "yes") / len(fo) if fo else None
@@ -456,15 +459,18 @@ def main():
         row["turns_mean"] = mean([a["turns"] for a in items])
         su = [a for a in items if a["search_used"] in {"yes", "no"}]
         row["search_used_share"] = sum(1 for a in su if a["search_used"] == "yes") / len(su) if su else None
+        row["search_used_n"] = len(su)
         row["sources_shown_mean"] = mean([a["sources_shown"] for a in items])
         row["tool_calls_mean"] = mean([a["tool_calls"] for a in items])
         fv = [a for a in items if a["format_valid"] in {"yes", "no"}]
         row["format_valid_share"] = sum(1 for a in fv if a["format_valid"] == "yes") / len(fv) if fv else None
         cm = [a["check_minutes"] for a in items if a["check_minutes"] is not None]
         row["check_minutes_median"] = statistics.median(cm) if cm else None
+        row["check_minutes_n"] = len(cm)
         metrics.append(row)
 
-    # utility (weights fixed in protocol): precision - 0.1*L_norm - 0.1*T_norm, within split x condition
+    # Exploratory annotation-effort index; preserve the historic utility CSV alias.
+    # Fixed weights: precision - 0.1*L_norm - 0.1*T_norm, within split x condition.
     by_sc = collections.defaultdict(list)
     for r in metrics:
         by_sc[(r["split"], r["condition"])].append(r)
@@ -478,6 +484,7 @@ def main():
                 r["utility"] = None          # missing latency or check time -> no utility (never a free pass)
             else:
                 r["utility"] = r["precision"] - 0.1 * r["latency_median"] / lmax - 0.1 * r["check_minutes_median"] / tmax
+            r["annotation_effort_index"] = r["utility"]  # Keep the historic CSV alias for compatibility.
             dominated = any(o is not r and o["precision"] is not None and r["precision"] is not None
                             and o["latency_median"] is not None and r["latency_median"] is not None
                             and o["precision"] >= r["precision"] and o["latency_median"] <= r["latency_median"]
@@ -506,7 +513,7 @@ def main():
         if not rows:
             continue
         report += [f"## Sada: {split}", "",
-                   "| Podmínka | Systém | Případů | Odpovědí | Citační přesnost % [95% CI] | Úplnost citací % | Pokrytí kl. faktů % | Správnost odpovědi % (Wilson) | FAB % | NA % | Tvrzení/odp. | Vyhledávání % | 1. pokus OK % | Medián latence s | Užitek | Pareto |",
+                   "| Podmínka | Systém | Případů | Odpovědí | Citační přesnost % [95% CI] | Úplnost citací % | Pokrytí kl. faktů % | Správnost odpovědi % (Wilson) | FAB % | NA % | Tvrzení/odp. | Vyhledávání % | 1. pokus OK % | Medián latence s | Explorační index | Pareto |",
                    "| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |"]
         for r in rows:
             report.append(f"| {r['condition']} | {r['system']} | {r['n_cases']} | {r['n_answers']} | {ci(r, 'precision')} | "
@@ -515,6 +522,20 @@ def main():
                           f"{fnum(r['search_used_share'], True)} | {fnum(r['first_attempt_success'], True)} | "
                           f"{fnum(r['latency_median'], digits=1)} | {fnum(r['utility'])} | {r['pareto']} |")
         report.append("")
+
+    report += ["## Provoz a lidská práce (první běhy)", "",
+               "| Sada/podmínka | Systém | Selhání | 1. pokus OK % | Konečný pokus OK % | Opakování % | Latence medián/p90 s | Anotace medián min (n) |",
+               "| --- | --- | --- | --- | --- | --- | --- | --- |"]
+    for r in metrics:
+        report.append(f"| {r['split']}/{r['condition']} | {r['system']} | {r['n_failed']} | {fnum(r['first_attempt_success'], True)} | "
+                      f"{fnum(r['final_attempt_success'], True)} | {fnum(r['retry_rate'], True)} | "
+                      f"{fnum(r['latency_median'], digits=1)}/{fnum(r['latency_p90'], digits=1)} | {fnum(r['check_minutes_median'], digits=1)} ({r['check_minutes_n']}) |")
+    report += ["", "Latence zahrnuje čekání na retry; check_minutes je čas anotace dokončených odpovědí, ne uživatelský čas oprav. "
+               "Explorační index = přesnost − 0,1×normovaná latence − 0,1×normovaný čas anotace; normalizace je vůči "
+               "maximu mediánů v sadě/podmínce, závisí na zvolených systémech a vahách. CSV utility je pouze historický alias. "
+               "Nejde o obecný užitek. Neznámá cena není nula; cost_note každého běhu je v answer_metrics.csv, "
+               "předplatné, mezní náklad a čas týmu je nutné ve zprávě odlišit. Vyhledávání % má ve jmenovateli jen yes/no "
+               "(počet search_used_n v metrics.csv), nikoli unknown/unclear.", ""]
 
     # ---------------- hypotheses (held-out test split only)
     hyp = []
@@ -543,9 +564,10 @@ def main():
         hyp.append({"hypothesis": "H1", "comparison": f"{args.focus} − průměr ostatních, P2, přesnost",
                     "estimate": fnum(p, digits=4), "ci_lo": fnum(lo, digits=4), "ci_hi": fnum(hi, digits=4),
                     "n_cases": len(diffs), "criterion": f">= {args.h1_margin} a CI nad 0",
+                    "ci_above_margin": "yes" if lo is not None and lo >= args.h1_margin else "no",
                     "supported": "yes" if supported else "no"})
     else:
-        report.append(f"H1 nelze vyhodnotit: systém {args.focus!r} nebo testovací data chybí.")
+        report.append("H1 není potvrzována: nutný G3 finální režim, úplná testová matice a předem určený focus.")
 
     if confirmatory:
         per_sys, case_diffs = {}, collections.defaultdict(list)
@@ -564,15 +586,16 @@ def main():
         hyp.append({"hypothesis": "H2", "comparison": "P2 − P1, průměr přes systémy, přesnost",
                     "estimate": fnum(p, digits=4), "ci_lo": fnum(lo, digits=4), "ci_hi": fnum(hi, digits=4),
                     "n_cases": len(avg), "criterion": f">= {args.h2_margin}, CI nad 0 a zlepšení u >= {need} systémů (zlepšeno: {improved}/{len(per_sys)})",
+                    "ci_above_margin": "yes" if lo is not None and lo >= args.h2_margin else "no",
                     "supported": "yes" if supported else "no"})
     for name in ("H1", "H2"):
         if not any(h["hypothesis"] == name for h in hyp):
             hyp.append({"hypothesis": name, "comparison": "", "estimate": "", "ci_lo": "", "ci_hi": "",
                         "n_cases": 0, "criterion": "; ".join(matrix_errors) or "G3 final mode required or missing focus system",
-                        "supported": "not_evaluable"})
+                        "ci_above_margin": "not_evaluable", "supported": "not_evaluable"})
 
     write_csv(os.path.join(args.out, "hypotheses.csv"), hyp,
-              ["hypothesis", "comparison", "estimate", "ci_lo", "ci_hi", "n_cases", "criterion", "supported"])
+              ["hypothesis", "comparison", "estimate", "ci_lo", "ci_hi", "n_cases", "criterion", "ci_above_margin", "supported"])
     if hyp:
         report += ["| Hypotéza | Porovnání | Odhad | 95% CI | Případů | Kritérium | Podpořena |",
                    "| --- | --- | --- | --- | --- | --- | --- |"]
@@ -580,6 +603,9 @@ def main():
             report.append(f"| {h['hypothesis']} | {h['comparison']} | {h['estimate']} | {h['ci_lo']}–{h['ci_hi']} | "
                           f"{h['n_cases']} | {h['criterion']} | {h['supported']} |")
         report.append("")
+    report += ["Podpora podle předem daného pravidla (bodový odhad ≥ margin a CI nad 0) **nedokazuje**, že skutečný rozdíl "
+               "dosahuje alespoň margin. Silnější otázku odděleně zachycuje ci_above_margin (dolní mez CI ≥ margin); "
+               "tato diagnostika nenahrazuje původní kritérium H1/H2.", ""]
 
     # ---------------- prompt portability
     if test:
@@ -623,7 +649,8 @@ def main():
             cz = mean(list(case_values([a for a in first_test if a["system"] == s and a["condition"] == "P2" and a["language"] == "cs"], "precision").values()))
             en = mean(list(case_values([a for a in first_test if a["system"] == s and a["condition"] == "P2" and a["language"] == "en"], "precision").values()))
             report.append(f"| {s} | {fnum(cz, True)} | {fnum(en, True)} |")
-        report.append("")
+        report += ["", "CZ a EN nejsou párované překlady týchž otázek a mohou se lišit doménou/obtížností; "
+                   "tabulka je deskriptivní, nikoli důkaz jazykové příčiny. cs+en je zahrnuto do CZ.", ""]
 
     # ---------------- run-to-run variability (test, P2, run_index 1..3)
     rep = [a for a in test if a["condition"] == "P2"]
@@ -635,7 +662,8 @@ def main():
             per_run, sd, flips, total = repeat_summary(items)
             report.append(f"| {s} | {total} | {' / '.join(fnum(x, True) for x in per_run)} | {fnum(sd, True)} | "
                           f"{fnum(flips, True)} |")
-        report.append("")
+        report += ["", "Opakování probíhají v pozdějším okně: variabilita směšuje náhodnost, změnu zdrojů i produktu; "
+                   "není čistým odhadem vnitřní stochastičnosti modelu.", ""]
 
     # ---------------- error codes
     codes = collections.defaultdict(collections.Counter)

@@ -405,7 +405,12 @@ def final_rating_problems(runs, annotation_dir, key_dir, cases):
             end = timestamp(run["datetime_end"])
             if not end <= checked <= end + dt.timedelta(days=7):
                 raise ValueError("source decision must be checked within 7 days after the run")
-            if not all(row.get(k) for k in ("evidence_url", "evidence_locator", "evidence_excerpt", "evidence_sha256")):
+            # A marker with no source has no URL to open. Its FAB decision still
+            # needs the original answer/check log as snapshot evidence of absence.
+            missing_source = (row.get("rating") == "FAB" and row.get("citation_n") not in {"", "*", None}
+                              and not row.get("url") and not row.get("source_line"))
+            if (not all(row.get(k) for k in ("evidence_locator", "evidence_excerpt", "evidence_sha256"))
+                    or (not missing_source and not row.get("evidence_url"))):
                 raise ValueError("missing source-decision evidence")
             artifact(row.get("evidence_snapshot"), row["evidence_sha256"])
         except ValueError as e:

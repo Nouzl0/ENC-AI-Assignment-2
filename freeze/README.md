@@ -35,7 +35,8 @@ odhalí to až nezávisle archivovaná původní kopie.
   `source_evidence.csv` má přesně RF/OF všech aktuálních úloh, `verified`, správnou hodnotu,
   URL, čas, locator, krátký úryvek nebo vlastní shrnutí a snapshot + SHA-256. Nové reference
   musí být skutečně ověřeny člověkem. `repeat_task_ids`, systémy a validační kandidáti jsou
-  předem stanovené; při 4 systémech je potřeba věcný důvod vyloučení, ne pouze menší pracnost.
+  předem stanovené; checked_at zdrojové kontroly nesmí následovat podpis G1.
+  Při 4 systémech je potřeba věcný důvod vyloučení, ne pouze menší pracnost.
   Zmrazí se protokol, rubrika, dev/val, soukromý test, P1/P2, zdrojové důkazy a hodnoticí kód.
 - **G2:** vývojová analýza, validační metriky a záznam volby vítěze se uloží jako důkazy.
   P3_final musí být přesná kopie vybraného předem plánovaného kandidáta v obou jazycích;
@@ -53,6 +54,11 @@ odhalí to až nezávisle archivovaná původní kopie.
   musí mít `rater` shodný v answer i pair řádcích. Provozní a source artefakty se zahashují.
   Časové odchylky 24/72/72 h se zachovají v manifestu a reportu; záznam odchylek je povinný
   i pokud uvádí „žádné“. Zdrojové rozhodnutí se dokládá do 7 dní po běhu.
+
+FAB explicitní značka bez URL i zdrojového záznamu může mít prázdné evidence_url;
+ostatní evidence je povinná: původní odpověď/log dokládající absenci, locator,
+shrnutí, čas, snapshot a hash. U FAB s uvedenou URL, NA a ostatních ratingů URL
+zůstává povinná. Nevymýšlet adresu jen pro průchod validátorem.
 
 ## Plány a anotace
 

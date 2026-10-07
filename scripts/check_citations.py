@@ -2,22 +2,25 @@
 """Parse recorded answers, run automated citation checks and build the blinded
 annotation sheets for human raters.
 
-Input: filled run plans (runs/run_plan_*.csv) and answer files (runs/answers/<run_id>.txt).
+Input: filled private run plans and recorded answer/artifact files outside Git.
 The parser accepts P2/P3 output as produced and common P1 formats: inline [n] markers,
 superscripts (¹²), markdown links [text](url), bold/markdown headings, bulleted or
 numbered source lists and bare URL lists (see runs/README.md).
 
-Output for raters (--out-dir, e.g. annotation/dev):
+Output for raters (--out-dir, e.g. "$WORK/annotation/dev"):
     answers_to_rate.csv, pairs_to_rate.csv                 rater 1 (all answers)
     answers_to_rate_rater2.csv, pairs_to_rate_rater2.csv   rater 2 (25 % stratified subset)
-Output for the data steward only (--key-dir, default annotation_key/):
+Output for the data steward only (--key-dir, e.g. "$WORK/key"):
     blind_key.csv      blind_answer_id -> run_id
     answers_meta.csv   format validity etc. (kept out of the raters' sheets)
     salt.txt           random salt for the blind IDs (created on first run, reused afterwards)
 
-Usage:
-    python3 scripts/check_citations.py --runs runs/run_plan_dev.csv --out-dir annotation/dev --offline
-    python3 scripts/check_citations.py --runs runs/run_plan_dev.csv --out-dir annotation/dev --retry-wait 600
+Production requires the plan's G1/G2, private output/key directories and original
+artifacts. Keys accumulate; exports cannot overwrite prior sheets or repeat run IDs.
+Usage (see HANDOFF.md for human rating/evidence steps):
+    python3 scripts/check_citations.py --freeze "$WORK/G1.json" --runs "$WORK/runs/run_plan_dev.csv" --out-dir "$WORK/annotation/dev" --key-dir "$WORK/key"
+--offline skips HTTP (not a completed automated content check). --pilot and
+--synthetic are explicit calibration/test modes, never confirmatory experiments.
 """
 import argparse
 import collections
@@ -321,7 +324,14 @@ def fetch(url, timeout):
                     "body": body, "truncated": truncated,
                     "published": published_date(raw) if "html" in ctype else "", "error": ""}
     except urllib.error.HTTPError as e:
-        return {**empty, "status": e.code, "error": f"HTTP {e.code}"}
+        try:
+            body = e.read(3_000_001)
+        except Exception:
+            body = b""
+        finally:
+            e.close()
+        return {**empty, "status": e.code, "final_url": e.geturl(), "error": f"HTTP {e.code}",
+                "body": body[:3_000_000], "truncated": len(body) > 3_000_000}
     except Exception as e:  # network errors, bad URLs, http.client errors: never crash the batch
         return {**empty, "error": f"{type(e).__name__}: {str(getattr(e, 'reason', e))[:120]}"}
 

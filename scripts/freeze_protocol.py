@@ -116,6 +116,11 @@ def prepare_manifest(config):
         for row in read_csv(inputs["source_evidence"]):
             if row.get("verified_by") != roles.get("reference_checker"):
                 problems.append("source evidence must name the declared independent reference checker")
+            try:
+                if timestamp(row.get("checked_at")) > signed:
+                    problems.append("G1 signed_at precedes reference verification checked_at")
+            except ValueError as e:
+                problems.append(f"source evidence checked_at: {e}")
         test_ids = {t for t, c in cases.items() if c["development_validation_test_split"] == "test"}
         if set(m["config"]["repeat_task_ids"]) - test_ids:
             problems.append("repeat_task_ids must belong to the new private holdout")

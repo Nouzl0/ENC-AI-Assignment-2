@@ -5,14 +5,14 @@ Each row is one planned run: case x condition x system x run index, with the ful
 rendered prompt to paste, its SHA-256 and empty metadata columns the operator fills in.
 The order of systems (and of conditions) is shuffled per case with a fixed seed.
 
-Usage:
-    python3 scripts/make_run_plan.py --phase dev
-    python3 scripts/make_run_plan.py --phase val
-    python3 scripts/make_run_plan.py --phase test     # requires prompts/P3_final_*.txt
-    python3 scripts/make_run_plan.py --phase repeat
-Options:
-    --systems chatgpt,gemini,claude,perplexity   (lean variant without grok)
-    --only CIT-031,CIT-032                       (subset, e.g. repeats on 5 cases)
+Production requires verified G1 for dev/val, G2 for test/repeat, and --out outside
+the Git worktree. Parameters/subsets come from the frozen config, not observed scores.
+Examples (data steward only; see HANDOFF.md for prerequisites):
+    python3 scripts/make_run_plan.py --phase dev --freeze "$WORK/G1.json" --out "$WORK/runs/run_plan_dev.csv"
+    python3 scripts/make_run_plan.py --phase test --freeze "$WORK/G2.json" --out "$WORK/runs/run_plan_test.csv"
+Calibration before G1 is separate:
+    python3 scripts/make_run_plan.py --pilot --phase dev --only CIT-001,CIT-002 --out "$WORK/calibration/pilot.csv"
+--synthetic is only for local DEMO-* fixtures and anonymous sys_* systems.
 """
 import argparse
 import hashlib

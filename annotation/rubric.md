@@ -1,6 +1,8 @@
 # Rubrika lidského hodnocení (v1.1, návrh před G1)
 
-**Ještě není zmrazená.** Kalibrace na 10 pilotních odpovědích z dev → G1. Po G1 nelze potichu měnit
+**Ještě není zmrazená.** Kalibrace na 2 dev úlohách × zahrnuté produkty (10 pilotních
+odpovědí standard / 8 při zdůvodněných 4 produktech), navíc před G1; po G1 nová celá dev sada.
+Po G1 nelze potichu měnit
 kritéria. Nutná změna = datovaná odchylka, nové hashe a jednotné přehodnocení všech dotčených odpovědí,
 nikoli pouze 25% dvojitě hodnoceného vzorku. Původní nezávislé ratingy uchovat.
 
@@ -55,7 +57,7 @@ Nejsou-li žádné explicitní dvojice, hlavní přesnost je 0. Značky do origi
 | --- | --- |
 | source_tier | 1 primární/oficiální; 2 renomovaný sekundární; 3 ostatní |
 | time_ok | yes/no u time_constraint; datum stránky ověřit člověkem, auto_published je jen nápověda |
-| evidence_url | Skutečně čtená URL; může být archiv/abstrakt téhož dokumentu. Změnu doložit. |
+| evidence_url | Skutečně čtená URL; může být archiv/abstrakt téhož dokumentu. Změnu doložit. Prázdné jen při FAB explicitní značce bez URL i zdrojového záznamu; nevymýšlet URL. |
 | evidence_checked_at | Datum a čas v ISO 8601 s časovým pásmem |
 | evidence_locator | Stránka PDF, odstavec, tabulka nebo oddíl; u S0 popis zkontrolovaného rozsahu |
 | evidence_excerpt | Krátký vlastní popis nebo nejvýše 25 slov z jednoho zdroje; respektovat práva |
@@ -66,6 +68,10 @@ Nejsou-li žádné explicitní dvojice, hlavní přesnost je 0. Značky do origi
 
 Doklad nedostupnosti je také důkaz (např. snímek 403), nikoli falešná pasáž. Snapshoty s copyrightem
 uchovat pro kontrolu soukromě, veřejný balíček nemusí zveřejňovat celý obsah stránky.
+U FAB značky bez zdroje musí locator a evidence_excerpt popsat chybějící [n] v originálu
+a jeho seznamu, evidence_snapshot + hash je skutečný doklad této absence (odpověď/log).
+Čas kontroly a všechny tyto doklady zůstávají povinné; prázdná URL není výjimka pro
+NA/S2 ani pro neexistující stránku s uvedenou URL. Tam zaznamenat kontrolovanou URL.
 
 ## 4. Odpověď a povinné vs. doplňkové fakty
 
@@ -90,7 +96,10 @@ Kotvy správnosti:
 - CIT-007: 2 = 12 % s odpovídajícím zdrojem; předchozí sazba ani nápoje nejsou povinné.
 
 Dynamické reference RUN_DAY ověří správce dat v den běhu **odděleným datovaným záznamem**
-(source_evidence.csv), včetně hodnoty, ukazatele a platnosti. Zmrazenou referenci nepřepisovat.
+(`run_day_evidence.csv`, šablona v annotation), přesně jeden řádek na RF/OF každé
+dokončené úlohy × UTC den. Včetně dev/val i různých repeat dnů: hodnota/ukazatel/platnost,
+URL, čas kontroly tentýž UTC den, locator, shrnutí/krátký úryvek a snapshot + SHA-256.
+Hodnotitel dostává odpovídající denní referenci; zmrazenou referenci nepřepisovat.
 
 ## 5. Kódy chyb (jednou za unikátní tvrzení a kód)
 
@@ -101,7 +110,8 @@ E8 obecná citace; E9 chybějící citace; E10 přijatý chybný předpoklad; E1
 ## 6. Kalibrace, nezávislost a neshody
 
 1. Pilot z dev, kotvy a kalibrace **před G1**. Pilotní výstupy po poslední změně rubriky znovu ohodnotit.
-2. Hodnotitel 1 hodnotí všechny dokončené odpovědi; hodnotitel 2 náhodný stratifikovaný vzorek ≥25 %.
+2. Hodnotitel 1 hodnotí všechny dokončené odpovědi; hodnotitel 2 náhodný stratifikovaný
+   vzorek ≥25 %, ceil v každém stratu fáze×produkt×podmínka. Předvybraná ID zachovat.
    Nikdo nehodnotí vlastní běhy; pro dvojité hodnocení a nerozhodnuté neshody zajistit externího hodnotitele,
    pokud dvoučlenný tým tyto role nezvládne oddělit. Po selhání bez odpovědi se nulové skóre odvozuje z manifestu.
 3. Nezávislé listy před diskusí uložit jako *_rated_rater1.csv / *_rated_rater2.csv a dál je neměnit.
@@ -110,8 +120,15 @@ E8 obecná citace; E9 chybějící citace; E10 přijatý chybný předpoklad; E1
    provést je bez znalosti ratingů a nové nezávislé hodnocení verzi označit; původní data archivovat mimo aktivní vstup.
 4. Kappa S2 vs ostatní cíl ≥0,6. Konstantní ratingy → kappa nedefinovaná (uvést surovou shodu a n).
    Nízká kappa po G1 je výsledek/limit, ne povolení přepsat jen problematický vzorek.
-5. Neshody zapsat do disagreements.csv; nerozhodnuté řeší třetí člověk. Teprve poté vznikají finální
-   pairs_rated.csv / answers_rated.csv. Finální konsenzus se nepoužije pro výpočet nezávislé shody.
+5. Kategorické neshody **i každou změnu final oproti raw1** zapsat do disagreements.csv
+   podle šablony, také při raw shodě nebo jediném hodnocení. Přesná raw/final hodnota,
+   field, resolution, resolved_by a note; nová/odebraná dvojice se audituje present=yes/no.
+   Různý vlastní check_minutes dvou lidí není neshoda, jeho změna ve final ale audit vyžaduje.
+   Nerozhodnuté řeší třetí člověk. Teprve poté vznikají finální pairs_rated.csv /
+   answers_rated.csv. Finální konsenzus se nepoužije pro výpočet nezávislé shody.
+6. Zdrojové rozhodnutí doložit do 7 dní po odpovědi. Zachovat čtyři původní exportované
+   *_to_rate*.csv beze změny; ratingy zapisovat do kopií. Klíč a jeho adresář hodnotitelům
+   nepředávat. Před G3 vyplnit audit/denní evidence, ne nahrazovat je prázdným headerem.
 
 ## Historie
 

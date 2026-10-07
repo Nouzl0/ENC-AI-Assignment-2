@@ -12,6 +12,7 @@ sys.path.insert(0, str(ROOT / "scripts"))
 import integrity
 import freeze_protocol
 import check_citations
+import score
 from common import load_all_cases, read_csv, sha256_file, write_csv
 from integrity import (bind_plan, private_path, run_artifact_problems, timestamp,
                        verify_freeze, verify_plans, write_json_new)
@@ -168,6 +169,34 @@ class IntegrityTests(unittest.TestCase):
             write_csv(annotation / "disagreements.csv", logs, list(logs[0]))
             self.assertEqual(integrity.final_rating_problems(runs, annotation, key, cases), [])
 
+    def test_missing_source_fab_needs_absence_evidence_not_an_invented_url(self):
+        with tempfile.TemporaryDirectory() as directory:
+            annotation, key, runs, cases, _, pairs = self.rating_fixture(directory)
+            snapshot = Path(directory, "missing-source.txt")
+            snapshot.write_text("Synthetic original answer cites [9]; source list only has [1].")
+            pairs[0].update(pair_id="A1-T1-9", citation_n="9", rating="FAB", url="", source_line="",
+                            evidence_url="", evidence_checked_at="2026-01-01T10:00:03+00:00",
+                            evidence_locator="original answer and complete source list",
+                            evidence_excerpt="Marker [9] has no source entry (synthetic test).",
+                            evidence_snapshot=str(snapshot), evidence_sha256=sha256_file(snapshot))
+
+            def save():
+                for name in ("pairs_rated", "pairs_rated_rater1"):
+                    write_csv(annotation / (name + ".csv"), pairs, list(pairs[0]))
+                write_csv(annotation / "pairs_rated_rater2.csv", [dict(pairs[0], rater="rater2")], list(pairs[0]))
+
+            save()
+            self.assertEqual(integrity.final_rating_problems(runs, annotation, key, cases), [])
+            for rating, url, line in (("S2", "", ""), ("NA", "", ""), ("FAB", "https://fixture.invalid", ""),
+                                      ("FAB", "", "[9] named source")):
+                with self.subTest(rating=rating, url=url, line=line):
+                    pairs[0].update(rating=rating, url=url, source_line=line)
+                    save()
+                    self.assertTrue(any("missing source-decision evidence" in e for e in integrity.final_rating_problems(runs, annotation, key, cases)))
+            pairs[0].update(rating="FAB", url="", source_line="", evidence_excerpt="")
+            save()
+            self.assertTrue(any("missing source-decision evidence" in e for e in integrity.final_rating_problems(runs, annotation, key, cases)))
+
     def test_run_day_requires_exact_facts_current_utc_date_and_content(self):
         with tempfile.TemporaryDirectory() as directory:
             annotation, key, runs, cases, _, _ = self.rating_fixture(directory)
@@ -257,10 +286,19 @@ class IntegrityTests(unittest.TestCase):
                 write_csv(config["inputs"]["source_evidence"], rows, list(rows[0]))
                 with self.assertRaisesRegex(ValueError, "missing verified evidence"):
                     prepare_manifest(config)
+                rows[0].update(verification_status="verified", checked_at="2099-01-01T00:00:00+00:00")
+                write_csv(config["inputs"]["source_evidence"], rows, list(rows[0]))
+                with self.assertRaisesRegex(ValueError, "G1 signed_at precedes reference verification"):
+                    prepare_manifest(config)
+                # Same instant as G1 in another timezone is valid, not a future check.
+                rows[0]["checked_at"] = "2026-01-01T01:00:00+01:00"
+                write_csv(config["inputs"]["source_evidence"], rows, list(rows[0]))
+                self.assertEqual(prepare_manifest(config)["gate"], "G1")
 
     def test_g2_g3_chain_and_failed_runs_roundtrip(self):
         with tempfile.TemporaryDirectory() as directory:
             repo, private, config = self.make_g1_fixture(directory)
+            config["config"]["focus"] = "chatgpt"  # Prespecified alternate focus, never chosen from scores.
             for name in ("P3A_candidate", "P3B_candidate", "P3_final"):
                 for lang in ("cs", "en"):
                     (repo / "prompts" / f"{name}_{lang}.txt").write_text("synthetic candidate {user_prompt}")
@@ -302,6 +340,24 @@ class IntegrityTests(unittest.TestCase):
                 g3config["inputs"] = dict(run_plans=plans, annotation_dir=str(annotation), key_dir=str(key), deviations_record=str(log))
                 g3 = str(private / "G3.json")
                 write_json_new(g3, prepare_manifest(g3config))
+                self.assertEqual(verify_freeze(g3)["gate"], "G3")
+                # Exercise the actual final scoring entry point in the isolated
+                # fake repo, never approve gates or create results in the worktree.
+                result = private / "final-results"
+                argv = ["score.py", "--final", "--freeze", g3,
+                        "--runs", str(private / "run_plan_*.csv"),
+                        "--annotation-dir", str(annotation), "--key-dir", str(key),
+                        "--data-dir", str(repo / "data"), "--prompts-dir", str(repo / "prompts"),
+                        "--out", str(result), "--focus", config["config"]["focus"]]
+                with patch.object(score, "ROOT", str(repo)), patch.object(score, "PROMPTS", str(repo / "prompts")), patch.object(sys, "argv", argv):
+                    score.main()
+                per_run = read_csv(result / "answer_metrics.csv")
+                self.assertEqual(len(per_run), 500)
+                self.assertTrue(all(r["run_status"] == "failed" and float(r["precision"]) == 0 for r in per_run))
+                hypotheses = read_csv(result / "hypotheses.csv")
+                self.assertEqual([h["supported"] for h in hypotheses], ["no", "no"])
+                self.assertEqual([h["ci_above_margin"] for h in hypotheses], ["no", "no"])
+                self.assertEqual([int(h["n_cases"]) for h in hypotheses], [10, 10])
                 self.assertEqual(verify_freeze(g3)["gate"], "G3")
                 log.write_text("changed outage artifact")
                 with self.assertRaisesRegex(ValueError, "frozen file changed"):

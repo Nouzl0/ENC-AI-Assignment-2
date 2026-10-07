@@ -1,80 +1,110 @@
-# Jak spustit a zaznamenat běh
+# Sběr a metadata skutečného běhu
 
-Každý řádek `run_plan_<fáze>.csv` = jeden běh. Plán vytvoří `python3 scripts/make_run_plan.py --phase <dev|val|test|repeat>`.
-Řádky jděte **v pořadí `seq`** (pořadí systémů a podmínek je náhodně zamíchané).
-Existující plán skript nepřepíše. Pracujte s původním plánem, nemažte neúspěšné řádky.
+Plán vytvoří správce mimo Git, `--phase dev|val --freeze G1` nebo
+`--phase test|repeat --freeze G2`, vždy `--out` s absolutní soukromou cestou.
+Viz HANDOFF.md. Pilot je zvlášť s `--pilot`, není součástí analytického dev.
+CSV a `.manifest.json` před měřením nezávisle archivovat; **nepřepisovat plán**.
+Řádky procházet v pořadí seq, nikoli podle očekávaného výkonu produktu.
 
-## Stav běhu a provozní úspěšnost
+## Před sběrem
 
-- `run_status=planned`: dosud neprovedeno; nelze zahrnout do finálního hodnocení.
-- `completed`: vznikla konečná odpověď, i když je chybná, odmítavá, bez citací nebo ve špatném formátu. Hodnotí se běžně.
-- `failed`: po povoleném opakování nevznikla odpověď kvůli `tool_error`, `rate_limit`, `timeout` nebo `product_outage`.
-  Běh **zůstává v jmenovateli**: přesnost, úplnost, správnost a pokrytí = 0. Není nutné vytvářet fiktivní odpověď.
-- `excluded`: pouze dokumentovaná chyba operátora (`student_error`), s náhradním správným během. Bez náhrady je matice neúplná.
+Ověřit skutečnou dostupnost/nastavení všech produktů: stejná úroveň účtu kde možné,
+nový chat bez paměti/personalizace/vlastních instrukcí, žádný Deep Research, stejný
+prohlížeč/síť/region. Snímky nastavení a viditelné modely uložit do soukromého setup
+záznamu přiloženého k pilot_record. Názvy UI přepínačů jsou proměnlivé, nezaměnit
+zamýšlené tool_permissions z plánu za důkaz, že se vyhledávání skutečně použilo.
+Nedostupný nástroj nebo nutný odlišný účet vyřešit a zdůvodnit před G1.
 
-`first_attempt_ok` a `final_attempt_ok` (yes/no) znamenají **vznik odpovědi**, nikoli její věcnou správnost.
-`first_attempt_latency_s` měří první pokus. `latency_s` je čas od prvního odeslání do konečného výsledku,
-**včetně čekání na opakování**. `datetime_start/end` ohraničují stejný interval.
-Při `retries=1` vyplňte `attempt1_file` a uchovejte první odpověď nebo textový protokol chyby/výpadku.
-Neznámý údaj neodhadujte. Automatická kontrola zastaví chybějící konečné stavy a nekonzistentní metadata.
+## Jeden řádek = jeden analytický běh
 
-## Před prvním během (jednou)
+1. Nový chat, vložit **přesný prompt_text**. Neměnit question, condition, pořadí ani
+   systém. prompt_file/prompt_sha256/rendered_prompt_sha256 jsou kontrolované.
+2. Spustit čas při prvním odeslání. Zastavit po konečné odpovědi nebo konečném selhání.
+   Při doptání max. jednou odpovědět pouze „Pokračujte podle svého nejlepšího úsudku.“
+   / „Proceed using your best judgment.“ podle jazyka, turns=2, čas pokračuje.
+3. Uložit původní text/export jako raw_answer_file, snímek celé odpovědi/zdrojového
+   panelu jako screenshot_file, share_link pokud existuje. Uchovat i pokus 1 při retry.
+4. Normalizovaný text uložit do **předem daného answer_file**. Převádět pouze skutečné
+   odkazy/čipy na [n] a seznam zdrojů, neměnit obsah, nedoplňovat neexistující atribuci.
+5. Vyplnit konečný stav a metadata, spočítat SHA-256 souborů (např. `sha256sum <cesta>`).
+   Všechny artefaktové cesty mají být absolutní, existující, mimo Git.
 
-1. Pro každý systém nový účet na stejné úrovni předplatného (výchozí: bezplatná).
-2. Vypnout paměť, personalizaci, vlastní instrukce, bio a styly (viz tabulka v návrhu projektu).
-3. Stejný prohlížeč, česká síť, čeština rozhraní. Pořídit snímek obrazovky nastavení každého systému (`runs/screenshots/setup_<systém>.png`).
+## Pole
 
-## Jeden běh
+| Pole | Vyplnění |
+| --- | --- |
+| run_status | planned / completed / failed / excluded podle pravidel níže |
+| model_visible, plan_tier | skutečně viditelné označení/úroveň; výslovně unknown, pokud údaj UI nedává |
+| datetime_start, datetime_end | ISO-8601 **s offsetem**, např. 2026-10-12T14:03:00+02:00; žádné neurčité lokální časy |
+| latency_s | celý interval od prvního odeslání do konečného výsledku, včetně čekání na retry/doptání |
+| first_attempt_latency_s | první pokus, bez čekání na pozdější opakování |
+| first_attempt_ok, final_attempt_ok | yes/no = vznik odpovědi, ne správnost jejího obsahu |
+| retries | 0 nebo 1, pouze provozní retry; opakování fáze repeat je run_index, ne retries |
+| failure_type | none, model_output, invalid_format, tool_error, rate_limit, timeout, product_outage; zvlášť chyba operátora |
+| search_used | yes/no/unclear podle viditelného průběhu, ne podle dojmu z odpovědi |
+| n_sources_shown, tool_calls_visible | nezáporný celý počet nebo unknown; ne nula místo neznámého |
+| turns | 1 nebo 2; zdůvodnit standardní doptání v notes |
+| operator | skutečná stabilní identita operátora, odlišná od jeho hodnotitelů |
+| manual_intervention | none nebo konkrétní popis povolené normalizace/doptání/chyby; nepřepisovat obsah |
+| cost_note | skutečný mezní poplatek + měna/metoda, nebo unknown; předplatné samostatně, čas týmu zvlášť |
+| share_link, notes | odkaz pokud možný, datované odchylky a kontext; ne osobní údaje/tokeny |
+| answer_sha256 | hash normalizovaného answer_file pro completed |
+| raw_answer_file, raw_answer_sha256 | původní text/export pro completed; může být tentýž soubor, pokud nebyla normalizace |
+| screenshot_file, screenshot_sha256 | snímek odpovědi/zdrojů, nebo chyby; pro všechny konečné stavy |
+| attempt1_file, attempt1_sha256 | zachovaný první neúspěšný pokus při retries=1 |
+| failure_artifact_file, failure_artifact_sha256 | původní protokol/snímek chyby při failed/excluded |
+| replacement_run_id, replaces_run_id | svázaná náhrada chyby operátora, nikdy výmaz původního řádku |
 
-1. Otevřete **nový chat v režimu bez paměti** (Temporary / Incognito / Private chat). Hloubkový výzkum nechte vypnutý. U ChatGPT zapněte nástroj Search, u Claude přepínač Web search (pokud ho rozhraní má).
-2. Zkopírujte celý text ze sloupce `prompt_text` a vložte ho beze změny.
-3. Spusťte stopky při odeslání, zastavte je, když systém dopíše odpověď → `latency_s`.
-4. Pokud se systém doptá, odpovězte jen: „Pokračujte podle svého nejlepšího úsudku." a zapište `turns = 2`.
-5. Uložte **snímek obrazovky** (`runs/screenshots/<run_id>.png`) a pokud jde, **odkaz na sdílení** (`share_link`).
-6. Uložte **odpověď** do `runs/answers/<run_id>.txt` (formát níže).
-7. Vyplňte metadata v řádku: `model_visible` (název modelu, který rozhraní ukazuje), `plan_tier`, `datetime_start` a `datetime_end` (Europe/Prague, `2026-10-12 14:03`), `search_used` (yes/no/unclear), `n_sources_shown`, `turns`, `tool_calls_visible` (počet zobrazených vyhledávání, pokud je rozhraní ukazuje), `retries`, `failure_type`, `first_attempt_ok`, `manual_intervention`, `operator`, `cost_note`, `notes`.
+Pokud raw a normalizovaný hash nejsou stejné, manual_intervention nemůže být none.
+Čas konce nesmí předcházet začátku, celková latence odpovídá intervalu (tolerance 5 s).
+Neznámé provozní počty jsou unknown; časy, konečné stavy a artefakty neodhadovat.
+Při chybě evidence nejdřív napravit dokumentaci, ne zapsat „0“ nebo vynechat běh.
 
-## Formát souboru s odpovědí
+## Stavy a selhání
 
-- P2/P3 odpovědi mají formát už z promptu – zkopírujte je celé.
-- P1 odpovědi **normalizujte**: vložené odkazy nebo „čipy" se zdroji nahraďte značkami `[1]`, `[2]` v místě, kde byly, a na konec přidejte seznam zdrojů. Text odpovědi neměňte.
+- **completed:** konečná odpověď existuje. I věcná chyba, odmítnutí, chybějící citace
+  nebo invalid_format se běžně hodnotí; **neopakovat za účelem lepšího výsledku**.
+- **failed:** konečná provozní chyba bez odpovědi; zůstává v matici, přesnost/úplnost/
+  správnost/pokrytí=0. Nevyrábět falešnou odpověď nebo anotaci.
+- **excluded:** pouze doložený student_error; původní řádek uchovat, stejné experimentální
+  pole s novým run_id, seq a answer_file v náhradním řádku. Oba odkazy vyplnit,
+  náhrada completed/failed. Bez náhrady G3 odmítne neúplnou matici.
+- **planned:** ještě neprovedeno; finální analýza je nepřijme.
 
-```text
-První zprávu přes ARPANET („lo“) odeslali 29. 10. 1969 z UCLA do SRI [1]. Systém spadl po dvou písmenech [1][2].
+| Provozní typ | Povolené opakování (nejvýše jedno) |
+| --- | --- |
+| tool_error | ihned |
+| timeout | žádná odpověď do 180 s; opakovat ihned |
+| rate_limit, product_outage | jednou v rámci 24h okna, uchovat čekání v latency_s |
+| model_output, invalid_format | ne, completed a běžný rating |
 
-ZDROJE:
-[1] The Day the Infant Internet Uttered its First Words – https://www.lk.cs.ucla.edu/internet_first_words.html
-[2] The First Message Transmission – https://www.icann.org/en/blogs/details/the-first-message-transmission-29-10-2019-en
-```
+Při retries=1 musí první pokus být neúspěšný a zachovaný v attempt1_file; první/konečné
+latence a úspěšnosti zůstávají oddělené. Úspěšné zotavení má completed/final=yes,
+ale zachovává typ první provozní chyby a first=no. Při retries=0 se first/final shodují.
+Pokud artefaktové záznamy potřebují opravu (evaluation_error), dát důvod do notes a
+verzovaného auditu; není to nová produktová odpověď ani důvod k selektivnímu vyloučení.
 
-Skript si poradí i s běžnými variantami (tučné nadpisy, `### Zdroje`, číslovaný nebo odrážkový seznam zdrojů, holé URL,
-markdown odkazy `[text](url)`, horní indexy ¹²). Po spuštění `check_citations.py` zkontrolujte sloupec `parsed_sources`
-v `answers_to_rate.csv`; pokud zdroje chybí, opravte soubor s odpovědí a skript spusťte znovu (ID odpovědí se nezmění).
+## Normalizace a export
 
-- Pokud systém zdroje jen vypíše na konci bez značek v textu, značky **nepřidávejte** – jen seznam `ZDROJE:`. Skript takové citace označí jako nepřiřazené.
-- URL berte z panelu zdrojů nebo z exportu (Perplexity/Gemini export do PDF/Markdown), celé, bez zkracování.
+P1 může mít markdown odkazy, horní indexy nebo zdrojové čipy. Normalizace zachovává
+místo skutečné atribuce a celé URL; původní export+screenshot jsou autoritativní.
+Seznam bez přiřazení k tvrzení ponechat bez značek, parser vytvoří diagnostické `*`.
+P2/P3 kopírovat celé, nejen seznam CLAIMS/TVRZENÍ. Parser nemá limit osmi tvrzení;
+člověk kontroluje všechny části, složené výroky, významové duplicity a quote evidence.
 
-## Selhání
+Po `check_citations.py` zkontrolovat parsed_sources. Chyba parseru se řeší **auditovanou
+novou verzí workspace/exportu** se zachováním původních souborů, nikoli přepsáním
+zahashovaných listů, mazáním soli nebo opětovným exportem stejných ID do stejného klíče.
+Nelze tajně přečíslovat citace nebo doplnit zdroj, který produkt vůbec necitoval.
 
-| `failure_type` | Kdy | Opakovat? |
-| --- | --- | --- |
-| `none` | Běh proběhl | — |
-| `model_output` | Odmítnutí, odpověď bez citací, zjevná halucinace | Ne – hodnotí se |
-| `invalid_format` | P2/P3 odpověď nedodrží formát | Ne – hodnotí se |
-| `tool_error` | „Vyhledávání se nezdařilo" | 1× ihned |
-| `rate_limit` | Vyčerpaný limit | 1× do 24 h |
-| `timeout` | Bez odpovědi do 180 s | 1× ihned |
-| `product_outage` | Chyba serveru, výpadek | 1× v rámci 24h okna |
-| `student_error` | Špatný prompt, zapnutý hloubkový výzkum | Spustit znovu správně; po opakování zapsat `student_error_rerun` (nepočítá se systému, `retries` nezvyšovat) |
-| `evaluation_error` | Chyba při zápisu | Opravit záznam |
+Hodnotitelům předat jen jejich 2 listy. key_dir nesmí být uvnitř složky předávané
+hodnotitelům; sůl, klíč, format metadata, batch manifesty, run plány a výsledky zůstávají
+u správce. Doporučení: oddělené adresáře `$WORK/annotation` a `$WORK/key`.
 
-Při opakování: původní pokus **nemažte**. Uložte ho jako `runs/answers/<run_id>__attempt1.txt` (a snímek `<run_id>__attempt1.png`),
-odpověď z posledního pokusu jako `runs/answers/<run_id>.txt`. Do `retries` zapište počet opakování, do `first_attempt_ok` `no`
-a do `notes` popis prvního pokusu. Úspěšnost na první pokus i po opakování vykazuje `score.py` zvlášť.
-Po úspěšném opakování nastavte `run_status=completed`, `final_attempt_ok=yes`; typ první chyby a čas zůstanou v metadatech.
+## Časy a odchylky
 
-## Časová okna
-
-- Jeden případ projde všemi systémy během 24 hodin.
-- Celá testovací sada (fáze `test`) do 72 hodin; opakování (`repeat`) v následujících 72 hodinách.
-- Hodnocení do 7 dní od běhu (web se mění).
+Každá úloha napříč systémy/podmínkami do 24 h, fáze test do 72 h; repeat v následujících
+72 h po konci testu. Zdrojové ratingy do 7 dnů od odpovědi. RUN_DAY reference pokrývají
+všechny RF/OF každého potřebného dne v UTC, včetně dev/val, ne pouze testu.
+G3 zachová porušení časových oken v manifestu/reportu; odchylka a dopad jsou povinné,
+nikoli změna časových razítek tak, aby validátor „vyšel“.

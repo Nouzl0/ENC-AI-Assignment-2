@@ -2,13 +2,14 @@
 """Validate the benchmark cases: schema, split sizes, stratification, edge-case share,
 test/dev near-duplicates and SHA-256 hashes.
 
-It never prints the content of test cases, only IDs and aggregate counts, so the
-prompt author can run it without seeing the held-out set.
+By default it opens only dev/val. A steward can opt in to a private holdout;
+output contains IDs/aggregates, not questions, but the process must read the file.
+This is a schema/overlap check, not access control or independent fact verification.
 
 Usage:
-    python3 scripts/validate_cases.py            # validate all splits
-    python3 scripts/validate_cases.py --no-test  # skip the held-out file entirely
-    python3 scripts/validate_cases.py --write-hashes
+    python3 scripts/validate_cases.py --no-test  # public dev/val only (also default)
+    python3 scripts/validate_cases.py --test-file "$WORK/holdout.jsonl"  # steward only
+--write-hashes writes a checksum listing; it does not create or approve G1.
 """
 import argparse
 import collections
