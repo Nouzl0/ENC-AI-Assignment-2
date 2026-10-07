@@ -38,6 +38,18 @@ Nejistota: klastrový bootstrap podle případů (10 000, seed 2026), párový b
 SD mezi 3 běhy P2, Cohenova kappa mezi hodnoceními **před smířením** (cíl ≥ 0,6 pro S2 vs. ostatní), shoda v dělení na tvrzení.
 Dělení na tvrzení: stejná pravidla pro všechny podmínky (rubrika §1).
 
+### Upřesnění před G1: integrita analýzy
+
+Hlavní tabulky a párová porovnání používají pouze **běh 1** všech podmínek. Opakování P2 jsou oddělená
+analýza stability; SD a podíl změn správnosti používají výhradně společné případy všech opakovaných běhů.
+Provozní selhání bez odpovědi jsou nulové skóre, nikoli chybějící pozorování (viz `runs/README.md`).
+Hypotézy vyžadují ≥ 40 úloh, ≥ 10 testovacích úloh a úplnou matici P1/P2/P3 × předem určené ≥ 4 systémy.
+`score.py --systems ...` musí odpovídat předem schválenému seznamu, ne seznamu systémů, které odpověděly.
+Režim `--allow-missing` vyloučí celou nekompletně hodnocenou odpověď a nikdy nepotvrdí hypotézu.
+Duplicitní identifikátory jsou chyba, ne další měření. Chybové kódy se počítají jednou za tvrzení a kód
+(včetně E9 bez citace). Kappa při jediné konstantní kategorii je nedefinovaná; nesrovnatelné segmentace
+jsou vykázány mimo kappu, ne potichu sloučeny. Finální konsenzus nikdy nenahrazuje nezávislé ratingy pro IRR.
+
 ## Plán běhů
 
 | Fáze | Sada | Podmínky | Běhy | Odpovědí (5 systémů) |

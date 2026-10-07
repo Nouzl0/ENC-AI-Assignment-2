@@ -59,10 +59,18 @@ def main():
         for lang in ("cs", "en"):
             load_prompt("P3", lang, args.prompts_dir)
     systems = [s.strip() for s in args.systems.split(",") if s.strip()]
+    if not systems or len(set(systems)) != len(systems) or set(systems) - set(SYSTEMS):
+        raise SystemExit("--systems must contain unique known product identifiers")
     cases = load_cases(split, args.data_dir)
     if args.only:
         keep = {t.strip() for t in args.only.split(",")}
+        unknown = keep - {c["task_id"] for c in cases}
+        if unknown:
+            raise SystemExit(f"unknown task IDs: {sorted(unknown)}")
         cases = [c for c in cases if c["task_id"] in keep]
+    out = args.out or os.path.join(ROOT, "runs", f"run_plan_{args.phase}.csv")
+    if os.path.exists(out):
+        raise SystemExit(f"Refusing to overwrite {out}; preserve the existing plan/metadata")
     rng = random.Random(f"{args.seed}-{args.phase}")
 
     rows, seq = [], 0
@@ -90,12 +98,12 @@ def main():
                         "context_files": "žádné", "temperature": "výchozí, nenastavitelné",
                         "max_output": "výchozí", "answer_file": f"runs/answers/{run_id}.txt",
                         "prompt_text": rendered,
+                        "run_status": "planned",
                     }
                     for col in META_FILL_COLUMNS:
                         row.setdefault(col, "")
                     rows.append(row)
 
-    out = args.out or os.path.join(ROOT, "runs", f"run_plan_{args.phase}.csv")
     write_csv(out, rows, COLUMNS)
     print(f"{len(rows)} planned runs -> {out}")
     shas = sorted({(r['prompt_file'], r['prompt_sha256']) for r in rows})

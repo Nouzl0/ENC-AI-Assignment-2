@@ -2,6 +2,21 @@
 
 Každý řádek `run_plan_<fáze>.csv` = jeden běh. Plán vytvoří `python3 scripts/make_run_plan.py --phase <dev|val|test|repeat>`.
 Řádky jděte **v pořadí `seq`** (pořadí systémů a podmínek je náhodně zamíchané).
+Existující plán skript nepřepíše. Pracujte s původním plánem, nemažte neúspěšné řádky.
+
+## Stav běhu a provozní úspěšnost
+
+- `run_status=planned`: dosud neprovedeno; nelze zahrnout do finálního hodnocení.
+- `completed`: vznikla konečná odpověď, i když je chybná, odmítavá, bez citací nebo ve špatném formátu. Hodnotí se běžně.
+- `failed`: po povoleném opakování nevznikla odpověď kvůli `tool_error`, `rate_limit`, `timeout` nebo `product_outage`.
+  Běh **zůstává v jmenovateli**: přesnost, úplnost, správnost a pokrytí = 0. Není nutné vytvářet fiktivní odpověď.
+- `excluded`: pouze dokumentovaná chyba operátora (`student_error`), s náhradním správným během. Bez náhrady je matice neúplná.
+
+`first_attempt_ok` a `final_attempt_ok` (yes/no) znamenají **vznik odpovědi**, nikoli její věcnou správnost.
+`first_attempt_latency_s` měří první pokus. `latency_s` je čas od prvního odeslání do konečného výsledku,
+**včetně čekání na opakování**. `datetime_start/end` ohraničují stejný interval.
+Při `retries=1` vyplňte `attempt1_file` a uchovejte první odpověď nebo textový protokol chyby/výpadku.
+Neznámý údaj neodhadujte. Automatická kontrola zastaví chybějící konečné stavy a nekonzistentní metadata.
 
 ## Před prvním během (jednou)
 
@@ -56,6 +71,7 @@ v `answers_to_rate.csv`; pokud zdroje chybí, opravte soubor s odpovědí a skri
 Při opakování: původní pokus **nemažte**. Uložte ho jako `runs/answers/<run_id>__attempt1.txt` (a snímek `<run_id>__attempt1.png`),
 odpověď z posledního pokusu jako `runs/answers/<run_id>.txt`. Do `retries` zapište počet opakování, do `first_attempt_ok` `no`
 a do `notes` popis prvního pokusu. Úspěšnost na první pokus i po opakování vykazuje `score.py` zvlášť.
+Po úspěšném opakování nastavte `run_status=completed`, `final_attempt_ok=yes`; typ první chyby a čas zůstanou v metadatech.
 
 ## Časová okna
 

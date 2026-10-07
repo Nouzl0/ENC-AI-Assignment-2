@@ -3,6 +3,7 @@ import csv
 import glob
 import hashlib
 import json
+import math
 import os
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -47,6 +48,7 @@ EDGE_TYPES = {"none", "false_premise", "conflicting_evidence", "missing_info", "
 RATINGS = {"S2", "S1", "S0", "NA", "FAB"}
 
 META_FILL_COLUMNS = [
+    "run_status", "final_attempt_ok", "attempt1_file", "first_attempt_latency_s",
     "model_visible", "plan_tier", "datetime_start", "datetime_end", "latency_s",
     "search_used", "n_sources_shown", "turns", "tool_calls_visible", "retries",
     "failure_type", "first_attempt_ok", "manual_intervention", "share_link",
@@ -54,6 +56,87 @@ META_FILL_COLUMNS = [
 ]
 FAILURE_TYPES = {"", "none", "model_output", "invalid_format", "tool_error", "rate_limit",
                  "timeout", "product_outage", "student_error", "student_error_rerun", "evaluation_error"}
+RUN_STATUSES = {"planned", "completed", "failed", "excluded"}
+OPERATIONAL_FAILURES = {"tool_error", "rate_limit", "timeout", "product_outage"}
+
+
+def finite_number(value):
+    """CSV numeric value, or None (never NaN/inf)."""
+    try:
+        number = float(str(value).replace(",", "."))
+        return number if math.isfinite(number) else None
+    except (TypeError, ValueError):
+        return None
+
+
+def unique_index(rows, field, label):
+    """Fail closed: duplicate identifiers must never silently overwrite a row."""
+    out = {}
+    for row in rows:
+        value = row.get(field, "")
+        if not value or value in out:
+            raise ValueError(f"{label}: missing or duplicate {field}={value!r}")
+        out[value] = row
+    return out
+
+
+def validate_pair_rows(rows, label):
+    unique_index(rows, "pair_id", label)
+    identities = set()
+    for row in rows:
+        cit = (row.get("citation_n") or "").strip()
+        if cit not in {"", "*"}:
+            if not cit.isdigit() or int(cit) < 1:
+                raise ValueError(f"{label}: invalid citation_n={cit!r}")
+            cit = str(int(cit))
+        identity = (row.get("blind_answer_id"), row.get("claim_id"), cit)
+        if not all(identity[:2]) or identity in identities:
+            raise ValueError(f"{label}: duplicate or missing claim-citation identity: {identity}")
+        identities.add(identity)
+
+
+def run_problems(row, require_terminal=True):
+    """Validate outcome and numeric fields without consulting model answers."""
+    errors = []
+    status = row.get("run_status", "")
+    failure = row.get("failure_type", "")
+    for field in ("run_id", "task_id", "system", "condition", "split"):
+        if not row.get(field):
+            errors.append(f"missing {field}")
+    if status not in RUN_STATUSES or (require_terminal and status == "planned"):
+        errors.append(f"run_status={status!r}; expected a terminal outcome")
+    if failure not in FAILURE_TYPES:
+        errors.append(f"unknown failure_type={failure!r}")
+    if status == "excluded" and failure != "student_error":
+        errors.append("only documented student_error can be excluded; replacement is required")
+    if status == "failed" and failure not in OPERATIONAL_FAILURES:
+        errors.append("failed requires a terminal operational failure")
+    if status == "completed" and (not row.get("answer_file") or failure in {"student_error", "evaluation_error"}):
+        errors.append("completed requires an answer_file and a valid final attempt")
+    ri = finite_number(row.get("run_index"))
+    if ri is None or ri < 1 or not ri.is_integer():
+        errors.append("run_index must be a positive integer")
+    if status in {"completed", "failed"}:
+        for field in ("latency_s", "first_attempt_latency_s", "retries"):
+            number = finite_number(row.get(field))
+            if number is None or number < 0 or (field == "retries" and number not in {0, 1}):
+                errors.append(f"invalid {field} (finite, nonnegative; retries <= 1)")
+        if row.get("first_attempt_ok") not in {"yes", "no"}:
+            errors.append("first_attempt_ok must be yes/no")
+        if row.get("final_attempt_ok") != ("yes" if status == "completed" else "no"):
+            errors.append("final_attempt_ok contradicts run_status")
+        retry = finite_number(row.get("retries"))
+        if retry == 0 and row.get("first_attempt_ok") != row.get("final_attempt_ok"):
+            errors.append("without a retry, first and final outcomes must match")
+        if retry == 1:
+            if not row.get("attempt1_file"):
+                errors.append("retry requires an attempt1_file (including an outage log)")
+            if row.get("first_attempt_ok") != "no" or failure not in OPERATIONAL_FAILURES:
+                errors.append("retry only follows a failed first attempt with an operational failure")
+        first, total = finite_number(row.get("first_attempt_latency_s")), finite_number(row.get("latency_s"))
+        if first is not None and total is not None and first > total:
+            errors.append("first-attempt latency exceeds end-to-end latency")
+    return errors
 
 
 def prompt_lang(case_language):

@@ -32,7 +32,8 @@ import statistics
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from common import PROMPTS, RATINGS, ROOT, load_all_cases, read_csv, read_csv_glob, write_csv  # noqa: E402
+from common import (PROMPTS, RATINGS, ROOT, SYSTEMS, finite_number, load_all_cases,  # noqa: E402
+                    read_csv, read_csv_glob, run_problems, unique_index, validate_pair_rows, write_csv)
 
 
 # ----------------------------------------------------------------- statistics helpers
@@ -87,7 +88,7 @@ def cohen_kappa(a, b):
     po = sum(1 for x, y in zip(a, b) if x == y) / n
     ca, cb = collections.Counter(a), collections.Counter(b)
     pe = sum(ca[l] * cb[l] for l in labels) / (n * n)
-    kappa = (po - pe) / (1 - pe) if pe < 1 else 1.0
+    kappa = (po - pe) / (1 - pe) if pe < 1 else None
     return kappa, po
 
 
@@ -120,53 +121,91 @@ def fnum(x, pct=False, digits=3):
 
 
 def to_float(s):
-    try:
-        return float(str(s).replace(",", "."))
-    except (TypeError, ValueError):
-        return None
+    return finite_number(s)
 
 
 # ----------------------------------------------------------------- loading
 def load_answers(runs, key, pairs, answers, cases, allow_missing, meta=None):
     meta = meta or {}
-    run_by_id = {r["run_id"]: r for r in runs}
-    bid_to_run = {k["blind_answer_id"]: k["run_id"] for k in key}
+    run_by_id = unique_index(runs, "run_id", "runs")
+    key_by_bid = unique_index(key, "blind_answer_id", "blind key")
+    unique_index(key, "run_id", "blind key")
+    validate_pair_rows(pairs, "final pairs")
+    answer_by_bid = unique_index(answers, "blind_answer_id", "final answers")
+    bid_to_run = {b: k["run_id"] for b, k in key_by_bid.items()}
+    run_to_bid = {k["run_id"]: b for b, k in key_by_bid.items()}
     pairs_by_bid = collections.defaultdict(list)
     problems = []
+    invalid_bids = set()
     for p in pairs:
+        bid = p.get("blind_answer_id", "")
         cit = (p.get("citation_n") or "").strip()
         rating = (p.get("rating") or "").strip().upper()
         if cit != "" and rating not in RATINGS:
             problems.append(f"pair {p.get('pair_id')}: rating {rating!r} not in {sorted(RATINGS)}")
-            if not allow_missing:
-                continue
+            invalid_bids.add(bid)
+        if bid not in answer_by_bid:
+            problems.append(f"pair {p.get('pair_id')}: no answer-level row")
         p["_rating"] = rating
         p["_cit"] = cit
-        pairs_by_bid[p["blind_answer_id"]].append(p)
+        pairs_by_bid[bid].append(p)
+    for bid in answer_by_bid:
+        if bid_to_run.get(bid) not in run_by_id:
+            problems.append(f"answer {bid}: no run metadata (check blind_key / runs)")
+    for bid, rid in bid_to_run.items():
+        if rid not in run_by_id:
+            problems.append(f"blind key {bid}: unknown run_id {rid}")
 
     out = []
-    for a in answers:
-        bid = a["blind_answer_id"]
-        run = run_by_id.get(bid_to_run.get(bid, ""))
-        if run is None:
-            problems.append(f"answer {bid}: no run metadata (check blind_key / runs)")
+    cells = set()
+    for run in runs:
+        errors = run_problems(run)
+        problems.extend(f"run {run['run_id']}: {e}" for e in errors)
+        if errors or run.get("run_status") == "excluded":
             continue
+        cell = (run["split"], run["task_id"], run["condition"], run["system"], int(to_float(run["run_index"])))
+        if cell in cells:
+            raise ValueError(f"duplicate run matrix cell: {cell}")
+        cells.add(cell)
+        bid = run_to_bid.get(run["run_id"], "")
+        failed = run["run_status"] == "failed"
+        a = answer_by_bid.get(bid, {})
+        if not a and not failed:
+            problems.append(f"run {run['run_id']}: missing key or answer-level rating")
+            continue
+        if bid in invalid_bids and not failed:
+            continue  # Never improve precision by discarding just an unrated citation.
         corr = (a.get("correctness") or "").strip()
-        if corr not in {"0", "1", "2"}:
+        if failed:
+            corr = "0"  # Predefined operational failure, not an invented model answer.
+        elif corr not in {"0", "1", "2"}:
             problems.append(f"answer {bid}: correctness {corr!r} not in 0/1/2")
-            if not allow_missing:
-                continue
-        rows = pairs_by_bid.get(bid, [])
+            continue
+        rows = [] if failed else pairs_by_bid.get(bid, [])
         cited = [p for p in rows if p["_cit"] != "" and p["_rating"] in RATINGS]
         claims = sorted({p["claim_id"] for p in rows})
         supported = {p["claim_id"] for p in cited if p["_rating"] == "S2"}
         s2 = sum(1 for p in cited if p["_rating"] == "S2")
         non_na = [p for p in cited if p["_rating"] != "NA"]
         case = cases.get(run["task_id"], {})
+        if not case:
+            problems.append(f"run {run['run_id']}: unknown task_id")
+            continue
+        kf, nkf = to_float(a.get("key_facts_supported")), to_float(a.get("n_key_facts"))
+        minutes = to_float(a.get("check_minutes"))
+        if not failed and (kf is None or nkf is None or nkf < 1 or not nkf.is_integer()
+                           or not kf.is_integer() or not 0 <= kf <= nkf or minutes is None or minutes < 0):
+            problems.append(f"answer {bid}: invalid key-fact counts or check_minutes")
+            continue
+        declared_claims = to_float(a.get("n_claims"))
+        if not failed and (declared_claims is None or declared_claims != len(claims)):
+            problems.append(f"answer {bid}: n_claims does not match final segmentation")
+            continue
         out.append({
             "bid": bid, "run_id": run["run_id"], "system": run["system"],
+            "run_status": run["run_status"], "failure_type": run.get("failure_type", ""),
             "condition": run["condition"], "split": run["split"], "task_id": run["task_id"],
-            "run_index": int(run.get("run_index") or 1),
+            "run_index": int(to_float(run["run_index"])),
             "language": "en" if case.get("language", run.get("language")) == "en" else "cs",
             "edge": case.get("edge_case_type", ""),
             "precision": s2 / len(cited) if cited else 0.0,
@@ -181,9 +220,8 @@ def load_answers(runs, key, pairs, answers, cases, allow_missing, meta=None):
             "n_tier1": sum(1 for p in cited if (p.get("source_tier") or "").strip() == "1"),
             "n_time_checked": sum(1 for p in cited if (p.get("time_ok") or "").strip().lower() in {"yes", "no"}),
             "n_time_ok": sum(1 for p in cited if (p.get("time_ok") or "").strip().lower() == "yes"),
-            "check_minutes": to_float(a.get("check_minutes")),
-            "kf_cov": (min(1.0, to_float(a.get("key_facts_supported")) / to_float(a.get("n_key_facts")))
-                       if to_float(a.get("key_facts_supported")) is not None and to_float(a.get("n_key_facts")) else None),
+            "check_minutes": minutes,
+            "kf_cov": 0.0 if failed else kf / nkf,
             "turns": to_float(run.get("turns")),
             "search_used": (run.get("search_used") or "").strip().lower(),
             "sources_shown": to_float(run.get("n_sources_shown")),
@@ -192,10 +230,44 @@ def load_answers(runs, key, pairs, answers, cases, allow_missing, meta=None):
             "latency": to_float(run.get("latency_s")),
             "retries": to_float(run.get("retries")) or 0,
             "first_ok": (run.get("first_attempt_ok") or "").strip().lower(),
-            "errors": [p.get("error_code", "").strip() for p in cited if p.get("error_code", "").strip()],
+            "final_ok": run.get("final_attempt_ok", ""),
+            "first_latency": to_float(run.get("first_attempt_latency_s")),
+            "errors": [code for _, code in sorted({(p["claim_id"], p.get("error_code", "").strip())
+                        for p in rows if p.get("error_code", "").strip()})],
             "prompt_file": run.get("prompt_file", ""),
         })
     return out, problems
+
+
+def test_matrix_problems(answers, cases, systems):
+    """Confirmatory claims require the full prespecified, paired first-run matrix."""
+    errors = []
+    task_ids = {tid for tid, c in cases.items() if c.get("development_validation_test_split") == "test"}
+    if len(cases) < 40 or len(task_ids) < 10:
+        errors.append("requires >= 40 cases including >= 10 held-out test cases")
+    if len(systems) < 4 or len(set(systems)) != len(systems):
+        errors.append("requires >= 4 distinct prespecified systems")
+    expected = {(t, s, c) for t in task_ids for s in systems for c in ("P1", "P2", "P3")}
+    observed = {(a["task_id"], a["system"], a["condition"]) for a in answers
+                if a["split"] == "test" and a["run_index"] == 1}
+    if expected != observed:
+        errors.append(f"incomplete first-run matrix: {len(expected - observed)} missing, {len(observed - expected)} unexpected cells")
+    return errors
+
+
+def repeat_summary(items):
+    """Compare like with like, including in a prespecified repeat subset."""
+    indices = sorted({a["run_index"] for a in items})
+    tasks = [set(a["task_id"] for a in items if a["run_index"] == i) for i in indices]
+    common = set.intersection(*tasks) if len(tasks) >= 2 else set()
+    matched = [a for a in items if a["task_id"] in common]
+    per_run = [mean(list(case_values([a for a in matched if a["run_index"] == i], "precision").values())) for i in indices]
+    values = [v for v in per_run if v is not None]
+    by_case = collections.defaultdict(set)
+    for a in matched:
+        by_case[a["task_id"]].add(a["correct"])
+    flips = sum(len(v) > 1 for v in by_case.values())
+    return values, statistics.stdev(values) if len(values) > 1 else None, flips / len(common) if common else None, len(common)
 
 
 def case_values(answers, metric):
@@ -219,11 +291,15 @@ def main():
     ap.add_argument("--boot", type=int, default=10000)
     ap.add_argument("--seed", type=int, default=2026)
     ap.add_argument("--focus", default="perplexity", help="system tested in H1")
+    ap.add_argument("--systems", default=",".join(SYSTEMS), help="prespecified systems (never inferred from successful answers)")
     ap.add_argument("--h1-margin", type=float, default=0.10)
     ap.add_argument("--h2-margin", type=float, default=0.05)
     ap.add_argument("--allow-missing", action="store_true",
-                    help="exclude unrated rows instead of stopping (the report states how many)")
+                    help="exploratory only: exclude WHOLE incomplete answers; never confirm hypotheses")
     args = ap.parse_args()
+    if args.boot < 1:
+        ap.error("--boot must be positive")
+    expected_systems = [s.strip() for s in args.systems.split(",") if s.strip()]
 
     ad = args.annotation_dir
 
@@ -240,10 +316,18 @@ def main():
     meta = {m["blind_answer_id"]: m for m in (collect("answers_meta.csv", args.key_dir) or collect("answers_meta.csv"))}
     pairs = collect("pairs_rated.csv")
     answers_raw = collect("answers_rated.csv")
-    if not (key and pairs and answers_raw):
-        raise SystemExit(f"missing blind_key.csv / pairs_rated.csv / answers_rated.csv under {ad}")
+    if not runs:
+        raise SystemExit("no run metadata found")
     cases = load_all_cases(args.data_dir)
-    A, problems = load_answers(runs, key, pairs, answers_raw, cases, args.allow_missing, meta)
+    try:
+        A, problems = load_answers(runs, key, pairs, answers_raw, cases, args.allow_missing, meta)
+        for name, field in (("pairs_rated_rater1.csv", "pair_id"), ("pairs_rated_rater2.csv", "pair_id"),
+                            ("answers_rated_rater1.csv", "blind_answer_id"), ("answers_rated_rater2.csv", "blind_answer_id")):
+            unique_index(collect(name), field, name)
+            if field == "pair_id":
+                validate_pair_rows(collect(name), name)
+    except ValueError as e:
+        raise SystemExit(str(e))
     for p in problems[:30]:
         print("PROBLEM:", p)
     if problems and not args.allow_missing:
@@ -251,16 +335,23 @@ def main():
                          "or rerun with --allow-missing to exclude them (the report will say so).")
     os.makedirs(args.out, exist_ok=True)
     report = ["# Výsledky – citační benchmark", "",
-              f"Odpovědí v analýze: {len(A)}. Intervaly: klastrový bootstrap podle případů "
+              f"Plánovaných záznamů: {len(runs)}; v analýze: {len(A)}; provozních selhání zahrnutých s nulovým skóre: "
+              f"{sum(a['run_status'] == 'failed' for a in A)}; vyloučených chyb obsluhy: "
+              f"{sum(r.get('run_status') == 'excluded' for r in runs)}. Intervaly: klastrový bootstrap podle případů "
               f"({args.boot} převzorkování, seed {args.seed}); podíly odpovědí: Wilson (jen běh 1).", ""]
     if problems:
-        report += [f"**Upozornění:** {len(problems)} nehodnocených nebo nespárovaných řádků bylo vyloučeno "
+        report += [f"**Upozornění:** {len(problems)} problémů ve vstupu; {len(runs) - len(A)} běhů mimo analýzu "
                    "(--allow-missing). Výsledky nejsou finální.", ""]
+    if args.allow_missing:
+        report += ["**Explorační režim --allow-missing: hypotézy nelze potvrzovat ani při úplné matici.**", ""]
     report += ["Porovnání jednotlivých systémů mimo hypotézy H1 a H2 jsou **explorační**.", ""]
 
     groups = collections.defaultdict(list)
     for a in A:
         groups[(a["split"], a["condition"], a["system"])].append(a)
+    # Primary comparisons use first runs. Repeats are reported separately, not mixed into P2 only.
+    groups = {k: [a for a in v if a["run_index"] == 1] for k, v in groups.items()}
+    groups = {k: v for k, v in groups.items() if v}
 
     # ---------------- metrics table
     metrics = []
@@ -292,6 +383,9 @@ def main():
         row["retry_rate"] = mean([1 if a["retries"] > 0 else 0 for a in items])
         fo = [a for a in items if a["first_ok"] in {"yes", "no"}]
         row["first_attempt_success"] = sum(1 for a in fo if a["first_ok"] == "yes") / len(fo) if fo else None
+        row["final_attempt_success"] = mean([1 if a["final_ok"] == "yes" else 0 for a in items])
+        row["first_latency_median"] = statistics.median([a["first_latency"] for a in items])
+        row["n_failed"] = sum(a["run_status"] == "failed" for a in items)
         row["turns_mean"] = mean([a["turns"] for a in items])
         su = [a for a in items if a["search_used"] in {"yes", "no"}]
         row["search_used_share"] = sum(1 for a in su if a["search_used"] == "yes") / len(su) if su else None
@@ -322,7 +416,7 @@ def main():
                             and o["precision"] >= r["precision"] and o["latency_median"] <= r["latency_median"]
                             and (o["precision"] > r["precision"] or o["latency_median"] < r["latency_median"])
                             for o in rows)
-            r["pareto"] = "no" if dominated else "yes"
+            r["pareto"] = "" if r["precision"] is None or r["latency_median"] is None else "no" if dominated else "yes"
 
     mfields = list(metrics[0].keys()) if metrics else []
     write_csv(os.path.join(args.out, "metrics.csv"),
@@ -355,13 +449,18 @@ def main():
     # ---------------- hypotheses (held-out test split only)
     hyp = []
     test = [a for a in A if a["split"] == "test"]
+    first_test = [a for a in test if a["run_index"] == 1]
+    matrix_errors = test_matrix_problems(first_test, cases, expected_systems)
+    confirmatory = not matrix_errors and not args.allow_missing
 
     def sys_case(cond, system, metric="precision"):
-        return case_values([a for a in test if a["condition"] == cond and a["system"] == system], metric)
+        return case_values([a for a in first_test if a["condition"] == cond and a["system"] == system], metric)
 
-    systems = sorted({a["system"] for a in test})
+    systems = expected_systems
     report += ["## Hypotézy (testovací sada)", ""]
-    if test and args.focus in systems:
+    if matrix_errors:
+        report += ["**Hypotézy nelze vyhodnotit:** " + "; ".join(matrix_errors) + ".", ""]
+    if confirmatory and args.focus in systems:
         focus = sys_case("P2", args.focus)
         others = {s: sys_case("P2", s) for s in systems if s != args.focus}
         diffs = {}
@@ -378,7 +477,7 @@ def main():
     else:
         report.append(f"H1 nelze vyhodnotit: systém {args.focus!r} nebo testovací data chybí.")
 
-    if test:
+    if confirmatory:
         per_sys, case_diffs = {}, collections.defaultdict(list)
         for s in systems:
             p1, p2 = sys_case("P1", s), sys_case("P2", s)
@@ -390,12 +489,17 @@ def main():
         avg = {c: sum(v) / len(v) for c, v in case_diffs.items()}
         p, lo, hi = bootstrap_ci(avg, args.boot, args.seed)
         improved = sum(1 for s, (pt, _, _) in per_sys.items() if pt is not None and pt > 0)
-        need = max(1, len(per_sys) - 1)          # 4 of 5 systems; 3 of 4 in the lean variant
+        need = len(systems) - 1          # 4 of 5 systems; 3 of 4 in the lean variant
         supported = p is not None and lo is not None and p >= args.h2_margin and lo > 0 and improved >= need
         hyp.append({"hypothesis": "H2", "comparison": "P2 − P1, průměr přes systémy, přesnost",
                     "estimate": fnum(p, digits=4), "ci_lo": fnum(lo, digits=4), "ci_hi": fnum(hi, digits=4),
                     "n_cases": len(avg), "criterion": f">= {args.h2_margin}, CI nad 0 a zlepšení u >= {need} systémů (zlepšeno: {improved}/{len(per_sys)})",
                     "supported": "yes" if supported else "no"})
+    for name in ("H1", "H2"):
+        if not any(h["hypothesis"] == name for h in hyp):
+            hyp.append({"hypothesis": name, "comparison": "", "estimate": "", "ci_lo": "", "ci_hi": "",
+                        "n_cases": 0, "criterion": "; ".join(matrix_errors) or "exploratory mode or missing focus system",
+                        "supported": "not_evaluable"})
 
     write_csv(os.path.join(args.out, "hypotheses.csv"), hyp,
               ["hypothesis", "comparison", "estimate", "ci_lo", "ci_hi", "n_cases", "criterion", "supported"])
@@ -438,16 +542,16 @@ def main():
     # ---------------- alternative explanations
     if test:
         report += ["## Kontrola alternativních vysvětlení", ""]
-        xs = [a["n_claims"] for a in test]
-        ys = [a["precision"] for a in test]
+        xs = [a["n_claims"] for a in first_test]
+        ys = [a["precision"] for a in first_test]
         rho = spearman(xs, ys)
-        report.append(f"A1 – Spearmanova korelace počtu tvrzení a přesnosti odpovědi (test, všechny podmínky): {fnum(rho)} "
-                      f"(n = {len(xs)}). Záporná hodnota = systémy s méně tvrzeními mají vyšší přesnost.")
+        report.append(f"A1 – Spearmanova korelace počtu tvrzení a přesnosti (test, první běhy): {fnum(rho)} "
+                      f"(n = {len(xs)}). Pouze deskriptivní: systémy, podmínky i případy jsou smíšené; nejde o důkaz příčiny.")
         report += ["", "A2 – citační přesnost podle jazyka dotazu (test, P2, %):", "",
                     "| Systém | CZ | EN |", "| --- | --- | --- |"]
         for s in systems:
-            cz = mean(list(case_values([a for a in test if a["system"] == s and a["condition"] == "P2" and a["language"] == "cs"], "precision").values()))
-            en = mean(list(case_values([a for a in test if a["system"] == s and a["condition"] == "P2" and a["language"] == "en"], "precision").values()))
+            cz = mean(list(case_values([a for a in first_test if a["system"] == s and a["condition"] == "P2" and a["language"] == "cs"], "precision").values()))
+            en = mean(list(case_values([a for a in first_test if a["system"] == s and a["condition"] == "P2" and a["language"] == "en"], "precision").values()))
             report.append(f"| {s} | {fnum(cz, True)} | {fnum(en, True)} |")
         report.append("")
 
@@ -455,25 +559,12 @@ def main():
     rep = [a for a in test if a["condition"] == "P2"]
     if rep and len({a["run_index"] for a in rep}) > 1:
         report += ["## Variabilita mezi běhy (test, P2)", "",
-                   "| Systém | Přesnost po bězích % | SD (p. b.) | Podíl případů se změnou správnosti |", "| --- | --- | --- | --- |"]
+                   "| Systém | Společných případů | Přesnost po bězích % | SD (p. b.) | Podíl případů se změnou správnosti |", "| --- | --- | --- | --- | --- |"]
         for s in systems:
             items = [a for a in rep if a["system"] == s]
-            per_run = []
-            for ri in sorted({a["run_index"] for a in items}):
-                v = case_values([a for a in items if a["run_index"] == ri], "precision")
-                if v:
-                    per_run.append(sum(v.values()) / len(v))
-            sd = statistics.stdev(per_run) if len(per_run) > 1 else None
-            flips, total = 0, 0
-            by_case = collections.defaultdict(set)
-            for a in items:
-                if a["correct"] is not None:
-                    by_case[a["task_id"]].add(a["correct"])
-            for c, vals in by_case.items():
-                total += 1
-                flips += 1 if len(vals) > 1 else 0
-            report.append(f"| {s} | {' / '.join(fnum(x, True) for x in per_run)} | {fnum(sd, True)} | "
-                          f"{fnum(flips / total, True) if total else ''} |")
+            per_run, sd, flips, total = repeat_summary(items)
+            report.append(f"| {s} | {total} | {' / '.join(fnum(x, True) for x in per_run)} | {fnum(sd, True)} | "
+                          f"{fnum(flips, True)} |")
         report.append("")
 
     # ---------------- error codes
@@ -495,14 +586,24 @@ def main():
     answers1_raw = collect("answers_rated_rater1.csv")
     pairs2 = collect("pairs_rated_rater2.csv")
     answers2 = collect("answers_rated_rater2.csv")
-    inflated = False
     if pairs2 and not pairs1_raw:
-        pairs1_raw, inflated = pairs, True
+        report += ["**Shoda dvojic nedostupná:** chybí nezávislé hodnocení rater1 před smířením.", ""]
     if answers2 and not answers1_raw:
-        answers1_raw, inflated = answers_raw, True
-    if pairs2:
+        report += ["**Shoda odpovědí nedostupná:** chybí nezávislé hodnocení rater1 před smířením.", ""]
+    if pairs2 and pairs1_raw:
+        signatures = []
+        for rows in (pairs1_raw, pairs2):
+            sig = collections.defaultdict(set)
+            for p in rows:
+                sig[p["blind_answer_id"]].add((p["pair_id"], p["claim_id"], p.get("claim_text", ""), p.get("citation_n", "")))
+            signatures.append(sig)
+        incompatible = {b for b in signatures[1] if signatures[0].get(b) != signatures[1][b]}
+        if incompatible:
+            report += [f"**Nesrovnatelná segmentace:** {len(incompatible)} dvojitě hodnocených odpovědí mimo kappu dvojic; "
+                       "nejprve sjednotit jednotky bez znalosti ratingů a provést nové nezávislé hodnocení.", ""]
         r1 = {p["pair_id"]: (p.get("rating") or "").strip().upper() for p in pairs1_raw if (p.get("citation_n") or "").strip() != ""}
-        r2 = {p["pair_id"]: (p.get("rating") or "").strip().upper() for p in pairs2 if (p.get("citation_n") or "").strip() != ""}
+        r2 = {p["pair_id"]: (p.get("rating") or "").strip().upper() for p in pairs2
+              if (p.get("citation_n") or "").strip() != "" and p["blind_answer_id"] not in incompatible}
         common = [k for k in r2 if k in r1 and r1[k] in RATINGS and r2[k] in RATINGS]
         a_, b_ = [r1[k] for k in common], [r2[k] for k in common]
         k5, po5 = cohen_kappa(a_, b_)
@@ -522,7 +623,7 @@ def main():
             same = sum(1 for b in both if c1n[b] == c2n[b]) / len(both)
             agr.append({"measure": "segmentation: mean abs. difference in claims (r1 vs r2)", "n": len(both), "kappa": "", "agreement": fnum(mad)})
             agr.append({"measure": "segmentation: same number of claims", "n": len(both), "kappa": "", "agreement": fnum(same)})
-    if answers2:
+    if answers2 and answers1_raw:
         c1 = {a["blind_answer_id"]: (a.get("correctness") or "").strip() for a in answers1_raw}
         c2 = {a["blind_answer_id"]: (a.get("correctness") or "").strip() for a in answers2}
         common = [k for k in c2 if k in c1 and c1[k] in {"0", "1", "2"} and c2[k] in {"0", "1", "2"}]
@@ -551,9 +652,6 @@ def main():
             report.append(f"| {g['measure']} | {g['n']} | {g['kappa']} | {g['agreement']} |")
         report += ["", "Cíl protokolu: kappa (S2 vs ostatní) alespoň 0,6. Automatický příznak shody se použije jen jako "
                    "nápověda, pokud je jeho kappa s lidským hodnocením pod 0,4.", ""]
-        if inflated:
-            report += ["**Upozornění:** chybí `*_rated_rater1.csv` (hodnocení 1. hodnotitele před smířením); shoda je "
-                       "počítána z finálních hodnot a je proto nadhodnocená.", ""]
 
     with open(os.path.join(args.out, "report.md"), "w", encoding="utf-8") as f:
         f.write("\n".join(report) + "\n")

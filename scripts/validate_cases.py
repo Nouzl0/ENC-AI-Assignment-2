@@ -111,6 +111,8 @@ def main():
             errors.append(f"{s}: edge-case share {share:.0%} < 20 %")
     if total:
         print(f"  all: {edge}/{total} = {edge / total:.0%}")
+    if not args.no_test and total < 40:
+        errors.append(f"benchmark has {total} cases (< 40 required)")
 
     if "test" in cases:
         n_test = len(cases["test"])

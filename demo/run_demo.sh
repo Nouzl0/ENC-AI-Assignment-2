@@ -20,5 +20,5 @@ else
 fi
 
 python3 scripts/score.py --runs "demo/runs/*.csv" --annotation-dir demo/annotation --key-dir demo/annotation_key --data-dir demo/data \
-  --out demo/results --focus sys_D --boot 2000
+  --out demo/results --focus sys_D --systems sys_A,sys_B,sys_C,sys_D,sys_E --boot 2000
 echo "Hotovo: demo/results/report.md a demo/example/annotation/ (SYNTETICKÁ DATA – nejde o skutečné výsledky)"

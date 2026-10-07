@@ -36,7 +36,7 @@ import urllib.parse
 import urllib.request
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from common import ROOT, load_all_cases, read_csv_glob, write_csv  # noqa: E402
+from common import ROOT, load_all_cases, read_csv_glob, run_problems, unique_index, write_csv  # noqa: E402
 
 MAX_CLAIMS = 8
 STRUCTURED = {"P2", "P3", "P3A", "P3B"}
@@ -408,6 +408,31 @@ def main():
     ap.add_argument("--seed", type=int, default=2026, help="seed for answer order and rater-2 sample")
     ap.add_argument("--salt", default="", help="override salt (default: <key-dir>/salt.txt, created if missing)")
     args = ap.parse_args()
+    if not 0.2 <= args.double_share <= 1 or args.timeout <= 0 or args.retry_wait < 0:
+        ap.error("require 0.2 <= --double-share <= 1, positive timeout and nonnegative retry wait")
+    runs = read_csv_glob(args.runs)
+    if not runs:
+        raise SystemExit("no run metadata found")
+    try:
+        unique_index(runs, "run_id", "runs")
+    except ValueError as e:
+        raise SystemExit(str(e))
+    problems, usable = [], []
+    for r in runs:
+        problems.extend(f"{r['run_id']}: {e}" for e in run_problems(r))
+        if r.get("run_status") == "completed":
+            path = os.path.join(args.root, r["answer_file"])
+            if not os.path.isfile(path) or os.path.getsize(path) == 0:
+                problems.append(f"{r['run_id']}: missing/empty completed answer_file {path}")
+            else:
+                usable.append((r, path))
+        if r.get("attempt1_file") and not os.path.isfile(os.path.join(args.root, r["attempt1_file"])):
+            problems.append(f"{r['run_id']}: missing first-attempt artifact")
+    if problems:
+        raise SystemExit("Invalid run manifest:\n" + "\n".join(problems))
+    for name in ("answers_to_rate.csv", "pairs_to_rate.csv", "answers_to_rate_rater2.csv", "pairs_to_rate_rater2.csv"):
+        if os.path.exists(os.path.join(args.out_dir, name)):
+            raise SystemExit(f"Refusing to overwrite annotation sheets in {args.out_dir}; use a new output directory")
 
     os.makedirs(args.key_dir, exist_ok=True)
     salt_path = os.path.join(args.key_dir, "salt.txt")
@@ -423,15 +448,8 @@ def main():
 
     rng = random.Random(args.seed)
     cases = load_all_cases(args.data_dir)
-    runs = read_csv_glob(args.runs)
-    usable = []
-    for r in runs:
-        if (r.get("failure_type") or "").strip() == "student_error":   # not yet rerun
-            continue
-        path = os.path.join(args.root, r["answer_file"])
-        if os.path.exists(path):
-            usable.append((r, path))
-    print(f"{len(runs)} planned runs, {len(usable)} with answer files")
+    print(f"{len(runs)} manifest rows, {len(usable)} completed answers; "
+          f"{sum(r.get('run_status') == 'failed' for r in runs)} terminal failures retained by score.py")
     if not usable:
         return
 

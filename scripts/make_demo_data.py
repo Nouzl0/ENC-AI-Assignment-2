@@ -89,6 +89,9 @@ def main():
                         for c in META_FILL_COLUMNS:
                             row[c] = ""
                         row.update({"model_visible": "demo-model", "plan_tier": "free",
+                                    "run_status": "completed", "final_attempt_ok": "yes",
+                                    "attempt1_file": f"demo/answers/{run_id}__attempt1.txt" if retry else "",
+                                    "first_attempt_latency_s": lat / 2 if retry else lat,
                                     "latency_s": lat, "search_used": "yes" if rng.random() < 0.95 else "no",
                                     "turns": 1, "n_sources_shown": rng.randint(2, 8), "tool_calls_visible": rng.randint(1, 4),
                                     "retries": retry, "failure_type": "tool_error" if retry else "none",
@@ -121,7 +124,7 @@ def main():
                                           {"S1": "E3", "S0": "E2", "FAB": "E1"}.get(rating, "")})
                         prec = s2_total / n_cited if n_cited else 0
                         corr = "2" if rng.random() < 0.3 + 0.6 * prec else rng.choice(["0", "1"])
-                        answers.append({"blind_answer_id": bid, "correctness": corr, "n_key_facts": 3,
+                        answers.append({"blind_answer_id": bid, "correctness": corr, "n_key_facts": 3, "n_claims": n_claims,
                                         "key_facts_supported": min(3, round(3 * prec * rng.uniform(0.7, 1.1))),
                                         "acknowledges_uncertainty": rng.choice(["yes", "no"]),
                                         "check_minutes": round(rng.uniform(3, 11), 1), "rater": "demo1"})
@@ -133,7 +136,7 @@ def main():
     pf = ["pair_id", "blind_answer_id", "claim_id", "citation_n", "rating", "source_tier", "time_ok",
           "error_code", "auto_match_ratio"]
     write_csv(os.path.join(ad, "pairs_rated.csv"), pairs, pf)
-    af = ["blind_answer_id", "correctness", "n_key_facts", "key_facts_supported", "acknowledges_uncertainty",
+    af = ["blind_answer_id", "correctness", "n_key_facts", "n_claims", "key_facts_supported", "acknowledges_uncertainty",
           "check_minutes", "rater"]
     write_csv(os.path.join(ad, "answers_rated.csv"), answers, af)
     # rater 1 before reconciliation = final values here (demo); a real project keeps the raw file
