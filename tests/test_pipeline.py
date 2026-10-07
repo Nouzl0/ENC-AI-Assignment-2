@@ -31,6 +31,9 @@ class PipelineTests(unittest.TestCase):
         rows = read_csv(self.work / "results/answer_metrics.csv")
         self.assertTrue(any(r["run_status"] == "completed" and r["first_ok"] == "no" and r["final_ok"] == "yes" for r in rows))
         self.assertEqual(len(read_csv(self.work / "key/blind_key.csv")), 442)
+        zero = [r for p in (self.work / "annotation").rglob("pairs_rated.csv") for r in read_csv(p) if r["citation_n"] == "0"]
+        self.assertTrue(zero)  # Parser -> export -> human fixture -> score accepts malformed output.
+        self.assertTrue(all(r["rating"] == "FAB" for r in zero))
         for p in (self.work / "key/batches").rglob("annotation_batch.json"):
             batch = json.loads(p.read_text())
             self.assertEqual(len(batch["sheets"]), 4)

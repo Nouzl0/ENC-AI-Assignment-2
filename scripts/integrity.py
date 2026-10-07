@@ -1,10 +1,10 @@
 """Private paths, reproducible freezes and immutable plans. No product calls."""
 import datetime as dt
-import glob
 import json
 import math
 import os
 from pathlib import Path
+from replay_paths import input_glob, resolve_input
 
 from common import (ROOT, SYSTEMS, META_FILL_COLUMNS, constraint_problems, finite_number, load_all_cases,
                     read_csv, required_facts, run_problems, sha256_file, unique_index)
@@ -23,7 +23,7 @@ ATTESTATIONS = {
 def private_path(path):
     if not path:
         raise ValueError("missing private path (use a directory outside the Git worktree)")
-    p = Path(path).resolve()
+    p = Path(resolve_input(path)).resolve()
     if p == Path(ROOT) or Path(ROOT) in p.parents:
         raise ValueError(f"private artifact must be outside the worktree, also after resolving symlinks: {p}")
     return str(p)
@@ -40,7 +40,7 @@ def timestamp(value):
 
 
 def read_json(path):
-    with open(path, encoding="utf-8") as f:
+    with open(resolve_input(path), encoding="utf-8") as f:
         return json.load(f)
 
 
@@ -162,7 +162,7 @@ def frozen_files(gate, inputs):
     fixed += [f"prompts/{name}_{lang}.txt" for name in ("P1_baseline", "P2_structured") for lang in ("cs", "en")]
     paths = [str(Path(ROOT, p)) for p in fixed] if gate == "G1" else []
     paths += list(inputs)
-    return {str(Path(p).resolve()): sha256_file(p) for p in sorted(set(paths))}
+    return {str(Path(resolve_input(p)).resolve()): sha256_file(p) for p in sorted(set(paths))}
 
 
 def verify_freeze(path, gate=None):
@@ -176,7 +176,7 @@ def verify_freeze(path, gate=None):
     if not m.get("files"):
         raise ValueError("freeze has no bound files")
     for p, digest in m["files"].items():
-        if not os.path.isfile(p) or sha256_file(p) != digest:
+        if not os.path.isfile(resolve_input(p)) or sha256_file(p) != digest:
             raise ValueError(f"frozen file changed/missing: {p}")
     if m["gate"] != "G1":
         parent = m.get("parent", {})
@@ -202,17 +202,18 @@ def verify_freeze(path, gate=None):
     if m["gate"] == "G3":
         expected = set(m["inputs"]["run_plans"])
         expected |= {p + ".manifest.json" for p in m["inputs"]["run_plans"]}
-        expected |= {str(p.resolve()) for k in ("annotation_dir", "key_dir") for p in Path(m["inputs"][k]).rglob("*") if p.is_file()}
+        expected |= {str(p.resolve()) for k in ("annotation_dir", "key_dir") for p in Path(resolve_input(m["inputs"][k])).rglob("*") if p.is_file()}
         expected.add(m["inputs"]["deviations_record"])
         for p in m["inputs"]["run_plans"]:
             for r in read_csv(p):
-                expected |= {str(Path(r[k]).resolve()) for k in ("answer_file", "raw_answer_file", "screenshot_file", "attempt1_file", "failure_artifact_file") if r.get(k) and os.path.isfile(r[k])}
+                expected |= {str(Path(resolve_input(r[k])).resolve()) for k in ("answer_file", "raw_answer_file", "screenshot_file", "attempt1_file", "failure_artifact_file") if r.get(k) and os.path.isfile(resolve_input(r[k]))}
         for row in collect_csv(m["inputs"]["annotation_dir"], "pairs_rated.csv"):
             if row.get("evidence_snapshot"):
                 expected.add(private_path(row["evidence_snapshot"]))
         for row in collect_csv(m["inputs"]["annotation_dir"], "run_day_evidence.csv"):
             expected.add(private_path(row["snapshot_file"]))
-    if not expected <= set(m["files"]):
+    bound_paths = [str(Path(resolve_input(p)).resolve()) for p in m["files"]]
+    if len(bound_paths) != len(set(bound_paths)) or not {str(Path(resolve_input(p)).resolve()) for p in expected} <= set(bound_paths):
         raise ValueError("freeze omits required bindings")
     return m
 
@@ -233,7 +234,7 @@ def bind_plan(path, rows, freeze=None, synthetic=False, pilot=False, prompts_dir
 
 
 def verify_plans(pattern, freeze=None, synthetic=False, pilot=False):
-    paths = sorted(glob.glob(pattern))
+    paths = input_glob(pattern)
     if not paths:
         raise ValueError("no run plans matched")
     for path in paths:
@@ -252,14 +253,14 @@ def verify_plans(pattern, freeze=None, synthetic=False, pilot=False):
                 raise ValueError("dev/val plan must be bound to G1")
             if freeze:
                 target = verify_freeze(freeze)
-                target_path = str(Path(freeze).resolve())
+                target_path = str(Path(resolve_input(freeze)).resolve())
                 while target["gate"] != gate["gate"] and target.get("parent"):
-                    target_path = target["parent"]["path"]
+                    target_path = str(Path(resolve_input(target["parent"]["path"])).resolve())
                     target = verify_freeze(target_path)
-                if str(Path(bound["path"]).resolve()) != target_path or sha256_file(target_path) != bound["sha256"]:
+                if str(Path(resolve_input(bound["path"])).resolve()) != target_path or sha256_file(target_path) != bound["sha256"]:
                     raise ValueError("run plan belongs to a different protocol")
         for p, digest in m.get("prompts", {}).items():
-            if not os.path.isfile(p) or sha256_file(p) != digest:
+            if not os.path.isfile(resolve_input(p)) or sha256_file(p) != digest:
                 raise ValueError(f"prompt used by plan changed: {p}")
         planned = unique_index(m.get("rows", []), "run_id", "immutable plan")
         rows = read_csv(path)
@@ -343,7 +344,7 @@ def run_artifact_problems(row):
 
 
 def collect_csv(directory, name):
-    return [r for p in sorted(Path(directory).rglob(name)) for r in read_csv(p)]
+    return [r for p in sorted(Path(resolve_input(directory)).rglob(name)) for r in read_csv(p)]
 
 
 def final_rating_problems(runs, annotation_dir, key_dir, cases):
@@ -360,7 +361,7 @@ def final_rating_problems(runs, annotation_dir, key_dir, cases):
     if set(indexes[0]) != set(key) or set(indexes[1]) != set(key):
         errors.append("final and pre-consensus rater1 must cover every completed answer")
     sample = set()
-    for p in Path(key_dir).rglob("annotation_batch.json"):
+    for p in Path(resolve_input(key_dir)).rglob("annotation_batch.json"):
         m = read_json(str(p))
         for path, digest in m.get("sheets", {}).items():
             try:

@@ -35,8 +35,9 @@ import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from common import (PROMPTS, RATINGS, ROOT, SYSTEMS, constraint_problems, finite_number, load_all_cases,  # noqa: E402
-                    read_csv, read_csv_glob, required_facts, run_problems, unique_index, validate_pair_rows, write_csv)
-from integrity import private_path, run_artifact_problems, verify_freeze, verify_plans
+                    read_csv, read_csv_glob, required_facts, run_problems, sha256_file, unique_index, validate_pair_rows, write_csv)
+from integrity import private_path, run_artifact_problems, verify_freeze, verify_plans, write_json_new
+from replay_paths import configure_path_map, resolve_input
 
 
 # ----------------------------------------------------------------- statistics helpers
@@ -313,6 +314,7 @@ def main():
     ap.add_argument("--test-file", help="private holdout matching G2/G3")
     ap.add_argument("--freeze", help="G1/G2 for exploratory analysis, G3 for --final")
     ap.add_argument("--final", action="store_true", help="requires verified G3; enables confirmatory decisions")
+    ap.add_argument("--path-map", help="read-only G3 replay: relocate original repo/private prefixes without rewriting artifacts")
     mode = ap.add_mutually_exclusive_group()
     mode.add_argument("--pilot", action="store_true")
     mode.add_argument("--synthetic", action="store_true", help="local DEMO-* fixtures; never confirms real hypotheses")
@@ -331,6 +333,12 @@ def main():
         ap.error("--boot must be positive")
     if args.final and (args.synthetic or args.pilot or args.allow_missing):
         ap.error("--final cannot be combined with synthetic/pilot/allow-missing modes")
+    if args.path_map and not args.final:
+        ap.error("--path-map is only allowed for --final replay, never collecting or sealing new runs")
+    try:
+        configure_path_map(args.path_map, ROOT)
+    except (ValueError, OSError, TypeError) as e:
+        ap.error(str(e))
     expected_systems = [s.strip() for s in args.systems.split(",") if s.strip()]
 
     ad = args.annotation_dir
@@ -338,7 +346,7 @@ def main():
     def collect(name, root=None):
         """Read every file with this name under a dir tree (e.g. annotation/dev, annotation/test)."""
         rows = []
-        for base, _, files in sorted(os.walk(root or ad)):
+        for base, _, files in sorted(os.walk(resolve_input(root or ad))):
             if name in files:
                 rows.extend(read_csv(os.path.join(base, name)))
         return rows
@@ -366,7 +374,7 @@ def main():
                 expected_systems = cfg["systems"]
                 if os.path.realpath(args.data_dir) != os.path.join(ROOT, "data") or os.path.realpath(args.prompts_dir) != PROMPTS:
                     raise ValueError("real analysis must use frozen repository data/prompts")
-                if args.test_file and os.path.realpath(args.test_file) != gate["inputs"]["test_cases"]:
+                if args.test_file and os.path.realpath(resolve_input(args.test_file)) != os.path.realpath(resolve_input(gate["inputs"]["test_cases"])):
                     raise ValueError("holdout differs from freeze")
                 args.test_file = gate["inputs"]["test_cases"] if any(r.get("split") == "test" for r in runs) else None
             paths = verify_plans(args.runs, args.freeze, args.synthetic, args.pilot)
@@ -375,7 +383,7 @@ def main():
                 if errors:
                     raise ValueError(f"{r['run_id']}: " + "; ".join(errors))
             if args.final:
-                if set(map(os.path.realpath, paths)) != set(gate["inputs"]["run_plans"]) or any(os.path.realpath(p) != gate["inputs"][k] for p, k in ((args.annotation_dir, "annotation_dir"), (args.key_dir, "key_dir"))):
+                if set(map(os.path.realpath, paths)) != {os.path.realpath(resolve_input(p)) for p in gate["inputs"]["run_plans"]} or any(os.path.realpath(resolve_input(p)) != os.path.realpath(resolve_input(gate["inputs"][k])) for p, k in ((args.annotation_dir, "annotation_dir"), (args.key_dir, "key_dir"))):
                     raise ValueError("final analysis must use exactly the G3-bound plans and ratings")
         else:
             verify_plans(args.runs, synthetic=True)
@@ -397,6 +405,13 @@ def main():
     if problems and not args.allow_missing:
         raise SystemExit(f"{len(problems)} problem(s): unrated or unmatched rows. Fix the sheets, "
                          "or rerun with --allow-missing to exclude them (the report will say so).")
+    if args.path_map and os.path.abspath(args.out) != os.path.abspath(resolve_input(args.out)):
+        ap.error("--out must name the new physical output directory, not an original mapped path")
+    out_path = os.path.realpath(args.out)
+    for directory in (args.annotation_dir, args.key_dir):
+        source_path = os.path.realpath(resolve_input(directory))
+        if out_path == source_path or out_path.startswith(source_path + os.path.sep):
+            raise SystemExit("analysis output must not modify bound annotation/key directories")
     if any(os.path.exists(os.path.join(args.out, n)) for n in ("metrics.csv", "answer_metrics.csv", "hypotheses.csv", "agreement.csv", "report.md")):
         raise SystemExit("Refusing to overwrite analysis outputs; use a new versioned --out directory")
     os.makedirs(args.out, exist_ok=True)
@@ -757,6 +772,13 @@ def main():
 
     with open(os.path.join(args.out, "report.md"), "w", encoding="utf-8") as f:
         f.write("\n".join(report) + "\n")
+    if args.path_map:
+        write_json_new(os.path.join(args.out, "replay_provenance.json"), {
+            "schema_version": 1, "kind": "derived_G3_replay_not_new_approval",
+            "parent_g3_sha256": sha256_file(args.freeze), "path_map_sha256": sha256_file(args.path_map),
+            "outputs": {name: sha256_file(os.path.join(args.out, name)) for name in
+                        ("metrics.csv", "answer_metrics.csv", "hypotheses.csv", "agreement.csv", "report.md")},
+        })
     print(f"{len(A)} answers scored -> {args.out}/metrics.csv, hypotheses.csv, agreement.csv, report.md")
 
 

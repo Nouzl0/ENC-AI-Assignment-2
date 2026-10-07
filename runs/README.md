@@ -97,6 +97,12 @@ novou verzí workspace/exportu** se zachováním původních souborů, nikoli p�
 zahashovaných listů, mazáním soli nebo opětovným exportem stejných ID do stejného klíče.
 Nelze tajně přečíslovat citace nebo doplnit zdroj, který produkt vůbec necitoval.
 
+Parser zachovává přesné markdown URL včetně koncových podtržítek, pořadí/enkódování
+query a parametrů utm; text pro hodnotitele je původní, nikoli přepsaný. U prostého URL
+bez markdown oddělovače je koncová větná interpunkce nejednoznačná: porovnat s originálem.
+Značka `[0]` se nepřečísluje ani nevyřadí z hodnocení: je zaznamenána jako neplatný formát,
+ale vztah ke skutečně uvedenému zdroji se hodnotí normálně. Samotná nula není důkaz FAB.
+
 Hodnotitelům předat jen jejich 2 listy. key_dir nesmí být uvnitř složky předávané
 hodnotitelům; sůl, klíč, format metadata, batch manifesty, run plány a výsledky zůstávají
 u správce. Doporučení: oddělené adresáře `$WORK/annotation` a `$WORK/key`.

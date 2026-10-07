@@ -41,6 +41,10 @@ Zaokrouhlení podle uvedené přesnosti je S2, jiné číslo S0, nikoli S1. Datu
 Starý zdroj, který opravdu tvrdí starou hodnotu, může být S2, ale nese E6 a snižuje správnost odpovědi.
 S2 hodnotí vztah ke zdroji, **není automaticky pravda nebo správná odpověď**.
 
+Neplatné číslo `[0]` je chyba formátu, nikoli automaticky FAB. Pokud zdroj `[0]` skutečně
+existuje, posoudit obsah obvykle; pokud zdroj chybí, použít pravidlo FAB bez zdroje.
+Značku ponechat i v pair_id, nepřečíslovat ani nevyhodit odpověď kvůli chybě produktu.
+
 Více explicitních citací = každý pár zvlášť; úplnost vyžaduje aspoň jednu explicitní S2 u tvrzení.
 `citation_n` prázdné = nevyplňovat rating, označit E9. URL může být chybějící, pokud je FAB kvůli neexistující značce.
 

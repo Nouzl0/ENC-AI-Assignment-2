@@ -94,3 +94,37 @@ snapshoty ani entity-match nejsou důkaz S2, člověk musí zkontrolovat obsah a
 `score.py` bez `--final` je vždy předběžná analýza. Finální potvrzování H1/H2 vyžaduje G3,
 jeho přesnou sadu plánů/ratingů, plnou matici a zmrazené parametry. Výstupy ukládejte do
 nové verzované soukromé složky. Publikace patří až po G3 a po kontrole soukromých údajů.
+
+## Reprodukce na jiném počítači (až po G3)
+
+Učitel/správce s oprávněním dostane přesný zmrazený commit repozitáře a **kompletní
+soukromý balíček**, včetně nezávisle archivovaných manifestů, původních plánů, zdrojových
+snapshotů, raw odpovědí, screenshotů, klíče a ratingů. Nestačí veřejný Git. Před G2 tím
+nezpřístupňovat holdout autorovi promptu. Sanitizovaný veřejný export je jiný odvozený
+artefakt, nikoli ověřitelný kompletní podepsaný G3 balíček.
+
+Při jiných absolutních cestách se **nemění žádný podepsaný JSON/CSV ani jeho hashe**.
+Nový soukromý map.json mapuje původní repo a pracovní složku na dva existující,
+nepřekrývající se absolutní cíle (jeden je aktuální repo):
+
+```json
+{"schema_version":1,"prefixes":[
+  {"from":"/original/ENC-AI-Project","to":"/new/ENC-AI-Project"},
+  {"from":"/original/czai-private-v1","to":"/new/czai-private-v1"}
+]}
+```
+
+Z aktuálního přesného klonu a s původními parametry G1:
+
+```bash
+python3 scripts/freeze_protocol.py --verify "$WORK/G3.json" --path-map "$WORK/map.json"
+python3 scripts/score.py --final --path-map "$WORK/map.json" --freeze "$WORK/G3.json" \
+  --runs "$WORK/runs/run_plan_*.csv" --annotation-dir "$WORK/annotation" \
+  --key-dir "$WORK/key" --focus "$FOCUS" --out "$WORK/results/replay-v1"
+```
+
+WORK nyní ukazuje na nový fyzický adresář; `--out` musí být nová fyzická cesta mimo
+annotation/key. Mapa se používá jen při čtení, včetně rekurzivního řetězce G1→G2→G3,
+kontroly hashů a původních vazeb. Únik přes symlink a kolize vazeb se odmítají.
+`--path-map` nelze použít ke sběru či podpisu nové brány. `replay_provenance.json`
+uvádí SHA-256 původního G3, mapy a odvozených výstupů; **není to nový podpis ani schválení**.

@@ -11,7 +11,7 @@ from unittest.mock import patch
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
-from check_citations import entities, fetch, match_ratio, save_source_check, suggestion
+from check_citations import entities, fetch, match_ratio, parse_answer, save_source_check, suggestion
 from common import sha256_file
 from integrity import timestamp
 
@@ -26,7 +26,7 @@ class Handler(http.server.BaseHTTPRequestHandler):
             self.send_header("Location", "/source")
             self.end_headers()
             return
-        if self.path == "/missing":
+        if self.path in {"/missing", "/resource"}:
             self.send_error(404)
             return
         body = (b'x' * 3_000_010 if self.path == "/big" else
@@ -87,6 +87,14 @@ class HttpChecksTests(unittest.TestCase):
         result = self.local_fetch("/big")
         self.assertTrue(result["truncated"])
         self.assertEqual(len(result["body"]), 3_000_000)
+
+    def test_trailing_underscore_url_reaches_the_real_resource(self):
+        original = self.base + "/resource_"
+        _, sources, _, _ = parse_answer(f"The fixture value is 31 [1].\nSOURCES:\n[1] [source]({original})")
+        self.assertEqual(sources[1]["url"], original)
+        with patch("urllib.request.urlopen", urllib.request.build_opener(urllib.request.ProxyHandler({})).open):
+            self.assertEqual(fetch(sources[1]["url"], 2)["status"], 200)
+        self.assertEqual(self.local_fetch("/resource")["status"], 404)
 
 
 if __name__ == "__main__":

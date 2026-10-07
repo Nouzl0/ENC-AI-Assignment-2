@@ -6,12 +6,50 @@ import unittest
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
-from check_citations import parse_answer, stratified_sample
+from check_citations import clean_text_urls, parse_answer, stratified_sample
 from common import required_facts, validate_pair_rows
 from validate_cases import validate_case
 
 
 class AnnotationTests(unittest.TestCase):
+    def test_urls_preserve_markdown_destinations_and_original_response(self):
+        urls = ["https://example.org/resource_", "https://example.org/resource__",
+                "https://example.org/path!", "https://example.org/x?a=%2f&b=one%20two&utm_id=test&b=second",
+                "https://example.org/a_(b)", "https://example.org/a(b).pdf", "https://example.org/a(b(c)).pdf"]
+        for url in urls:
+            text = f"ANSWER: The value is [document]({url}).\nSOURCES:\n[1] [document]({url})"
+            _, sources, _, _ = parse_answer(text)
+            self.assertEqual(sources[1]["url"], url)
+            self.assertEqual(clean_text_urls(text), text)
+        _, sources, _, _ = parse_answer("The value is supported [1].\nSOURCES:\n[1] https://example.org/resource__")
+        self.assertEqual(sources[1]["url"], urls[1])
+
+    def test_zero_marker_is_retained_and_flagged_not_renumbered(self):
+        claims, sources, _, fmt = parse_answer("ANSWER: The value is 31 [0].\nSOURCES:\n[0] https://example.org/value")
+        self.assertIn("[0]", claims[0])
+        self.assertIn(0, sources)
+        self.assertFalse(fmt["valid_citation_numbers"])
+        validate_pair_rows([dict(blind_answer_id="A1", pair_id="A1-T1-0", claim_id="T1", citation_n="0")], "zero output")
+
+    def test_bold_heading_with_inline_value_preserves_source_url(self):
+        claims, sources, _, _ = parse_answer("**ANSWER:** The value is 31 [1].\n__SOURCES:__\n**[1]** https://example.org/value__")
+        self.assertEqual(claims, ["The value is 31 [1]."])
+        self.assertEqual(sources[1]["url"], "https://example.org/value__")
+        _, sources, _, _ = parse_answer("The value is 31 [1].\nSOURCES:\n__[1]__ https://example.org/value__")
+        self.assertEqual(sources[1]["url"], "https://example.org/value__")
+
+    def test_source_line_keeps_primary_url_before_markdown_mirror(self):
+        _, sources, _, _ = parse_answer("The value is 31 [1].\nSOURCES:\n[1] https://example.org/primary_ (mirror [copy](https://example.org/secondary_))")
+        self.assertEqual(sources[1]["url"], "https://example.org/primary_")
+
+    def test_whole_bold_source_keeps_number_and_url(self):
+        for marker in ("**", "__"):
+            for url in ("https://example.org/resource_", "https://example.org/resource__"):
+                for source in (f"[2] [source]({url})", f"[2] {url}"):
+                    _, sources, _, _ = parse_answer(f"The value is 31 [2].\nSOURCES:\n{marker}{source}{marker}")
+                    self.assertEqual(list(sources), [2])
+                    self.assertEqual(sources[2]["url"], url)
+
     def test_more_than_eight_claims_not_truncated(self):
         text = " ".join(f"Fact number {i} is present [1]." for i in range(12)) + "\nSOURCES:\n[1] https://example.org/facts"
         claims, _, _, _ = parse_answer(text)

@@ -1,6 +1,7 @@
 import copy
 import datetime as dt
 import json
+import shutil
 from pathlib import Path
 import sys
 import tempfile
@@ -17,6 +18,7 @@ from common import load_all_cases, read_csv, sha256_file, write_csv
 from integrity import (bind_plan, private_path, run_artifact_problems, timestamp,
                        verify_freeze, verify_plans, write_json_new)
 from freeze_protocol import gate_matrix_problems, prepare_manifest, template
+from replay_paths import configure_path_map, resolve_input
 
 
 class IntegrityTests(unittest.TestCase):
@@ -374,6 +376,49 @@ class IntegrityTests(unittest.TestCase):
                 log.write_text("changed outage artifact")
                 with self.assertRaisesRegex(ValueError, "frozen file changed"):
                     verify_freeze(g3)
+                log.write_text("synthetic outage log (not a benchmark result)")
+                self.assert_relocated_replay(repo, private, argv)
+
+    def assert_relocated_replay(self, repo, private, original_argv):
+        """Two machines, original locations gone, signed bytes intact."""
+        hashes = {str(p.relative_to(private)): sha256_file(p) for p in private.rglob("*") if p.is_file()}
+        expected = {name: (private / "final-results" / name).read_bytes() for name in
+                    ("metrics.csv", "hypotheses.csv", "agreement.csv", "report.md")}
+        original_repo, original_private = str(repo), str(private)
+        try:
+            for index in (1, 2):
+                target = private.parent / f"machine-{index}"
+                new_repo, new_private = target / "repo", target / "private"
+                shutil.copytree(repo, new_repo)
+                shutil.copytree(private, new_private)
+                shutil.rmtree(repo)
+                shutil.rmtree(private)
+                mapping = target / "paths.json"
+                mapping.write_text(json.dumps(dict(schema_version=1, prefixes=[
+                    {"from": original_repo, "to": str(new_repo)}, {"from": original_private, "to": str(new_private)}])))
+                argv = list(original_argv) + ["--path-map", str(mapping)]
+                argv[argv.index("--data-dir") + 1] = str(new_repo / "data")
+                argv[argv.index("--prompts-dir") + 1] = str(new_repo / "prompts")
+                out = new_private / f"replay-{index}"
+                argv[argv.index("--out") + 1] = str(out)
+                with patch.object(integrity, "ROOT", str(new_repo)), patch.object(score, "ROOT", str(new_repo)), patch.object(score, "PROMPTS", str(new_repo / "prompts")), patch.object(sys, "argv", argv):
+                    score.main()
+                    self.assertEqual(verify_freeze(str(new_private / "G3.json"))["gate"], "G3")
+                    for name, value in expected.items():
+                        self.assertEqual((out / name).read_bytes(), value, name)
+                    for name, digest in hashes.items():
+                        self.assertEqual(sha256_file(new_private / name), digest, name)
+                    prov = json.loads((out / "replay_provenance.json").read_text())
+                    self.assertEqual(prov["parent_g3_sha256"], sha256_file(new_private / "G3.json"))
+                    source = new_private / "source.txt"
+                    original = source.read_bytes()
+                    source.write_bytes(original + b"tamper")
+                    with self.assertRaisesRegex(ValueError, "frozen file changed"):
+                        verify_freeze(str(new_private / "G3.json"))
+                    source.write_bytes(original)
+                repo, private = new_repo, new_private
+        finally:
+            configure_path_map()
 
     def failed_fixture_rows(self, repo, log, phase, start, count, conditions, indices):
         rows = []

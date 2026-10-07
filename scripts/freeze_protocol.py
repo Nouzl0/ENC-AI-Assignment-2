@@ -8,6 +8,7 @@ import argparse
 import datetime as dt
 import os
 from pathlib import Path
+from replay_paths import configure_path_map
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -225,9 +226,13 @@ def main():
     action.add_argument("--template", choices=sorted(ATTESTATIONS))
     action.add_argument("--seal", help="filled, human-approved private config JSON")
     action.add_argument("--verify", help="private sealed manifest JSON")
+    ap.add_argument("--path-map", help="read-time relocation for --verify only; never rewrite/reseal an original gate")
     ap.add_argument("--out", help="new private output file; never overwrites")
     args = ap.parse_args()
+    if args.path_map and not args.verify:
+        ap.error("--path-map is only allowed with --verify")
     try:
+        configure_path_map(args.path_map, ROOT)
         if args.verify:
             m = verify_freeze(args.verify)
             print(f"{m['gate']}: hashes and declared approvals verified (not a digital signature)")

@@ -48,7 +48,7 @@ STRUCTURED = {"P2", "P3", "P3A", "P3B"}
 UA = "Mozilla/5.0 (X11; Linux x86_64) CZAI-citation-benchmark/1.0 (student project)"
 
 URL_RE = re.compile(r"https?://[^\s<>\"'\]\[]+")
-MD_LINK_RE = re.compile(r"\[([^\]\n]{1,200})\]\((https?://[^\s]+?)\)(?=[\s.,;:!?)\]]|$)")
+MD_START_RE = re.compile(r"\[([^\]\n]{1,200})\]\((https?://)")
 MARK_RE = re.compile(r"\[(\d+(?:\s*[,;–-]\s*\d+)*)\]")
 SUP = str.maketrans("⁰¹²³⁴⁵⁶⁷⁸⁹", "0123456789")
 SUP_RUN_RE = re.compile(r"([⁰¹²³⁴⁵⁶⁷⁸⁹]+(?:\s*,\s*[⁰¹²³⁴⁵⁶⁷⁸⁹]+)*)")
@@ -69,18 +69,45 @@ ROMAN_RE = re.compile(r"^[IVXLCDM]+$")
 
 
 # ----------------------------------------------------------------- text helpers
-def clean_url(url):
-    url = url.rstrip(".,;:!?*_")
+def clean_url(url, markdown=False):
+    """Extract a URL, not a canonicalized replacement of the recorded address.
+
+    Markdown destinations are exact; bare links may carry sentence punctuation.
+    In particular trailing underscores and query ordering/encoding are meaningful.
+    """
+    if markdown:
+        return url
+    url = url.rstrip(".,;:!?")
     while url.endswith(")") and url.count("(") < url.count(")"):
         url = url[:-1]
-    try:
-        p = urllib.parse.urlsplit(url)
-        q = [(k, v) for k, v in urllib.parse.parse_qsl(p.query, keep_blank_values=True)
-             if not k.lower().startswith("utm_")]
-        url = urllib.parse.urlunsplit((p.scheme, p.netloc, p.path, urllib.parse.urlencode(q), p.fragment))
-    except ValueError:
-        pass
     return url
+
+
+def markdown_links(text):
+    """Markdown links with balanced URL parentheses (including nested paths)."""
+    end_previous = 0
+    for m in MD_START_RE.finditer(text):
+        if m.start() < end_previous:
+            continue
+        depth, end = 1, m.start(2)
+        while end < len(text) and not text[end].isspace():
+            if text[end] == "(":
+                depth += 1
+            elif text[end] == ")":
+                depth -= 1
+                if depth == 0:
+                    end_previous = end + 1
+                    yield m.start(), end + 1, m.group(1), text[m.start(2):end], m.start(2)
+                    break
+            end += 1
+
+
+def replace_markdown_links(text, replace):
+    chunks, previous = [], 0
+    for start, end, label, url, _ in markdown_links(text):
+        chunks.extend((text[previous:start], replace(label, url)))
+        previous = end
+    return "".join(chunks) + text[previous:]
 
 
 def strip_md(line):
@@ -89,7 +116,20 @@ def strip_md(line):
     s = re.sub(r"^>+\s*", "", s)
     s = re.sub(r"^#{1,6}\s*", "", s)
     s = re.sub(r"^[-*+•]\s+", "", s)
-    s = s.replace("**", "").replace("__", "")
+    # Only unwrap whole-line decoration: global replacements corrupt URL paths.
+    for marker in ("**", "__"):
+        if s.startswith(marker):
+            end = s.find(marker, len(marker))
+            destinations = [(start, stop - 1) for _, stop, _, _, start in markdown_links(s)]
+            while end >= 0 and any(start <= end < stop for start, stop in destinations):
+                end = s.find(marker, end + len(marker))
+            if end >= 0 and not s[end:].strip(marker[0]):
+                s = s[len(marker):-len(marker)]
+                continue
+            label = s[len(marker):end].strip() if end >= 0 else ""
+            if label and (any(rx.match(label) for rx in HEAD_RE.values())
+                          or re.fullmatch(r"\[\d+\]", label)):
+                s = label + s[end + len(marker):]
     return s.strip()
 
 
@@ -199,7 +239,11 @@ def parse_answer(text):
                 next_n += 1
             num = next_n
         next_n = max(next_n, num + 1)
-        sources[num] = {"line": re.sub(r"\s+", " ", rest).strip()[:300], "url": clean_url(url_m.group(0))}
+        first_url = URL_RE.search(s)
+        md_url = next((url for _, _, _, url, start in markdown_links(s)
+                       if first_url and start == first_url.start()), None)
+        sources[num] = {"line": re.sub(r"\s+", " ", rest).strip()[:300],
+                        "url": md_url if md_url is not None else clean_url(url_m.group(0))}
 
     body_lines = sections.get("body", []) + sections.get("answer", [])
     claim_lines = sections.get("claims", [])
@@ -213,15 +257,15 @@ def parse_answer(text):
         return n
 
     # inline markdown links and bare URLs in the text -> [n] markers
-    def link_repl(m):
-        return f"{m.group(1)} [{add_source(clean_url(m.group(2)), m.group(1))}]"
+    def link_repl(label, url):
+        return f"{label} [{add_source(url, label)}]"
 
     def bare_repl(m):
         url = clean_url(m.group(0))
         return f"[{add_source(url, url)}]"
 
-    body_lines = [URL_RE.sub(bare_repl, MD_LINK_RE.sub(link_repl, l)) for l in body_lines]
-    claim_lines = [URL_RE.sub(bare_repl, MD_LINK_RE.sub(link_repl, l)) for l in claim_lines]
+    body_lines = [URL_RE.sub(bare_repl, replace_markdown_links(l, link_repl)) for l in body_lines]
+    claim_lines = [URL_RE.sub(bare_repl, replace_markdown_links(l, link_repl)) for l in claim_lines]
     known = set(sources)
     body_lines = [sup_to_markers(l, known) for l in body_lines]
     claim_lines = [sup_to_markers(l, known) for l in claim_lines]
@@ -264,11 +308,13 @@ def parse_answer(text):
     marks = [n for c in claims for n in parse_markers(c)]
     fmt["all_claims_cited"] = bool(claims) and all(parse_markers(c) for c in claims)
     fmt["all_marks_resolved"] = all(n in sources for n in marks)
+    fmt["valid_citation_numbers"] = all(n >= 1 for n in marks) and all(n >= 1 for n in sources)
     return claims, sources, segmentation, fmt
 
 
 def clean_text_urls(text):
-    return URL_RE.sub(lambda m: clean_url(m.group(0)), text)
+    # Raters must see the original response, not rewritten URLs.
+    return text
 
 
 # ----------------------------------------------------------------- web checks

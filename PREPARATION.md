@@ -59,7 +59,7 @@ připravený. Reálné benchmarky jsme nespustili.
 | Etapa revize | Rozsah | Stav |
 | --- | --- | --- |
 | 1 | Férové RF/OF/RC, evidenční kontrakt, předem dané kvóty holdoutu | hotovo; kritická re-kontrola bez blokujících/středních nálezů |
-| 2 | Parser a přenositelná reprodukce | následuje |
+| 2 | Parser a přenositelná reprodukce | hotovo; kritická re-kontrola bez blokujících/středních nálezů |
 | 3 | Výběr P3, ratingy a interpretační diagnostiky | následuje |
 | 4 | Konzistentní dokumentace a předání | následuje |
 
@@ -70,6 +70,13 @@ bypass whitespace správnosti, chybějící referenční data, duplicitní JSON 
 skrytá expected_properties; opraveno a re-kontrolováno. Ověřeno 54 unittestů na
 Pythonu 3.11.16 i 3.14.7, validace dev/val a git diff --check. Žádné nové ověření gold
 na webu ani produktové běhy neproběhly.
+
+Revize 2: původní URL/text, nevyřazené [0], read-only mapa cest pro G3 replay bez
+změny podepsaných bytes a se záznamem rodičovského hashe. Kritická kontrola odhalila
+závorky v markdown URL, tučné zdrojové řádky, záměnu primárního odkazu za mirror a
+cross-overlap mapy; opraveno a re-kontrolováno. Ověřeno 61 unittestů na Pythonu
+3.11.16 i 3.14.7, dvě přesunutí se smazanými původními cestami, loopback HTTP,
+validace dev/val a git diff --check. Žádný produktový benchmark neproběhl.
 
 ## Co nadále provede kolega (platí i po revizi)
 

@@ -4,6 +4,10 @@
 nezávisle schválené reference, G1/G2/G3 ani vítězný P3 nyní nejsou hotové. Neodevzdávat
 syntetické testy jako výsledky produktů. Postup číst spolu s PROTOCOL.md a rubrikou.
 
+Reprodukce na jiné cestě/počítači: viz freeze/README.md, `--path-map` pouze pro ověření
+a finální replay. Předat učiteli autorizovaný kompletní soukromý balíček i přesný commit;
+nepřepisovat původní absolutní cesty uvnitř podepsaných souborů.
+
 ## 0. Role a izolovaný pracovní prostor
 
 - Správce dat vytvoří nový holdout a provádí CLI; nezávislý ověřovatel kontroluje reference.

@@ -1,10 +1,10 @@
 """Shared helpers for the CZAI citation benchmark scripts (standard library only)."""
 import csv
-import glob
 import hashlib
 import json
 import math
 import os
+from replay_paths import input_glob, resolve_input
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA = os.path.join(ROOT, "data")
@@ -89,7 +89,9 @@ def validate_pair_rows(rows, label):
     for row in rows:
         cit = (row.get("citation_n") or "").strip()
         if cit not in {"", "*"}:
-            if not cit.isdigit() or int(cit) < 1:
+            # Preserve malformed model output [0] for human rating; metadata
+            # records invalid numbering. This is not automatically FAB.
+            if not cit.isdigit() or int(cit) < 0:
                 raise ValueError(f"{label}: invalid citation_n={cit!r}")
             cit = str(int(cit))
         identity = (row.get("blind_answer_id"), row.get("claim_id"), cit)
@@ -182,7 +184,7 @@ def prompt_lang(case_language):
 
 def sha256_file(path):
     h = hashlib.sha256()
-    with open(path, "rb") as f:
+    with open(resolve_input(path), "rb") as f:
         for chunk in iter(lambda: f.read(65536), b""):
             h.update(chunk)
     return h.hexdigest()
@@ -192,7 +194,7 @@ def load_cases(split, data_dir=DATA, test_file=None):
     if split == "test" and not test_file:
         raise ValueError("test requires an explicit --test-file; published candidates are not a private holdout")
     path = test_file if split == "test" else os.path.join(data_dir, f"cases_{split}.jsonl")
-    with open(path, encoding="utf-8") as f:
+    with open(resolve_input(path), encoding="utf-8") as f:
         return [json.loads(line) for line in f if line.strip()]
 
 
@@ -204,13 +206,13 @@ def load_all_cases(data_dir=DATA, test_file=None):
 
 
 def read_csv(path):
-    with open(path, encoding="utf-8-sig", newline="") as f:
+    with open(resolve_input(path), encoding="utf-8-sig", newline="") as f:
         return list(csv.DictReader(f))
 
 
 def read_csv_glob(pattern):
     rows = []
-    for p in sorted(glob.glob(pattern)):
+    for p in input_glob(pattern):
         rows.extend(read_csv(p))
     return rows
 

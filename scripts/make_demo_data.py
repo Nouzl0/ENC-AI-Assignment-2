@@ -90,7 +90,7 @@ def fill_runs(work, phase):
             row.update(failure_artifact_file=str(log), failure_artifact_sha256=sha256_file(log))
         else:
             fact = f"The fixture value is {i}"
-            mark = "[9]" if mode == 4 else "[1]" if mode not in (5, 6) else ""
+            mark = ("[0]" if i % 2 == 0 else "[9]") if mode == 4 else "[1]" if mode not in (5, 6) else ""
             claim = f"{fact} {mark}".strip()
             if row["condition"].startswith("P3") and mode == 0:
                 claim += ' "Synthetic support sentence. Another synthetic support sentence."'
