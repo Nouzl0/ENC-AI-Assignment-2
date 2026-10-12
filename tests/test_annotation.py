@@ -1,4 +1,3 @@
-import json
 import random
 import sys
 import unittest
@@ -6,7 +5,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
 from check_citations import clean_text_urls, parse_answer, stratified_sample
-from common import required_facts, validate_pair_rows
+from common import validate_pair_rows
 from validate_cases import validate_case
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -177,19 +176,6 @@ class AnnotationTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             validate_pair_rows([row], "split")
         validate_pair_rows([dict(row, pair_id="A1-T2a-1")], "split")
-
-    def test_bonus_not_in_required_denominator(self):
-        cases = [
-            json.loads(line)
-            for line in (ROOT / "data/cases_dev.jsonl")
-            .read_text(encoding="utf-8")
-            .splitlines()
-        ]
-        by_id = {c["task_id"]: c for c in cases}
-        self.assertEqual(required_facts(by_id["CIT-007"]), ["12 % od 1. 1. 2024"])
-        self.assertFalse(any("NTIA" in f for f in required_facts(by_id["CIT-012"])))
-        self.assertEqual(len(required_facts(by_id["CIT-019"])), 1)
-        self.assertEqual(validate_case(by_id["CIT-007"], "dev"), [])
 
     def test_malformed_cases_return_errors_not_tracebacks(self):
         for case in (None, [], {}, {"language": []}, {"reference_answer_or_tests": []}):

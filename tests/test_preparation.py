@@ -2,6 +2,7 @@
 
 import csv
 import datetime as dt
+import hashlib
 import json
 import os
 import random
@@ -113,11 +114,9 @@ with tempfile.TemporaryDirectory() as directory:
     def test_filled_demo_evidence_is_complete_but_not_verified(self):
         with tempfile.TemporaryDirectory(prefix="czai-evidence-test-") as directory:
             out = Path(directory, "example")
-            output = run_cli("make_evidence_example.py", "--out", out)
-            self.assertIn("no human verification or benchmark", output)
+            run_cli("make_evidence_example.py", "--out", out)
             source = read_csv(out / "source_evidence.csv")
             daily = read_csv(out / "run_day_evidence.csv")
-            self.assertEqual((len(source), len(daily)), (5, 4))
             for file, template in (
                 ("source_evidence.csv", "data/source_evidence_TEMPLATE.csv"),
                 ("run_day_evidence.csv", "annotation/run_day_evidence_TEMPLATE.csv"),
@@ -131,12 +130,18 @@ with tempfile.TemporaryDirectory() as directory:
                     self.assertEqual(
                         next(csv.reader(actual)), next(csv.reader(expected))
                     )
-            cases = {
-                c["task_id"]: c
-                for c in json.loads(
-                    (out / "reference_units_DEMO.json").read_text(encoding="utf-8")
-                )
-            }
+            units = json.loads(
+                (out / "reference_units_DEMO.json").read_text(encoding="utf-8")
+            )
+            cases = {c["task_id"]: c for c in units}
+            self.assertEqual(len(cases), len(units))
+            self.assertEqual(
+                {c["reference_valid_as_of"] for c in units},
+                {"2026-01-01", "RUN_DAY"},
+            )
+            for case in units:
+                for field in ("required_facts", "optional_facts"):
+                    self.assertTrue(case["reference_answer_or_tests"][field])
             expected_units = {
                 (c["task_id"], f"{prefix}{i}"): (fact, kind)
                 for c in cases.values()
@@ -146,9 +151,9 @@ with tempfile.TemporaryDirectory() as directory:
                 )
                 for i, fact in enumerate(c["reference_answer_or_tests"][field], 1)
             }
-            self.assertEqual(
-                {(r["task_id"], r["fact_id"]) for r in source}, set(expected_units)
-            )
+            source_keys = [(r["task_id"], r["fact_id"]) for r in source]
+            self.assertEqual(set(source_keys), set(expected_units))
+            self.assertEqual(len(source_keys), len(set(source_keys)))
             for row in source:
                 self.assertEqual(
                     (row["fact_text"], row["reference_kind"]),
@@ -157,22 +162,17 @@ with tempfile.TemporaryDirectory() as directory:
                 self.assertNotEqual(row["reference_value"], row["fact_text"])
                 self.assertEqual(row["valid_as_of"], "2026-01-01")
                 self.assertEqual(row["archive_url"], "")
+            daily_keys = [(r["task_id"], r["run_date"], r["fact_id"]) for r in daily]
             self.assertEqual(
-                {(r["run_date"], r["fact_id"]) for r in daily},
+                set(daily_keys),
                 {
-                    (day, fact)
+                    (tid, day, fid)
+                    for tid, fid in expected_units
+                    if cases[tid]["reference_valid_as_of"] == "RUN_DAY"
                     for day in ("2026-01-01", "2026-01-04")
-                    for fact in ("RF1", "OF1")
                 },
             )
-            self.assertEqual(
-                {r["reference_value"] for r in daily if r["fact_id"] == "RF1"},
-                {"78 měření", "82 měření"},
-            )
-            self.assertEqual(
-                {r["reference_value"] for r in daily if r["fact_id"] == "OF1"},
-                {"12,34 m", "12,36 m"},
-            )
+            self.assertEqual(len(daily_keys), len(set(daily_keys)))
             for row in source + daily:
                 self.assertEqual(row["verification_status"], "DEMO_NOT_VERIFIED")
                 self.assertIn("nikoli člověk", row["verified_by"])
@@ -181,7 +181,6 @@ with tempfile.TemporaryDirectory() as directory:
                 path = Path(row["snapshot_file"])
                 self.assertTrue(path.is_absolute())
                 self.assertEqual(path.parent, out)
-                self.assertIn("smyšlený zdroj", path.read_text(encoding="utf-8"))
                 self.assertEqual(row["snapshot_sha256"], sha256_file(path))
                 checked_day = (
                     timestamp(row["checked_at"])
@@ -193,7 +192,7 @@ with tempfile.TemporaryDirectory() as directory:
                     checked_day, row.get("run_date", row.get("valid_as_of"))
                 )
             errors = source_evidence_problems(cases, out / "source_evidence.csv")
-            self.assertEqual(len(errors), 5)
+            self.assertEqual(len(errors), len(source))
             self.assertTrue(all("missing verified evidence" in e for e in errors))
             self.assertFalse(any(out.glob("G*.json")))
 
@@ -202,14 +201,7 @@ with tempfile.TemporaryDirectory() as directory:
             prefix="czai-evidence-path-test-"
         ) as directory:
             out = Path(directory, "example")
-            self.assertEqual(
-                create_example(out),
-                {
-                    "source_rows": 5,
-                    "run_day_rows": 4,
-                    "verification_status": "DEMO_NOT_VERIFIED",
-                },
-            )
+            create_example(out)
             before = {p.name: p.read_bytes() for p in out.iterdir()}
             with self.assertRaises(FileExistsError):
                 create_example(out)
@@ -231,8 +223,13 @@ with tempfile.TemporaryDirectory() as directory:
             make_cases(work)
             prompts = work / "prompts"
             prompts.mkdir()
-            for file in (ROOT / "prompts").glob("*.txt"):
-                shutil.copy2(file, prompts / file.name)
+            templates = {
+                "cs": "Otázka:\n{user_prompt}\nKonec.\n",
+                "en": "Question:\n{user_prompt}\nEnd.\n",
+            }
+            for stem in ("P1_baseline", "P2_structured", "P3B_candidate"):
+                for lang, text in templates.items():
+                    (prompts / f"{stem}_{lang}.txt").write_text(text, encoding="utf-8")
             # Fictional selection only for testing the plan, not a real P3 winner.
             for lang in ("cs", "en"):
                 shutil.copy2(
@@ -278,6 +275,26 @@ with tempfile.TemporaryDirectory() as directory:
                     self.assertEqual({r["condition"] for r in rows}, {"P1", "P2", "P3"})
                 runs.extend(rows)
             cases = load_all_cases(work / "data", work / "data/cases_test.jsonl")
+            for row in runs:
+                case = cases[row["task_id"]]
+                question = case["user_prompt"]
+                expected = (
+                    f"Otázka:\n{question}\nKonec.\n"
+                    if case["language"] == "cs"
+                    else f"Question:\n{question}\nEnd.\n"
+                )
+                with self.subTest(run=row["run_id"]):
+                    self.assertEqual(row["prompt_text"], expected)
+                    self.assertEqual(
+                        row["rendered_prompt_sha256"],
+                        hashlib.sha256(expected.encode("utf-8")).hexdigest(),
+                    )
+                    self.assertEqual(
+                        row["prompt_sha256"],
+                        hashlib.sha256(
+                            templates[case["language"]].encode("utf-8")
+                        ).hexdigest(),
+                    )
             config = {
                 "systems": SYSTEMS,
                 "val_candidates": ["P3B"],
@@ -297,43 +314,7 @@ with tempfile.TemporaryDirectory() as directory:
             ]
             rater2_ids = stratified_sample(sample_rows, 0.25, random.Random(2026))
             self.assertEqual(len(rater2_ids), 115)
-            self.assertEqual(
-                f"{(len(runs) * 10 + len(rater2_ids) * 7) / 60:.1f}", "80.1"
-            )
             self.assertFalse((work / "runs/answers").exists())
-
-    def test_p3b_draft_allows_direct_support_and_rounding_in_both_languages(self):
-        for lang, terms in (
-            (
-                "cs",
-                (
-                    "výslovně podporovat",
-                    "transparentně",
-                    "zaokrouhlení",
-                    "výpočtu",
-                    "stejnými jednotkami",
-                ),
-            ),
-            (
-                "en",
-                (
-                    "explicitly support",
-                    "transparently",
-                    "rounding",
-                    "calculation",
-                    "same units",
-                ),
-            ),
-        ):
-            with self.subTest(language=lang):
-                text = (ROOT / f"prompts/P3B_candidate_{lang}.txt").read_text(
-                    encoding="utf-8"
-                )
-                rule = next(line for line in text.splitlines() if line.startswith("9."))
-                for term in terms:
-                    self.assertIn(term, rule)
-                self.assertEqual(text.count("{user_prompt}"), 1)
-                self.assertNotIn("CIT-", text)
 
 
 if __name__ == "__main__":

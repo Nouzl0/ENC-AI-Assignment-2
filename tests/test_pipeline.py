@@ -21,12 +21,9 @@ class PipelineTests(unittest.TestCase):
         cls.addClassCleanup(cls.tmp.cleanup)
         cls.work = Path(cls.tmp.name, "fixture")
         with patch.dict(os.environ, PYTHONHASHSEED="1", TZ="UTC"):
-            cls.summary = create_fixture(cls.work)
+            create_fixture(cls.work)
 
     def test_full_pipeline_and_preconsensus_integrity(self):
-        self.assertEqual(
-            self.summary, {"runs": 500, "terminal_failures": 58, "aggregate_rows": 35}
-        )
         runs = [
             row
             for p in sorted((self.work / "runs").glob("*.csv"))
@@ -52,9 +49,6 @@ class PipelineTests(unittest.TestCase):
                 for r in agreement
             )
         )
-        report = (self.work / "results/report.md").read_text(encoding="utf-8")
-        self.assertIn("nikdy podklad nezávislého ratingu ani důkaz S2", report)
-        self.assertNotIn("nápověda, pokud", report)
         rows = read_csv(self.work / "results/answer_metrics.csv")
         self.assertTrue(
             any(

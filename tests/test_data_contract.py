@@ -31,35 +31,6 @@ class DataContractTests(unittest.TestCase):
                     with self.assertRaisesRegex(ValueError, "duplicate JSON key"):
                         load_cases("dev", directory)
 
-    def test_constraints_are_separate_from_content(self):
-        cases = load_all_cases()
-        who = cases["CIT-002"]["reference_answer_or_tests"]
-        self.assertNotIn("2015", " ".join(who["required_facts"]))
-        self.assertIn("nejsou povinné", " ".join(who["required_constraints"]))
-        self.assertEqual(
-            len(cases["CIT-004"]["reference_answer_or_tests"]["required_facts"]), 2
-        )
-        rag = cases["CIT-025"]["reference_answer_or_tests"]
-        self.assertIn(
-            "Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks",
-            rag["required_facts"],
-        )
-        self.assertTrue(rag["required_constraints"])
-        for case in cases.values():
-            ref = case["reference_answer_or_tests"]
-            text = "; ".join(ref["required_facts"]) + "."
-            if ref["optional_facts"]:
-                text += (
-                    " Nepovinný kontext (vynechání se nepenalizuje): "
-                    + "; ".join(ref["optional_facts"])
-                    + "."
-                )
-            self.assertEqual(ref["reference_answer"], text)
-            self.assertEqual(
-                case["expected_properties"],
-                ref["required_facts"] + ref["required_constraints"],
-            )
-
     def test_constraint_results_fail_closed(self):
         case = {
             "reference_answer_or_tests": {

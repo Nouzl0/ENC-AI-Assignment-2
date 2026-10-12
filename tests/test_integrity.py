@@ -69,11 +69,17 @@ class IntegrityTests(unittest.TestCase):
             PYTHONCOERCECLOCALE="0",
             PYTHONDONTWRITEBYTECODE="1",
         )
-        code = (
-            "import sys; sys.path.insert(0, sys.argv[1]); "
-            "from integrity import holdout_problems; "
-            "assert isinstance(holdout_problems({}), list)"
-        )
+        code = """
+import json, sys
+from pathlib import Path
+sys.path.insert(0, sys.argv[1])
+from integrity import holdout_problems
+path = Path(sys.argv[1]).parent / 'data/published_test_candidates.jsonl'
+candidate = json.loads(path.read_text(encoding='utf-8').splitlines()[0])
+tid = candidate['task_id']
+errors = holdout_problems({tid: candidate})
+assert f'{tid}: overlaps an exposed dev/val/published candidate {tid}' in errors, errors
+"""
         result = subprocess.run(
             [sys.executable, "-c", code, str(ROOT / "scripts")],
             env=env,

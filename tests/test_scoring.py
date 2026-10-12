@@ -75,9 +75,6 @@ class ScoringIntegrityTests(unittest.TestCase):
         point, lo, _hi = bootstrap_ci(values, 200, 2026)
         self.assertEqual(point, 0.1)
         self.assertGreater(lo, 0)
-        self.assertTrue(
-            point >= 0.1
-        )  # H1 must not depend on the Python sum implementation.
         self.assertEqual(mean([0.08] * 10), 0.08)
         rows = [{"task_id": "DEMO-1", "precision": 0.08} for _ in range(10)]
         self.assertEqual(case_values(rows, "precision"), {"DEMO-1": 0.08})
@@ -217,10 +214,24 @@ class ScoringIntegrityTests(unittest.TestCase):
 
     def test_required_fact_denominator_is_not_editable_by_rater(self):
         run, key, pair, answer, cases = fixture()
-        answer["n_key_facts"] = "2"
+        cases["TEST"]["reference_answer_or_tests"].update(
+            required_facts=["required"],
+            optional_facts=["optional detail not present in the answer"],
+            required_constraints=["official source"],
+        )
+        answer["constraint_results"] = '{"RC1":"yes"}'
         scored, problems = load_answers([run], [key], [pair], [answer], cases, False)
-        self.assertEqual(scored, [])
-        self.assertTrue(problems)
+        self.assertEqual(problems, [])
+        self.assertEqual(scored[0]["kf_cov"], 1)
+        self.assertEqual(scored[0]["correct"], 1)
+        for count in ("2", "3"):
+            with self.subTest(count=count):
+                answer["n_key_facts"] = count
+                scored, problems = load_answers(
+                    [run], [key], [pair], [answer], cases, False
+                )
+                self.assertEqual(scored, [])
+                self.assertTrue(any("required-fact" in p for p in problems))
 
     def test_required_fact_guard_preserves_score_rating_normalization(self):
         run, key, pair, answer, cases = fixture()
