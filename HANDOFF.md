@@ -1,15 +1,11 @@
 # Předání kolegovi: co provést a co ještě není hotové
 
-**Skutečný sběr v Avastu provádí autorizovaný AI operátor.** René spravuje holdout
+**Skutečný sběr v Chromu provádí autorizovaný AI operátor.** René spravuje holdout
 a kontroluje reference, Jan je autor promptu; oba mají provést nezávislé lidské
 hodnocení. Již existuje 10 skutečných pilotních odpovědí na dvě úlohy v
 `runs/pilot-2026-10-12/` a pilotní zpráva v `docs/results.md`. Finální analytické
 výsledky, nezávisle schválené reference, G1/G2/G3 ani vítězný P3 hotové nejsou.
 Syntetické testy nejsou výsledky produktů. Postup číst spolu s PROTOCOL.md a rubrikou.
-Rozšířený pilot 13. října přidává 23 odpovědí na šest dalších veřejných úloh;
-celkem 33 odpovědí na osm unikátních úloh. Je zvlášť v `runs/pilot-2026-10-13/`
-a nepřičítá se do analytické matice. Soukromé podklady pro Reného před G1 jsou
-v `czai-private-v1/review-before-G1-v1/`; návrh má prázdný podpis a false attestations.
 
 Kolega může finální text protokolu a zprávy dopracovat později. Schválení G1
 musí předcházet prvnímu analytickému běhu; G2 předchází testu a G3 scoringu.

@@ -11,7 +11,7 @@ Projekt trvá 10 týdnů a má tři brány, za které se nevracíme. Role jsou r
 | **G3** | Konec hodnocení | Před finálním scoringem (val scoring před G2) |
 
 :::{note}
-Týdny jsou relativní; tým je přepíše na data semestru. Pevné je jen pořadí: G1 před prvním analytickým během, G2 před otevřením testovací sady, G3 před finálním scoringem. Validační scoring probíhá před G2.
+Týdny jsou relativní; tým je přepíše na data semestru. Pevné je jen pořadí: G1 před prvním analytickým během, G2 před otevřením testovací sady, G3 před výpočtem výsledků.
 :::
 
 ## Role
@@ -27,20 +27,11 @@ Týdny jsou relativní; tým je přepíše na data semestru. Pevné je jen pořa
 ## Potvrzené přiřazení a sběr
 
 Uživatel 12. 10. 2026 určil Reného Mrákavu a Jana Duba jako dva plánované
-lidské hodnotitele a pověřil agenta skutečným sběrem v Avast Secure Browser.
+lidské hodnotitele a pověřil agenta skutečným sběrem v Chrome.
 Operátor nového pilotu je `codex-ui-2026-10-12`; jeho výstupy budou
 hodnotit lidé. Přiřazení rolí není doklad provedené kalibrace nebo ratingů.
-Uživatel následně potvrdil: **René Mrákava je správce skrytého testu a
-nezávislý ověřovatel referencí; Jan Dub je autor promptu.** Přípravu podkladů
-pomáhá provést operátor AI; Janovi se obsah testu před G2 nepředává.
-Lidské ověření, kalibrace a nezávislé ratingy zůstávají skutečnými úkony lidí.
-Nehodnotící operátor uchovává anotační klíč a automatické nápovědy odděleně
-od Reného i Jana; René jako správce testu nepotřebuje produktový klíč.
-Operátor po přípravě a čtení testových kandidátů dále nenavrhuje ani neladí P3.
-
-Všech pět produktů zůstává v návrhu. Uživatel výslovně zvolil pokračování
-s Claude po obnovení limitu, nikoli jeho vyřazení. Pilot 12. 10. ukázal
-limit sdílený s Claude Code a oznámené obnovení 13. 10. v 19:00.
+Správce nového skrytého testu a nezávislý ověřovatel referencí dosud
+nejsou jmenovitě potvrzeni; musí se lišit od autora promptu.
 
 Původní pilot jiného operátora se uchovává odděleně. Nový sběr používá
 existující přihlášené účty; jejich skutečné úrovně se zapisují do metadat
