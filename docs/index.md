@@ -6,5 +6,8 @@ Projekt měří, jak často citace AI asistentů s webovým vyhledáváním skut
 
 > Tato stránka je součástí webové verze projektové zprávy. Celý dokument je dostupný také jako PDF export.
 
+**Pracovní stav před G1:** nový pilot probíhá, analytický benchmark a
+lidské hodnocení dosud nejsou dokončené. Doložený stav je v [](#results).
+
 ```{tableofcontents}
 ```

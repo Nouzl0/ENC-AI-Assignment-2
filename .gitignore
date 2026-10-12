@@ -186,7 +186,10 @@ cython_debug/
 /runs/run_plan_*.csv*
 /runs/answers/
 /runs/screenshots/
-/results/
+/results/*
+!/results/README.md
+!/results/pilot/
+!/results/pilot/**
 /private/
 /data/cases_test.jsonl
 /data/source_evidence.csv
@@ -198,3 +201,6 @@ cython_debug/
 /demo/results/
 /demo/example/annotation/
 /demo/example/annotation_key/
+
+# Temporary Word owner/lock files.
+~$*.docx

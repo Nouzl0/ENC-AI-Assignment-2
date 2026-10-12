@@ -1,0 +1,15 @@
+{
+  "run_id": "dev-CIT-020-P2-perplexity-r1",
+  "checked_at": "2026-10-12T21:36:53.342365+00:00",
+  "change": "Original reply HTML serialized offline. Every original citation group expanded using the actual UI carousel destinations, at the original attribution position. Hostname labels avoid chip line breaks. Product text and full URLs unchanged. First normalized export, raw text and raw HTML preserved. No query repeated.",
+  "original_answer_file": "/mnt/d/AI/czai-private-v1/calibration/avast-v1/answers/dev-CIT-020-P2-perplexity-r1.txt",
+  "original_answer_sha256": "59cb8ad282043f662edd8ca34cf04315a84f88951306cbfaa0e6d1576b98e7c0",
+  "raw_html_file": "/mnt/d/AI/czai-private-v1/calibration/avast-v1/raw/dev-CIT-020-P2-perplexity-r1.raw.html",
+  "raw_html_sha256": "4494ee07a4b930de6343d84838f947f57b043a48ee89652b7d98269a7325200d",
+  "popover_file": "/mnt/d/AI/czai-private-v1/calibration/avast-v1/raw/dev-CIT-020-P2-perplexity-r1.citation-popovers.json",
+  "popover_sha256": "4ac3626f55e0819462427e93f084c06819dc5b6a7d829efcd07491114aa9844d",
+  "normalized_file": "/mnt/d/AI/czai-private-v1/calibration/avast-v1/normalization-v2/dev-CIT-020-P2-perplexity-r1.txt",
+  "normalized_sha256": "2c4d90d7a36cb3d8c02a698c99f444d9cfad66099ede93f9deb22db5cfcd2572",
+  "citation_groups": 9,
+  "source_associations": 15
+}

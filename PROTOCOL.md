@@ -13,8 +13,13 @@ explicitních S2 dvojic; praktický význam je důvěryhodnost atribuce při bě
 ne důkaz pravdivosti všeho, co produkt napsal.
 Směr B; **porovnání produktů**, nikoli základních modelů nebo čistého vlivu vyhledávání.
 
-ChatGPT, Gemini, Claude, Perplexity, Grok; výchozí bezplatná úroveň, běžný chat s dostupným
-vyhledáváním, bez Deep Research. Aktuální rozhraní, účty a dostupnost nástrojů ověří
+ChatGPT, Gemini, Claude, Perplexity, Grok; běžný chat s dostupným vyhledáváním,
+bez Deep Research. Před-G1 revize 12. 10. 2026: na pokyn uživatele sběr používá
+existující přihlášené účty v Avast Secure Browser. Původní záměr stejné bezplatné
+úrovně není splněn: Gemini má Plus, Perplexity Free, přesný tarif ostatních nebyl
+viditelný. Skutečné úrovně a modely se uchovají; rozdíly účtů jsou součástí
+porovnání produktů a jeho omezení, nikoli izolované měření modelu.
+Aktuální rozhraní, účty a dostupnost nástrojů ověří
 operátor a doloží nastavení před G1; názvy přepínačů se mohou změnit. Systémové instrukce,
 teplota či limit výstupu, které UI neukazuje, jsou výchozí/neznámé, ne domyšlené hodnoty.
 Rozdíly zahrnují model, retrieval, účet, region, UI a výchozí nastavení produktu.
@@ -198,6 +203,12 @@ zůstává v matici. Chyba operátora = excluded s důkazem a svázaným náhrad
 Původní odpovědi/pokusy/screenshoty se nemažou; RAW i normalizace a SHA-256 jsou povinné.
 Test do 72 h, každá úloha napříč podmínkami/produkty do 24 h; repeat v následujících
 72 h. Source rating do 7 dní od odpovědi. Odchylky evidovat včetně dopadu na závěr.
+
+René je správce testu a referencí, Jan autor promptu, oba plánovaní hodnotitelé.
+Nehodnotící operátor AI připravuje zaslepené exporty a uchovává klíč i automatické
+nápovědy odděleně od obou lidí až do dokončení nezávislého hodnocení.
+Operátor, který připravil a četl soukromý návrh testu, dále nesmí navrhovat či ladit
+P3; autor Jan dostává pouze dev/val. Přiřazení rolí nenahrazuje lidské kontroly.
 
 Hodnotitel 1 všechny completed odpovědi, hodnotitel 2 předem náhodně vybrané ≥25 %
 v každém stratu fáze×produkt×podmínka, zaokrouhleno nahoru. Nikdo nehodnotí vlastní běh;

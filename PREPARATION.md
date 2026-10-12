@@ -246,3 +246,40 @@ zdrojové ověřování ani skutečný podpis G1/G2/G3.
 Nový soukromý holdout, nezávislé ověření RF/OF, dostupnost a nastavení produktů, pilot,
 skutečné podpisy/archivace G1/G2/G3, dev/val výběr P3_final, produktové běhy, lidské ratingy,
 výsledky a závěrečná zpráva. Dokončení čtyř přípravných etap není dokončení experimentu.
+
+## 12. 10. 2026 – skutečný pilot a export do projektu
+
+Uživatel autorizoval reálný sběr v Avast Secure Browser a přenos runů do tohoto
+projektu. Export obsahuje 2původní anonymní a 8 nových skutečných odpovědí, tedy
+10 odpovědí na 2 unikátní úlohy P2. Originály se nepřepisovaly; zachovány raw text/HTML,
+metadata, první exporty, snímky, provozní audit a SHA-256. Perplexity sdružené
+citace byly věrně rozbaleny z původních UI karuselů s auditovanou normalizací v2.
+Zbytek soukromé složky (browser queue, osobní ověření/profily, klíč, holdout) se nepublikuje.
+
+Připraveny dva stejné zaslepené listy pro 8 nových odpovědí, parser 54 řádků / 3 necitovaná
+tvrzení a skutečné HTTP kontroly 11 unikátních URL. Listy nejsou vyplněné. Komentář
+týmu v první osobě je výslovně návrh AI pro následnou úpravu autorů, nikoli provedené
+lidské hodnocení. Claude měl vyčerpaný limit; jeho pokus zůstává auditní evidencí.
+
+René potvrzen jako správce testu/reference a hodnotitel, Jan jako autor promptu
+a hodnotitel. Operátor uchovává klíč/auto nápovědy odděleně od obou lidí. Po čtení
+soukromých kandidátů nesmí dále navrhovat nebo ladit P3. Soukromý AI návrh 10 nových
+případů splňuje schéma a kvóty; čeká na Reného lidské ověření. Read-only AI kontrola
+primárních zdrojů odhalila a napravila nepřesnosti dev/val, další mezery jsou přiznané
+v docs/source-audit.md. Hashy 89 zdrojových snapshotů byly ověřeny, nejde o lidské ověření faktů.
+
+Kritický read-only reviewer ověřil všech 58 prvotních exportních hashů/velikostí, prázdné ratingy
+a nepřítomnost osobních údajů/klíče/holdoutu; prohlédl 11 snímků. Operátor následně
+přidal 3 nové snímky a 3 časové doklady, celkem 64 artefaktů; ořezání a částečné
+snímky jsou přiznané. Každý nový hash ověřen. Report po opravách
+jasně uvádí 2 unikátní úlohy a dosud nesplněný požadavek analýzy ≥8 úloh.
+
+Kontroly: WSL Python 3.12.3, **87 unittestů OK (119,324 s)**; veřejný validátor OK;
+Ruff 0.16.1 check a format --check OK; git diff --check OK. MyST PDF sestavené přes
+uv/mystmd 1.11.0 a Typst 0.15.1, 28 stran, text bez náhradních znaků a DOPLNIT.
+PDF/obrázky mají výslovné binární Git atributy; zabráněno převodu jejich bytes na LF.
+Vzdálené CI nebylo ověřeno: GitHub connector pro tento privátní repozitář vrátil 404.
+Softwarové syntetické fixture výsledky nejsou benchmarkovými výsledky.
+
+G1/G2/G3, skutečné lidské ratingy, P3_final a analytické dev/val/test/repeat běhy
+zatím nejsou dokončené; nebylo předstíráno score --final ani kompletní assignment.

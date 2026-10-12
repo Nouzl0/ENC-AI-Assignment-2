@@ -1,0 +1,137 @@
+blind_answer_id,task_id,language,question,reference_answer,reference_valid_as_of,key_facts,optional_facts,n_key_facts,required_constraints,expected_properties,rater_notes,answer_text,parsed_sources,n_claims,n_sources,segmentation_reviewed,correctness,key_facts_supported,key_fact_evidence,constraint_results,acknowledges_uncertainty,check_minutes,rater,comment
+Ad444bd8,CIT-020,en,What was William Shakespeare's exact date of birth?,"the exact date of birth is unknown. Nepovinný kontext (vynechání se nepenalizuje): baptised 26 April 1564; 23 April is a tradition, not a record.",2026-09-29,RF1: the exact date of birth is unknown,"baptised 26 April 1564 | 23 April is a tradition, not a record",1,,the exact date of birth is unknown,23. 4. 1564 jako doložené datum narození = správnost 0.,"ANSWER: William Shakespeare’s exact date of birth is unknown. He was baptized on 26 April 1564 in Stratford-upon-Avon; his birthday is traditionally celebrated on 23 April 1564.[⁠Shakespearedocumented.folger](https://shakespearedocumented.folger.edu/node/108)
+
+
+CLAIMS:
+
+C1: No birth record for Shakespeare exists; the earliest documentary evidence is his baptism. [1][2]
+
+C2: The parish register of Holy Trinity Church, Stratford-upon-Avon, records his baptism on 26 April 1564 as “Gulielmus filius Johannes Shakspere” (William, son of John Shakespeare). [1]
+
+C3: Contemporary practice (and the 1559 Book of Common Prayer) typically called for baptism within a few days of birth, often by the next Sunday or holy day, so a birth a few days earlier is inferred. [1][2]
+
+C4: 23 April is the traditional date assigned for his birth (three days before baptism) and is the date most often celebrated; it also coincides with the recorded date of his death in 1616. [1][2][3]
+
+
+SOURCES:
+
+[1] Parish register entry recording William Shakespeare's baptism – Folger Shakespeare Library / Shakespeare Documented (contributed by The Shakespeare Birthplace Trust) – not stated (document dated 26 April 1564; modern description) – [https://shakespearedocumented.folger.edu/node/108](https://shakespearedocumented.folger.edu/node/108)
+
+[2] When Was Shakespeare Born? – Shakespeare Birthplace Trust – not stated – [https://www.shakespeare.org.uk/explore-shakespeare/shakespedia/william-shakespeare/when-was-shakespeare-born/](https://www.shakespeare.org.uk/explore-shakespeare/shakespedia/william-shakespeare/when-was-shakespeare-born/)
+
+[3] Shakespeare's life – Folger Shakespeare Library – not stated – [https://www.folger.edu/explore/shakespeares-life/](https://www.folger.edu/explore/shakespeares-life/)
+
+
+CONFIDENCE: high – Primary parish-register evidence and consistent statements from the Folger Shakespeare Library and Shakespeare Birthplace Trust establish that only the baptism date is documented and that 23 April is a later traditional assignment.","[1] https://shakespearedocumented.folger.edu/node/108
+[2] https://www.shakespeare.org.uk/explore-shakespeare/shakespedia/william-shakespeare/when-was-shakespeare-born/
+[3] https://www.folger.edu/explore/shakespeares-life/",6,3,,,,,,,,,
+Ab9ba5e7,CIT-020,en,What was William Shakespeare's exact date of birth?,"the exact date of birth is unknown. Nepovinný kontext (vynechání se nepenalizuje): baptised 26 April 1564; 23 April is a tradition, not a record.",2026-09-29,RF1: the exact date of birth is unknown,"baptised 26 April 1564 | 23 April is a tradition, not a record",1,,the exact date of birth is unknown,23. 4. 1564 jako doložené datum narození = správnost 0.,"ANSWER: Shakespeare’s exact date of birth is not known. The traditional and most commonly cited date is 23 April 1564, but it is an inference from his recorded baptism on 26 April 1564, not a documented birth record. [www.shakespeare.org.uk](https://www.shakespeare.org.uk/explore-shakespeare/shakespedia/shakespeares-birthplace/documentary-evidence/) [www.shakespeare.org.uk](https://www.shakespeare.org.uk/explore-shakespeare/shakespedia/william-shakespeare/when-was-shakespeare-born/)
+
+CLAIMS:
+C1: The exact date of William Shakespeare’s birth is unknown; no birth record survives. [www.shakespeare.org.uk](https://www.shakespeare.org.uk/explore-shakespeare/shakespedia/shakespeares-birthplace/documentary-evidence/) [www.shakespeare.org.uk](https://www.shakespeare.org.uk/explore-shakespeare/shakespedia/william-shakespeare/when-was-shakespeare-born/)
+C2: Shakespeare was baptised at Holy Trinity Church, Stratford-upon-Avon, on 26 April 1564. [www.shakespeare.org.uk](https://www.shakespeare.org.uk/explore-shakespeare/shakespedia/shakespeares-birthplace/documentary-evidence/) [shakespearedocumented.folger.edu](https://shakespearedocumented.folger.edu/repository/shakespeare-birthplace-trust?page=1)
+C3: 23 April 1564 is traditionally celebrated as his birthday because baptisms commonly occurred within about three days of birth, making 23 April the earliest plausible birth date. [www.shakespeare.org.uk](https://www.shakespeare.org.uk/explore-shakespeare/shakespedia/william-shakespeare/when-was-shakespeare-born/) [www.rsc.org.uk](https://www.rsc.org.uk/shakespeares-life-and-times/?from=mdd)
+
+SOURCES:
+Documentary Evidence – Shakespeare Birthplace Trust – not stated – [https://www.shakespeare.org.uk/explore-shakespeare/shakespedia/shakespeares-birthplace/documentary-evidence/](https://www.shakespeare.org.uk/explore-shakespeare/shakespedia/shakespeares-birthplace/documentary-evidence/) [www.shakespeare.org.uk](https://www.shakespeare.org.uk/explore-shakespeare/shakespedia/shakespeares-birthplace/documentary-evidence/)
+When Was Shakespeare Born? – Shakespeare Birthplace Trust – not stated – [https://www.shakespeare.org.uk/explore-shakespeare/shakespedia/william-shakespeare/when-was-shakespeare-born/](https://www.shakespeare.org.uk/explore-shakespeare/shakespedia/william-shakespeare/when-was-shakespeare-born/) [www.shakespeare.org.uk](https://www.shakespeare.org.uk/explore-shakespeare/shakespedia/william-shakespeare/when-was-shakespeare-born/)
+William Shakespeare's life and times – Royal Shakespeare Company – not stated – [https://www.rsc.org.uk/shakespeares-life-and-times/?from=mdd](https://www.rsc.org.uk/shakespeares-life-and-times/?from=mdd) [www.rsc.org.uk](https://www.rsc.org.uk/shakespeares-life-and-times/?from=mdd)
+Shakespeare Birthplace Trust – Folger Shakespeare Library, Shakespeare Documented – not stated – [https://shakespearedocumented.folger.edu/repository/shakespeare-birthplace-trust?page=1](https://shakespearedocumented.folger.edu/repository/shakespeare-birthplace-trust?page=1) [shakespearedocumented.folger.edu](https://shakespearedocumented.folger.edu/repository/shakespeare-birthplace-trust?page=1)
+
+CONFIDENCE: high – Multiple authoritative Shakespeare institutions explicitly state that the exact birth date is unrecorded while identifying 23 April 1564 as the traditional date. [www.shakespeare.org.uk](https://www.shakespeare.org.uk/explore-shakespeare/shakespedia/shakespeares-birthplace/documentary-evidence/) [www.shakespeare.org.uk](https://www.shakespeare.org.uk/explore-shakespeare/shakespedia/william-shakespeare/when-was-shakespeare-born/) [www.rsc.org.uk](https://www.rsc.org.uk/shakespeares-life-and-times/?from=mdd)","[1] https://www.shakespeare.org.uk/explore-shakespeare/shakespedia/shakespeares-birthplace/documentary-evidence/
+[2] https://www.shakespeare.org.uk/explore-shakespeare/shakespedia/william-shakespeare/when-was-shakespeare-born/
+[3] https://www.rsc.org.uk/shakespeares-life-and-times/?from=mdd
+[4] https://shakespearedocumented.folger.edu/repository/shakespeare-birthplace-trust?page=1",5,4,,,,,,,,,
+A3cba382,CIT-001,en,What vaccine efficacy against symptomatic COVID-19 did the phase 3 trial of the Pfizer-BioNTech BNT162b2 vaccine report in its main publication? Give the value and cite the original publication.,efficacy 95%. Nepovinný kontext (vynechání se nepenalizuje): interval 90.3–97.6 (Bayesian credible interval).,2026-09-29,RF1: efficacy 95%,interval 90.3–97.6 (Bayesian credible interval),1,RC1: Cite the original phase 3 publication (not only a secondary summary).,efficacy 95% | Cite the original phase 3 publication (not only a secondary summary).,Interval je Bayesovský credible interval; označení 'CI' tolerovat. NEJM může být za paywallem (NA) – abstrakt v PubMed/Europe PMC stačí.,"ANSWER:
+In its main primary publication, the Phase 3 clinical trial of the Pfizer-BioNTech BNT162b2 vaccine reported a vaccine efficacy of 95% against symptomatic COVID-19 in participants 16 years of age or older [1].
+
+CLAIMS:
+C1: The Phase 3 trial evaluated the Pfizer-BioNTech BNT162b2 mRNA vaccine [1].
+C2: The primary publication of the trial reported a vaccine efficacy of 95% against symptomatic COVID-19 [1].
+C3: The reported efficacy applied to participants 16 years of age or older [1].
+C4: The study was published in the *New England Journal of Medicine* [1].
+
+SOURCES:
+[1] Safety and Efficacy of the BNT162b2 mRNA Covid-19 Vaccine – New England Journal of Medicine – 2020-12-31 – [https://pubmed.ncbi.nlm.nih.gov/33301246/](https://pubmed.ncbi.nlm.nih.gov/33301246/)
+
+CONFIDENCE: high – The primary Phase 3 trial paper published in NEJM explicitly states a 95% vaccine efficacy against COVID-19 in persons 16 years of age or older.",[1] https://pubmed.ncbi.nlm.nih.gov/33301246/,5,1,,,,,,,,,
+A30f47ec,CIT-001,en,What vaccine efficacy against symptomatic COVID-19 did the phase 3 trial of the Pfizer-BioNTech BNT162b2 vaccine report in its main publication? Give the value and cite the original publication.,efficacy 95%. Nepovinný kontext (vynechání se nepenalizuje): interval 90.3–97.6 (Bayesian credible interval).,2026-09-29,RF1: efficacy 95%,interval 90.3–97.6 (Bayesian credible interval),1,RC1: Cite the original phase 3 publication (not only a secondary summary).,efficacy 95% | Cite the original phase 3 publication (not only a secondary summary).,Interval je Bayesovský credible interval; označení 'CI' tolerovat. NEJM může být za paywallem (NA) – abstrakt v PubMed/Europe PMC stačí.,"ANSWER: The phase 3 trial’s main publication reported 95.0% vaccine efficacy against symptomatic COVID-19 starting at least 7 days after dose two, among participants without evidence of prior SARS‑CoV‑2 infection. The reported 95% interval was 90.3%–97.6%. [nejm](https://www.nejm.org/doi/full/10.1056/NEJMoa2034577)
+
+CLAIMS:
+C1: Vaccine efficacy was 95.0% (95% interval, 90.3%–97.6%) against COVID-19 with onset at least 7 days after the second dose, in participants without evidence of prior infection. [nejm](https://www.nejm.org/doi/full/10.1056/NEJMoa2034577)
+
+SOURCES:
+[Safety and Efficacy of the BNT162b2 mRNA Covid-19 Vaccine](https://www.nejm.org/doi/full/10.1056/NEJMoa2034577) – New England Journal of Medicine – published online December 10, 2020; issue date December 31, 2020. [nejm](https://www.nejm.org/doi/full/10.1056/NEJMoa2034577)
+
+CONFIDENCE: high – the original publication reports the efficacy estimate and interval in its results.",[1] https://www.nejm.org/doi/full/10.1056/NEJMoa2034577,3,1,,,,,,,,,
+A54fea65,CIT-020,en,What was William Shakespeare's exact date of birth?,"the exact date of birth is unknown. Nepovinný kontext (vynechání se nepenalizuje): baptised 26 April 1564; 23 April is a tradition, not a record.",2026-09-29,RF1: the exact date of birth is unknown,"baptised 26 April 1564 | 23 April is a tradition, not a record",1,,the exact date of birth is unknown,23. 4. 1564 jako doložené datum narození = správnost 0.,"ANSWER:
+William Shakespeare's exact date of birth is unknown because no official birth record exists [1]. The earliest surviving document of his life is his baptism record from Holy Trinity Church in Stratford-upon-Avon on April 26, 1564 [1], [2]. By tradition, his birthday is celebrated on April 23 [1], [2].
+
+CLAIMS:
+C1: William Shakespeare's exact date of birth is not recorded in any surviving primary document [1].
+C2: Shakespeare was baptized on April 26, 1564, at Holy Trinity Church in Stratford-upon-Avon [1], [2].
+C3: Shakespeare's birthday is traditionally celebrated on April 23, 1564, based on the customary interval of a few days between birth and baptism in the Elizabethan era [1], [2].
+
+SOURCES:
+[1] When Was Shakespeare Born? – Shakespeare Birthplace Trust – not stated – [https://www.shakespeare.org.uk/explore-shakespeare/shakespedia/william-shakespeare/when-was-shakespeare-born/](https://www.shakespeare.org.uk/explore-shakespeare/shakespedia/william-shakespeare/when-was-shakespeare-born/)
+[2] Five things we know | Shakespeare's Life – Folger Shakespeare Library – April 10 2026 – [https://www.folger.edu/blogs/shakespeare-and-beyond/five-things-we-know-shakespeares-life/](https://www.folger.edu/blogs/shakespeare-and-beyond/five-things-we-know-shakespeares-life/)
+
+CONFIDENCE: high – Reliable historical authorities (Shakespeare Birthplace Trust and Folger Shakespeare Library) agree that the exact birth date was never recorded, while confirming the date of his baptism.","[1] https://www.shakespeare.org.uk/explore-shakespeare/shakespedia/william-shakespeare/when-was-shakespeare-born/
+[2] https://www.folger.edu/blogs/shakespeare-and-beyond/five-things-we-know-shakespeares-life/",6,2,,,,,,,,,
+Abe5e232,CIT-020,en,What was William Shakespeare's exact date of birth?,"the exact date of birth is unknown. Nepovinný kontext (vynechání se nepenalizuje): baptised 26 April 1564; 23 April is a tradition, not a record.",2026-09-29,RF1: the exact date of birth is unknown,"baptised 26 April 1564 | 23 April is a tradition, not a record",1,,the exact date of birth is unknown,23. 4. 1564 jako doložené datum narození = správnost 0.,"ANSWER:
+
+William Shakespeare's exact date of birth is unknown. [1][2] His birthday is traditionally celebrated on 23 April 1564, but the earliest surviving record confirms only that he was baptized on 26 April 1564. [1][2]
+
+CLAIMS:
+
+C1: No surviving documentary evidence establishes William Shakespeare's exact date of birth. [1][2]
+
+C2: The traditional birth date is 23 April 1564, but this is not historically confirmed. [1][2]
+
+C3: The parish register of Holy Trinity Church, Stratford-upon-Avon, records Shakespeare's baptism on 26 April 1564. [1]
+
+C4: The traditional birthday was proposed by antiquarian William Oldys in the 18th century and subsequently adopted by George Steevens in 1773. [1]
+
+SOURCES:
+
+[1] Parish register entry recording William Shakespeare's baptism – Shakespeare Documented, Folger Shakespeare Library / Shakespeare Birthplace Trust – Last updated 22 May 2020.
+
+[https://shakespearedocumented.folger.edu/resource/document/parish-register-entry-recording-william-shakespeares-baptism](https://shakespearedocumented.folger.edu/resource/document/parish-register-entry-recording-william-shakespeares-baptism)
+
+[2] Documentary Evidence – Shakespeare Birthplace Trust – Publication date not stated.
+
+[https://www.shakespeare.org.uk/explore-shakespeare/shakespedia/shakespeares-birthplace/documentary-evidence/](https://www.shakespeare.org.uk/explore-shakespeare/shakespedia/shakespeares-birthplace/documentary-evidence/)
+
+CONFIDENCE: High – The surviving baptismal record and two authoritative Shakespeare research institutions independently confirm that the baptism date is documented, whereas the exact birth date remains unknown. [1][2]","[1] https://shakespearedocumented.folger.edu/resource/document/parish-register-entry-recording-william-shakespeares-baptism
+[2] https://www.shakespeare.org.uk/explore-shakespeare/shakespedia/shakespeares-birthplace/documentary-evidence/",6,2,,,,,,,,,
+A0a0dd91,CIT-001,en,What vaccine efficacy against symptomatic COVID-19 did the phase 3 trial of the Pfizer-BioNTech BNT162b2 vaccine report in its main publication? Give the value and cite the original publication.,efficacy 95%. Nepovinný kontext (vynechání se nepenalizuje): interval 90.3–97.6 (Bayesian credible interval).,2026-09-29,RF1: efficacy 95%,interval 90.3–97.6 (Bayesian credible interval),1,RC1: Cite the original phase 3 publication (not only a secondary summary).,efficacy 95% | Cite the original phase 3 publication (not only a secondary summary).,Interval je Bayesovský credible interval; označení 'CI' tolerovat. NEJM může být za paywallem (NA) – abstrakt v PubMed/Europe PMC stačí.,"ANSWER: The phase 3 trial of the Pfizer-BioNTech BNT162b2 vaccine reported 95.0% efficacy against symptomatic, laboratory-confirmed COVID-19, measured at least 7 days after the second dose. [1]
+
+CLAIMS:
+
+C1: Vaccine efficacy was 95.0% (95% interval: 90.3–97.6%). [1]
+
+C2: There were 8 COVID-19 cases in the vaccinated group versus 162 in the placebo group, beginning at least 7 days after the second dose. [1]
+
+SOURCES:
+
+[1] Polack FP et al. Safety and Efficacy of the BNT162b2 mRNA Covid-19 Vaccine – New England Journal of Medicine – December 10, 2020 (online publication) – [https://doi.org/10.1056/NEJMoa2034577](https://doi.org/10.1056/NEJMoa2034577)
+
+CONFIDENCE: High – The result is explicitly reported in the original publication's abstract and efficacy results, retrieved through web search. Direct opening of the publisher's full-text page was blocked, so independent full-text verification was limited.",[1] https://doi.org/10.1056/NEJMoa2034577,3,1,,,,,,,,,
+Ad1dab95,CIT-001,en,What vaccine efficacy against symptomatic COVID-19 did the phase 3 trial of the Pfizer-BioNTech BNT162b2 vaccine report in its main publication? Give the value and cite the original publication.,efficacy 95%. Nepovinný kontext (vynechání se nepenalizuje): interval 90.3–97.6 (Bayesian credible interval).,2026-09-29,RF1: efficacy 95%,interval 90.3–97.6 (Bayesian credible interval),1,RC1: Cite the original phase 3 publication (not only a secondary summary).,efficacy 95% | Cite the original phase 3 publication (not only a secondary summary).,Interval je Bayesovský credible interval; označení 'CI' tolerovat. NEJM může být za paywallem (NA) – abstrakt v PubMed/Europe PMC stačí.,"ANSWER: The phase 3 trial of the Pfizer-BioNTech BNT162b2 vaccine reported 95% efficacy against symptomatic (laboratory-confirmed) COVID-19 in its main publication.[⁠Pubmed.ncbi.nlm.nih](https://pubmed.ncbi.nlm.nih.gov/33301246/)
+
+
+CLAIMS:
+
+C1: The primary phase 3 efficacy results for BNT162b2 were published by Polack et al. in the New England Journal of Medicine (N Engl J Med 2020;383:2603-2615; DOI: 10.1056/NEJMoa2034577; Epub 10 Dec 2020). [1]
+
+C2: Among participants without evidence of prior SARS-CoV-2 infection, there were 8 cases of COVID-19 with onset ≥7 days after the second dose in the BNT162b2 group versus 162 cases in the placebo group, corresponding to 95% vaccine efficacy (95% credible interval 90.3–97.6). [1]
+
+C3: The primary endpoint was laboratory-confirmed COVID-19 (i.e., symptomatic disease). [1]
+
+
+SOURCES:
+
+[1] Safety and Efficacy of the BNT162b2 mRNA Covid-19 Vaccine – New England Journal of Medicine / PubMed – 31 December 2020 (Epub 10 December 2020) – [https://pubmed.ncbi.nlm.nih.gov/33301246/](https://pubmed.ncbi.nlm.nih.gov/33301246/)
+
+
+CONFIDENCE: high – Multiple independent sources (PubMed abstract, contemporaneous Pfizer announcement, and secondary reports) consistently reproduce the identical primary efficacy figure and case counts from the original Polack et al. NEJM paper; no contradictory primary data were found.",[1] https://pubmed.ncbi.nlm.nih.gov/33301246/,4,1,,,,,,,,,

@@ -1,0 +1,14 @@
+ANSWER: The phase 3 trial’s main publication reported 95.0% vaccine efficacy against symptomatic COVID-19 starting at least 7 days after dose two, among participants without evidence of prior SARS‑CoV‑2 infection. The reported 95% interval was 90.3%–97.6%.
+nejm
+
+CLAIMS:
+C1: Vaccine efficacy was 95.0% (95% interval, 90.3%–97.6%) against COVID-19 with onset at least 7 days after the second dose, in participants without evidence of prior infection.
+nejm
+
+SOURCES:
+
+Safety and Efficacy of the BNT162b2 mRNA Covid-19 Vaccine
+ – New England Journal of Medicine – published online December 10, 2020; issue date December 31, 2020.
+nejm
+
+CONFIDENCE: high – the original publication reports the efficacy estimate and interval in its results.

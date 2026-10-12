@@ -1,0 +1,25 @@
+ANSWER:
+
+William Shakespeare's exact date of birth is unknown. [1][2] His birthday is traditionally celebrated on 23 April 1564, but the earliest surviving record confirms only that he was baptized on 26 April 1564. [1][2]
+
+CLAIMS:
+
+C1: No surviving documentary evidence establishes William Shakespeare's exact date of birth. [1][2]
+
+C2: The traditional birth date is 23 April 1564, but this is not historically confirmed. [1][2]
+
+C3: The parish register of Holy Trinity Church, Stratford-upon-Avon, records Shakespeare's baptism on 26 April 1564. [1]
+
+C4: The traditional birthday was proposed by antiquarian William Oldys in the 18th century and subsequently adopted by George Steevens in 1773. [1]
+
+SOURCES:
+
+[1] Parish register entry recording William Shakespeare's baptism – Shakespeare Documented, Folger Shakespeare Library / Shakespeare Birthplace Trust – Last updated 22 May 2020.
+
+https://shakespearedocumented.folger.edu/resource/document/parish-register-entry-recording-william-shakespeares-baptism
+
+[2] Documentary Evidence – Shakespeare Birthplace Trust – Publication date not stated.
+
+https://www.shakespeare.org.uk/explore-shakespeare/shakespedia/shakespeares-birthplace/documentary-evidence/
+
+CONFIDENCE: High – The surviving baptismal record and two authoritative Shakespeare research institutions independently confirm that the baptism date is documented, whereas the exact birth date remains unknown. [1][2]

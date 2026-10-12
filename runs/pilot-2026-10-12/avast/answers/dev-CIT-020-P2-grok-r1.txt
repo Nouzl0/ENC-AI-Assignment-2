@@ -1,0 +1,24 @@
+ANSWER: William Shakespeare’s exact date of birth is unknown. He was baptized on 26 April 1564 in Stratford-upon-Avon; his birthday is traditionally celebrated on 23 April 1564.[⁠Shakespearedocumented.folger](https://shakespearedocumented.folger.edu/node/108)
+
+
+CLAIMS:
+
+C1: No birth record for Shakespeare exists; the earliest documentary evidence is his baptism. [1][2]
+
+C2: The parish register of Holy Trinity Church, Stratford-upon-Avon, records his baptism on 26 April 1564 as “Gulielmus filius Johannes Shakspere” (William, son of John Shakespeare). [1]
+
+C3: Contemporary practice (and the 1559 Book of Common Prayer) typically called for baptism within a few days of birth, often by the next Sunday or holy day, so a birth a few days earlier is inferred. [1][2]
+
+C4: 23 April is the traditional date assigned for his birth (three days before baptism) and is the date most often celebrated; it also coincides with the recorded date of his death in 1616. [1][2][3]
+
+
+SOURCES:
+
+[1] Parish register entry recording William Shakespeare's baptism – Folger Shakespeare Library / Shakespeare Documented (contributed by The Shakespeare Birthplace Trust) – not stated (document dated 26 April 1564; modern description) – [https://shakespearedocumented.folger.edu/node/108](https://shakespearedocumented.folger.edu/node/108)
+
+[2] When Was Shakespeare Born? – Shakespeare Birthplace Trust – not stated – [https://www.shakespeare.org.uk/explore-shakespeare/shakespedia/william-shakespeare/when-was-shakespeare-born/](https://www.shakespeare.org.uk/explore-shakespeare/shakespedia/william-shakespeare/when-was-shakespeare-born/)
+
+[3] Shakespeare's life – Folger Shakespeare Library – not stated – [https://www.folger.edu/explore/shakespeares-life/](https://www.folger.edu/explore/shakespeares-life/)
+
+
+CONFIDENCE: high – Primary parish-register evidence and consistent statements from the Folger Shakespeare Library and Shakespeare Birthplace Trust establish that only the baptism date is documented and that 23 April is a later traditional assignment.

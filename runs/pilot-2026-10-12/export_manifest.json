@@ -1,0 +1,463 @@
+{
+  "schema_version": 1,
+  "kind": "approved export of actual pre-G1 pilots; not final benchmark results",
+  "exported_at": "2026-10-12T21:41:17.373314+00:00",
+  "human_ratings_performed": false,
+  "new_pilot_completed_answers": 8,
+  "legacy_completed_answers": 2,
+  "unique_task_ids": 2,
+  "new_pilot_failed_rows": 1,
+  "new_pilot_planned_rows": 1,
+  "files": [
+    {
+      "file": "legacy/run_plan_pilot.source.csv",
+      "sha256": "8eba5f02300ba58d23e619ef1143d43dee880f39553af615de96afcd3c8e9ec7",
+      "bytes": 21110,
+      "source_file": "/mnt/d/AI/czai-private-v1/calibration/run_plan_pilot.csv",
+      "note": "Byte-identical approved pilot artifact"
+    },
+    {
+      "file": "legacy/run_plan_pilot.source.csv.manifest.json",
+      "sha256": "52f225a71fb3ff60a2451a21ea9d17151278ee84ea2a9791c84e3675d6eb63e9",
+      "bytes": 23116,
+      "source_file": "/mnt/d/AI/czai-private-v1/calibration/run_plan_pilot.csv.manifest.json",
+      "note": "Byte-identical approved pilot artifact"
+    },
+    {
+      "file": "legacy/answers/dev-CIT-001-P2-perplexity-r1.txt",
+      "sha256": "008ac7501bed338d5bcf2b83c384aa6fd113547e6a2cab0856f9fdf3ba76406a",
+      "bytes": 1760,
+      "source_file": "/mnt/d/AI/czai-private-v1/calibration/answers/dev-CIT-001-P2-perplexity-r1.txt",
+      "note": "Byte-identical approved pilot artifact"
+    },
+    {
+      "file": "legacy/raw/dev-CIT-001-P2-perplexity-r1.raw.txt",
+      "sha256": "31d3708a4e5fb2325a52deef18b693cf7f1af4ef1e831c4a7f3fae40ec62ae95",
+      "bytes": 1432,
+      "source_file": "/mnt/d/AI/czai-private-v1/calibration/raw/dev-CIT-001-P2-perplexity-r1.raw.txt",
+      "note": "Byte-identical approved pilot artifact"
+    },
+    {
+      "file": "legacy/screens/dev-CIT-001-P2-perplexity-r1.jpg",
+      "sha256": "78969d72bbae353d88191549d746ecd5686965386e8d405f52d798295c568d11",
+      "bytes": 63832,
+      "source_file": "/mnt/d/AI/czai-private-v1/calibration/screens/dev-CIT-001-P2-perplexity-r1.jpg",
+      "note": "Byte-identical approved pilot artifact"
+    },
+    {
+      "file": "legacy/answers/dev-CIT-001-P2-chatgpt-r1.txt",
+      "sha256": "c63c87e62ae03d109a6fb5ef8188352b5ac7ee4ee5e7084c04631ad7f1540a5f",
+      "bytes": 844,
+      "source_file": "/mnt/d/AI/czai-private-v1/calibration/answers/dev-CIT-001-P2-chatgpt-r1.txt",
+      "note": "Byte-identical approved pilot artifact"
+    },
+    {
+      "file": "legacy/raw/dev-CIT-001-P2-chatgpt-r1.txt",
+      "sha256": "c63c87e62ae03d109a6fb5ef8188352b5ac7ee4ee5e7084c04631ad7f1540a5f",
+      "bytes": 844,
+      "source_file": "/mnt/d/AI/czai-private-v1/calibration/answers/dev-CIT-001-P2-chatgpt-r1.txt",
+      "note": "Byte-identical approved pilot artifact"
+    },
+    {
+      "file": "legacy/screens/dev-CIT-001-P2-chatgpt-r1.jpg",
+      "sha256": "93a4f76b8b5dd78155f147a39b26457e5373d9bd469cc7432aafe53da2810dc3",
+      "bytes": 48945,
+      "source_file": "/mnt/d/AI/czai-private-v1/calibration/screens/dev-CIT-001-P2-chatgpt-r1.jpg",
+      "note": "Byte-identical approved pilot artifact"
+    },
+    {
+      "file": "avast/run_plan_pilot.source.csv",
+      "sha256": "576b06058d4bf8aece300395465a8bdc7cdab84a49a53b55cc6a0c9fdfb206a5",
+      "bytes": 31127,
+      "source_file": "/mnt/d/AI/czai-private-v1/calibration/avast-v1/run_plan_pilot.csv",
+      "note": "Byte-identical approved pilot artifact"
+    },
+    {
+      "file": "avast/run_plan_pilot.source.csv.manifest.json",
+      "sha256": "191e8e050526acb40cc9e1aaa44165a5034bd06a47c2db0f1fa90842433c7825",
+      "bytes": 22965,
+      "source_file": "/mnt/d/AI/czai-private-v1/calibration/avast-v1/run_plan_pilot.csv.manifest.json",
+      "note": "Byte-identical approved pilot artifact"
+    },
+    {
+      "file": "avast/answers/dev-CIT-001-P2-perplexity-r1.txt",
+      "sha256": "21ae517c85f697031cbbcdd656336bb7a6810f992bbbeba8d288fa77927dac97",
+      "bytes": 970,
+      "source_file": "/mnt/d/AI/czai-private-v1/calibration/avast-v1/answers/dev-CIT-001-P2-perplexity-r1.txt",
+      "note": "Byte-identical approved pilot artifact"
+    },
+    {
+      "file": "avast/raw/dev-CIT-001-P2-perplexity-r1.raw.txt",
+      "sha256": "cd0e3c2032fee1b9ca705de62d7aef9874d1a6abd31f793579abdad1c077eff2",
+      "bytes": 751,
+      "source_file": "/mnt/d/AI/czai-private-v1/calibration/avast-v1/raw/dev-CIT-001-P2-perplexity-r1.raw.txt",
+      "note": "Byte-identical approved pilot artifact"
+    },
+    {
+      "file": "avast/raw/dev-CIT-001-P2-perplexity-r1.raw.html",
+      "sha256": "982f47523ccf2e810fb246cad0245a4f62c860b08016daecf36f320e18939508",
+      "bytes": 6607,
+      "source_file": "/mnt/d/AI/czai-private-v1/calibration/avast-v1/raw/dev-CIT-001-P2-perplexity-r1.raw.html",
+      "note": "Byte-identical approved pilot artifact"
+    },
+    {
+      "file": "avast/screens/dev-CIT-001-P2-perplexity-r1.png",
+      "sha256": "742a783a7f7ed5b381535e3e6528a9fea3090f9a25ea344c575252e28c893cea",
+      "bytes": 90742,
+      "source_file": "/mnt/d/AI/czai-private-v1/calibration/avast-v1/screens/dev-CIT-001-P2-perplexity-r1.png",
+      "note": "Byte-identical approved pilot artifact"
+    },
+    {
+      "file": "avast/answers/dev-CIT-001-P2-grok-r1.txt",
+      "sha256": "71b9b5ba658438023c47e6b7ffe308d37a05ecb56705282f3a3b2a441be0c9cb",
+      "bytes": 1380,
+      "source_file": "/mnt/d/AI/czai-private-v1/calibration/avast-v1/answers/dev-CIT-001-P2-grok-r1.txt",
+      "note": "Byte-identical approved pilot artifact"
+    },
+    {
+      "file": "avast/raw/dev-CIT-001-P2-grok-r1.raw.txt",
+      "sha256": "c0058f7d01fba317b28cbcf7a72e3e33ca4902bdfae6d7cb1927c8f47cb08efc",
+      "bytes": 1286,
+      "source_file": "/mnt/d/AI/czai-private-v1/calibration/avast-v1/raw/dev-CIT-001-P2-grok-r1.raw.txt",
+      "note": "Byte-identical approved pilot artifact"
+    },
+    {
+      "file": "avast/raw/dev-CIT-001-P2-grok-r1.raw.html",
+      "sha256": "ec19231d17305b7907f01678da9e5929f103520fade14fce03411bd6fb89d08e",
+      "bytes": 2964,
+      "source_file": "/mnt/d/AI/czai-private-v1/calibration/avast-v1/raw/dev-CIT-001-P2-grok-r1.raw.html",
+      "note": "Byte-identical approved pilot artifact"
+    },
+    {
+      "file": "avast/submission/dev-CIT-001-P2-grok-r1.submitted.json",
+      "sha256": "640c6385962481c9c01edb644cd46eced3d0ecb7c4ede6f201eb652d4b2e7148",
+      "bytes": 159,
+      "source_file": "/mnt/d/AI/czai-private-v1/calibration/avast-v1/dev-CIT-001-P2-grok-r1.submitted.json",
+      "note": "Byte-identical approved pilot artifact"
+    },
+    {
+      "file": "avast/screens/dev-CIT-001-P2-grok-r1.png",
+      "sha256": "69e5676272ba1b628efabaeaa6852c33a199abe0e878556775956397e586376f",
+      "bytes": 54358,
+      "source_file": "/mnt/d/AI/czai-private-v1/calibration/avast-v1/screens/dev-CIT-001-P2-grok-r1.png",
+      "note": "Byte-identical approved pilot artifact"
+    },
+    {
+      "file": "avast/audit/dev-CIT-001-P2-claude-r1.failure.txt",
+      "sha256": "d482bef4d0d3b4ae84f76b137086a536077e0e4cb0eca37d708829ea111cacb9",
+      "bytes": 1674,
+      "source_file": "/mnt/d/AI/czai-private-v1/calibration/avast-v1/failures/dev-CIT-001-P2-claude-r1.failure.txt",
+      "note": "Byte-identical approved pilot artifact"
+    },
+    {
+      "file": "avast/audit/dev-CIT-001-P2-claude-r1.failure.png",
+      "sha256": "c315b4d78b09bd3d75980d63625af704dbc1692e45bd763a91f62e837387720d",
+      "bytes": 61433,
+      "source_file": "/mnt/d/AI/czai-private-v1/calibration/avast-v1/screens/dev-CIT-001-P2-claude-r1.failure.png",
+      "note": "Byte-identical approved pilot artifact"
+    },
+    {
+      "file": "avast/answers/dev-CIT-001-P2-chatgpt-r1.txt",
+      "sha256": "23946bcb79966e17aa60dd0b9deaaf556902b4574c99c47fcb6afe88ba268897",
+      "bytes": 924,
+      "source_file": "/mnt/d/AI/czai-private-v1/calibration/avast-v1/answers/dev-CIT-001-P2-chatgpt-r1.txt",
+      "note": "Byte-identical approved pilot artifact"
+    },
+    {
+      "file": "avast/raw/dev-CIT-001-P2-chatgpt-r1.raw.txt",
+      "sha256": "a230cc8634801f21121b30f380dca768d8cbbe8955fe2ad5bbb0011919a625b2",
+      "bytes": 883,
+      "source_file": "/mnt/d/AI/czai-private-v1/calibration/avast-v1/raw/dev-CIT-001-P2-chatgpt-r1.raw.txt",
+      "note": "Byte-identical approved pilot artifact"
+    },
+    {
+      "file": "avast/raw/dev-CIT-001-P2-chatgpt-r1.raw.html",
+      "sha256": "9197a2dd17e4fd9dbb2d263b933cbe0889106113482e435dd7ec798dba6abf70",
+      "bytes": 11104,
+      "source_file": "/mnt/d/AI/czai-private-v1/calibration/avast-v1/raw/dev-CIT-001-P2-chatgpt-r1.raw.html",
+      "note": "Byte-identical approved pilot artifact"
+    },
+    {
+      "file": "avast/submission/dev-CIT-001-P2-chatgpt-r1.submitted.json",
+      "sha256": "067e0eda03a680500dfefa3fdb62f36893dd73c2eb52b784d9bef1e3c47e7455",
+      "bytes": 162,
+      "source_file": "/mnt/d/AI/czai-private-v1/calibration/avast-v1/dev-CIT-001-P2-chatgpt-r1.submitted.json",
+      "note": "Byte-identical approved pilot artifact"
+    },
+    {
+      "file": "avast/screens/dev-CIT-001-P2-chatgpt-r1.png",
+      "sha256": "ab6a5571e900ddaab1f55944f124cbb11155ccfe68d65855803b1be80529def3",
+      "bytes": 44695,
+      "source_file": "/mnt/d/AI/czai-private-v1/calibration/avast-v1/screens/dev-CIT-001-P2-chatgpt-r1.png",
+      "note": "Byte-identical approved pilot artifact"
+    },
+    {
+      "file": "avast/answers/dev-CIT-001-P2-gemini-r1.txt",
+      "sha256": "7ef977b1aebdb5f3dfc35be89f7979984ff7b3628af4bd249f4cba390e4a39b4",
+      "bytes": 950,
+      "source_file": "/mnt/d/AI/czai-private-v1/calibration/avast-v1/answers/dev-CIT-001-P2-gemini-r1.txt",
+      "note": "Byte-identical approved pilot artifact"
+    },
+    {
+      "file": "avast/raw/dev-CIT-001-P2-gemini-r1.raw.txt",
+      "sha256": "ccf394d59295b850819df778602ecc1109fd7538fa00ffb463b26cd275523f2e",
+      "bytes": 962,
+      "source_file": "/mnt/d/AI/czai-private-v1/calibration/avast-v1/raw/dev-CIT-001-P2-gemini-r1.raw.txt",
+      "note": "Byte-identical approved pilot artifact"
+    },
+    {
+      "file": "avast/screens/dev-CIT-001-P2-gemini-r1.reply-only-export.png",
+      "sha256": "a5e91390846fb8b5ca69d1d840cca00ab40dc3ef1e80080ba404abefad83792d",
+      "bytes": 77489,
+      "source_file": "/mnt/d/AI/czai-private-v1/calibration/avast-v1/screens/dev-CIT-001-P2-gemini-r1.reply-only-export.png",
+      "note": "Later reply-only capture; original whole-window screenshot remains private because it includes account/sidebar histories"
+    },
+    {
+      "file": "avast/screens/dev-CIT-001-P2-gemini-r1.reply-only-export.capture.json",
+      "sha256": "042c7743848e93faa9f73f42c1eabfdd11a77f5052f6d7cf3deeec633ec6089a",
+      "bytes": 184,
+      "source_file": "/mnt/d/AI/czai-private-v1/calibration/avast-v1/screens/dev-CIT-001-P2-gemini-r1.reply-only-export.capture.json",
+      "note": "Byte-identical approved pilot artifact"
+    },
+    {
+      "file": "avast/answers/dev-CIT-020-P2-chatgpt-r1.txt",
+      "sha256": "5f632f59a0ede7bd9cb68c3be9a567abad1c0758170e3aa8e9827a747af7362c",
+      "bytes": 1673,
+      "source_file": "/mnt/d/AI/czai-private-v1/calibration/avast-v1/answers/dev-CIT-020-P2-chatgpt-r1.txt",
+      "note": "Byte-identical approved pilot artifact"
+    },
+    {
+      "file": "avast/raw/dev-CIT-020-P2-chatgpt-r1.raw.txt",
+      "sha256": "489d238402c75c8465133aa51e6839dd81837f47609bbe5d75d433ca8d60b8de",
+      "bytes": 1437,
+      "source_file": "/mnt/d/AI/czai-private-v1/calibration/avast-v1/raw/dev-CIT-020-P2-chatgpt-r1.raw.txt",
+      "note": "Byte-identical approved pilot artifact"
+    },
+    {
+      "file": "avast/raw/dev-CIT-020-P2-chatgpt-r1.raw.html",
+      "sha256": "42253d164bb535478d6c82707cc203ef90bb3e871d8bbb08c320c5e30380ce43",
+      "bytes": 6046,
+      "source_file": "/mnt/d/AI/czai-private-v1/calibration/avast-v1/raw/dev-CIT-020-P2-chatgpt-r1.raw.html",
+      "note": "Byte-identical approved pilot artifact"
+    },
+    {
+      "file": "avast/submission/dev-CIT-020-P2-chatgpt-r1.submitted.json",
+      "sha256": "ec6a7065d8d8327624848ac97dc52acea4fd3e944bc0928ebdae3c0bbeda78fa",
+      "bytes": 162,
+      "source_file": "/mnt/d/AI/czai-private-v1/calibration/avast-v1/dev-CIT-020-P2-chatgpt-r1.submitted.json",
+      "note": "Byte-identical approved pilot artifact"
+    },
+    {
+      "file": "avast/screens/dev-CIT-020-P2-chatgpt-r1.png",
+      "sha256": "f4b1d1627c31ca088910b3b862e181c7edb9800e6ad199eb360b47f39facb8a7",
+      "bytes": 25824,
+      "source_file": "/mnt/d/AI/czai-private-v1/calibration/avast-v1/screens/dev-CIT-020-P2-chatgpt-r1.png",
+      "note": "Byte-identical approved pilot artifact"
+    },
+    {
+      "file": "avast/answers/dev-CIT-020-P2-gemini-r1.txt",
+      "sha256": "258e03b4a0b173af16ce3ad1d053c80385f805a6a27e9f9523732439bf3f877f",
+      "bytes": 1513,
+      "source_file": "/mnt/d/AI/czai-private-v1/calibration/avast-v1/answers/dev-CIT-020-P2-gemini-r1.txt",
+      "note": "Byte-identical approved pilot artifact"
+    },
+    {
+      "file": "avast/raw/dev-CIT-020-P2-gemini-r1.raw.txt",
+      "sha256": "bc389135a0beb216082e0994dca98d5f8ca038eb1d12f76dd09ffc2df5d4bc24",
+      "bytes": 1305,
+      "source_file": "/mnt/d/AI/czai-private-v1/calibration/avast-v1/raw/dev-CIT-020-P2-gemini-r1.raw.txt",
+      "note": "Byte-identical approved pilot artifact"
+    },
+    {
+      "file": "avast/raw/dev-CIT-020-P2-gemini-r1.raw.html",
+      "sha256": "363d55a4dd21ef21a72c55ea07a43890ada1b5d5a428864945bc049bf62f7119",
+      "bytes": 4433,
+      "source_file": "/mnt/d/AI/czai-private-v1/calibration/avast-v1/raw/dev-CIT-020-P2-gemini-r1.raw.html",
+      "note": "Byte-identical approved pilot artifact"
+    },
+    {
+      "file": "avast/submission/dev-CIT-020-P2-gemini-r1.submitted.json",
+      "sha256": "e19ac37833536b7b00cfc80bae5ee7f6b2ae1ba3d76fb2888da912242fd8ec27",
+      "bytes": 161,
+      "source_file": "/mnt/d/AI/czai-private-v1/calibration/avast-v1/dev-CIT-020-P2-gemini-r1.submitted.json",
+      "note": "Byte-identical approved pilot artifact"
+    },
+    {
+      "file": "avast/screens/dev-CIT-020-P2-gemini-r1.png",
+      "sha256": "8eb414fed03313efff6c121783f58615cb59e70a4aa1560e7b820ec0cbd0280d",
+      "bytes": 81482,
+      "source_file": "/mnt/d/AI/czai-private-v1/calibration/avast-v1/screens/dev-CIT-020-P2-gemini-r1.png",
+      "note": "Byte-identical approved pilot artifact"
+    },
+    {
+      "file": "avast/answers/dev-CIT-020-P2-grok-r1.txt",
+      "sha256": "b9b2ab1722caae22c23cc3b64cfca56d3c9a69b3926c4e487947305eb614bca6",
+      "bytes": 2074,
+      "source_file": "/mnt/d/AI/czai-private-v1/calibration/avast-v1/answers/dev-CIT-020-P2-grok-r1.txt",
+      "note": "Byte-identical approved pilot artifact"
+    },
+    {
+      "file": "avast/raw/dev-CIT-020-P2-grok-r1.raw.txt",
+      "sha256": "b263a3ff94be02f8a821446c91bd8360552c017b965f4cc1aeb443975045535f",
+      "bytes": 1798,
+      "source_file": "/mnt/d/AI/czai-private-v1/calibration/avast-v1/raw/dev-CIT-020-P2-grok-r1.raw.txt",
+      "note": "Byte-identical approved pilot artifact"
+    },
+    {
+      "file": "avast/raw/dev-CIT-020-P2-grok-r1.raw.html",
+      "sha256": "faf18cbe3c307f1239ce1f5723f531c736b1606ed9d71150f90220ac275ae826",
+      "bytes": 4040,
+      "source_file": "/mnt/d/AI/czai-private-v1/calibration/avast-v1/raw/dev-CIT-020-P2-grok-r1.raw.html",
+      "note": "Byte-identical approved pilot artifact"
+    },
+    {
+      "file": "avast/submission/dev-CIT-020-P2-grok-r1.submitted.json",
+      "sha256": "f48655eacf3b695ac0880e6b85f4477a74eff20b2970e14a887f6178237c45a2",
+      "bytes": 159,
+      "source_file": "/mnt/d/AI/czai-private-v1/calibration/avast-v1/dev-CIT-020-P2-grok-r1.submitted.json",
+      "note": "Byte-identical approved pilot artifact"
+    },
+    {
+      "file": "avast/screens/dev-CIT-020-P2-grok-r1.png",
+      "sha256": "5129224323ba3d2cfa145ec1ff2e9c428f3b250fa0a5433949dbe3a46056a891",
+      "bytes": 67147,
+      "source_file": "/mnt/d/AI/czai-private-v1/calibration/avast-v1/screens/dev-CIT-020-P2-grok-r1.png",
+      "note": "Byte-identical approved pilot artifact"
+    },
+    {
+      "file": "avast/answers/dev-CIT-020-P2-perplexity-r1.txt",
+      "sha256": "59cb8ad282043f662edd8ca34cf04315a84f88951306cbfaa0e6d1576b98e7c0",
+      "bytes": 2972,
+      "source_file": "/mnt/d/AI/czai-private-v1/calibration/avast-v1/answers/dev-CIT-020-P2-perplexity-r1.txt",
+      "note": "Byte-identical approved pilot artifact"
+    },
+    {
+      "file": "avast/raw/dev-CIT-020-P2-perplexity-r1.raw.txt",
+      "sha256": "da9afea2708edf1e33c252011a17bdb20e741b37e83fd2d3a56b32d28867db64",
+      "bytes": 1659,
+      "source_file": "/mnt/d/AI/czai-private-v1/calibration/avast-v1/raw/dev-CIT-020-P2-perplexity-r1.raw.txt",
+      "note": "Byte-identical approved pilot artifact"
+    },
+    {
+      "file": "avast/raw/dev-CIT-020-P2-perplexity-r1.raw.html",
+      "sha256": "4494ee07a4b930de6343d84838f947f57b043a48ee89652b7d98269a7325200d",
+      "bytes": 18892,
+      "source_file": "/mnt/d/AI/czai-private-v1/calibration/avast-v1/raw/dev-CIT-020-P2-perplexity-r1.raw.html",
+      "note": "Byte-identical approved pilot artifact"
+    },
+    {
+      "file": "avast/submission/dev-CIT-020-P2-perplexity-r1.submitted.json",
+      "sha256": "1cbde12998f17538bf01dc39198ab89f89dbe1c07e08ead61ee52999b1da531d",
+      "bytes": 165,
+      "source_file": "/mnt/d/AI/czai-private-v1/calibration/avast-v1/dev-CIT-020-P2-perplexity-r1.submitted.json",
+      "note": "Byte-identical approved pilot artifact"
+    },
+    {
+      "file": "avast/screens/dev-CIT-020-P2-perplexity-r1.png",
+      "sha256": "70a8af848370914ccadbfd9ce18885acae9eb0168f6aa80ab6b0f50732abf678",
+      "bytes": 58244,
+      "source_file": "/mnt/d/AI/czai-private-v1/calibration/avast-v1/screens/dev-CIT-020-P2-perplexity-r1.png",
+      "note": "Byte-identical approved pilot artifact"
+    },
+    {
+      "file": "avast/normalization-v2/AUDIT.json",
+      "sha256": "e73f2693d690438246226c408bb2d10fb0f0defc226a5bbf0f3e7fc26eef878d",
+      "bytes": 1318,
+      "source_file": "/mnt/d/AI/czai-private-v1/calibration/avast-v1/normalization-v2/AUDIT.json",
+      "note": "Byte-identical approved pilot artifact"
+    },
+    {
+      "file": "avast/normalization-v2/dev-CIT-020-P2-perplexity-r1.txt",
+      "sha256": "2c4d90d7a36cb3d8c02a698c99f444d9cfad66099ede93f9deb22db5cfcd2572",
+      "bytes": 3715,
+      "source_file": "/mnt/d/AI/czai-private-v1/calibration/avast-v1/normalization-v2/dev-CIT-020-P2-perplexity-r1.txt",
+      "note": "Byte-identical approved pilot artifact"
+    },
+    {
+      "file": "avast/raw/dev-CIT-020-P2-perplexity-r1.citation-popovers.json",
+      "sha256": "4ac3626f55e0819462427e93f084c06819dc5b6a7d829efcd07491114aa9844d",
+      "bytes": 140991,
+      "source_file": "/mnt/d/AI/czai-private-v1/calibration/avast-v1/raw/dev-CIT-020-P2-perplexity-r1.citation-popovers.json",
+      "note": "Byte-identical approved pilot artifact"
+    },
+    {
+      "file": "human-review/answers_to_rate.csv",
+      "sha256": "9c53f975c89f04c8a484090d0bddad0f6873ca6034a41b2a537d4d77a79aacdb",
+      "bytes": 19560,
+      "source_file": "/mnt/d/AI/czai-private-v1/calibration/avast-v1/annotation-batch-v1/raters/answers_to_rate.csv",
+      "note": "Blank pilot rating sheet; no human ratings or operator key included"
+    },
+    {
+      "file": "human-review/answers_to_rate_rater2.csv",
+      "sha256": "9c53f975c89f04c8a484090d0bddad0f6873ca6034a41b2a537d4d77a79aacdb",
+      "bytes": 19560,
+      "source_file": "/mnt/d/AI/czai-private-v1/calibration/avast-v1/annotation-batch-v1/raters/answers_to_rate_rater2.csv",
+      "note": "Blank pilot rating sheet; no human ratings or operator key included"
+    },
+    {
+      "file": "human-review/pairs_to_rate.csv",
+      "sha256": "09a79aef3681dfb26c82d77ef2f238cee7aaa5547f0db7da4f7f561fb2741d96",
+      "bytes": 27947,
+      "source_file": "/mnt/d/AI/czai-private-v1/calibration/avast-v1/annotation-batch-v1/raters/pairs_to_rate.csv",
+      "note": "Blank pilot rating sheet; no human ratings or operator key included"
+    },
+    {
+      "file": "human-review/pairs_to_rate_rater2.csv",
+      "sha256": "09a79aef3681dfb26c82d77ef2f238cee7aaa5547f0db7da4f7f561fb2741d96",
+      "bytes": 27947,
+      "source_file": "/mnt/d/AI/czai-private-v1/calibration/avast-v1/annotation-batch-v1/raters/pairs_to_rate_rater2.csv",
+      "note": "Blank pilot rating sheet; no human ratings or operator key included"
+    },
+    {
+      "file": "human-review/PROVENANCE.json",
+      "sha256": "e095d8238e5c30c8212ae29083353d92337915f0334dd42bba94b5682c2b5d0b",
+      "bytes": 710,
+      "source_file": "/mnt/d/AI/czai-private-v1/calibration/avast-v1/annotation-batch-v1/PROVENANCE.json",
+      "note": "Byte-identical approved pilot artifact"
+    },
+    {
+      "file": "avast/screens/dev-CIT-001-P2-grok-r1.reply-capture-v2.png",
+      "sha256": "21e543a37f12bd44251cb64c9c4706760e4624c8a96a6461b24237c6ad16b01e",
+      "bytes": 78512,
+      "source_file": "/mnt/d/AI/czai-private-v1/calibration/avast-v1/screens/dev-CIT-001-P2-grok-r1.answer-full-v2.png",
+      "note": "Later capture attempt of original reply in a taller emulated viewport; no prompt/regeneration; originals retained. Some captures remain partially clipped. Raw text/HTML authoritative."
+    },
+    {
+      "file": "avast/screens/dev-CIT-001-P2-grok-r1.reply-capture-v2.capture.json",
+      "sha256": "aeba051573cccd681c3d7be2460eaa16d07848ad77c43a4182643db3220aa69e",
+      "bytes": 231,
+      "source_file": "/mnt/d/AI/czai-private-v1/calibration/avast-v1/screens/dev-CIT-001-P2-grok-r1.answer-full-v2.capture.json",
+      "note": "Later capture attempt of original reply in a taller emulated viewport; no prompt/regeneration; originals retained. Some captures remain partially clipped. Raw text/HTML authoritative."
+    },
+    {
+      "file": "avast/screens/dev-CIT-020-P2-perplexity-r1.reply-capture-v2.png",
+      "sha256": "907108165085e45580e04ee84b8f0167244aac3873681eed4f83460595d2062d",
+      "bytes": 131316,
+      "source_file": "/mnt/d/AI/czai-private-v1/calibration/avast-v1/screens/dev-CIT-020-P2-perplexity-r1.answer-full-v2.png",
+      "note": "Later capture attempt of original reply in a taller emulated viewport; no prompt/regeneration; originals retained. Some captures remain partially clipped. Raw text/HTML authoritative."
+    },
+    {
+      "file": "avast/screens/dev-CIT-020-P2-perplexity-r1.reply-capture-v2.capture.json",
+      "sha256": "5618743461461f146ede834c6a65ecabc50a47593e3ba1840d5908465bd1249f",
+      "bytes": 231,
+      "source_file": "/mnt/d/AI/czai-private-v1/calibration/avast-v1/screens/dev-CIT-020-P2-perplexity-r1.answer-full-v2.capture.json",
+      "note": "Later capture attempt of original reply in a taller emulated viewport; no prompt/regeneration; originals retained. Some captures remain partially clipped. Raw text/HTML authoritative."
+    },
+    {
+      "file": "avast/screens/dev-CIT-001-P2-gemini-r1.reply-capture-v2.png",
+      "sha256": "d96379097785ea9c89b7a97255e5aa70ed999de2e3691698f17c6295bf9b28dc",
+      "bytes": 65536,
+      "source_file": "/mnt/d/AI/czai-private-v1/calibration/avast-v1/screens/dev-CIT-001-P2-gemini-r1.answer-full-v2.png",
+      "note": "Later capture attempt of original reply in a taller emulated viewport; no prompt/regeneration; originals retained. Some captures remain partially clipped. Raw text/HTML authoritative."
+    },
+    {
+      "file": "avast/screens/dev-CIT-001-P2-gemini-r1.reply-capture-v2.capture.json",
+      "sha256": "f33df98b3e1c21060e62c080d2948d47bd5c600d9583a3fba388e49b20e03164",
+      "bytes": 231,
+      "source_file": "/mnt/d/AI/czai-private-v1/calibration/avast-v1/screens/dev-CIT-001-P2-gemini-r1.answer-full-v2.capture.json",
+      "note": "Later capture attempt of original reply in a taller emulated viewport; no prompt/regeneration; originals retained. Some captures remain partially clipped. Raw text/HTML authoritative."
+    }
+  ],
+  "omitted": "Browser command queue, birth-year form, profile/credential data, unrelated chat histories, hidden test and operator blind key. Original Gemini whole-window screenshot stays private; later answer-only capture is labelled if available.",
+  "additional_capture_note": "Three later capture attempts added after review, without replacing originals; source text and URLs unchanged. Some screenshots are partial."
+}

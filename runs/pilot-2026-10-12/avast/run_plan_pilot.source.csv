@@ -1,0 +1,261 @@
+seq,run_id,phase,split,task_id,language,condition,prompt_file,prompt_sha256,rendered_prompt_sha256,system,interface,run_index,system_instruction,tool_permissions,context_files,temperature,max_output,answer_file,run_status,final_attempt_ok,attempt1_file,first_attempt_latency_s,model_visible,plan_tier,datetime_start,datetime_end,latency_s,search_used,n_sources_shown,turns,tool_calls_visible,retries,failure_type,first_attempt_ok,manual_intervention,share_link,screenshot_file,operator,cost_note,notes,answer_sha256,raw_answer_file,raw_answer_sha256,screenshot_sha256,attempt1_sha256,failure_artifact_file,failure_artifact_sha256,replacement_run_id,replaces_run_id,prompt_text
+1,dev-CIT-001-P2-perplexity-r1,dev,dev,CIT-001,en,P2,P2_structured_en.txt,96e3772d7a11776b3ff0e949dfb000bdf214b480f7a571e5cab19d61da59b554,5b27249f1882b0a833043eebe72ad8481ad25ad03cfa65f9c141cf79d4bbf089,perplexity,perplexity.ai (web),1,"výchozí, neviditelná",režim Search; Research/Labs vypnuto; Incognito,žádné,"výchozí, nenastavitelné",výchozí,/mnt/d/AI/czai-private-v1/calibration/avast-v1/answers/dev-CIT-001-P2-perplexity-r1.txt,completed,yes,,110.49251,unknown (default model; UI button Model has no model name),Free (Bezplatný tarif),2026-10-12T20:44:59.205000+00:00,2026-10-12T20:46:49.697510+00:00,110.49251,yes,unknown,1,unknown,0,none,yes,Citation chips and source hyperlinks converted to Markdown at their original positions; raw DOM HTML and innerText preserved; no URL or claim repairs,,/mnt/d/AI/czai-private-v1/calibration/avast-v1/screens/dev-CIT-001-P2-perplexity-r1.png,codex-ui-2026-10-12,Free account; no marginal API charge; tokens and credits unknown,"Pre-G1 pilot. Avast Secure Browser 153; logged-in free account, Search, anonymous session, collapsed sidebar. Exact rendered prompt matched editor text (1383 characters); submitted through ordinary product UI via approved CDP. End timestamp is completion observed during artifact capture; includes capture delay, not precise generation latency. No analytical scoring. Raw HTML retained adjacent to raw text. Completion was verified by response-copy availability and absence of Stop. UI source labels: [""Prozkoumáno\n3 s"", ""10 zdrojů""]",21ae517c85f697031cbbcdd656336bb7a6810f992bbbeba8d288fa77927dac97,/mnt/d/AI/czai-private-v1/calibration/avast-v1/raw/dev-CIT-001-P2-perplexity-r1.raw.txt,cd0e3c2032fee1b9ca705de62d7aef9874d1a6abd31f793579abdad1c077eff2,742a783a7f7ed5b381535e3e6528a9fea3090f9a25ea344c575252e28c893cea,,,,,,"You are a careful research assistant. You support every claim with a source you actually opened in this conversation.
+
+Goal: answer the question accurately and concisely so that the reader can verify every claim.
+
+Question:
+What vaccine efficacy against symptomatic COVID-19 did the phase 3 trial of the Pfizer-BioNTech BNT162b2 vaccine report in its main publication? Give the value and cite the original publication.
+
+Rules:
+1. Search the web. Do not cite a source you did not open, and do not invent URLs.
+2. After every factual claim (number, date, name, definition), add a reference to its source in the form [1], [2].
+3. Cite a specific page or document, not a homepage or a search results page.
+4. Prefer primary and official sources (legislation, public authority, original study, standard).
+5. If the question contains a false premise, correct it first.
+6. If sources disagree, give both values, each with its own source, and explain the difference.
+7. If the question restricts the age of sources, use only sources that meet the restriction and give their dates.
+8. If you cannot find a reliable answer, say so. Do not guess.
+
+Output format:
+ANSWER: 1–3 sentences with the direct answer.
+CLAIMS:
+C1: <one claim> [n]
+C2: <one claim> [n]
+SOURCES:
+[1] <title> – <publisher> – <publication date or ""not stated""> – <full URL>
+CONFIDENCE: high / medium / low – one sentence why.
+"
+2,dev-CIT-001-P2-grok-r1,dev,dev,CIT-001,en,P2,P2_structured_en.txt,96e3772d7a11776b3ff0e949dfb000bdf214b480f7a571e5cab19d61da59b554,5b27249f1882b0a833043eebe72ad8481ad25ad03cfa65f9c141cf79d4bbf089,grok,grok.com (web),1,"výchozí, neviditelná",vyhledávání automatické (web + X); DeepSearch vypnut; Private Chat,žádné,"výchozí, nenastavitelné",výchozí,/mnt/d/AI/czai-private-v1/calibration/avast-v1/answers/dev-CIT-001-P2-grok-r1.txt,completed,yes,,1211.394,Fast (UI model selector; underlying model name not shown),unknown (existing signed-in account; upgrade button shown),2026-10-12T22:58:11.865000+02:00,2026-10-12T23:18:23.259000+02:00,1211.394,unclear,unknown,1,unknown,0,none,yes,"Native browser input; Markdown serialization of original reply DOM with original hyperlink destinations; no claims, URLs or citation repairs",,/mnt/d/AI/czai-private-v1/calibration/avast-v1/screens/dev-CIT-001-P2-grok-r1.png,codex-ui-2026-10-12,"Subscription amount, tokens and credits unknown; no separate API charge observed","Real pre-G1 pilot in Avast 153; exact rendered prompt verified. Completion observed by stable reply >=1 s without a visible Stop control; polling adds observation delay. Original reply DOM preserved. Recovery after reply-selector mismatch; original cloud request was not repeated. Interval includes capture delay and is an upper bound, not exact generation latency. Private mode selected before submission. Original request triggered age verification and later auto-resumed after the user supplied the required information. No resubmission and no retry. UI showed 3 searches and later Done in 8m 11s; 40 sources badge. Original age-gate screenshot is retained privately. Observation includes the access-check pause and a long operator delay; not used as analytical generation latency.",71b9b5ba658438023c47e6b7ffe308d37a05ecb56705282f3a3b2a441be0c9cb,/mnt/d/AI/czai-private-v1/calibration/avast-v1/raw/dev-CIT-001-P2-grok-r1.raw.txt,c0058f7d01fba317b28cbcf7a72e3e33ca4902bdfae6d7cb1927c8f47cb08efc,69e5676272ba1b628efabaeaa6852c33a199abe0e878556775956397e586376f,,,,,,"You are a careful research assistant. You support every claim with a source you actually opened in this conversation.
+
+Goal: answer the question accurately and concisely so that the reader can verify every claim.
+
+Question:
+What vaccine efficacy against symptomatic COVID-19 did the phase 3 trial of the Pfizer-BioNTech BNT162b2 vaccine report in its main publication? Give the value and cite the original publication.
+
+Rules:
+1. Search the web. Do not cite a source you did not open, and do not invent URLs.
+2. After every factual claim (number, date, name, definition), add a reference to its source in the form [1], [2].
+3. Cite a specific page or document, not a homepage or a search results page.
+4. Prefer primary and official sources (legislation, public authority, original study, standard).
+5. If the question contains a false premise, correct it first.
+6. If sources disagree, give both values, each with its own source, and explain the difference.
+7. If the question restricts the age of sources, use only sources that meet the restriction and give their dates.
+8. If you cannot find a reliable answer, say so. Do not guess.
+
+Output format:
+ANSWER: 1–3 sentences with the direct answer.
+CLAIMS:
+C1: <one claim> [n]
+C2: <one claim> [n]
+SOURCES:
+[1] <title> – <publisher> – <publication date or ""not stated""> – <full URL>
+CONFIDENCE: high / medium / low – one sentence why.
+"
+3,dev-CIT-001-P2-claude-r1,dev,dev,CIT-001,en,P2,P2_structured_en.txt,96e3772d7a11776b3ff0e949dfb000bdf214b480f7a571e5cab19d61da59b554,5b27249f1882b0a833043eebe72ad8481ad25ad03cfa65f9c141cf79d4bbf089,claude,claude.ai (web),1,"výchozí, neviditelná",Web search zapnut/automatický; Research vypnut; Incognito chat,žádné,"výchozí, nenastavitelné",výchozí,/mnt/d/AI/czai-private-v1/calibration/avast-v1/answers/dev-CIT-001-P2-claude-r1.txt,failed,no,,232.083,Opus 5.5 Medium,unknown (existing signed-in workspace account),2026-10-12T23:11:20.955000+02:00,2026-10-12T23:15:13.038000+02:00,232.083,no,0,1,0,0,rate_limit,no,No answer modification; observed rate-limit banner and captured original main-area UI; no retry yet,,/mnt/d/AI/czai-private-v1/calibration/avast-v1/screens/dev-CIT-001-P2-claude-r1.failure.png,codex-ui-2026-10-12,"Tokens, credits and subscription price unknown; no credits requested or purchased","Real pre-G1 pilot. Exact prompt verified and sent. UI: Usage limit reached; resets Oct 13 at 7:00 PM; limits shared with Claude Code. Helper timed out after 180 s while no answer was available; end timestamp is later failure capture, not model latency. Incognito, Web search enabled, Research disabled. Retry not performed before reset; rate-limit first attempt retained.",,,,c315b4d78b09bd3d75980d63625af704dbc1692e45bd763a91f62e837387720d,,/mnt/d/AI/czai-private-v1/calibration/avast-v1/failures/dev-CIT-001-P2-claude-r1.failure.txt,d482bef4d0d3b4ae84f76b137086a536077e0e4cb0eca37d708829ea111cacb9,,,"You are a careful research assistant. You support every claim with a source you actually opened in this conversation.
+
+Goal: answer the question accurately and concisely so that the reader can verify every claim.
+
+Question:
+What vaccine efficacy against symptomatic COVID-19 did the phase 3 trial of the Pfizer-BioNTech BNT162b2 vaccine report in its main publication? Give the value and cite the original publication.
+
+Rules:
+1. Search the web. Do not cite a source you did not open, and do not invent URLs.
+2. After every factual claim (number, date, name, definition), add a reference to its source in the form [1], [2].
+3. Cite a specific page or document, not a homepage or a search results page.
+4. Prefer primary and official sources (legislation, public authority, original study, standard).
+5. If the question contains a false premise, correct it first.
+6. If sources disagree, give both values, each with its own source, and explain the difference.
+7. If the question restricts the age of sources, use only sources that meet the restriction and give their dates.
+8. If you cannot find a reliable answer, say so. Do not guess.
+
+Output format:
+ANSWER: 1–3 sentences with the direct answer.
+CLAIMS:
+C1: <one claim> [n]
+C2: <one claim> [n]
+SOURCES:
+[1] <title> – <publisher> – <publication date or ""not stated""> – <full URL>
+CONFIDENCE: high / medium / low – one sentence why.
+"
+4,dev-CIT-001-P2-chatgpt-r1,dev,dev,CIT-001,en,P2,P2_structured_en.txt,96e3772d7a11776b3ff0e949dfb000bdf214b480f7a571e5cab19d61da59b554,5b27249f1882b0a833043eebe72ad8481ad25ad03cfa65f9c141cf79d4bbf089,chatgpt,chatgpt.com (web),1,"výchozí, neviditelná",Search vynucen; Deep research vypnut; Temporary chat (Unpersonalized),žádné,"výchozí, nenastavitelné",výchozí,/mnt/d/AI/czai-private-v1/calibration/avast-v1/answers/dev-CIT-001-P2-chatgpt-r1.txt,completed,yes,,240.608,"GPT-6 (selected in UI), reasoning Střední",unknown (existing signed-in workspace account),2026-10-12T23:14:45.002000+02:00,2026-10-12T23:18:45.610000+02:00,240.608,unclear,unknown,1,unknown,0,none,yes,"Native browser input; Markdown serialization of original reply DOM with original hyperlink destinations; no claims, URLs or citation repairs",,/mnt/d/AI/czai-private-v1/calibration/avast-v1/screens/dev-CIT-001-P2-chatgpt-r1.png,codex-ui-2026-10-12,"Subscription amount, tokens and credits unknown; no separate API charge observed","Real pre-G1 pilot in Avast 153; exact rendered prompt verified. Completion observed by stable reply >=1 s without a visible Stop control; polling adds observation delay. Original reply DOM preserved. Recovery after reply-selector mismatch; original cloud request was not repeated. Interval includes capture delay and is an upper bound, not exact generation latency. Temporary chat confirmed. Header said Personalizovaný before submission; disabling personalization was not verified. This blocks analytical collection until resolved. No files/plugins attached; no Deep Research selected. Answer says direct publisher opening was blocked. Actual reasoning token usage unavailable; preserve admission without repairing it.",23946bcb79966e17aa60dd0b9deaaf556902b4574c99c47fcb6afe88ba268897,/mnt/d/AI/czai-private-v1/calibration/avast-v1/raw/dev-CIT-001-P2-chatgpt-r1.raw.txt,a230cc8634801f21121b30f380dca768d8cbbe8955fe2ad5bbb0011919a625b2,ab6a5571e900ddaab1f55944f124cbb11155ccfe68d65855803b1be80529def3,,,,,,"You are a careful research assistant. You support every claim with a source you actually opened in this conversation.
+
+Goal: answer the question accurately and concisely so that the reader can verify every claim.
+
+Question:
+What vaccine efficacy against symptomatic COVID-19 did the phase 3 trial of the Pfizer-BioNTech BNT162b2 vaccine report in its main publication? Give the value and cite the original publication.
+
+Rules:
+1. Search the web. Do not cite a source you did not open, and do not invent URLs.
+2. After every factual claim (number, date, name, definition), add a reference to its source in the form [1], [2].
+3. Cite a specific page or document, not a homepage or a search results page.
+4. Prefer primary and official sources (legislation, public authority, original study, standard).
+5. If the question contains a false premise, correct it first.
+6. If sources disagree, give both values, each with its own source, and explain the difference.
+7. If the question restricts the age of sources, use only sources that meet the restriction and give their dates.
+8. If you cannot find a reliable answer, say so. Do not guess.
+
+Output format:
+ANSWER: 1–3 sentences with the direct answer.
+CLAIMS:
+C1: <one claim> [n]
+C2: <one claim> [n]
+SOURCES:
+[1] <title> – <publisher> – <publication date or ""not stated""> – <full URL>
+CONFIDENCE: high / medium / low – one sentence why.
+"
+5,dev-CIT-001-P2-gemini-r1,dev,dev,CIT-001,en,P2,P2_structured_en.txt,96e3772d7a11776b3ff0e949dfb000bdf214b480f7a571e5cab19d61da59b554,5b27249f1882b0a833043eebe72ad8481ad25ad03cfa65f9c141cf79d4bbf089,gemini,gemini.google.com (web),1,"výchozí, neviditelná",vyhledávání automatické; Deep Research vypnut; Temporary chat,žádné,"výchozí, nenastavitelné",výchozí,/mnt/d/AI/czai-private-v1/calibration/avast-v1/answers/dev-CIT-001-P2-gemini-r1.txt,completed,yes,,59.144647,3.6 Flash (model selector; main badge Flash),Plus (visible in account panel),2026-10-12T22:33:05.250002+02:00,2026-10-12T22:34:04.394649+02:00,59.144647,yes,1,1,unknown,0,none,yes,Native Copy export; CRLF normalized to LF in answer_file; no textual or citation changes,,/mnt/d/AI/czai-private-v1/calibration/avast-v1/screens/dev-CIT-001-P2-gemini-r1.png,codex-ui-2026-10-12,Marginal API charge: none observed; subscription amount unknown; tokens and credits unknown,"Pre-G1 pilot only. Avast Secure Browser 153.0.35454.54; logged-in Plus account; temporary chat. Selected 3.6 Flash from previously selected 3.1 Pro before submission. Exact UI editor text matched rendered prompt (1383 characters). Gemini was collected before plan seq 1-4 during setup; pilot order deviation, not analytical dev. End timestamp is native-copy completion/first recorded final observation; latency includes operator capture delay and is an upper bound, not measured generation latency. Temporary chat has no captured share link.",7ef977b1aebdb5f3dfc35be89f7979984ff7b3628af4bd249f4cba390e4a39b4,/mnt/d/AI/czai-private-v1/calibration/avast-v1/raw/dev-CIT-001-P2-gemini-r1.raw.txt,ccf394d59295b850819df778602ecc1109fd7538fa00ffb463b26cd275523f2e,f1fa9223df2d4a1ae6f2ca961283e134f3a337815fcaf816cb6431af44a62fc5,,,,,,"You are a careful research assistant. You support every claim with a source you actually opened in this conversation.
+
+Goal: answer the question accurately and concisely so that the reader can verify every claim.
+
+Question:
+What vaccine efficacy against symptomatic COVID-19 did the phase 3 trial of the Pfizer-BioNTech BNT162b2 vaccine report in its main publication? Give the value and cite the original publication.
+
+Rules:
+1. Search the web. Do not cite a source you did not open, and do not invent URLs.
+2. After every factual claim (number, date, name, definition), add a reference to its source in the form [1], [2].
+3. Cite a specific page or document, not a homepage or a search results page.
+4. Prefer primary and official sources (legislation, public authority, original study, standard).
+5. If the question contains a false premise, correct it first.
+6. If sources disagree, give both values, each with its own source, and explain the difference.
+7. If the question restricts the age of sources, use only sources that meet the restriction and give their dates.
+8. If you cannot find a reliable answer, say so. Do not guess.
+
+Output format:
+ANSWER: 1–3 sentences with the direct answer.
+CLAIMS:
+C1: <one claim> [n]
+C2: <one claim> [n]
+SOURCES:
+[1] <title> – <publisher> – <publication date or ""not stated""> – <full URL>
+CONFIDENCE: high / medium / low – one sentence why.
+"
+6,dev-CIT-020-P2-chatgpt-r1,dev,dev,CIT-020,en,P2,P2_structured_en.txt,96e3772d7a11776b3ff0e949dfb000bdf214b480f7a571e5cab19d61da59b554,c799d338009777b6dd4a237b004328c1b4a7b05b109fcfd3149bad820f57a965,chatgpt,chatgpt.com (web),1,"výchozí, neviditelná",Search vynucen; Deep research vypnut; Temporary chat (Unpersonalized),žádné,"výchozí, nenastavitelné",výchozí,/mnt/d/AI/czai-private-v1/calibration/avast-v1/answers/dev-CIT-020-P2-chatgpt-r1.txt,completed,yes,,161.288,"GPT-6 (selected in UI), reasoning Střední",unknown (existing signed-in workspace account),2026-10-12T23:19:43.435000+02:00,2026-10-12T23:22:24.723000+02:00,161.288,unclear,unknown,1,unknown,0,none,yes,"Native browser input; Markdown serialization of original reply DOM with original hyperlink destinations; no claims, URLs or citation repairs",,/mnt/d/AI/czai-private-v1/calibration/avast-v1/screens/dev-CIT-020-P2-chatgpt-r1.png,codex-ui-2026-10-12,"Subscription amount, tokens and credits unknown; no separate API charge observed","Real pre-G1 pilot in Avast 153; exact rendered prompt verified. Completion observed by stable reply >=1 s without a visible Stop control; polling adds observation delay. Original reply DOM preserved. Recovery after collector observation failure; original cloud request was not repeated. Interval includes capture delay and is an upper bound, not exact generation latency. Fresh temporary chat. Bez personalizace visibly confirmed before submission: memory, plugins and custom instructions ignored. Original collector encountered a read-only CDP timeout. Existing reply captured without resubmission; no additional prompt, no regeneration. No files attached.",5f632f59a0ede7bd9cb68c3be9a567abad1c0758170e3aa8e9827a747af7362c,/mnt/d/AI/czai-private-v1/calibration/avast-v1/raw/dev-CIT-020-P2-chatgpt-r1.raw.txt,489d238402c75c8465133aa51e6839dd81837f47609bbe5d75d433ca8d60b8de,f4b1d1627c31ca088910b3b862e181c7edb9800e6ad199eb360b47f39facb8a7,,,,,,"You are a careful research assistant. You support every claim with a source you actually opened in this conversation.
+
+Goal: answer the question accurately and concisely so that the reader can verify every claim.
+
+Question:
+What was William Shakespeare's exact date of birth?
+
+Rules:
+1. Search the web. Do not cite a source you did not open, and do not invent URLs.
+2. After every factual claim (number, date, name, definition), add a reference to its source in the form [1], [2].
+3. Cite a specific page or document, not a homepage or a search results page.
+4. Prefer primary and official sources (legislation, public authority, original study, standard).
+5. If the question contains a false premise, correct it first.
+6. If sources disagree, give both values, each with its own source, and explain the difference.
+7. If the question restricts the age of sources, use only sources that meet the restriction and give their dates.
+8. If you cannot find a reliable answer, say so. Do not guess.
+
+Output format:
+ANSWER: 1–3 sentences with the direct answer.
+CLAIMS:
+C1: <one claim> [n]
+C2: <one claim> [n]
+SOURCES:
+[1] <title> – <publisher> – <publication date or ""not stated""> – <full URL>
+CONFIDENCE: high / medium / low – one sentence why.
+"
+7,dev-CIT-020-P2-gemini-r1,dev,dev,CIT-020,en,P2,P2_structured_en.txt,96e3772d7a11776b3ff0e949dfb000bdf214b480f7a571e5cab19d61da59b554,c799d338009777b6dd4a237b004328c1b4a7b05b109fcfd3149bad820f57a965,gemini,gemini.google.com (web),1,"výchozí, neviditelná",vyhledávání automatické; Deep Research vypnut; Temporary chat,žádné,"výchozí, nenastavitelné",výchozí,/mnt/d/AI/czai-private-v1/calibration/avast-v1/answers/dev-CIT-020-P2-gemini-r1.txt,completed,yes,,239.454,3.6 Flash (selected previously; main badge Flash),Plus (visible account badge),2026-10-12T23:25:19.606000+02:00,2026-10-12T23:29:19.060000+02:00,239.454,unclear,unknown,1,unknown,0,none,yes,"Native browser input; Markdown serialization of original reply DOM with original hyperlink destinations; no claims, URLs or citation repairs",,/mnt/d/AI/czai-private-v1/calibration/avast-v1/screens/dev-CIT-020-P2-gemini-r1.png,codex-ui-2026-10-12,"Subscription amount, tokens and credits unknown; no separate API charge observed","Real pre-G1 pilot in Avast 153; exact rendered prompt verified. Completion observed by stable reply >=1 s without a visible Stop control; polling adds observation delay. Original reply DOM preserved. Recovery after collector observation failure; original cloud request was not repeated. Interval includes capture delay and is an upper bound, not exact generation latency. Fresh temporary chat confirmed before submission. No Deep Research; no attachments. Collector mistook a sidebar history menu label containing Stop for a generation-stop control, so its observation timed out. Actual completed reply was recovered without a retry. Existing Plus account; reply-only capture excludes sidebar histories.",258e03b4a0b173af16ce3ad1d053c80385f805a6a27e9f9523732439bf3f877f,/mnt/d/AI/czai-private-v1/calibration/avast-v1/raw/dev-CIT-020-P2-gemini-r1.raw.txt,bc389135a0beb216082e0994dca98d5f8ca038eb1d12f76dd09ffc2df5d4bc24,8eb414fed03313efff6c121783f58615cb59e70a4aa1560e7b820ec0cbd0280d,,,,,,"You are a careful research assistant. You support every claim with a source you actually opened in this conversation.
+
+Goal: answer the question accurately and concisely so that the reader can verify every claim.
+
+Question:
+What was William Shakespeare's exact date of birth?
+
+Rules:
+1. Search the web. Do not cite a source you did not open, and do not invent URLs.
+2. After every factual claim (number, date, name, definition), add a reference to its source in the form [1], [2].
+3. Cite a specific page or document, not a homepage or a search results page.
+4. Prefer primary and official sources (legislation, public authority, original study, standard).
+5. If the question contains a false premise, correct it first.
+6. If sources disagree, give both values, each with its own source, and explain the difference.
+7. If the question restricts the age of sources, use only sources that meet the restriction and give their dates.
+8. If you cannot find a reliable answer, say so. Do not guess.
+
+Output format:
+ANSWER: 1–3 sentences with the direct answer.
+CLAIMS:
+C1: <one claim> [n]
+C2: <one claim> [n]
+SOURCES:
+[1] <title> – <publisher> – <publication date or ""not stated""> – <full URL>
+CONFIDENCE: high / medium / low – one sentence why.
+"
+8,dev-CIT-020-P2-grok-r1,dev,dev,CIT-020,en,P2,P2_structured_en.txt,96e3772d7a11776b3ff0e949dfb000bdf214b480f7a571e5cab19d61da59b554,c799d338009777b6dd4a237b004328c1b4a7b05b109fcfd3149bad820f57a965,grok,grok.com (web),1,"výchozí, neviditelná",vyhledávání automatické (web + X); DeepSearch vypnut; Private Chat,žádné,"výchozí, nenastavitelné",výchozí,/mnt/d/AI/czai-private-v1/calibration/avast-v1/answers/dev-CIT-020-P2-grok-r1.txt,completed,yes,,19.006,Fast (UI model selector; underlying model name not shown),unknown (existing signed-in account; upgrade button shown),2026-10-12T23:26:51.705000+02:00,2026-10-12T23:27:10.711000+02:00,19.006,unclear,unknown,1,unknown,0,none,yes,"Native browser input; Markdown serialization of original reply DOM with original hyperlink destinations; no claims, URLs or citation repairs",,/mnt/d/AI/czai-private-v1/calibration/avast-v1/screens/dev-CIT-020-P2-grok-r1.png,codex-ui-2026-10-12,"Subscription amount, tokens and credits unknown; no separate API charge observed",Real pre-G1 pilot in Avast 153; exact rendered prompt verified. Completion observed by stable reply >=1 s without a visible Stop control; polling adds observation delay. Original reply DOM preserved. Fresh Private chat confirmed by Přepnout na výchozí chat control before submission. Age verification already complete; no personal age information included in benchmark metadata. No DeepSearch selected. No files attached; native web/X capabilities allowed.,b9b2ab1722caae22c23cc3b64cfca56d3c9a69b3926c4e487947305eb614bca6,/mnt/d/AI/czai-private-v1/calibration/avast-v1/raw/dev-CIT-020-P2-grok-r1.raw.txt,b263a3ff94be02f8a821446c91bd8360552c017b965f4cc1aeb443975045535f,5129224323ba3d2cfa145ec1ff2e9c428f3b250fa0a5433949dbe3a46056a891,,,,,,"You are a careful research assistant. You support every claim with a source you actually opened in this conversation.
+
+Goal: answer the question accurately and concisely so that the reader can verify every claim.
+
+Question:
+What was William Shakespeare's exact date of birth?
+
+Rules:
+1. Search the web. Do not cite a source you did not open, and do not invent URLs.
+2. After every factual claim (number, date, name, definition), add a reference to its source in the form [1], [2].
+3. Cite a specific page or document, not a homepage or a search results page.
+4. Prefer primary and official sources (legislation, public authority, original study, standard).
+5. If the question contains a false premise, correct it first.
+6. If sources disagree, give both values, each with its own source, and explain the difference.
+7. If the question restricts the age of sources, use only sources that meet the restriction and give their dates.
+8. If you cannot find a reliable answer, say so. Do not guess.
+
+Output format:
+ANSWER: 1–3 sentences with the direct answer.
+CLAIMS:
+C1: <one claim> [n]
+C2: <one claim> [n]
+SOURCES:
+[1] <title> – <publisher> – <publication date or ""not stated""> – <full URL>
+CONFIDENCE: high / medium / low – one sentence why.
+"
+9,dev-CIT-020-P2-claude-r1,dev,dev,CIT-020,en,P2,P2_structured_en.txt,96e3772d7a11776b3ff0e949dfb000bdf214b480f7a571e5cab19d61da59b554,c799d338009777b6dd4a237b004328c1b4a7b05b109fcfd3149bad820f57a965,claude,claude.ai (web),1,"výchozí, neviditelná",Web search zapnut/automatický; Research vypnut; Incognito chat,žádné,"výchozí, nenastavitelné",výchozí,/mnt/d/AI/czai-private-v1/calibration/avast-v1/answers/dev-CIT-020-P2-claude-r1.txt,planned,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,"You are a careful research assistant. You support every claim with a source you actually opened in this conversation.
+
+Goal: answer the question accurately and concisely so that the reader can verify every claim.
+
+Question:
+What was William Shakespeare's exact date of birth?
+
+Rules:
+1. Search the web. Do not cite a source you did not open, and do not invent URLs.
+2. After every factual claim (number, date, name, definition), add a reference to its source in the form [1], [2].
+3. Cite a specific page or document, not a homepage or a search results page.
+4. Prefer primary and official sources (legislation, public authority, original study, standard).
+5. If the question contains a false premise, correct it first.
+6. If sources disagree, give both values, each with its own source, and explain the difference.
+7. If the question restricts the age of sources, use only sources that meet the restriction and give their dates.
+8. If you cannot find a reliable answer, say so. Do not guess.
+
+Output format:
+ANSWER: 1–3 sentences with the direct answer.
+CLAIMS:
+C1: <one claim> [n]
+C2: <one claim> [n]
+SOURCES:
+[1] <title> – <publisher> – <publication date or ""not stated""> – <full URL>
+CONFIDENCE: high / medium / low – one sentence why.
+"
+10,dev-CIT-020-P2-perplexity-r1,dev,dev,CIT-020,en,P2,P2_structured_en.txt,96e3772d7a11776b3ff0e949dfb000bdf214b480f7a571e5cab19d61da59b554,c799d338009777b6dd4a237b004328c1b4a7b05b109fcfd3149bad820f57a965,perplexity,perplexity.ai (web),1,"výchozí, neviditelná",režim Search; Research/Labs vypnuto; Incognito,žádné,"výchozí, nenastavitelné",výchozí,/mnt/d/AI/czai-private-v1/calibration/avast-v1/answers/dev-CIT-020-P2-perplexity-r1.txt,completed,yes,,11.954,unknown (default model; UI button Model has no model name),Free (Bezplatný tarif),2026-10-12T23:29:46.227000+02:00,2026-10-12T23:29:58.181000+02:00,11.954,unclear,unknown,1,unknown,0,none,yes,"Native browser input; Markdown serialization of original reply DOM with original hyperlink destinations; no claims, URLs or citation repairs",,/mnt/d/AI/czai-private-v1/calibration/avast-v1/screens/dev-CIT-020-P2-perplexity-r1.png,codex-ui-2026-10-12,"Subscription amount, tokens and credits unknown; no separate API charge observed","Real pre-G1 pilot in Avast 153; exact rendered prompt verified. Completion observed by stable reply >=1 s without a visible Stop control; polling adds observation delay. Original reply DOM preserved. Fresh Incognito mode confirmed by Ukončit anonymní režim control before submission. Search (Vyhledávání) selected, Computer/Research/Labs not selected. No attachments or project context. Sidebar collapsed. No query resubmission.",59cb8ad282043f662edd8ca34cf04315a84f88951306cbfaa0e6d1576b98e7c0,/mnt/d/AI/czai-private-v1/calibration/avast-v1/raw/dev-CIT-020-P2-perplexity-r1.raw.txt,da9afea2708edf1e33c252011a17bdb20e741b37e83fd2d3a56b32d28867db64,70a8af848370914ccadbfd9ce18885acae9eb0168f6aa80ab6b0f50732abf678,,,,,,"You are a careful research assistant. You support every claim with a source you actually opened in this conversation.
+
+Goal: answer the question accurately and concisely so that the reader can verify every claim.
+
+Question:
+What was William Shakespeare's exact date of birth?
+
+Rules:
+1. Search the web. Do not cite a source you did not open, and do not invent URLs.
+2. After every factual claim (number, date, name, definition), add a reference to its source in the form [1], [2].
+3. Cite a specific page or document, not a homepage or a search results page.
+4. Prefer primary and official sources (legislation, public authority, original study, standard).
+5. If the question contains a false premise, correct it first.
+6. If sources disagree, give both values, each with its own source, and explain the difference.
+7. If the question restricts the age of sources, use only sources that meet the restriction and give their dates.
+8. If you cannot find a reliable answer, say so. Do not guess.
+
+Output format:
+ANSWER: 1–3 sentences with the direct answer.
+CLAIMS:
+C1: <one claim> [n]
+C2: <one claim> [n]
+SOURCES:
+[1] <title> – <publisher> – <publication date or ""not stated""> – <full URL>
+CONFIDENCE: high / medium / low – one sentence why.
+"

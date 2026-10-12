@@ -1,0 +1,13 @@
+{
+  "kind": "partial pilot annotation batch, not an analytical plan or freeze",
+  "source_plan": "/mnt/d/AI/czai-private-v1/calibration/avast-v1/run_plan_pilot.csv",
+  "source_plan_sha256": "576b06058d4bf8aece300395465a8bdc7cdab84a49a53b55cc6a0c9fdfb206a5",
+  "source_manifest_sha256": "191e8e050526acb40cc9e1aaa44165a5034bd06a47c2db0f1fa90842433c7825",
+  "included_terminal_rows": 9,
+  "completed_answers": 8,
+  "failed_rows": 1,
+  "planned_rows_retained_in_source": 1,
+  "normalization_audit": "/mnt/d/AI/czai-private-v1/calibration/avast-v1/normalization-v2/AUDIT.json",
+  "normalization_audit_sha256": "e73f2693d690438246226c408bb2d10fb0f0defc226a5bbf0f3e7fc26eef878d",
+  "human_ratings_completed": false
+}

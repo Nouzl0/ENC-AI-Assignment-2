@@ -2,8 +2,13 @@
 
 **Přípravný balíček, nikoli dokončený experiment.** Směr B: porovnání produktů s webovým
 vyhledáváním (ChatGPT, Gemini, Claude, Perplexity, Grok), ne izolovaných modelů.
-G1/G2/G3 nejsou splněny, reference čekají na nezávislou kontrolu a P3_final ani reálné
-výsledky zatím neexistují. Benchmark provede kolega podle [HANDOFF.md](HANDOFF.md).
+G1/G2/G3 nejsou splněny, reference čekají na nezávislou kontrolu a P3_final ani finální analytické
+výsledky zatím neexistují. Uživatel 12. 10. 2026 pověřil agenta skutečným sběrem v Avastu. Existují
+10 původních/nových skutečných pilotních odpovědí na 2 unikátní úlohy,
+exportovaných v [runs/pilot-2026-10-12](runs/pilot-2026-10-12/README.md).
+[Souhrn runů](results/pilot/run_summary.csv) a [návrh komentáře týmu](results/pilot/team_commentary.md)
+jsou uložené v projektu; analytický benchmark není dokončený.
+Aktuální evidence: [docs/results.md](docs/results.md), postup: [HANDOFF.md](HANDOFF.md).
 
 ## Co je autoritativní
 
@@ -74,8 +79,8 @@ a neověřují reference nebo experimentální výsledky. CI se touto lokální 
 
 V Git je **20 dev + 10 val** ve schématu v2 a **10 historických zveřejněných testových
 kandidátů** v `data/published_test_candidates.jsonl`. Ty nejsou skutečným skrytým testem.
-Přejmenování neodstranilo historii. Nový správce připraví ≥10 nových testových úloh
-mimo Git; teprve s nimi je splněno ≥40 experimentálních úloh / ≥10 test.
+Přejmenování neodstranilo historii. Operátor připravil 10 nových soukromých kandidátů pro Reného; návrh čeká na
+jeho nezávislou lidskou kontrolu a schválení. Nejde o již zmrazený holdout.
 Číselné a datované reference se musí nezávisle doložit; samotný validátor neověřuje pravdu.
 [Vyplněné příklady evidence](data/evidence_examples.md) ukazují rozdíl fact_text/hodnota,
 statické RF/OF a RUN_DAY se snapshoty/hashy. Výstupy DEMO_NOT_VERIFIED jsou záměrně
@@ -86,7 +91,7 @@ Všechny reálné plány, odpovědi, ratingy, klíče, snapshoty i výsledky jso
 CLI s manifesty provádí správce dat. Hodnotitelům předává jen jejich zaslepené listy,
 nikoli celý pracovní adresář nebo `answer_metrics.csv` s názvy systémů.
 
-## Postup (provádí kolega)
+## Postup dokončení experimentu
 
 1. Role, dostupnost produktů, nový holdout, nezávislé zdrojové důkazy a pilot navíc.
 2. Podepsat a nezávisle archivovat **G1**; poté nově sebrat celou dev sadu.

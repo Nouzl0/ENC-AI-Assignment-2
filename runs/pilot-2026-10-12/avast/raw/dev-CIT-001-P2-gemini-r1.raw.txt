@@ -1,0 +1,13 @@
+ANSWER:
+In its main primary publication, the Phase 3 clinical trial of the Pfizer-BioNTech BNT162b2 vaccine reported a vaccine efficacy of 95% against symptomatic COVID-19 in participants 16 years of age or older [1].
+
+CLAIMS:
+C1: The Phase 3 trial evaluated the Pfizer-BioNTech BNT162b2 mRNA vaccine [1].
+C2: The primary publication of the trial reported a vaccine efficacy of 95% against symptomatic COVID-19 [1].
+C3: The reported efficacy applied to participants 16 years of age or older [1].
+C4: The study was published in the *New England Journal of Medicine* [1].
+
+SOURCES:
+[1] Safety and Efficacy of the BNT162b2 mRNA Covid-19 Vaccine – New England Journal of Medicine – 2020-12-31 – [https://pubmed.ncbi.nlm.nih.gov/33301246/](https://pubmed.ncbi.nlm.nih.gov/33301246/)
+
+CONFIDENCE: high – The primary Phase 3 trial paper published in NEJM explicitly states a 95% vaccine efficacy against COVID-19 in persons 16 years of age or older.

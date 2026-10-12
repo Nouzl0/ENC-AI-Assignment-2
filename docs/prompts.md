@@ -51,9 +51,9 @@ JISTOTA: vysoká / střední / nízká – jedna věta proč.
 P3 vznikne z P2 jen na základě vývojové a validační sady:
 
 1. Po běhu P2 na vývojové sadě sečteme typy chyb (taxonomie viz [](#error-analysis)). Úprava je povolená jen proti typu chyby, který se objevil alespoň třikrát.
-2. Připravíme dva kandidáty. Předpokládaný **P3-A** přidá ke každému tvrzení doslovný úryvek ze zdroje (nejvýš 25 slov). **P3-B** přidá navíc kontrolu před odesláním: tvrzení, které citovaná stránka neobsahuje, se odstraní nebo označí jako nepodložené. Konečné úpravy určí data z vývoje.
-3. Kandidáty spustíme na validační sadě spolu s P2. Vybereme kandidáta s vyšší citační přesností; při rozdílu pod 2 procentní body rozhodne kratší prompt.
-4. Vítěze zmrazíme, zapíšeme jeho hash SHA-256 a teprve pak otevřeme testovací sadu. Pokud žádný kandidát nepřekoná P2, použijeme lepšího z nich a vykážeme neúspěšnou optimalizaci jako výsledek. Jedno další kolo úprav je povolené jen na vývojové sadě. Každou změnu a její důvod zapíšeme do `prompts/CHANGELOG.md`.
+2. Před G1 zvolíme jednoho nebo oba kandidáty. Předběžný **P3-A** přidává úryvek ≤25 slov ke tvrzení; **P3-B** navíc kontrolu před odesláním. Jde o hypotézy, konečné změny musí doložit alespoň tři chybné dev odpovědi s ID a kódem chyby.
+3. Proběhne jedna plánovaná validace P2 a kandidátů. Výběr se přepočte v plné přesnosti z archivovaného `scoring_inputs.json`. Při rozdílu <0,02 rozhodne kratší průměrná délka CZ/EN šablony včetně whitespace, při shodě P3A.
+4. Vítěze přesně zkopírujeme v CZ/EN do P3_final, zaznamenáme důkazy/hashe a podepíšeme G2 před otevřením testu. I při nezlepšení P2 se vybere měřený kandidát a neúspěch se přizná. **Po validaci není další ladění povolené.** Změny patří do `prompts/CHANGELOG.md`.
 
 :::{warning}
 P3 nesmí obsahovat pokyny pro konkrétní případy ani informace, které by prozradily odpovědi.
@@ -68,5 +68,6 @@ Přenositelnost vykazujeme pro P2 i P3:
 - délku promptu ve znacích,
 - počet systémově specifických úprav,
 - dodatečná kola komunikace.
+- dodatečná viditelná volání nástrojů a jejich pokrytí.
 
 Prompt, který jednomu systému pomůže a ostatním uškodí, vykazujeme jako platný výsledek, ne jako lepší obecný prompt.

@@ -1,55 +1,53 @@
-# Automatizované kontroly a lidské hodnocení
+# Automatické kontroly a lidské hodnocení
 
-Skripty dělají mechanickou práci: rozdělí odpověď na tvrzení, zkontrolují URL a zaslepí listy. Hodnocení S2 až FAB a správnost odpovědi vždy zapisuje člověk.
-
-## Automatizované kontroly
-
-Skript `check_citations.py` zkontroluje každou citaci před lidským hodnocením a výsledky zapíše do anotačního listu. Automatika lidské hodnocení nenahrazuje, jen ho předvyplňuje a zrychluje. Konečné hodnocení vždy potvrzuje člověk.
-
-| Kontrola | Co skript dělá | Výsledek |
-| --- | --- | --- |
-| Dostupnost URL | HTTP stav a přesměrování, dva pokusy s odstupem 10 minut | 404, 410 nebo chyba DNS: návrh FAB k ručnímu ověření; 401, 403 nebo paywall: návrh NA |
-| Konkrétnost odkazu | Pozná domovskou stránku a stránku s výsledky vyhledávání | Příznak „obecná citace" |
-| Shoda čísel a jmen | Vytáhne z tvrzení čísla, data a vlastní jména a hledá je v textu stránky (sjednotí „1 603" a „1603", čárku a tečku) | Podíl nalezených entit, předběžný příznak shody |
-| Datum publikace | Čte metadata stránky (`article:published_time`, `datePublished`) | Kontrola časového limitu |
-| Formát P2 a P3 | Ověří sekce ODPOVĚĎ, TVRZENÍ, ZDROJE a JISTOTA a že každé [n] má záznam ve zdrojích | Validita formátu jako diagnostika dodržování instrukcí |
-
-Další dva skripty doplňují kontrolu dat a výpočet:
-
-- `validate_cases.py` ověří schéma případů, velikost částí, podíl okrajových případů (alespoň 20 %), podobnost testu s vývojem a spočítá hash testovací sady.
-- `score.py` spočítá metriky, intervaly nejistoty a shodu hodnotitelů.
-
-**Validace automatiky:** na vývojové sadě porovnáme příznak shody čísel s lidským hodnocením S2. Pokud bude shoda slabá (kappa pod 0,4), použijeme příznak jen jako nápovědu pro hodnotitele.
+`check_citations.py` parsuje citace, uchovává původní URL a připravuje
+zaslepené podklady. HTTP dostupnost, přesměrování, obecnost URL, shoda
+entit, datum publikace a formát jsou diagnostiky pro správce. **Oba
+nezávislí hodnotitelé dostávají stejné podklady bez automatických nápověd.**
+Automatika nepředvyplňuje jejich ratingy. Samotná HTTP chyba neprokazuje
+neexistenci zdroje; paywall není automaticky nepodpořené tvrzení.
 
 (human-rating)=
-## Lidské hodnocení
+## Rubrika a nezávislost
 
-Člověk hodnotí to, co automatika spolehlivě nezměří: zda citovaný zdroj tvrzení skutečně podporuje. Rubrika platí od zmrazení protokolu a plné znění s dalšími příklady je v `annotation/rubric.md`.
+| Rating | Pravidlo |
+| --- | --- |
+| S2 | Zdroj plně podporuje atomické tvrzení v uvedené přesnosti |
+| S1 | Podporuje jen část nebo užší tvrzení |
+| S0 | Tvrzení neobsahuje nebo mu odporuje |
+| NA | Obsah se nepodařilo přečíst; rozhodnutí má zdrojovou evidenci |
+| FAB | Neexistence zdroje je doložená podle rubriky |
 
-| Hodnocení | Pravidlo | Kotva (příklad) |
-| --- | --- | --- |
-| **S2** plně podpořeno | Zdroj tvrzení výslovně uvádí nebo z něj přímo plyne; čísla sedí v uvedené přesnosti | „Sněžka měří 1603 m" + stránka ČÚZK s hodnotou 1603,296 m |
-| **S1** částečně | Zdroj podporuje jen část tvrzení, nebo je tvrzení silnější či obecnější než zdroj | „Nový stavební zákon platí od 1. 1. 2024 pro všechny stavby" + zdroj uvádějící jen vyhrazené stavby |
-| **S0** nepodpořeno | Zdroj tvrzení neobsahuje nebo mu odporuje | „Poločas rozpadu C-14 je podle NNDC 5 568 let" + stránka NNDC s hodnotou 5 700 ± 30 let |
-| **NA** nedostupné | Stránka existuje, ale obsah nelze přečíst (paywall, přihlášení, chyba 403) | Článek NEJM za paywallem bez abstraktu |
-| **FAB** neexistuje | URL ani DOI neexistuje a nenašli jsme ji ani v archivu | Vymyšlený DOI nebo URL s chybou 404 |
+Úplná pravidla a kotvy všech ratingů i správnosti 0/1/2 jsou v
+`annotation/rubric.md` a `annotation/calibration.md`. Skóre správnosti 2
+vyžaduje správné RF a splněné RC; vynechání OF se netrestá. Segmentace
+zahrnuje celou odpověď, bez limitu osmi tvrzení.
 
-**Správnost odpovědi (0–2):**
+Uživatel 12. 10. 2026 určil **Reného Mrákavu a Jana Duba jako plánované
+lidské hodnotitele**. To potvrzuje role, nikoli provedení hodnocení.
+Jejich samostatné ratingy a kalibrace zatím nejsou k dispozici. Operátor
+nesmí hodnotit vlastní běhy.
 
-- **2** = všechny `key_facts` správně a chybný předpoklad opraven,
-- **1** = část klíčových faktů chybí nebo je nepřesná,
-- **0** = odpověď je chybná, přijme nepravdivý předpoklad nebo vymýšlí přesnou hodnotu tam, kde neexistuje.
+## Postup
 
-### Postup
+1. Před G1 oba lidé samostatně projdou offline kotvy a skutečný pilot
+   CIT-001/CIT-020. Kalibrace a případné změny rubriky se archivují.
+2. Správce exportuje zaslepené listy v náhodném pořadí, seed 2026.
+   Identita produktu/podmínka jsou skryté, formát je však může prozradit.
+   Původní text, atribuce a URL se při normalizaci neopravují.
+3. Hodnotitel 1 posoudí všechny dokončené odpovědi. Hodnotitel 2 posoudí
+   předem náhodně vybraných **≥25 % v každém stratu fáze × produkt × podmínka**,
+   se zaokrouhlením nahoru. Zadání vyžaduje nejméně 20 %.
+4. Původní nezávislé listy zůstanou zachované před diskusí. Cohenova kappa
+   S2/ostatní, surová shoda a n se počítají z nich, nikoli z konsenzu.
+   Při konstantní kategorii je kappa nedefinovaná; segmentace se posuzuje zvlášť.
+5. Každá neshoda a každá změna final oproti raw1 se zapíše do auditu.
+   Nevyřešenou neshodu rozhodne nezávislý třetí člověk. Slabá shoda se
+   neskrývá selektivním přehodnocením ani přepisem původních ratingů.
+6. G3 vyžaduje úplnou matici, ratingy, source/RUN_DAY důkazy, audit a
+   skutečný lidský podpis. Poté lze spustit `score.py --final`.
 
-1. **Kalibrace:** před ostrým hodnocením ohodnotí všichni hodnotitelé stejných 10 odpovědí z vývojové sady a sjednotí výklad rubriky.
-2. **Zaslepení:** anotační list neukazuje název systému ani podmínku. Formátování odpovědí sjednotíme na prostý text s označením [n] a seznamem URL.
-3. **Náhodné pořadí:** skript zamíchá odpovědi (seed 2026), aby hodnotitel neviděl odpovědi jednoho systému za sebou.
-4. **Dva hodnotitelé** pro 25 % odpovědí, vybraných stratifikovaně podle systému a podmínky. Zadání vyžaduje 20 %. Shodu měříme Cohenovou kappou (S2 proti ostatním) a procentem shody. Cílem je kappa alespoň 0,6. Při nižší hodnotě rubriku upřesníme a dvojitě hodnocené odpovědi ohodnotíme znovu.
-5. **Řešení neshod:** hodnotitelé neshodu proberou. Když se nedohodnou, rozhodne třetí hodnotitel. Každou neshodu a její řešení zapíšeme do `annotation/disagreements.csv`.
-
-### Hodnocení pomocí LLM
-
-Hlavní závěry stavíme jen na lidském hodnocení. LLM použijeme nanejvýš k předběžnému rozdělení P1 odpovědí na tvrzení, které člověk zkontroluje.
-
-Pokud tým LLM hodnotitele použije i pro podporu citací, uvede model a verzi, použije tuto rubriku a zaslepené a zamíchané odpovědi. Kalibruje ho na 50 dvojicích ohodnocených člověkem a vykáže shodu s lidmi. Zkontroluje i vliv délky odpovědi a sebepreferenci, protože každý dostupný hodnoticí model patří některému z porovnávaných výrobců. LLM hodnotitel je měřicí nástroj s vlastní chybou.
+LLM návrh segmentace nebo ratingu musí být oddělený a označený jako
+strojový. Svolení týmu není důkaz dvou nezávislých lidských kontrol.
+Pokud se LLM skutečně použije jako hodnotitel, platí požadavky zadání na
+identifikaci modelu, lidskou kalibraci, shodu a kontrolu hodnoticích zkreslení.

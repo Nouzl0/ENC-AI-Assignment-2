@@ -16,8 +16,8 @@ Nastavení odpovídá nápovědě výrobců k 29. 9. 2026. První den běhů ho 
 
 ## Pravidla běhu
 
-1. Každý dotaz začíná v novém chatu v režimu bez paměti, bez vlastních instrukcí, bia a stylů. Použijeme nové účty s vypnutou pamětí.
-2. Všechny systémy běží na stejné úrovni předplatného, výchozí je bezplatná. Model necháme na automatickém výběru a zaznamenáme jeho viditelný název.
+1. Každý dotaz začíná v novém chatu v režimu bez paměti, bez vlastních instrukcí, bia a stylů. To je plán analytické konfigurace. Nový pilot používá existující přihlášené účty v Avastu; jejich skutečná úroveň a nastavení jsou evidované odchylky.
+2. Před-G1 revize používá podle pokynu uživatele existující účty v Avastu: Gemini Plus, Perplexity Free, ostatní tarify výslovně unknown. Rozdílné účty se zaznamenají jako omezení. Pilotní viditelné modely: ChatGPT GPT-6 Střední, Gemini 3.6 Flash, Claude Opus 5.5 Medium, Grok Fast, Perplexity výchozí model bez názvu. Definitivní nastavení a přístup všech produktů se doloží před G1.
 3. Použijeme stejný prohlížeč, českou síť a češtinu rozhraní. Pořadí systémů pro každý případ losuje skript (seed 2026).
 4. Jeden případ projde všemi pěti systémy během 24 hodin, celou testovací sadu zvládneme do 72 hodin.
 5. Platí jedno kolo komunikace. Pokud se systém doptá, odpovíme větou „Pokračujte podle svého nejlepšího úsudku." a kolo navíc zaznamenáme.

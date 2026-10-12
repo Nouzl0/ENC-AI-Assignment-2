@@ -1,0 +1,22 @@
+ANSWER: The main phase 3 publication reported 95.0% vaccine efficacy against symptomatic, laboratory-confirmed COVID-19 among participants without evidence of prior SARS-CoV-2 infection, measured from at least 7 days after the second dose. The corresponding 95% credible interval was 90.3% to 97.6%.
+nejm
+
+CLAIMS:
+C1: The primary publication is Polack et al., “Safety and Efficacy of the BNT162b2 mRNA Covid-19 Vaccine,” published in The New England Journal of Medicine on December 10, 2020 (issue dated December 31, 2020).
+nejm
+
+C2: In the primary-efficacy population without prior infection, there were 8 COVID-19 cases in the BNT162b2 group and 162 in the placebo group, yielding 95.0% efficacy (95% credible interval, 90.3–97.6).
+nejm
+
+C3: The trial’s case definition required at least one COVID-19 symptom together with a positive nucleic-acid-amplification test, so the reported endpoint corresponds to symptomatic COVID-19.
+nejm
+
+C4: In the analysis including participants with and without prior infection, efficacy was 94.6% (95% credible interval, 89.9–97.3).
+nejm
+
+SOURCES:
+Safety and Efficacy of the BNT162b2 mRNA Covid-19 Vaccine – The New England Journal of Medicine – December 10, 2020 (online; issue December 31, 2020) –
+https://www.nejm.org/doi/full/10.1056/NEJMoa2034577
+nejm
+
+CONFIDENCE: high – The exact figure and case definition were verified directly in the opened original NEJM publication.

@@ -1,0 +1,37 @@
+ANSWER: Shakespeare’s exact date of birth is not known. The traditional and most commonly cited date is 23 April 1564, but it is an inference from his recorded baptism on 26 April 1564, not a documented birth record.
+shakespeare.org
++1
+
+CLAIMS:
+C1: The exact date of William Shakespeare’s birth is unknown; no birth record survives.
+shakespeare.org
++1
+
+C2: Shakespeare was baptised at Holy Trinity Church, Stratford-upon-Avon, on 26 April 1564.
+shakespeare.org
++1
+
+C3: 23 April 1564 is traditionally celebrated as his birthday because baptisms commonly occurred within about three days of birth, making 23 April the earliest plausible birth date.
+shakespeare
++1
+
+SOURCES:
+Documentary Evidence – Shakespeare Birthplace Trust – not stated – 
+https://www.shakespeare.org.uk/explore-shakespeare/shakespedia/shakespeares-birthplace/documentary-evidence/
+shakespeare.org
+
+When Was Shakespeare Born? – Shakespeare Birthplace Trust – not stated – 
+https://www.shakespeare.org.uk/explore-shakespeare/shakespedia/william-shakespeare/when-was-shakespeare-born/
+shakespeare
+
+William Shakespeare's life and times – Royal Shakespeare Company – not stated – 
+https://www.rsc.org.uk/shakespeares-life-and-times/?from=mdd
+rsc.org
+
+Shakespeare Birthplace Trust – Folger Shakespeare Library, Shakespeare Documented – not stated – 
+https://shakespearedocumented.folger.edu/repository/shakespeare-birthplace-trust?page=1
+shakespearedocumented.folger
+
+CONFIDENCE: high – Multiple authoritative Shakespeare institutions explicitly state that the exact birth date is unrecorded while identifying 23 April 1564 as the traditional date.
+shakespeare.org
++2

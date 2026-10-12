@@ -9,9 +9,13 @@ CZAI Assignment 1: správnost citací AI asistentů s webovým vyhledáváním, 
 porovnání produktů, ne izolovaných modelů**. Jde o přípravný balíček; aktuální stav
 ověř v `README.md`. Syntetické testy nejsou výsledky experimentu ani ověření referencí.
 
-**Reálné benchmarky, pilot a zdrojové ověřování provede kolega.** Bez změny zadání je
-nespouštěj; připravuj metodiku, nástroje, testy a předání. Nevymýšlej ratingy, výsledky,
-lidské podpisy ani splnění G1/G2/G3. Izolované fixture testy falešných bran jsou povolené.
+**Aktualizace oprávnění 12. 10. 2026:** uživatel výslovně pověřil agenta skutečnými
+runy v Avast Secure Browser a dokončením projektu. Pilot a reálný sběr jsou autorizované;
+analytické fáze stále respektují G1/G2/G3. René a Jan jsou plánovaní lidští hodnotitelé,
+nikoli doklad již provedených ratingů. Nevymýšlej výsledky, lidské hodnocení, podpisy
+ani splnění bran. Originály zůstávají mimo worktree; do ENC-AI-Project patří schválené
+exporty pro odevzdání, bez přístupových údajů a bez předčasného zveřejnění holdoutu.
+Izolované fixture testy falešných bran jsou povolené.
 
 ## Git: pouze main
 

@@ -1,0 +1,14 @@
+ANSWER: The phase 3 trial reported 95.0% vaccine efficacy against symptomatic COVID-19, with a 95% confidence interval of 90.3%–97.6%, for participants without evidence of prior SARS-CoV-2 infection, starting at least 7 days after the second dose. [1]
+
+CLAIMS:
+
+C1: The reported vaccine efficacy was 95.0% (95% confidence interval, 90.3%–97.6%). [1]
+
+C2: The original publication was authored by Fernando P. Polack and colleagues and published in The New England Journal of Medicine on December 10, 2020. [1]
+
+SOURCES:
+
+[1] Safety and Efficacy of the BNT162b2 mRNA Covid-19 Vaccine – The New England Journal of Medicine – December 10, 2020 –
+https://doi.org/10.1056/NEJMoa2034577
+
+CONFIDENCE: High – The original trial publication reports the efficacy estimate and confidence interval directly in its abstract and efficacy results.

@@ -1,0 +1,15 @@
+ANSWER: The phase 3 trial of the Pfizer-BioNTech BNT162b2 vaccine reported 95% efficacy against symptomatic (laboratory-confirmed) COVID-19 in its main publication.⁠Pubmed.ncbi.nlm.nih
+
+CLAIMS:
+
+C1: The primary phase 3 efficacy results for BNT162b2 were published by Polack et al. in the New England Journal of Medicine (N Engl J Med 2020;383:2603-2615; DOI: 10.1056/NEJMoa2034577; Epub 10 Dec 2020). [1]
+
+C2: Among participants without evidence of prior SARS-CoV-2 infection, there were 8 cases of COVID-19 with onset ≥7 days after the second dose in the BNT162b2 group versus 162 cases in the placebo group, corresponding to 95% vaccine efficacy (95% credible interval 90.3–97.6). [1]
+
+C3: The primary endpoint was laboratory-confirmed COVID-19 (i.e., symptomatic disease). [1]
+
+SOURCES:
+
+[1] Safety and Efficacy of the BNT162b2 mRNA Covid-19 Vaccine – New England Journal of Medicine / PubMed – 31 December 2020 (Epub 10 December 2020) – https://pubmed.ncbi.nlm.nih.gov/33301246/
+
+CONFIDENCE: high – Multiple independent sources (PubMed abstract, contemporaneous Pfizer announcement, and secondary reports) consistently reproduce the identical primary efficacy figure and case counts from the original Polack et al. NEJM paper; no contradictory primary data were found.

@@ -33,3 +33,27 @@ Původní data zůstávají v git historii. Nové referenční hodnoty ani údaj
 
 **Ještě provést:** správce dat ověří každý povinný i volitelný fakt a zdroj před G1, vyplní source_evidence.csv.
 Prázdná šablona není důkaz dokončené kontroly. Dynamické hodnoty navíc ověřit v den skutečného běhu.
+
+## Kontrola primárních podkladů 12. 10. 2026 (před G1)
+
+Read-only AI kontrola prošla všech 30 veřejných případů. Jde o podklady pro lidi,
+nikoli lidskou verifikaci G1. Výsledek a mezery jsou v `docs/source-audit.md`.
+
+- CIT-007: opraveno příliš obecné OF o nápojích. GFŘ § 2.2 uvádí výjimky pro
+  kohoutkovou pitnou vodu a zákonem vybrané mléčné/rostlinné nápoje; RF jídlo 12 % se nemění.
+- CIT-015: doplněn ECB Economic Bulletin 6/2026 z 24. 9. 2026. Původní zpráva
+  z 10. 9. již k datu kontroly nesplňuje RC ≤30 dnů. Požadavek otázky se nemění;
+  bulletin dokládá MRO 2,65 % od 16. 9. 2026. RUN_DAY zůstává povinný.
+- CIT-023: RF2/alias/expected_properties doplněny o podmínku podniku a předchozí
+  finanční rok, protože otázka požaduje přesné znění limitu. Přímé otevření EUR-Lex
+  bylo zablokované; oprava odpovídá indexovanému primárnímu textu, úplná lidská kontrola zbývá.
+- CIT-027: přidány novější konkrétní zdroje ČSÚ (srpen) a ÚP (září) s přesným
+  označením odlišných ukazatelů. Starší odkazy zachovány jako historické podklady.
+  Nezměněn požadavek jednoznačně pojmenovat ukazatel a měsíc; čísla nejsou zmrazený RUN_DAY gold.
+- CIT-007 OF1: doplněn skutečně otevřený historický přehled Finanční správy
+  z 6. 6. 2023, s. 2, který uvádí 10 % pro stravování.
+- CIT-010 OF1: doplněna datovaná zpráva Microsoft News Center z 30. 6. 2025,
+  která dokládá původní konec spotřebitelského ESU 13. 10. 2026; aktuální a historický stav se nepletou.
+
+Neúplně doložené bonusy ani negativní závěry CIT-016/029 nebyly potichu označeny za
+ověřené či odstraněny. Po jejich přezkoumání je nutná další výslovná před-G1 revize.

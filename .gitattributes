@@ -1,2 +1,10 @@
 # Preserve frozen text-file hashes in checkouts, including core.autocrlf=true.
 * text=auto eol=lf
+# Generated documents and images must retain their original binary bytes.
+*.pdf binary
+*.docx binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+# Pilot originals contain genuine Windows CRLF; preserve their recorded hashes.
+runs/pilot-2026-10-12/** -text whitespace=-blank-at-eol,-blank-at-eof,-space-before-tab,cr-at-eol

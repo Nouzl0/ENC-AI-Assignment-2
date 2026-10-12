@@ -1,6 +1,8 @@
 # Plán běhů a nejistota
 
-Výchozí plán má 500 odpovědí. Hlavní podmínku P2 na testovací sadě spouštíme třikrát, abychom změřili rozptyl mezi běhy.
+Výchozí plán má **500 analytických + 10 pilotních odpovědí navíc**.
+P2 na předem vybraných testových úlohách spouštíme třikrát. Dev se po G1
+sbírá znovu; pilot se do analytického dev nepřebírá.
 
 | Fáze | Sada | Podmínky | Běhy | Odpovědí (× 5 systémů) |
 | --- | --- | --- | --- | --- |
@@ -10,11 +12,17 @@ Výchozí plán má 500 odpovědí. Hlavní podmínku P2 na testovací sadě spo
 | 4 Opakování | testovací (10) | P2 | 2 další | 100 |
 | | | | **Celkem** | **500** |
 
-Odhad práce je asi 3 minuty na běh a 7 minut na hodnocení, celkem asi 85 hodin, tedy 21 hodin na člena čtyřčlenného týmu.
+Hrubý odhad podle protokolu je 99,7 h včetně 140 druhých hodnocení
+(10 min na běh a první anotaci, 7 min na druhou). Není to naměřený čas;
+navíc jsou pilot, reference, audit, analýza, zpráva a čekání na limity.
 
-**Úsporná varianta** pro 2–3 členy: čtyři systémy (Grok vynecháme s písemným odůvodněním), jeden kandidát P3 a opakování jen na 5 testovacích případech, celkem 320 odpovědí.
+**Úsporná varianta zachová všech pět produktů**: jeden P3 kandidát a pět
+repeat úloh, 400 + 10 běhů, 115 druhých hodnocení a odhad 80,1 h.
+Čtyřproduktová varianta 320 + 8 je možná pouze při předem doložené
+nedostupnosti/nevhodnosti pátého, nikoli kvůli úspoře práce; odhad 64,1 h.
+Varianta a repeat ID se určí před G1, nikdy podle výsledků.
 
-**Rozšíření:** P1 i na vývojové sadě (+100) zvýší sílu testu H2, protože P1 ani P2 na ní laděné nejsou.
+**Volitelné rozšíření před G1:** P1 na dev (+100) umožní pouze explorační srovnání. Dev/val se nepřidávají do potvrzujícího testu H2, který používá výhradně nový holdout.
 
 ## Metody nejistoty
 
@@ -42,7 +50,12 @@ Neúspěšný běh je součástí dat. Opakování povolujeme jen u selhání mi
 | Limit požadavků | Vyčerpaný denní limit | 1× do 24 hodin | První pokus i výsledek zvlášť |
 | Časový limit | Žádná odpověď do 180 sekund | 1× ihned | První pokus i výsledek zvlášť |
 | Výpadek produktu | Chyba serveru, stránka nedostupná | 1× v rámci 24hodinového okna | První pokus i výsledek zvlášť |
-| Chyba studenta | Vložen špatný prompt, zapnutý hloubkový výzkum | Ano, běh se zahodí | Nepočítá se systému, eviduje se |
+| Chyba studenta | Vložen špatný prompt, zapnutý hloubkový výzkum | Svázaná náhrada | Původní excluded řádek a důkaz zůstávají |
 | Chyba evaluace | Špatně zkopírovaná URL do listu | Ne, opraví se záznam | Oprava se zapíše |
 
 Každé selhání a každý ruční zásah zapíšeme do sloupců `failure_type`, `retries` a `manual_intervention` v metadatech běhu. Neúspěšný pokus nemazáme ani po úspěšném opakování.
+
+Úplné příkazy s manifesty a soukromými cestami jsou v `HANDOFF.md`.
+Konstantní bootstrapový CI není nulová populační nejistota. Testové úlohy
+napříč systémy/podmínkami mají okno 24 h, test 72 h a repeat následujících
+72 h; zdrojové ratingy do 7 dní. Odchylky a jejich dopad se zaznamenávají.

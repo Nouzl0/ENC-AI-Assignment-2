@@ -60,6 +60,12 @@ Pokud raw a normalizovaný hash nejsou stejné, manual_intervention nemůže bý
 Neznámé provozní počty jsou unknown; časy, konečné stavy a artefakty neodhadovat.
 Při chybě evidence nejdřív napravit dokumentaci, ne zapsat „0“ nebo vynechat běh.
 
+`cost_note` má také výslovně uvést dostupné tokeny a kredity, nebo že je UI
+nezobrazuje (`unknown`). Promptovou verzi identifikuje konkrétní soubor,
+hash a záznam v `prompts/CHANGELOG.md`; kontextové soubory a jejich verze
+jsou v tomto návrhu `žádné`. Checklist potvrzuje připravená pole, ne jejich
+skutečné vyplnění ve všech dosud neprovedených bězích.
+
 ## Stavy a selhání
 
 - **completed:** konečná odpověď existuje. I věcná chyba, odmítnutí, chybějící citace

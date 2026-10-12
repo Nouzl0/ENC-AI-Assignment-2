@@ -1,7 +1,7 @@
 # AI Student worksheet
 
 **Verze: počáteční (k návrhu projektu), před G1.** Nic není zmrazeno a neexistují
-výsledky. Pole označená **DOPLNIT** se vyplní až po skutečných bězích, pilotu nebo
+finální analytické výsledky. Skutečné pilotní výsledky jsou již exportované v projektu. Pole označená **Dosud nezměřeno / nedokončeno** se vyplní až po skutečných bězích, pilotu nebo
 rozhodnutí týmu. Hodnoty se nesmí odhadovat. Zdroj pravdy je [PROTOCOL.md](../../PROTOCOL.md).
 
 ## A. Project identity
@@ -10,7 +10,7 @@ rozhodnutí týmu. Hodnoty se nesmí odhadovat. Zdroj pravdy je [PROTOCOL.md](..
 
 **Team members:** Jan Dub, René Mrákava, Nikolas Nosál (Mendelova univerzita v Brně, Provozně ekonomická fakulta)
 
-**Roles:** DOPLNIT. Role podle [docs/team.md](../team.md): koordinátor protokolu, správce dat, autor promptu, analytik, hodnotitelé. Přiřazení jmen k rolím tým určí před G1. Správce dat nesmí sdílet holdout s autorem promptu.
+**Roles:** René Mrákava: správce skrytého testu, nezávislý ověřovatel referencí a hodnotitel; Jan Dub: autor promptu a hodnotitel (potvrzeno uživatelem 12. 10. 2026). Nový operátor: `codex-ui-2026-10-12`, AI agent ovládající Avast Secure Browser. Jan před G2 nedostává obsah testu. Přiřazení role není provedený rating ani podpis brány. Viz [docs/team.md](../team.md).
 
 **Primary track:**
 
@@ -72,14 +72,14 @@ Vedlejší hypotéza H2: strukturovaný prompt P2 zvýší přesnost oproti P1 v
 
 | System | Interface/API | Visible model/version | Tools enabled | Prompt adaptations | Date tested |
 | --- | --- | --- | --- | --- | --- |
-| ChatGPT | Webové rozhraní, Temporary chat (Unpersonalized) | DOPLNIT při běhu | Search vynucen nástrojem; Deep research vyloučen | Žádné (cíl 0) | DOPLNIT |
-| Gemini | Webové rozhraní, Temporary chat | DOPLNIT při běhu | Vyhledávání automaticky; Deep Research vyloučen | Žádné (cíl 0) | DOPLNIT |
-| Claude | Webové rozhraní, Incognito chat | DOPLNIT při běhu | Web search; Research vyloučen | Žádné (cíl 0) | DOPLNIT |
+| ChatGPT | Webové rozhraní, Temporary chat (Unpersonalized) | GPT-6, Střední (pilot) | Search vynucen nástrojem; Deep research vyloučen | Žádné (cíl 0) | 12. 10. 2026 (pilot) |
+| Gemini | Webové rozhraní, Temporary chat | 3.6 Flash; Plus (pilot) | Vyhledávání automaticky; Deep Research vyloučen | Žádné (cíl 0) | 12. 10. 2026 (pilot) |
+| Claude | Webové rozhraní, Incognito chat | Opus 5.5 Medium; pokus skončil limitem | Web search; Research vyloučen | Žádné (cíl 0) | 12. 10. 2026 (pilot) |
 | Claude Code | **Nezahrnut:** nástroj pro programování a agentní systémy, mimo směr B | – | – | – | – |
-| Grok | Webové rozhraní, Private Chat | DOPLNIT při běhu | Automaticky web a X; DeepSearch vyloučen | Žádné (cíl 0) | DOPLNIT |
-| Perplexity | Webové rozhraní, Incognito, režim Search | DOPLNIT při běhu | Vždy Search; Research a Labs vyloučeny | Žádné (cíl 0) | DOPLNIT |
+| Grok | Webové rozhraní, Private Chat | Fast; podkladový model unknown | Automaticky web a X; DeepSearch vyloučen | Žádné (cíl 0) | 12. 10. 2026 (pilot) |
+| Perplexity | Webové rozhraní, Incognito, režim Search | Výchozí model bez zobrazeného názvu; Free | Vždy Search; Research a Labs vyloučeny | Žádné (cíl 0) | 12. 10. 2026 (pilot) |
 
-Nastavení vychází z nápovědy výrobců k 29. 9. 2026. Operátor ho ověří a doloží snímkem obrazovky před G1.
+Tabulka zaznamenává skutečně viditelné pilotní nastavení 12. 10. 2026. U CIT-001 ChatGPT nebylo vypnutí personalizace ověřeno; CIT-020 již výslovně potvrdil Bez personalizace. Definitivní konfigurace a dostupnost všech produktů patří do G1.
 
 **Comparison design:**
 
@@ -101,20 +101,20 @@ Nastavení vychází z nápovědy výrobců k 29. 9. 2026. Operátor ho ověří
 
 **Validation cases:** 10 (CIT-021 – CIT-030)
 
-**Held-out test cases:** alespoň 10. Nový soukromý holdout vytvoří nezávislý správce mimo Git. Historické CIT-031 – CIT-040 jsou veřejné kandidáty, ne skrytý test.
+**Held-out test cases:** soukromý AI návrh 10 nových případů vytvořen mimo Git pro Reného. Splňuje schéma/kvóty a čeká nezávislé lidské ověření a schválení. Jan k jeho obsahu nemá přístup před G2. Historické CIT-031 – CIT-040 jsou veřejné kandidáty, ne skrytý test.
 
 **Repeated-run cases:** 10 předem určených testových úloh (úsporná varianta 5), podmínka P2, běhy 2 a 3
 
 | Stratum | Planned number | Actual number | How selected |
 | --- | --- | --- | --- |
-| Ordinary (bez okrajové podmínky) | test: 5–6 z 10 | dev 11, val 6, test DOPLNIT | Týmový účelový výběr |
-| Difficult (hard) | test: 3 z 10 | dev 6, val 2, test DOPLNIT | Podle `holdout_blueprint.json` |
-| Edge or adversarial | ≥20 % v každé sadě; test: 4–5 z 10 | dev 9 (45 %), val 4 (40 %), test DOPLNIT | Nepravdivý předpoklad, protichůdné zdroje, časové omezení, nedávná změna |
-| Ambiguous or incomplete | bez samostatné kvóty | dev 3, val 2, test DOPLNIT | Nejednoznačné zadání a chybějící informace |
-| Czech | test: 4–5 z 10 | dev 10, val 5, test DOPLNIT | Podle blueprintu |
-| English | test: 4–5 z 10 | dev 9, val 4, test DOPLNIT | Podle blueprintu |
-| Mixed language | test: 0–1 z 10 | dev 1, val 1, test DOPLNIT | Podle blueprintu |
-| Other relevant stratum: oblast | test: 2 z každé z 5 oblastí | dev 4 × 5, val 2 × 5, test DOPLNIT | Věda a zdraví, právo, IT, ekonomika, historie a kultura |
+| Ordinary (bez okrajové podmínky) | test: 5–6 z 10 | dev 11, val 6, test: 6/10 v soukromém návrhu; čeká na lidské schválení | Týmový účelový výběr |
+| Difficult (hard) | test: 3 z 10 | dev 6, val 2, test: 3/10 v soukromém návrhu; čeká na lidské schválení | Podle `holdout_blueprint.json` |
+| Edge or adversarial | ≥20 % v každé sadě; test: 4–5 z 10 | dev 9 (45 %), val 4 (40 %), test: 4/10 (40 %) v soukromém návrhu; čeká na lidské schválení | Nepravdivý předpoklad, protichůdné zdroje, časové omezení, nedávná změna |
+| Ambiguous or incomplete | bez samostatné kvóty | dev 3, val 2, test: 0/10 v soukromém návrhu; ostatní edge typy viz soukromá kontrola; čeká na lidské schválení | Nejednoznačné zadání a chybějící informace |
+| Czech | test: 4–5 z 10 | dev 10, val 5, test: 4/10 v soukromém návrhu; čeká na lidské schválení | Podle blueprintu |
+| English | test: 4–5 z 10 | dev 9, val 4, test: 5/10 v soukromém návrhu; čeká na lidské schválení | Podle blueprintu |
+| Mixed language | test: 0–1 z 10 | dev 1, val 1, test: 1/10 v soukromém návrhu; čeká na lidské schválení | Podle blueprintu |
+| Other relevant stratum: oblast | test: 2 z každé z 5 oblastí | dev 4 × 5, val 2 × 5, test: 2 z každé z 5 oblastí v soukromém návrhu; čeká na lidské schválení | Věda a zdraví, právo, IT, ekonomika, historie a kultura |
 
 **Data provenance:** Všechny dotazy jsou syntetické a vytvořil je tým. Ptáme se jen na veřejně dostupná fakta, bez osobních údajů, důvěrných dat a autorsky chráněných textů. U každého případu je v poli `source_or_provenance` původ a datum ověření. Datované reference u dev/val jsou návrh. Nezávislé ověření všech povinných a nepovinných faktů před G1 zatím není provedeno.
 
@@ -171,7 +171,7 @@ JISTOTA: vysoká / střední / nízká – jedna věta proč.
 #### Optimized prompt
 
 ```
-DOPLNIT: P3_final dosud neexistuje. Vznikne jako přesná kopie vítěze mezi kandidáty
+Dosud nezměřeno / nedokončeno: P3_final dosud neexistuje. Vznikne jako přesná kopie vítěze mezi kandidáty
 P3A (doslovný úryvek ze zdroje ≤ 25 slov ke každému tvrzení) a P3B (P3A + kontrola
 tvrzení před odesláním) po validaci. Návrhy jsou v prompts/P3A_candidate_*.txt
 a prompts/P3B_candidate_*.txt. Jsou to hypotézy, ne naměřená zlepšení.
@@ -181,7 +181,7 @@ a prompts/P3B_candidate_*.txt. Jsou to hypotézy, ne naměřená zlepšení.
 
 **What is intentionally different?** Jen podmínka promptu: P1 (společný výchozí), P2 (role, pravidla, schéma výstupu, postup při nejistotě), P3 (obecná optimalizace P2 podle chyb na dev). Žádné úpravy specifické pro produkt (cíl 0).
 
-**When will prompts be frozen?** P1, P2, data, rubrika a kód se zmrazí v G1, před prvním během. P3 se zmrazí v G2 po validaci, před otevřením testovací sady. Po validaci už žádné další ladění.
+**When will prompts be frozen?** P1, P2, data, rubrika a kód se zmrazí v G1 před prvním analytickým během; pilot proběhne před G1. P3 se zmrazí v G2 po validaci, před otevřením testovací sady. Po validaci už žádné další ladění.
 
 **How will held-out cases remain protected?** Holdout vytvoří nezávislý správce dat mimo Git a autor promptu ho před G2 nevidí. Před prvním během se zapíše jeho SHA-256. Autor dostává jen výstupy z dev/val. Test se použije jednou.
 
@@ -193,10 +193,10 @@ Podrobný záznam je v [prompts/CHANGELOG.md](../../prompts/CHANGELOG.md).
 
 | Version | Date | Change | Evidence | Expected effect | Actual validation effect | Retained? |
 | --- | --- | --- | --- | --- | --- | --- |
-| v0 (P1 v1.0) | 2026-09-29 | Šablona ze zadání + věta o formátu | Povinná společná výchozí podmínka | Referenční úroveň | DOPLNIT | Ano (zmrazí G1) |
-| v1 (P2 v1.0) | 2026-09-29 | Role, cíl, 8 pravidel, schéma výstupu, postup při nejistotě | Návrh před měřením | Vyšší podíl explicitních a podpořených citací | DOPLNIT | Ano (zmrazí G1) |
-| v2 (P3-A / P3-B v0.1, v0.2) | 2026-09-29, pak přípravná revize | P3-A: doslovný úryvek ke každému tvrzení. P3-B: navíc kontrola tvrzení před odesláním | Hypotéza E2/E5. Chybí ≥3 chybné dev odpovědi, zatím nepotvrzeno | Méně nepodporujících citací | DOPLNIT (val dosud neproběhla) | DOPLNIT |
-| v3 (P3_final) | DOPLNIT | Přesná kopie vítěze validace | DOPLNIT | DOPLNIT | DOPLNIT | DOPLNIT |
+| v0 (P1 v1.0) | 2026-09-29 | Šablona ze zadání + věta o formátu | Povinná společná výchozí podmínka | Referenční úroveň | Dosud nezměřeno / nedokončeno | Ano (zmrazí G1) |
+| v1 (P2 v1.0) | 2026-09-29 | Role, cíl, 8 pravidel, schéma výstupu, postup při nejistotě | Návrh před měřením | Vyšší podíl explicitních a podpořených citací | Dosud nezměřeno / nedokončeno | Ano (zmrazí G1) |
+| v2 (P3-A / P3-B v0.1, v0.2) | 2026-09-29, pak přípravná revize | P3-A: doslovný úryvek ke každému tvrzení. P3-B: navíc kontrola tvrzení před odesláním | Hypotéza E2/E5. Chybí ≥3 chybné dev odpovědi, zatím nepotvrzeno | Méně nepodporujících citací | Dosud nezměřeno / nedokončeno (val dosud neproběhla) | Dosud nezměřeno / nedokončeno |
+| v3 (P3_final) | Dosud nezměřeno / nedokončeno | Přesná kopie vítěze validace | Dosud nezměřeno / nedokončeno | Dosud nezměřeno / nedokončeno | Dosud nezměřeno / nedokončeno | Dosud nezměřeno / nedokončeno |
 
 ---
 
@@ -239,6 +239,8 @@ Hlavní závěry stavíme jen na lidském hodnocení. LLM lze nanejvýš použí
 
 ### J. Logging checklist
 
+Checklist níže potvrzuje připravená metadata, nikoli provedení všech běhů.
+
 - [x] Produkt a viditelný název modelu
 - [x] Rozhraní nebo API
 - [x] Datum a čas (Europe/Prague)
@@ -257,57 +259,57 @@ Hlavní závěry stavíme jen na lidském hodnocení. LLM lze nanejvýš použí
 - [x] Surový text odpovědi, normalizace a SHA-256
 - [x] Snímek obrazovky a odkaz na sdílení
 
-**Storage location:** DOPLNIT. Skutečné plány, odpovědi, ratingy, klíče a evidence patří na absolutní cestu mimo repozitář, kterou určí správce dat.
+**Storage location:** Originální sběr: `D:\AI\czai-private-v1` (ve WSL `/mnt/d/AI/czai-private-v1`), mimo worktree. Nový pilot je oddělený v `calibration/avast-v1/`. Schválený export pro odevzdání bude v `ENC-AI-Project`; podepsané originály se nepřepisují a holdout se před G2 nepublikuje.
 
-**Anonymization and data-protection procedure:** Dotazy jsou syntetické veřejné fakty, bez osobních údajů. Používají se nové účty bez paměti a personalizace. Soukromé snapshoty a klíče zůstávají mimo Git a sdílejí se jen oprávněně. Přístupové údaje ani osobní data se neukládají. Publikace testu a odsanitizovaných artefaktů až po G3 a souhlasu týmu.
+**Anonymization and data-protection procedure:** Dotazy jsou syntetické veřejné fakty, bez osobních údajů. Nový pilot používá existující přihlášené účty a dočasné/anonymní chaty; rozdíly úrovní a personalizace se evidují. Analytická konfigurace se rozhodne před G1. Soukromé snapshoty a klíče zůstávají mimo Git a sdílejí se jen oprávněně. Přístupové údaje ani osobní data se neukládají. Publikace testu a odsanitizovaných artefaktů až po G3 a souhlasu týmu.
 
 ---
 
 ## K. Pilot review
 
-**Pilot size:** Plán: 2 dev úlohy (CIT-001, CIT-020) × produkty = 10 odpovědí před G1. DOPLNIT skutečně provedený pilot.
+**Pilot size:** Plán: CIT-001 a CIT-020 × 5 produktů = 10 odpovědí před G1. Původní sběr má dvě dokončené odpovědi CIT-001 (ChatGPT, Perplexity). Nový sběr v Avastu probíhá odděleně; aktuální doložené běhy jsou v [results.md](../results.md). Pilot není analytický dev.
 
-**What failed in the pilot?** DOPLNIT (pilot dosud neproběhl)
+**What failed in the pilot?** Původní přístup bez účtů: Grok vyžádal registraci, Gemini přesměroval na přihlášení, Claude neumožnil zadat dotaz. Uživatel následně zpřístupnil přihlášený Avast a jeho vzdálené ovládání. Provozní pokusy a screenshoty se zachovávají; nejsou zaměněné za selhání finálního benchmarku.
 
-**Which cases were rewritten or removed?** DOPLNIT
+**Which cases were rewritten or removed?** Otázky nebyly odstraněny; reference CIT-007/015/023/027 byly opraveny a historické zdroje CIT-007/010 doplněny podle [data/CHANGES.md](../../data/CHANGES.md). Původní pilotní odpovědi zůstaly zachované.
 
-**Which metric or rubric changes were made?** DOPLNIT
+**Which metric or rubric changes were made?** Normativní metriky a rubrika se neměnily. Dokumentace byla opravena podle PROTOCOL.md: všechna tvrzení, explicitní atribuce, oddělená opakování a zaslepené ratingy bez automatických nápověd.
 
-**What evidence supports freezing the benchmark?** DOPLNIT. Podmínky G1 jsou v [freeze/README.md](../../freeze/README.md): pilot, role, dostupnost, nezávislé reference, nový soukromý holdout, hashe.
+**What evidence supports freezing the benchmark?** Dosud nezměřeno / nedokončeno. Podmínky G1 jsou v [freeze/README.md](../../freeze/README.md): pilot, role, dostupnost, nezávislé reference, nový soukromý holdout, hashe.
 
-**What remains uncertain?** DOPLNIT po pilotu. Již známé: nezávislé ověření referencí a nový holdout zatím neexistují.
+**What remains uncertain?** Nový holdout, nezávislé ověření referencí, lidská kalibrace a G1 zatím nejsou dokončené. Skutečné úrovně účtů musí být sladěné nebo odchylky deklarované před G1; Gemini nyní ukazuje Plus.
 
 ---
 
 ## L. Results table
 
-**DOPLNIT po skutečných bězích a G3.** Sloupce: System, Condition, N, Primary score, Interval or variation, Secondary score, Median latency, Cost, First-attempt success. Řádky: pět produktů × Baseline / Structured / Optimized (Claude Code se nehodnotí). Žádná hodnota se nevymýšlí ani nepřebírá ze syntetické ukázky.
+**Dosud nezměřeno / nedokončeno po skutečných bězích a G3.** Sloupce: System, Condition, N, Primary score, Interval or variation, Secondary score, Median latency, Cost, First-attempt success. Řádky: pět produktů × Baseline / Structured / Optimized (Claude Code se nehodnotí). Žádná hodnota se nevymýšlí ani nepřebírá ze syntetické ukázky.
 
 ---
 
 ### M. Error analysis
 
-**DOPLNIT po skutečných bězích.** Plán: 12 případů (zadání vyžaduje 8), alespoň 2 za každý systém, alespoň 3 úspěšné odpovědi a alespoň jeden případ z každého typu okrajové podmínky, s hlavním kódem chyby E1–E11. Postup a šablona jsou v [analysis/README.md](../../analysis/README.md).
+**Čeká na skutečné běhy a ratingy.** Plán: nejméně 8 unikátních task_id, ideálně 12–16 odpovědí, alespoň 2 za každý systém, alespoň 3 úspěšné odpovědi a alespoň jeden případ z každého typu okrajové podmínky, s hlavním kódem chyby E1–E11. Postup a šablona jsou v [analysis/README.md](../../analysis/README.md).
 
-**Most frequent error:** DOPLNIT
+**Most frequent error:** Dosud neurčeno z kompletní analytické matice. Pilotní pozorování jsou v [analýze](../error-analysis.md).
 
-**Most consequential error:** DOPLNIT
+**Most consequential error:** V pilotu konkrétně nesoulad inline DOI a DOI v seznamu původní odpovědi Perplexity; závažnost v celém benchmarku není změřena.
 
-**Did optimization change the error distribution?** DOPLNIT
+**Did optimization change the error distribution?** Nelze vyhodnotit: P3_final ani validační/testové běhy nejsou dokončené.
 
 ---
 
 ## N. Practical recommendation
 
-**DOPLNIT po G3.** Doporučení se smí týkat jen testovaných produktů, režimu, účtů, jazyků, oblastí a období. Nesmí tvrdit „nejlepší AI" ani se opírat o hypotézu, kterou data nepodpořila.
+**Dosud nezměřeno / nedokončeno po G3.** Doporučení se smí týkat jen testovaných produktů, režimu, účtů, jazyků, oblastí a období. Nesmí tvrdit „nejlepší AI" ani se opírat o hypotézu, kterou data nepodpořila.
 
-**Best system for the defined capability:** DOPLNIT
+**Best system for the defined capability:** Z dvou pilotních úloh nelze určit. Žebříček nevytváříme.
 
-**Best prompt condition:** DOPLNIT
+**Best prompt condition:** Nelze určit: pilot používá pouze P2.
 
-**Conditions under which this recommendation holds:** DOPLNIT
+**Conditions under which this recommendation holds:** Průběžné pozorování platí jen pro konkrétní pilot, účty a UI z 12. 10. 2026.
 
-**Important cost, latency, or human-effort trade-off:** DOPLNIT
+**Important cost, latency, or human-effort trade-off:** Některé intervaly zahrnují zachycení/opravy kolektoru a nejsou čistou latencí. Tokeny/cena unknown; lidský čas anotace dosud nezměřen.
 
 **What should a practitioner not infer from this study?** Předběžně: který jazykový model je lepší, že S2 znamená pravdivou odpověď, že výsledek platí pro jiné typy dotazů, jazyky, placené úrovně nebo pozdější verze produktů.
 
@@ -330,3 +332,7 @@ Hlavní závěry stavíme jen na lidském hodnocení. LLM lze nanejvýš použí
 **Evaluation bias or judge bias:** Hodnotitelé jsou studenti a u odborných zdrojů (právo, zdraví) mohou chybovat. Zaslepení je jen částečné. Zmírňujeme to kalibrací, druhým hodnocením ≥25 % a auditem neshod. LLM hodnotitel se nepoužívá.
 
 **Most important follow-up experiment:** Opakování na větší nezávislé sadě s nezávisle ověřenými referencemi a rozšíření o API vrstvu s ekvivalentními nástroji (dvouvrstvý návrh).
+
+## Aktuální pilotní podklady a komentář
+
+V projektu je 10 skutečných odpovědí (8 nových, 2 původní) na 2 unikátní úlohy, metadata, raw, snímky a hashe. Viz [výsledky pilotu](../results.md), [komentář týmu](../../results/pilot/team_commentary.md) a [export](../../runs/pilot-2026-10-12/README.md). Oba lidé mají připravené totožné nevyplněné listy pro 8 nových odpovědí; provedené ratingy ani podpisy to nenahrazuje. Požadavek analýzy 8 unikátních úloh dosud splněn není.

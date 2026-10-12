@@ -34,9 +34,9 @@ project:
 
   parts:
     abstract: >
-      Projekt měří, jak často citace AI asistentů s webovým vyhledáváním
+      Projekt plánuje změřit, jak často citace AI asistentů s webovým vyhledáváním
       (ChatGPT, Gemini, Claude, Perplexity, Grok) skutečně podporují tvrzení,
-      ke kterým jsou připojeny. Porovnáváme produkty jako celky na 40 faktických
+      ke kterým jsou připojeny. Plánujeme porovnání produktů jako celků na alespoň 40 faktických
       rešeršních dotazech v češtině a angličtině a ve třech promptových
       podmínkách. Hlavní metrikou je citační přesnost na úrovni tvrzení,
       doplněná úplností citací a správností odpovědi.
@@ -62,10 +62,12 @@ project:
     - file: introduction.md
     - file: systems.md
     - file: dataset.md
+    - file: source-audit.md
     - file: prompts.md
     - file: metrics.md
     - file: annotation.md
     - file: plan.md
+    - file: results.md
     - file: error-analysis.md
     - file: team.md
     - file: limits.md
