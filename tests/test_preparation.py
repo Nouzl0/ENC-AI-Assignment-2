@@ -2,9 +2,11 @@
 import csv
 import datetime as dt
 import json
+import os
 from pathlib import Path
 import random
 import shutil
+import subprocess
 import sys
 import tempfile
 import unittest
@@ -20,6 +22,36 @@ from make_evidence_example import create_example
 
 
 class PreparationTests(unittest.TestCase):
+    @unittest.skipUnless(shutil.which("git"), "Git is needed to test checkout byte preservation")
+    def test_autocrlf_checkout_preserves_frozen_file_bytes(self):
+        """Same commit must retain LF bytes even on a CRLF-configured machine."""
+        with tempfile.TemporaryDirectory(prefix="czai-checkout-test-") as directory:
+            repo, checkout = Path(directory, "repo"), Path(directory, "checkout")
+            checkout.mkdir()
+            env = {k: v for k, v in os.environ.items() if not k.startswith("GIT_")}
+            env.update(GIT_CONFIG_NOSYSTEM="1", GIT_CONFIG_GLOBAL=os.devnull, GIT_ATTR_NOSYSTEM="1")
+
+            def git(*args):
+                subprocess.run(["git", "-c", "core.autocrlf=true", *args], cwd=repo,
+                               env=env, check=True, capture_output=True, timeout=30)
+
+            repo.mkdir()
+            git("-c", "init.defaultBranch=main", "init", "--quiet")
+            names = (".gitattributes", "PROTOCOL.md", "annotation/rubric.md",
+                     "prompts/P2_structured_cs.txt", "scripts/score.py")
+            for name in names:
+                target = repo / name
+                target.parent.mkdir(parents=True, exist_ok=True)
+                shutil.copyfile(ROOT / name, target)
+            # Auto-detection must leave binary artefacts unchanged too.
+            (repo / "binary.bin").write_bytes(b"\x00\r\n\xff\n")
+            names += ("binary.bin",)
+            git("add", "--", *names)
+            git("checkout-index", "--all", "--prefix=" + str(checkout) + os.sep)
+            for name in names:
+                with self.subTest(file=name):
+                    self.assertEqual((repo / name).read_bytes(), (checkout / name).read_bytes())
+
     def test_filled_demo_evidence_is_complete_but_not_verified(self):
         with tempfile.TemporaryDirectory(prefix="czai-evidence-test-") as directory:
             out = Path(directory, "example")

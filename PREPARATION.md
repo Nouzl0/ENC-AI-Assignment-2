@@ -104,6 +104,41 @@ Ověřeno 74 unittestů na Pythonu 3.11.16 i 3.14.7, validace dev/val, syntaxe 3
 (21 souborů) a git diff --check. Runtime 3.9 ani vzdálené CI nebyly ověřeny;
 žádné skutečné gold ověření, podpisy bran ani produktové benchmarky neproběhly.
 
+## Kontrola reprodukovatelnosti (2026-10-12)
+
+Výchozí `main` byl čistý, `git pull --ff-only origin main` bez změn; vstupní commit
+`274661c63d47a1e670818446c5b57c89f3367c6a`. Původních 74 testů prošlo na Pythonu
+3.14.7 a z dočasného `git archive` také na 3.12.12. Audit byl pouze softwarový/offline;
+HTTP testy používaly loopback, nikoli produktové nebo referenční zdroje.
+
+Nalezen a reprodukován problém: checkout stejného commitu s `core.autocrlf=true`
+měnil LF na CRLF v protokolu, rubrice, promptech i Pythonu, čímž porušoval zmrazené
+SHA-256. `.gitattributes` nyní vynucuje LF. Nová izolovaná Git-index regrese před
+opravou selhala a po opravě prošla; kontroluje také zachování binárních bytes.
+Nepotřebuje síť ani commit a bez Gitu se přeskočí jen tato kontrola.
+
+Pipeline nyní výslovně porovnává všech pět výsledkových souborů včetně
+`answer_metrics.csv`, s různým `PYTHONHASHSEED` a TZ. Gate fixture obsahuje skutečné
+CLI skripty už před falešným G1; po každém ze dvou přesunů a odstranění původních
+adresářů běží `score.py --final` a následné `freeze_protocol.py --verify` v nových
+procesech mimo repo. Kontrolují se CLI výchozí cesty, shoda všech pěti výstupů,
+neměnnost původních soukromých fixture souborů, provenance a odmítnutí změny zdroje.
+Kritická read-only kontrola opravila izolaci Git prostředí a zachovala ověření G3
+**po** replayi; re-kontrola bez zbývajících blokujících/středních nálezů.
+
+Po opravách: **75/75 testů** na Pythonu **3.14.7 i 3.12.12**; druhý běh z nové
+dočasné kopie (`git archive` vstupního commitu + aktuální diff), bez `.git` či
+generovaných artefaktů původního worktree. Samostatné porovnání CLI fixtures mezi
+těmito runtime verzemi dalo po bytech stejné výsledkové soubory (500 smyšlených
+záznamů, 58 konečných selhání, 35 agregátů). Ověřeny i dev/val validace, relevantní
+regrese, odkazy změněné dokumentace, gramatika Pythonu 3.9 (21 souborů) a
+`git diff --check`. Runtime 3.9, skutečný Windows/macOS ani vzdálené CI ověřeny nebyly.
+
+To dokládá reprodukci přípravy a analýzy uložených syntetických vstupů v testovaném
+prostředí, **ne** opakovatelnost online odpovědí produktů, pravdivost referencí nebo
+skutečné G1/G2/G3. Reálný autorizovaný replay vyžaduje kompletní soukromý G3 balíček;
+žádné produktové běhy, nové lidské ratingy ani skutečné podpisy zde nevznikly.
+
 ## Co nadále provede kolega (platí i po revizi)
 
 Nový soukromý holdout, nezávislé ověření RF/OF, dostupnost a nastavení produktů, pilot,

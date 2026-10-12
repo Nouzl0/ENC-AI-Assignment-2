@@ -1,8 +1,10 @@
 import copy
 import datetime as dt
 import json
+import os
 import shutil
 from pathlib import Path
+import subprocess
 import sys
 import tempfile
 import unittest
@@ -269,8 +271,12 @@ class IntegrityTests(unittest.TestCase):
         private.mkdir()
         for name in ("data", "scripts", "prompts", "annotation"):
             (repo / name).mkdir(parents=True)
-        for name in ("PROTOCOL.md", "annotation/rubric.md", "annotation/calibration.md", "scripts/dummy.py"):
+        for name in ("PROTOCOL.md", "annotation/rubric.md", "annotation/calibration.md"):
             (repo / name).write_text("synthetic fixture, not actual research approval")
+        # Freeze the real CLI implementation before G1 so relocated subprocesses
+        # exercise their own imports/default ROOT, not modules from this checkout.
+        for script in (ROOT / "scripts").glob("*.py"):
+            shutil.copyfile(script, repo / "scripts" / script.name)
         for name in ("P1_baseline", "P2_structured"):
             for lang in ("cs", "en"):
                 (repo / "prompts" / f"{name}_{lang}.txt").write_text("synthetic {user_prompt}")
@@ -570,10 +576,10 @@ class IntegrityTests(unittest.TestCase):
             prepare_manifest(bad)
 
     def assert_relocated_replay(self, repo, private, original_argv):
-        """Two machines, original locations gone, signed bytes intact."""
+        """Two relocated directories, fresh CLIs, original paths gone, bytes intact."""
         hashes = {str(p.relative_to(private)): sha256_file(p) for p in private.rglob("*") if p.is_file()}
         expected = {name: (private / "final-results" / name).read_bytes() for name in
-                    ("metrics.csv", "hypotheses.csv", "agreement.csv", "report.md")}
+                    ("metrics.csv", "answer_metrics.csv", "hypotheses.csv", "agreement.csv", "report.md")}
         original_repo, original_private = str(repo), str(private)
         try:
             for index in (1, 2):
@@ -587,19 +593,29 @@ class IntegrityTests(unittest.TestCase):
                 mapping.write_text(json.dumps(dict(schema_version=1, prefixes=[
                     {"from": original_repo, "to": str(new_repo)}, {"from": original_private, "to": str(new_private)}])))
                 argv = list(original_argv) + ["--path-map", str(mapping)]
-                argv[argv.index("--data-dir") + 1] = str(new_repo / "data")
-                argv[argv.index("--prompts-dir") + 1] = str(new_repo / "prompts")
+                # Exercise actual CLI defaults in the relocated repository.
+                for flag in ("--data-dir", "--prompts-dir"):
+                    position = argv.index(flag)
+                    del argv[position:position + 2]
                 out = new_private / f"replay-{index}"
                 argv[argv.index("--out") + 1] = str(out)
-                with patch.object(integrity, "ROOT", str(new_repo)), patch.object(score, "ROOT", str(new_repo)), patch.object(score, "PROMPTS", str(new_repo / "prompts")), patch.object(sys, "argv", argv):
-                    score.main()
-                    self.assertEqual(verify_freeze(str(new_private / "G3.json"))["gate"], "G3")
-                    for name, value in expected.items():
-                        self.assertEqual((out / name).read_bytes(), value, name)
-                    for name, digest in hashes.items():
-                        self.assertEqual(sha256_file(new_private / name), digest, name)
-                    prov = json.loads((out / "replay_provenance.json").read_text())
-                    self.assertEqual(prov["parent_g3_sha256"], sha256_file(new_private / "G3.json"))
+                env = dict(os.environ, PYTHONDONTWRITEBYTECODE="1", PYTHONHASHSEED=str(index),
+                           TZ="UTC" if index == 1 else "Europe/Prague")
+                # score verifies its inputs; verify again afterwards to detect
+                # newly added unbound files as well as changes to existing bytes.
+                for script, args in (("score.py", argv[1:]),
+                                     ("freeze_protocol.py", ["--verify", str(new_private / "G3.json"), "--path-map", str(mapping)])):
+                    result = subprocess.run([sys.executable, str(new_repo / "scripts" / script), *args],
+                                            cwd=target, env=env, capture_output=True, text=True, timeout=120)
+                    self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+                for name, value in expected.items():
+                    self.assertEqual((out / name).read_bytes(), value, name)
+                for name, digest in hashes.items():
+                    self.assertEqual(sha256_file(new_private / name), digest, name)
+                prov = json.loads((out / "replay_provenance.json").read_text())
+                self.assertEqual(prov["parent_g3_sha256"], sha256_file(new_private / "G3.json"))
+                configure_path_map(mapping, new_repo)
+                with patch.object(integrity, "ROOT", str(new_repo)):
                     source = new_private / "source.txt"
                     original = source.read_bytes()
                     source.write_bytes(original + b"tamper")

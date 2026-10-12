@@ -1,9 +1,11 @@
 """Real CLIs on deterministic local fixtures; never benchmarks a product."""
 import json
+import os
 from pathlib import Path
 import sys
 import tempfile
 import unittest
+from unittest.mock import patch
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
@@ -18,7 +20,8 @@ class PipelineTests(unittest.TestCase):
         cls.tmp = tempfile.TemporaryDirectory(prefix="czai-pipeline-test-")
         cls.addClassCleanup(cls.tmp.cleanup)
         cls.work = Path(cls.tmp.name, "fixture")
-        cls.summary = create_fixture(cls.work)
+        with patch.dict(os.environ, PYTHONHASHSEED="1", TZ="UTC"):
+            cls.summary = create_fixture(cls.work)
 
     def test_full_pipeline_and_preconsensus_integrity(self):
         self.assertEqual(self.summary, dict(runs=500, terminal_failures=58, aggregate_rows=35))
@@ -43,8 +46,10 @@ class PipelineTests(unittest.TestCase):
 
     def test_seeded_outputs_are_reproducible(self):
         other = Path(self.tmp.name, "repeat-fixture")
-        create_fixture(other)
-        for name in ("metrics.csv", "hypotheses.csv", "agreement.csv", "report.md"):
+        # Each CLI starts in a fresh process with a different hash seed/timezone.
+        with patch.dict(os.environ, PYTHONHASHSEED="8675309", TZ="Europe/Prague"):
+            create_fixture(other)
+        for name in ("metrics.csv", "answer_metrics.csv", "hypotheses.csv", "agreement.csv", "report.md"):
             self.assertEqual((self.work / "results" / name).read_bytes(), (other / "results" / name).read_bytes(), name)
         self.assertEqual(read_csv(self.work / "key/blind_key.csv"), read_csv(other / "key/blind_key.csv"))
 

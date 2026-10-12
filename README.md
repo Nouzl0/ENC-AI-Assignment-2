@@ -40,6 +40,11 @@ identitami pro selhání i úspěšné odpovědi a dva read-only replaye po pře
 tím neuděluje skutečné G1/G2/G3. CI workflow je nastavený na stejné
 softwarové testy, nikoli produktové benchmarky; stav vzdáleného CI ověřit zvlášť.
 
+Replay testy spouštějí přenesené CLI v nových procesech po odstranění původních
+adresářů a porovnávají všech pět výsledkových souborů po bytech. Syntetická pipeline
+se opakuje s jiným `PYTHONHASHSEED` a časovou zónou. Test checkoutu simuluje
+`core.autocrlf=true`; bez dostupného Gitu se pouze tento test přeskočí.
+
 ## Data a soukromí
 
 V Git je **20 dev + 10 val** ve schématu v2 a **10 historických zveřejněných testových

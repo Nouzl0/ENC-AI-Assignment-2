@@ -119,6 +119,12 @@ snapshotů, raw odpovědí, screenshotů, klíče a ratingů. Nestačí veřejn�
 nezpřístupňovat holdout autorovi promptu. Sanitizovaný veřejný export je jiný odvozený
 artefakt, nikoli ověřitelný kompletní podepsaný G3 balíček.
 
+Zmrazené soubory se ověřují po bytech. `.gitattributes` proto vynucuje LF pro textové
+soubory i při `core.autocrlf=true`; existující checkout musí skutečně obsahovat původní
+LF bytes. Soukromý balíček přenášet beze změny konců řádků (např. v archivu), nikoli
+znovu ukládat přes editor. Stejný commit bez shodných bytes nestačí; rozdíl hashů se
+nesmí řešit jejich přepsáním v manifestu.
+
 Při jiných absolutních cestách se **nemění žádný podepsaný JSON/CSV ani jeho hashe**.
 Nový soukromý map.json mapuje původní repo a pracovní složku na dva existující,
 nepřekrývající se absolutní cíle (jeden je aktuální repo):
