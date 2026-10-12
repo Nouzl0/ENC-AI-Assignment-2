@@ -11,8 +11,8 @@ Usage:
     python3 scripts/validate_cases.py --test-file "$WORK/holdout.jsonl"  # steward only
 --write-hashes writes a checksum listing; it does not create or approve G1.
 """
+
 import argparse
-import collections
 import datetime as dt
 import json
 import math
@@ -21,12 +21,29 @@ import re
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from common import DATA, EDGE_TYPES, load_cases, sha256_file, unique_json_object  # noqa: E402
+from common import (
+    DATA,
+    EDGE_TYPES,
+    load_cases,
+    sha256_file,
+    unique_json_object,
+)
 
-REQUIRED = ["task_id", "capability", "task_type", "difficulty", "language",
-            "development_validation_test_split", "user_prompt", "context_or_files",
-            "expected_properties", "reference_answer_or_tests", "edge_case_type",
-            "evaluation_method", "source_or_provenance"]
+REQUIRED = [
+    "task_id",
+    "capability",
+    "task_type",
+    "difficulty",
+    "language",
+    "development_validation_test_split",
+    "user_prompt",
+    "context_or_files",
+    "expected_properties",
+    "reference_answer_or_tests",
+    "edge_case_type",
+    "evaluation_method",
+    "source_or_provenance",
+]
 ALLOWED = {
     "task_type": {"fact", "primary_source", "synthesis"},
     "difficulty": {"easy", "medium", "hard"},
@@ -47,7 +64,13 @@ def validate_case(case, split):
     for field in REQUIRED:
         if field not in case or case[field] in (None, ""):
             errors.append(f"{tid}: missing field {field}")
-    for field in ("task_id", "capability", "user_prompt", "evaluation_method", "source_or_provenance"):
+    for field in (
+        "task_id",
+        "capability",
+        "user_prompt",
+        "evaluation_method",
+        "source_or_provenance",
+    ):
         if not isinstance(case.get(field), str) or not case[field].strip():
             errors.append(f"{tid}: {field} must be a nonempty string")
     if case.get("development_validation_test_split") != split:
@@ -65,12 +88,19 @@ def validate_case(case, split):
     if not isinstance(case.get("context_or_files"), list):
         errors.append(f"{tid}: context_or_files must be a list (empty is allowed)")
     properties = case.get("expected_properties")
-    if not isinstance(properties, list) or not properties or not all(isinstance(p, str) and p.strip() for p in properties):
+    if (
+        not isinstance(properties, list)
+        or not properties
+        or not all(isinstance(p, str) and p.strip() for p in properties)
+    ):
         errors.append(f"{tid}: expected_properties must be a nonempty string list")
     ref = case.get("reference_answer_or_tests")
     if not isinstance(ref, dict):
-        return errors + [f"{tid}: reference_answer_or_tests must be an object"]
-    if not isinstance(ref.get("reference_answer"), str) or not ref["reference_answer"].strip():
+        return [*errors, f"{tid}: reference_answer_or_tests must be an object"]
+    if (
+        not isinstance(ref.get("reference_answer"), str)
+        or not ref["reference_answer"].strip()
+    ):
         errors.append(f"{tid}: empty reference_answer")
     for field in ("key_facts", "required_facts", "optional_facts"):
         if field not in ref and field != "key_facts":
@@ -78,19 +108,36 @@ def validate_case(case, split):
                 errors.append(f"{tid}: schema v2 requires {field}")
             continue
         facts = ref.get(field)
-        if not isinstance(facts, list) or (field != "optional_facts" and not facts) or not all(isinstance(f, str) and f.strip() for f in facts):
+        if (
+            not isinstance(facts, list)
+            or (field != "optional_facts" and not facts)
+            or not all(isinstance(f, str) and f.strip() for f in facts)
+        ):
             errors.append(f"{tid}: invalid {field} string list")
         elif len(set(facts)) != len(facts):
             errors.append(f"{tid}: duplicate {field}")
     if "required_facts" in ref and ref.get("key_facts") != ref["required_facts"]:
-        errors.append(f"{tid}: key_facts must be the required_facts compatibility alias")
+        errors.append(
+            f"{tid}: key_facts must be the required_facts compatibility alias"
+        )
     constraints = ref.get("required_constraints", [])
-    if (not isinstance(constraints, list) or not all(isinstance(c, str) and c.strip() for c in constraints)
-            or len(set(constraints)) != len(constraints)):
+    if (
+        not isinstance(constraints, list)
+        or not all(isinstance(c, str) and c.strip() for c in constraints)
+        or len(set(constraints)) != len(constraints)
+    ):
         errors.append(f"{tid}: required_constraints must be a unique string list")
     gold = ref.get("gold_sources")
-    if not isinstance(gold, list) or not gold or not all(isinstance(g, dict) and isinstance(g.get("url"), str)
-                                                       and g["url"].startswith(("http://", "https://")) for g in gold):
+    if (
+        not isinstance(gold, list)
+        or not gold
+        or not all(
+            isinstance(g, dict)
+            and isinstance(g.get("url"), str)
+            and g["url"].startswith(("http://", "https://"))
+            for g in gold
+        )
+    ):
         errors.append(f"{tid}: gold_sources missing or without http URL")
     return errors
 
@@ -109,8 +156,11 @@ def holdout_stratification_problems(rows, blueprint_path):
         with open(blueprint_path, encoding="utf-8") as f:
             blueprint = json.load(f, object_pairs_hook=unique_json_object)
         quotas = blueprint["counts_per_10"]
-        if (blueprint["schema_version"] != 1 or not isinstance(quotas, dict)
-                or set(quotas) != set(ALLOWED) - {"edge_case_type"}):
+        if (
+            blueprint["schema_version"] != 1
+            or not isinstance(quotas, dict)
+            or set(quotas) != set(ALLOWED) - {"edge_case_type"}
+        ):
             raise ValueError("invalid quota fields/schema")
         errors = []
         n = len(rows)
@@ -120,16 +170,26 @@ def holdout_stratification_problems(rows, blueprint_path):
             if not isinstance(quotas[field], dict) or set(quotas[field]) != allowed:
                 raise ValueError(f"missing quota categories: {field}")
             for value, bounds in quotas[field].items():
-                if (not isinstance(bounds, list) or len(bounds) != 2
-                        or any(type(v) is not int for v in bounds) or not 0 <= bounds[0] <= bounds[1] <= 10):
+                if (
+                    not isinstance(bounds, list)
+                    or len(bounds) != 2
+                    or any(type(v) is not int for v in bounds)
+                    or not 0 <= bounds[0] <= bounds[1] <= 10
+                ):
                     raise ValueError(f"invalid quota bounds: {field}/{value}")
                 lo, hi = math.floor(bounds[0] * n / 10), math.ceil(bounds[1] * n / 10)
                 actual = sum(c.get(field) == value for c in rows)
                 if not lo <= actual <= hi:
-                    errors.append(f"holdout quota {field}/{value}: {actual}, expected {lo}–{hi}")
+                    errors.append(
+                        f"holdout quota {field}/{value}: {actual}, expected {lo}–{hi}"
+                    )
         bounds = blueprint["edge_cases_per_10"]
-        if (not isinstance(bounds, list) or len(bounds) != 2
-                or any(type(v) is not int for v in bounds) or not 2 <= bounds[0] <= bounds[1] <= 10):
+        if (
+            not isinstance(bounds, list)
+            or len(bounds) != 2
+            or any(type(v) is not int for v in bounds)
+            or not 2 <= bounds[0] <= bounds[1] <= 10
+        ):
             raise ValueError("invalid edge quota")
         lo, hi = math.floor(bounds[0] * n / 10), math.ceil(bounds[1] * n / 10)
         actual = sum(c.get("edge_case_type") != "none" for c in rows)
@@ -143,8 +203,15 @@ def holdout_stratification_problems(rows, blueprint_path):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--data-dir", default=DATA)
-    ap.add_argument("--no-test", action="store_true", help="validate public dev/val only (default without --test-file)")
-    ap.add_argument("--test-file", help="explicit path to new holdout, never the published candidates")
+    ap.add_argument(
+        "--no-test",
+        action="store_true",
+        help="validate public dev/val only (default without --test-file)",
+    )
+    ap.add_argument(
+        "--test-file",
+        help="explicit path to new holdout, never the published candidates",
+    )
     ap.add_argument("--write-hashes", action="store_true", help="write data/HASHES.txt")
     args = ap.parse_args()
 
@@ -154,7 +221,11 @@ def main():
     errors, warnings = [], []
     cases = {}
     for s in splits:
-        path = args.test_file if s == "test" else os.path.join(args.data_dir, f"cases_{s}.jsonl")
+        path = (
+            args.test_file
+            if s == "test"
+            else os.path.join(args.data_dir, f"cases_{s}.jsonl")
+        )
         if not os.path.exists(path):
             errors.append(f"missing file {path}")
             continue
@@ -204,7 +275,9 @@ def main():
         errors.append(f"benchmark has {total} cases (< 40 required)")
 
     if "test" in cases:
-        errors += holdout_stratification_problems(cases["test"], os.path.join(args.data_dir, "holdout_blueprint.json"))
+        errors += holdout_stratification_problems(
+            cases["test"], os.path.join(args.data_dir, "holdout_blueprint.json")
+        )
         n_test = len(cases["test"])
         if n_test < 10:
             errors.append(f"test split has {n_test} cases (< 10 required)")
@@ -217,20 +290,32 @@ def main():
                     j = jaccard(tt, tokens(str(d.get("user_prompt", ""))))
                     if j >= DUP_THRESHOLD:
                         found = True
-                        errors.append(f"near-duplicate {t.get('task_id', '?')} ~ {d.get('task_id', '?')} (J={j:.2f})")
-                        print(f"  {t.get('task_id', '?')} ~ {d.get('task_id', '?')}: {j:.2f}")
+                        errors.append(
+                            f"near-duplicate {t.get('task_id', '?')} ~ {d.get('task_id', '?')} (J={j:.2f})"
+                        )
+                        print(
+                            f"  {t.get('task_id', '?')} ~ {d.get('task_id', '?')}: {j:.2f}"
+                        )
         if not found:
             print("  none")
 
     print("\n== SHA-256 ==")
     lines = []
     for s in splits:
-        path = args.test_file if s == "test" else os.path.join(args.data_dir, f"cases_{s}.jsonl")
+        path = (
+            args.test_file
+            if s == "test"
+            else os.path.join(args.data_dir, f"cases_{s}.jsonl")
+        )
         if os.path.exists(path):
             h = sha256_file(path)
-            lines.append(f"{h}  {'private_holdout' if s == 'test' else 'cases_' + s + '.jsonl'}")
+            lines.append(
+                f"{h}  {'private_holdout' if s == 'test' else 'cases_' + s + '.jsonl'}"
+            )
             print("  " + lines[-1])
-    prompt_dir = os.path.join(os.path.dirname(os.path.abspath(args.data_dir)), "prompts")
+    prompt_dir = os.path.join(
+        os.path.dirname(os.path.abspath(args.data_dir)), "prompts"
+    )
     if os.path.isdir(prompt_dir):
         for name in sorted(os.listdir(prompt_dir)):
             if name.endswith(".txt"):
@@ -238,7 +323,9 @@ def main():
                 lines.append(f"{h}  prompts/{name}")
                 print(f"  {h}  prompts/{name}")
     if args.write_hashes:
-        with open(os.path.join(args.data_dir, "HASHES.txt"), "w", encoding="utf-8") as f:
+        with open(
+            os.path.join(args.data_dir, "HASHES.txt"), "w", encoding="utf-8"
+        ) as f:
             f.write("\n".join(lines) + "\n")
         print("  written to data/HASHES.txt")
 

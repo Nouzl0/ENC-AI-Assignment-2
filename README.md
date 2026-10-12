@@ -45,6 +45,31 @@ adresářů a porovnávají všech pět výsledkových souborů po bytech. Synte
 se opakuje s jiným `PYTHONHASHSEED` a časovou zónou. Test checkoutu simuluje
 `core.autocrlf=true`; bez dostupného Gitu se pouze tento test přeskočí.
 
+## Lokální statické kontroly a formátování
+
+Ruff **0.16.1** je připnutý jako vývojový nástroj v `pyproject.toml` a `uv.lock`.
+Konfigurace pokrývá všechny Python skripty a testy: chyby Pyflakes/pycodestyle,
+řazení importů, kompatibilní modernizace, Bugbear, comprehensions, zjednodušení,
+PIE a pravidla Ruff. Formátování používá 88 znaků; dlouhé literály se násilně
+nedělí. Záměrné znaky `–`, `−` a `×` zůstávají zachované, nikoli zaměněné za ASCII.
+
+```bash
+# Jen Ruff, bez instalace nástrojů pro dokumentaci a pytest:
+uv run --locked --only-group dev ruff check .
+uv run --locked --only-group dev ruff format --check .
+# Lokální bezpečné automatické opravy a formátování:
+uv run --locked --only-group dev ruff check . --fix
+uv run --locked --only-group dev ruff format .
+git diff --check
+```
+
+S již dostupným Ruffem 0.16.1 lze použít přímo `ruff check .` a
+`ruff format --check .`. Prostředí `uv` pro vývoj/dokumentaci podle
+`.python-version` používá Python 3.14; samotné skripty a unittesty nadále potřebují
+jen Python 3.9+ a standardní knihovnu. Ruff proto výslovně cílí na `py39`, nikoli
+na verzi vývojového prostředí. Lint ani formatter nenahrazují softwarové testy
+a neověřují reference nebo experimentální výsledky. CI se touto lokální úpravou nemění.
+
 ## Data a soukromí
 
 V Git je **20 dev + 10 val** ve schématu v2 a **10 historických zveřejněných testových

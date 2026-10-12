@@ -192,6 +192,55 @@ Runtime 3.9, Windows/macOS a vzdálené CI nebyly ověřeny. Veškerá evidence/
 a schválení v testech jsou výhradně označené smyšlené fixtures mimo repo;
 neproběhl benchmark, pilot, zdrojové ověřování ani skutečný podpis G1/G2/G3.
 
+## Lokální Ruff cleanup (2026-10-12)
+
+Výchozí `main` byl čistý; `git pull --ff-only origin main` jej posunul na
+`ab31d76`. Podle původního upřesnění uživatele byl cleanup nejdřív dokončen
+lokálně, bez commitu a pushe. Následně uživatel požádal o commit a push na `main`;
+souběžné cizí úpravy testů do tohoto commitu nepatří. CI, dosavadní závislosti
+a Python 3.14 pro prostředí `uv` zůstaly zachované; Ruff 0.16.1 přibyl jako
+připnutý vývojový nástroj.
+
+Ruff cílí na kompatibilitu Pythonu 3.9 a kontroluje chyby, importy, kompatibilní
+modernizace, Bugbear, comprehensions, zjednodušení, PIE a pravidla Ruff.
+Všech 21 Python souborů je sjednoceno formatterem; dlouhé literály a záměrné
+Unicode symboly zůstávají zachované. Opravy zahrnují nepoužité importy/proměnné,
+pojmenování, ekvivalentní konstrukce a explicitní řetězení výjimek. Nepřibyly
+výjimky `noqa`; odstranily se čtyři nepotřebné `noqa: E402`. Dvě nové HTTP regrese
+chrání normalizaci Unicode oddělovačů tisíců a vyloučení podpůrných citovaných
+úryvků z požadavků na entity po úpravě zápisu regexů.
+
+Před úpravami prošlo 88/88 testů na Pythonu 3.14.7. Po úpravách byly skutečně
+provedeny celé sady bez přeskočených testů:
+
+| Runtime | Výsledek |
+| --- | --- |
+| Python 3.14.7 | 90/90 OK, 63,296 s |
+| Python 3.12.12 | 90/90 OK, 68,663 s |
+
+Po těchto kontrolách přibyly souběžné úpravy testů mimo tento cleanup, které nebyly
+přepsány ani vráceny. Aktuální sada byla znovu ověřena: **87/87 OK** na Pythonu
+3.14.7 (62,239 s) i 3.12.12 (67,922 s). Python soubory se během této kontroly
+nezměnily a Ruff lint i formatter nadále prošly.
+
+Pro následný commit byl samostatně ověřen snapshot bez souběžných cizích úprav:
+90/90 OK na Pythonu 3.14.7 (63,037 s) i 3.12.12 (67,355 s), Ruff lint i formatter OK.
+Kritická read-only kontrola potvrdila oddělení cizích změn a zachování původních testů.
+
+Všech pět výsledkových souborů samostatné offline syntetické pipeline bylo před
+a po úpravách byte-identických. Prošly také připnuté `ruff check .` a
+`ruff format --check .`, `uv lock --check --offline`, validace veřejných 20 dev
+a 10 val, všech sedm CLI `--help`, `bash -n demo/run_demo.sh`, odkazy README,
+gramatika Pythonu 3.9 všech 21 souborů a `git diff --check`.
+
+Nezávislý kritický read-only subagent prošel AST rozdíly všech Python souborů,
+konfiguraci, lockfile a komentáře; parserové regexy mají identické kompilované
+struktury a guard G3 zachovává podmínky. Bez blokujících/středních nálezů;
+nezávisle prošlo také všech šest HTTP regresí na loopbacku.
+Data, prompty, schéma, metrické definice ani metodika se neměnily.
+Runtime Pythonu 3.9 ani vzdálené CI ověřeny nebyly. Neproběhl benchmark, pilot,
+zdrojové ověřování ani skutečný podpis G1/G2/G3.
+
 ## Co nadále provede kolega (platí i po revizi)
 
 Nový soukromý holdout, nezávislé ověření RF/OF, dostupnost a nastavení produktů, pilot,

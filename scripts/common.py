@@ -1,9 +1,11 @@
 """Shared helpers for the CZAI citation benchmark scripts (standard library only)."""
+
 import csv
 import hashlib
 import json
 import math
 import os
+
 from replay_paths import input_glob, resolve_input
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -43,22 +45,64 @@ PROMPT_FILES = {
     "P3": "P3_final_{lang}.txt",
 }
 
-EDGE_TYPES = {"none", "false_premise", "conflicting_evidence", "missing_info", "ambiguous",
-              "time_constraint", "recent_change", "cz_en_mix"}
+EDGE_TYPES = {
+    "none",
+    "false_premise",
+    "conflicting_evidence",
+    "missing_info",
+    "ambiguous",
+    "time_constraint",
+    "recent_change",
+    "cz_en_mix",
+}
 RATINGS = {"S2", "S1", "S0", "NA", "FAB"}
 
 META_FILL_COLUMNS = [
-    "run_status", "final_attempt_ok", "attempt1_file", "first_attempt_latency_s",
-    "model_visible", "plan_tier", "datetime_start", "datetime_end", "latency_s",
-    "search_used", "n_sources_shown", "turns", "tool_calls_visible", "retries",
-    "failure_type", "first_attempt_ok", "manual_intervention", "share_link",
-    "screenshot_file", "operator", "cost_note", "notes",
-    "answer_sha256", "raw_answer_file", "raw_answer_sha256", "screenshot_sha256",
-    "attempt1_sha256", "failure_artifact_file", "failure_artifact_sha256",
-    "replacement_run_id", "replaces_run_id",
+    "run_status",
+    "final_attempt_ok",
+    "attempt1_file",
+    "first_attempt_latency_s",
+    "model_visible",
+    "plan_tier",
+    "datetime_start",
+    "datetime_end",
+    "latency_s",
+    "search_used",
+    "n_sources_shown",
+    "turns",
+    "tool_calls_visible",
+    "retries",
+    "failure_type",
+    "first_attempt_ok",
+    "manual_intervention",
+    "share_link",
+    "screenshot_file",
+    "operator",
+    "cost_note",
+    "notes",
+    "answer_sha256",
+    "raw_answer_file",
+    "raw_answer_sha256",
+    "screenshot_sha256",
+    "attempt1_sha256",
+    "failure_artifact_file",
+    "failure_artifact_sha256",
+    "replacement_run_id",
+    "replaces_run_id",
 ]
-FAILURE_TYPES = {"", "none", "model_output", "invalid_format", "tool_error", "rate_limit",
-                 "timeout", "product_outage", "student_error", "student_error_rerun", "evaluation_error"}
+FAILURE_TYPES = {
+    "",
+    "none",
+    "model_output",
+    "invalid_format",
+    "tool_error",
+    "rate_limit",
+    "timeout",
+    "product_outage",
+    "student_error",
+    "student_error_rerun",
+    "evaluation_error",
+}
 RUN_STATUSES = {"planned", "completed", "failed", "excluded"}
 OPERATIONAL_FAILURES = {"tool_error", "rate_limit", "timeout", "product_outage"}
 
@@ -87,8 +131,12 @@ def diagnostic_problems(answer, pairs, case):
     """Unknown is explicit missing evidence, not an empty or favorable denominator."""
     errors = []
     uncertain = case.get("edge_case_type") in {"missing_info", "ambiguous"}
-    if answer.get("acknowledges_uncertainty") not in ({"yes", "no", "unknown"} if uncertain else {"na"}):
-        errors.append("acknowledges_uncertainty must be yes/no/unknown on ambiguous/missing_info, otherwise na")
+    if answer.get("acknowledges_uncertainty") not in (
+        {"yes", "no", "unknown"} if uncertain else {"na"}
+    ):
+        errors.append(
+            "acknowledges_uncertainty must be yes/no/unknown on ambiguous/missing_info, otherwise na"
+        )
     timed = case.get("edge_case_type") == "time_constraint"
     for pair in pairs:
         if pair.get("citation_n") in {None, ""}:
@@ -96,7 +144,9 @@ def diagnostic_problems(answer, pairs, case):
         if pair.get("source_tier") not in {"1", "2", "3", "unknown"}:
             errors.append(f"{pair.get('pair_id')}: source_tier must be 1/2/3/unknown")
         if pair.get("time_ok") not in ({"yes", "no", "unknown"} if timed else {"na"}):
-            errors.append(f"{pair.get('pair_id')}: time_ok must be yes/no/unknown on time_constraint, otherwise na")
+            errors.append(
+                f"{pair.get('pair_id')}: time_ok must be yes/no/unknown on time_constraint, otherwise na"
+            )
     return errors
 
 
@@ -113,11 +163,15 @@ def validate_pair_rows(rows, label):
             cit = str(int(cit))
         identity = (row.get("blind_answer_id"), row.get("claim_id"), cit)
         if not all(identity[:2]) or identity in identities:
-            raise ValueError(f"{label}: duplicate or missing claim-citation identity: {identity}")
+            raise ValueError(
+                f"{label}: duplicate or missing claim-citation identity: {identity}"
+            )
         identities.add(identity)
         expected_id = f"{identity[0]}-{identity[1]}-{cit or 'none'}"
         if row["pair_id"] != expected_id:
-            raise ValueError(f"{label}: pair_id must be {expected_id!r}; regenerate after splitting claims")
+            raise ValueError(
+                f"{label}: pair_id must be {expected_id!r}; regenerate after splitting claims"
+            )
 
 
 def required_facts(case):
@@ -136,38 +190,73 @@ def unique_json_object(pairs):
 
 def key_fact_problems(row, case, pairs):
     """Validate each rater's RF counts against their own explicit S2 pairs."""
-    kf, nkf = (finite_number(row.get(k)) for k in ("key_facts_supported", "n_key_facts"))
-    if (kf is None or nkf is None or nkf < 1 or not nkf.is_integer()
-            or not kf.is_integer() or not 0 <= kf <= nkf):
+    kf, nkf = (
+        finite_number(row.get(k)) for k in ("key_facts_supported", "n_key_facts")
+    )
+    if (
+        kf is None
+        or nkf is None
+        or nkf < 1
+        or not nkf.is_integer()
+        or not kf.is_integer()
+        or not 0 <= kf <= nkf
+    ):
         return ["invalid key-fact counts"]
     try:
-        evidence = json.loads(row.get("key_fact_evidence", ""), object_pairs_hook=unique_json_object)
+        evidence = json.loads(
+            row.get("key_fact_evidence", ""), object_pairs_hook=unique_json_object
+        )
     except (TypeError, ValueError):
         evidence = None
     expected_nkf = len(required_facts(case))
-    valid_pairs = {p["pair_id"] for p in pairs if (p.get("rating") or "").strip().upper() == "S2"
-                   and str(p.get("citation_n") or "").strip() not in {"", "*"}}
+    valid_pairs = {
+        p["pair_id"]
+        for p in pairs
+        if (p.get("rating") or "").strip().upper() == "S2"
+        and str(p.get("citation_n") or "").strip() not in {"", "*"}
+    }
     valid_facts = {f"RF{i}" for i in range(1, expected_nkf + 1)}
-    valid_evidence = (isinstance(evidence, dict) and set(evidence) <= valid_facts
-                      and all(isinstance(ids, list) and ids and all(isinstance(pid, str) and pid in valid_pairs for pid in ids)
-                              for ids in evidence.values()))
+    valid_evidence = (
+        isinstance(evidence, dict)
+        and set(evidence) <= valid_facts
+        and all(
+            isinstance(ids, list)
+            and ids
+            and all(isinstance(pid, str) and pid in valid_pairs for pid in ids)
+            for ids in evidence.values()
+        )
+    )
     if nkf != expected_nkf or not valid_evidence or len(evidence) != kf:
-        return ["required-fact denominator/evidence invalid (only explicit S2 pairs count)"]
+        return [
+            "required-fact denominator/evidence invalid (only explicit S2 pairs count)"
+        ]
     return []
 
 
 def constraint_problems(row, case):
     """Question-level source/format constraints are not claim–citation facts."""
-    constraints = case.get("reference_answer_or_tests", {}).get("required_constraints", [])
+    constraints = case.get("reference_answer_or_tests", {}).get(
+        "required_constraints", []
+    )
     try:
-        results = json.loads(row.get("constraint_results") or "{}", object_pairs_hook=unique_json_object)
+        results = json.loads(
+            row.get("constraint_results") or "{}", object_pairs_hook=unique_json_object
+        )
     except (ValueError, TypeError):
         return ["constraint_results must be a JSON object"]
     expected = {f"RC{i}" for i in range(1, len(constraints) + 1)}
-    if (not isinstance(results, dict) or set(results) != expected
-            or any(not isinstance(value, str) or value not in {"yes", "no", "unknown"} for value in results.values())):
+    if (
+        not isinstance(results, dict)
+        or set(results) != expected
+        or any(
+            not isinstance(value, str) or value not in {"yes", "no", "unknown"}
+            for value in results.values()
+        )
+    ):
         return ["constraint_results must cover exactly RC1…RCn with yes/no/unknown"]
-    if str(row.get("correctness")).strip() == "2" and any(v != "yes" for v in results.values()):
+    if str(row.get("correctness")).strip() == "2" and any(
+        v != "yes" for v in results.values()
+    ):
         return ["correctness=2 requires every question-level constraint to be met"]
     return []
 
@@ -185,10 +274,14 @@ def run_problems(row, require_terminal=True):
     if failure not in FAILURE_TYPES:
         errors.append(f"unknown failure_type={failure!r}")
     if status == "excluded" and failure != "student_error":
-        errors.append("only documented student_error can be excluded; replacement is required")
+        errors.append(
+            "only documented student_error can be excluded; replacement is required"
+        )
     if status == "failed" and failure not in OPERATIONAL_FAILURES:
         errors.append("failed requires a terminal operational failure")
-    if status == "completed" and (not row.get("answer_file") or failure in {"student_error", "evaluation_error"}):
+    if status == "completed" and (
+        not row.get("answer_file") or failure in {"student_error", "evaluation_error"}
+    ):
         errors.append("completed requires an answer_file and a valid final attempt")
     ri = finite_number(row.get("run_index"))
     if ri is None or ri < 1 or not ri.is_integer():
@@ -196,7 +289,11 @@ def run_problems(row, require_terminal=True):
     if status in {"completed", "failed"}:
         for field in ("latency_s", "first_attempt_latency_s", "retries"):
             number = finite_number(row.get(field))
-            if number is None or number < 0 or (field == "retries" and number not in {0, 1}):
+            if (
+                number is None
+                or number < 0
+                or (field == "retries" and number not in {0, 1})
+            ):
                 errors.append(f"invalid {field} (finite, nonnegative; retries <= 1)")
         if row.get("first_attempt_ok") not in {"yes", "no"}:
             errors.append("first_attempt_ok must be yes/no")
@@ -207,10 +304,20 @@ def run_problems(row, require_terminal=True):
             errors.append("without a retry, first and final outcomes must match")
         if retry == 1:
             if not row.get("attempt1_file"):
-                errors.append("retry requires an attempt1_file (including an outage log)")
-            if row.get("first_attempt_ok") != "no" or failure not in OPERATIONAL_FAILURES:
-                errors.append("retry only follows a failed first attempt with an operational failure")
-        first, total = finite_number(row.get("first_attempt_latency_s")), finite_number(row.get("latency_s"))
+                errors.append(
+                    "retry requires an attempt1_file (including an outage log)"
+                )
+            if (
+                row.get("first_attempt_ok") != "no"
+                or failure not in OPERATIONAL_FAILURES
+            ):
+                errors.append(
+                    "retry only follows a failed first attempt with an operational failure"
+                )
+        first, total = (
+            finite_number(row.get("first_attempt_latency_s")),
+            finite_number(row.get("latency_s")),
+        )
         if first is not None and total is not None and first > total:
             errors.append("first-attempt latency exceeds end-to-end latency")
     return errors
@@ -231,10 +338,18 @@ def sha256_file(path):
 
 def load_cases(split, data_dir=DATA, test_file=None):
     if split == "test" and not test_file:
-        raise ValueError("test requires an explicit --test-file; published candidates are not a private holdout")
-    path = test_file if split == "test" else os.path.join(data_dir, f"cases_{split}.jsonl")
+        raise ValueError(
+            "test requires an explicit --test-file; published candidates are not a private holdout"
+        )
+    path = (
+        test_file if split == "test" else os.path.join(data_dir, f"cases_{split}.jsonl")
+    )
     with open(resolve_input(path), encoding="utf-8") as f:
-        return [json.loads(line, object_pairs_hook=unique_json_object) for line in f if line.strip()]
+        return [
+            json.loads(line, object_pairs_hook=unique_json_object)
+            for line in f
+            if line.strip()
+        ]
 
 
 def load_all_cases(data_dir=DATA, test_file=None):

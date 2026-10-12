@@ -1,17 +1,25 @@
 """HTTP checker tests talk only to an ephemeral loopback server."""
+
 import http.server
 import json
-from pathlib import Path
 import sys
 import tempfile
 import threading
 import unittest
 import urllib.request
+from pathlib import Path
 from unittest.mock import patch
 
-ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT / "scripts"))
-from check_citations import entities, fetch, match_ratio, parse_answer, save_source_check, suggestion
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
+from check_citations import (
+    entities,
+    fetch,
+    match_ratio,
+    norm_forms,
+    parse_answer,
+    save_source_check,
+    suggestion,
+)
 from common import sha256_file
 from integrity import timestamp
 
@@ -29,10 +37,16 @@ class Handler(http.server.BaseHTTPRequestHandler):
         if self.path in {"/missing", "/resource"}:
             self.send_error(404)
             return
-        body = (b'x' * 3_000_010 if self.path == "/big" else
-                b'<html><meta property="article:published_time" content="2026-01-01"><p>The fixture value is 31.</p></html>')
+        body = (
+            b"x" * 3_000_010
+            if self.path == "/big"
+            else b'<html><meta property="article:published_time" content="2026-01-01"><p>The fixture value is 31.</p></html>'
+        )
         self.send_response(200)
-        self.send_header("Content-Type", "text/plain" if self.path == "/big" else "text/html; charset=utf-8")
+        self.send_header(
+            "Content-Type",
+            "text/plain" if self.path == "/big" else "text/html; charset=utf-8",
+        )
         self.send_header("Content-Length", str(len(body)))
         self.end_headers()
         self.wfile.write(body)
@@ -55,19 +69,48 @@ class HttpChecksTests(unittest.TestCase):
 
     def local_fetch(self, path):
         # Explicitly bypass proxies, so these requests cannot leave loopback.
-        with patch("urllib.request.urlopen", urllib.request.build_opener(urllib.request.ProxyHandler({})).open):
+        with patch(
+            "urllib.request.urlopen",
+            urllib.request.build_opener(urllib.request.ProxyHandler({})).open,
+        ):
             return fetch(self.base + path, 2)
+
+    def test_unicode_thousands_separators_keep_normalized_values(self):
+        for separator in (" ", "\u00a0", "\u202f"):
+            text = f"The fixture value is 12{separator}345,5."
+            with self.subTest(separator=repr(separator)):
+                self.assertEqual(
+                    norm_forms(text),
+                    ("the fixture value is 12345.5.", "the fixture value is 12345,5."),
+                )
+                self.assertEqual(
+                    match_ratio(*entities("The fixture value is 12345.5."), text),
+                    "1.00",
+                )
+
+    def test_curly_support_quotes_do_not_add_entity_requirements(self):
+        for opening in ("\u2018", "\u2019"):
+            claim = (
+                "The fixture value is 31 [1] "
+                f"{opening}Synthetic support mentions 9999 and Atlantis.\u2019"
+            )
+            with self.subTest(opening=opening):
+                self.assertEqual(entities(claim), ([["31"]], []))
 
     def test_redirect_snapshot_metadata_and_number_match(self):
         result = self.local_fetch("/redirect")
         self.assertEqual(result["status"], 200)
         self.assertEqual(result["final_url"], self.base + "/source")
         self.assertTrue(result["published"].startswith("2026-01-01"))
-        self.assertEqual(match_ratio(*entities("The fixture value is 31."), result["text"]), "1.00")
+        self.assertEqual(
+            match_ratio(*entities("The fixture value is 31."), result["text"]), "1.00"
+        )
         timestamp(result["checked_at"])
         with tempfile.TemporaryDirectory() as directory:
             save_source_check(directory, self.base + "/redirect", result, 1)
-            self.assertEqual(sha256_file(result["snapshot_file"]), result["snapshot_sha256"])
+            self.assertEqual(
+                sha256_file(result["snapshot_file"]), result["snapshot_sha256"]
+            )
             metadata = json.loads(next(Path(directory).glob("*.json")).read_text())
             self.assertEqual(metadata["requested_url"], self.base + "/redirect")
             self.assertNotIn("body", metadata)
@@ -81,7 +124,9 @@ class HttpChecksTests(unittest.TestCase):
                 save_source_check(directory, self.base + "/missing", result, attempt)
             self.assertEqual(len(list(Path(directory).glob("*.snapshot"))), 2)
             with self.assertRaises(FileExistsError):
-                save_source_check(directory, self.base + "/missing", self.local_fetch("/missing"), 1)
+                save_source_check(
+                    directory, self.base + "/missing", self.local_fetch("/missing"), 1
+                )
 
     def test_large_response_is_explicitly_truncated(self):
         result = self.local_fetch("/big")
@@ -90,9 +135,14 @@ class HttpChecksTests(unittest.TestCase):
 
     def test_trailing_underscore_url_reaches_the_real_resource(self):
         original = self.base + "/resource_"
-        _, sources, _, _ = parse_answer(f"The fixture value is 31 [1].\nSOURCES:\n[1] [source]({original})")
+        _, sources, _, _ = parse_answer(
+            f"The fixture value is 31 [1].\nSOURCES:\n[1] [source]({original})"
+        )
         self.assertEqual(sources[1]["url"], original)
-        with patch("urllib.request.urlopen", urllib.request.build_opener(urllib.request.ProxyHandler({})).open):
+        with patch(
+            "urllib.request.urlopen",
+            urllib.request.build_opener(urllib.request.ProxyHandler({})).open,
+        ):
             self.assertEqual(fetch(sources[1]["url"], 2)["status"], 200)
         self.assertEqual(self.local_fetch("/resource")["status"], 404)
 
