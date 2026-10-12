@@ -10,7 +10,7 @@ porovnání produktů, ne izolovaných modelů**. Jde o přípravný balíček; 
 ověř v `README.md`. Syntetické testy nejsou výsledky experimentu ani ověření referencí.
 
 **Aktualizace oprávnění 12. 10. 2026:** uživatel výslovně pověřil agenta skutečnými
-runy v Avast Secure Browser a dokončením projektu. Pilot a reálný sběr jsou autorizované;
+runy v chrome a dokončením projektu. Pilot a reálný sběr jsou autorizované;
 analytické fáze stále respektují G1/G2/G3. René a Jan jsou plánovaní lidští hodnotitelé,
 nikoli doklad již provedených ratingů. Nevymýšlej výsledky, lidské hodnocení, podpisy
 ani splnění bran. Originály zůstávají mimo worktree; do ENC-AI-Project patří schválené
