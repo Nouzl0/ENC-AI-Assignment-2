@@ -8,7 +8,7 @@ import unittest
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
-from common import constraint_problems, load_all_cases, read_csv, write_csv
+from common import constraint_problems, load_all_cases, load_cases, read_csv, write_csv
 from integrity import source_evidence_problems
 from validate_cases import holdout_stratification_problems, validate_case
 import test_integrity
@@ -17,6 +17,16 @@ from score import load_answers
 
 
 class DataContractTests(unittest.TestCase):
+    def test_duplicate_case_json_fields_fail_closed(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory, "cases_dev.jsonl")
+            for value in ('{"task_id":"first","task_id":"second"}',
+                          '{"task_id":"DEMO-1","reference_answer_or_tests":{"required_facts":[],"required_facts":["fact"]}}'):
+                with self.subTest(value=value):
+                    path.write_text(value + "\n", encoding="utf-8")
+                    with self.assertRaisesRegex(ValueError, "duplicate JSON key"):
+                        load_cases("dev", directory)
+
     def test_constraints_are_separate_from_content(self):
         cases = load_all_cases()
         who = cases["CIT-002"]["reference_answer_or_tests"]

@@ -5,7 +5,7 @@ import unittest
 
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(__file__)), "scripts"))
 from common import finite_number, run_problems, validate_pair_rows
-from score import attribution_summary, bootstrap_ci, bootstrap_diagnostic, cohen_kappa, load_answers, repeat_summary, test_matrix_problems, wilson
+from score import attribution_summary, bootstrap_ci, bootstrap_diagnostic, case_values, cohen_kappa, load_answers, mean, repeat_summary, test_matrix_problems, wilson
 
 
 def fixture():
@@ -23,6 +23,16 @@ def fixture():
 
 
 class ScoringIntegrityTests(unittest.TestCase):
+    def test_float_means_preserve_the_exact_hypothesis_boundary(self):
+        values = {f"DEMO-{i}": .2 - .1 for i in range(10)}
+        point, lo, hi = bootstrap_ci(values, 200, 2026)
+        self.assertEqual(point, .1)
+        self.assertGreater(lo, 0)
+        self.assertTrue(point >= .1)  # H1 must not depend on the Python sum implementation.
+        self.assertEqual(mean([.08] * 10), .08)
+        rows = [dict(task_id="DEMO-1", precision=.08) for _ in range(10)]
+        self.assertEqual(case_values(rows, "precision"), {"DEMO-1": .08})
+
     def test_diagnostics_are_explicit_and_unknown_does_not_improve_coverage(self):
         run, key, pair, answer, cases = fixture()
         cases["TEST"]["edge_case_type"] = "time_constraint"
@@ -123,6 +133,25 @@ class ScoringIntegrityTests(unittest.TestCase):
         scored, problems = load_answers([run], [key], [pair], [answer], cases, False)
         self.assertEqual(scored, [])
         self.assertTrue(problems)
+
+    def test_required_fact_guard_preserves_score_rating_normalization(self):
+        run, key, pair, answer, cases = fixture()
+        pair["rating"] = " s2 "
+        scored, problems = load_answers([run], [key], [pair], [answer], cases, False)
+        self.assertEqual(problems, [])
+        self.assertEqual(scored[0]["kf_cov"], 1)
+
+    def test_duplicate_required_fact_evidence_never_overwrites(self):
+        for evidence in ('{"RF1":["bogus"],"RF1":["A1-T1-1"]}',
+                         '{"RF1":["A1-T1-1"],"RF1":["bogus"]}',
+                         '{"RF1":["A1-T1-1"],"RF1":["A1-T1-1"]}'):
+            for partial in (False, True):
+                with self.subTest(evidence=evidence, partial=partial):
+                    run, key, pair, answer, cases = fixture()
+                    answer["key_fact_evidence"] = evidence
+                    scored, problems = load_answers([run], [key], [pair], [answer], cases, partial)
+                    self.assertEqual(scored, [])
+                    self.assertTrue(any("required-fact" in p for p in problems))
 
     def test_uncited_e9_and_duplicate_citation_error_count(self):
         run, key, pair, answer, cases = fixture()

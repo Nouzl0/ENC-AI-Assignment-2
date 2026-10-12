@@ -87,6 +87,20 @@ class PipelineTests(unittest.TestCase):
                     "--test-file", self.work / "data/cases_test.jsonl", "--out-dir", self.work / "duplicate-export",
                     "--key-dir", self.work / "key", "--offline")
 
+    def test_dangling_output_symlinks_are_rejected_before_any_write(self):
+        for name in ("metrics.csv", "answer_metrics.csv", "hypotheses.csv", "agreement.csv",
+                     "report.md", "scoring_inputs.json", "replay_provenance.json"):
+            with self.subTest(output=name):
+                out = Path(self.tmp.name, "dangling-" + name)
+                out.mkdir()
+                target = Path(self.tmp.name, "must-not-exist-" + name)
+                (out / name).symlink_to(target)
+                self.assertFalse((out / name).exists())
+                with self.assertRaisesRegex(RuntimeError, "Refusing to overwrite"):
+                    run_cli("score.py", *self.score_args(out))
+                self.assertFalse(target.exists())
+                self.assertEqual(list(out.iterdir()), [out / name])
+
     def test_unrated_pair_blocks_scoring_instead_of_improving_precision(self):
         p = self.work / "annotation/dev/pairs_rated.csv"
         original = p.read_bytes()

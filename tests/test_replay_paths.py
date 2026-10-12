@@ -12,6 +12,21 @@ class ReplayPathTests(unittest.TestCase):
     def tearDown(self):
         configure_path_map()
 
+    def test_duplicate_json_keys_are_rejected_and_clear_previous_map(self):
+        with tempfile.TemporaryDirectory() as d:
+            repo, private = Path(d, "repo"), Path(d, "private")
+            repo.mkdir(); private.mkdir()
+            path = Path(d, "map.json")
+            valid = dict(schema_version=1, prefixes=[{"from": "/old/repo", "to": str(repo)},
+                                                    {"from": "/old/private", "to": str(private)}])
+            for duplicate in ('"schema_version":0,', '"prefixes":[],'):
+                path.write_text(json.dumps(valid), encoding="utf-8")
+                configure_path_map(path, repo)
+                path.write_text("{" + duplicate + json.dumps(valid)[1:], encoding="utf-8")
+                with self.assertRaisesRegex(ValueError, "duplicate JSON key"):
+                    configure_path_map(path, repo)
+                self.assertEqual(resolve_input("/old/private/file"), "/old/private/file")
+
     def test_disjoint_prefixes_and_symlink_containment(self):
         with tempfile.TemporaryDirectory() as d:
             root = Path(d)

@@ -139,6 +139,59 @@ prostředí, **ne** opakovatelnost online odpovědí produktů, pravdivost refer
 skutečné G1/G2/G3. Reálný autorizovaný replay vyžaduje kompletní soukromý G3 balíček;
 žádné produktové běhy, nové lidské ratingy ani skutečné podpisy zde nevznikly.
 
+## Adversariální doublecheck reprodukovatelnosti (2026-10-12)
+
+Vstupní `main` byl čistý, `git pull --ff-only origin main` bez změn; commit
+`8adf16c8ae0703894cd9e5f5fa3fa13b31d7b765`. Tři nezávislí read-only subagenti
+kontrolovali přípravu/locale, adversariální replay/soukromí a adversariální scoring/G2.
+Původních 75 testů prošlo, ale cílené útoky odhalily skutečné mezery:
+
+- Float `sum` se mezi Pythonem 3.11 a 3.12 liší: stejný faux G3 na 3.11 odmítl
+  přepočet G2; na hranicích se měnil i výběr P3 (0,02) a H1 (0,10). Součty metrických
+  hodnot nyní používají `math.fsum`, bez změny prahů, definic nebo bootstrap RNG losování.
+- Dangling výsledkový symlink mohl zapsat soukromý report do worktree. Před zápisem
+  se všech sedm výsledkových jmen včetně provenance kontroluje přes `lexists`.
+  Soukromé cesty nyní výslovně vyžadují absolutní tvar i při cwd mimo repo.
+- Duplicitní JSON klíče v RF evidenci, manifestech, snapshotech, mapách i vstupních
+  datech/blueprintu se mohly tiše přepsat. Všechny produkční JSON readers používají
+  společný fail-closed hook; lazy import mapy zachovává acyklické načítání modulů.
+- Raw listy neměly úplný guard RF počtů/evidence ani konečného nezáporného času
+  anotace. Každý ze tří raw/final listů se nyní validuje vůči **vlastním** explicitním
+  S2 párům. Odlišná nezávislá segmentace a vlastní časy hodnotitelů zůstávají povolené.
+- Implicitní locale encoding rozbíjelo veřejnou kontrolu kandidátů a dekódování
+  českých CLI diagnostik. Čtení/zápis těchto vstupů a zachycení CLI jsou explicitně UTF-8.
+
+Přibylo 13 regresních testů. Cílené regrese pro duplicitní RF, raw časy, dangling
+výstupy, ASCII locale a float hranice před příslušnými opravami skutečně selhaly.
+Druhá kritická kontrola zachytila drobnou regresi normalizace `" s2 "` při extrakci
+RF validátoru: opravena a pokryta pozitivním testem. Silný gate test přijímá raw2
+vlastní odlišný S2 pár, ale odmítá RF odkaz na pár existující pouze u final/raw1.
+Závěrečný kritický a adversariální re-review bez zbývajícího doloženého blockeru.
+
+Skutečně provedené celé softwarové sady (bez přeskočených testů):
+
+| Runtime a prostředí | Výsledek |
+| --- | --- |
+| Python 3.11.16, nová izolovaná `git archive HEAD` + diff kopie mimo repo | 88/88 OK, 69,433 s |
+| Python 3.14.7, worktree | 88/88 OK, 62,297 s |
+| Python 3.12.12, worktree, `LC_ALL=C`, UTF-8 mode/coercion vypnuté, stdout UTF-8 | 88/88 OK, 66,751 s |
+
+Nezávislý actual-CLI replay jednoho izolovaného syntetického G3 balíčku s 500
+dokončenými odpověďmi prošel na Pythonu 3.11.16, 3.12.12 i 3.14.7: všech pět
+výsledkových souborů bylo byte-identických, včetně H1 přesně na hranici 0,10.
+Změnily se hash seedy a TZ; hashe všech 569 původních soukromých fixture souborů
+zůstaly shodné a G3 se ověřila i po každém replayi. Samostatné skutečné CLI útoky
+na faux G3 s/bez mapy odmítly dangling symlink **před zápisem** a duplicitní manifest
+i mapu; všech 27 private a 29 repo fixture souborů zůstalo beze změny.
+
+Ověřeny veřejné dev/val (3.14 i 3.12 ASCII locale), 7 CLI `--help`, 14 lokálních
+dokumentačních odkazů, gramatika Pythonu 3.9 (21 souborů) a `git diff --check`.
+Data a prompty se neměnily. Dokumentace chrání původní pořadí řádků a přesný
+zmrazený commit: staré manifesty se kvůli opravám kódu nepřepisují ani znovu nepečetí.
+Runtime 3.9, Windows/macOS a vzdálené CI nebyly ověřeny. Veškerá evidence/ratingy
+a schválení v testech jsou výhradně označené smyšlené fixtures mimo repo;
+neproběhl benchmark, pilot, zdrojové ověřování ani skutečný podpis G1/G2/G3.
+
 ## Co nadále provede kolega (platí i po revizi)
 
 Nový soukromý holdout, nezávislé ověření RF/OF, dostupnost a nastavení produktů, pilot,

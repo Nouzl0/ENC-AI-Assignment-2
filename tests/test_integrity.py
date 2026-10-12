@@ -25,6 +25,9 @@ from replay_paths import configure_path_map, resolve_input
 
 class IntegrityTests(unittest.TestCase):
     def test_private_path_rejects_worktree_and_symlink(self):
+        for relative in ("relative-artifact", "../relative-artifact"):
+            with self.assertRaisesRegex(ValueError, "absolute"):
+                private_path(relative)
         with self.assertRaises(ValueError):
             private_path(str(ROOT / "private/test.jsonl"))
         with tempfile.TemporaryDirectory() as directory:
@@ -44,6 +47,17 @@ class IntegrityTests(unittest.TestCase):
             with self.assertRaises(ValueError):
                 load_all_cases(directory)
 
+    def test_public_candidate_check_uses_utf8_even_in_ascii_locale(self):
+        """Exercise only public candidates; no private holdout is opened."""
+        env = dict(os.environ, LC_ALL="C", PYTHONUTF8="0", PYTHONCOERCECLOCALE="0",
+                   PYTHONDONTWRITEBYTECODE="1")
+        code = ("import sys; sys.path.insert(0, sys.argv[1]); "
+                "from integrity import holdout_problems; "
+                "assert isinstance(holdout_problems({}), list)")
+        result = subprocess.run([sys.executable, "-c", code, str(ROOT / "scripts")],
+                                env=env, capture_output=True, encoding="utf-8", timeout=30)
+        self.assertEqual(result.returncode, 0, result.stderr)
+
     def test_unsigned_gate_and_plain_p3_files_do_not_unlock_test(self):
         with tempfile.TemporaryDirectory() as directory:
             p = str(Path(directory, "G1.json"))
@@ -52,6 +66,17 @@ class IntegrityTests(unittest.TestCase):
                 verify_freeze(p, "G1")
             with self.assertRaisesRegex(ValueError, "signed_by"):
                 prepare_manifest(template("G2"))
+
+    def test_manifest_and_snapshot_json_keys_cannot_silently_overwrite(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory, "ambiguous.json")
+            for value in ('{"attestations":{},"attestations":{"protocol_approved":true}}',
+                          '{"tables":{"answers":[],"answers":[{}]}}',
+                          '{"files":{"/private/a":"first","/private/a":"second"}}'):
+                with self.subTest(value=value):
+                    path.write_text(value, encoding="utf-8")
+                    with self.assertRaisesRegex(ValueError, "duplicate JSON key"):
+                        integrity.read_json(path)
 
     def test_plan_preserves_metadata_but_rejects_prompt_changes_and_dropped_rows(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -143,7 +168,7 @@ class IntegrityTests(unittest.TestCase):
         runs = [dict(run_id=f"r{i}", phase="dev", system="sys_A", condition="P2", task_id="DEMO-1", run_status="completed",
                      operator="operator", datetime_start="2026-01-01T10:00:00+00:00", datetime_end="2026-01-01T10:00:02+00:00") for i in range(1, 5)]
         keys = [dict(blind_answer_id=f"A{i}", run_id=f"r{i}") for i in range(1, 5)]
-        answers = [dict(blind_answer_id=f"A{i}", correctness="0", n_claims="1", key_facts_supported="0", key_fact_evidence="{}",
+        answers = [dict(blind_answer_id=f"A{i}", correctness="0", n_claims="1", n_key_facts="1", key_facts_supported="0", key_fact_evidence="{}",
                         check_minutes="1", segmentation_reviewed="yes", acknowledges_uncertainty="na", rater="rater1") for i in range(1, 5)]
         pairs = [dict(blind_answer_id=f"A{i}", pair_id=f"A{i}-T1-none", claim_id="T1", claim_text="synthetic claim",
                       citation_n="", rating="", source_tier="", time_ok="", rater="rater1") for i in range(1, 5)]
@@ -186,6 +211,76 @@ class IntegrityTests(unittest.TestCase):
                     self.assertTrue(any("acknowledges_uncertainty must" in e for e in errors), name)
                 finally:
                     path.write_bytes(original)
+
+    def test_gate_rejects_nonfinite_annotation_times_in_all_answer_sheets(self):
+        with tempfile.TemporaryDirectory() as directory:
+            annotation, key, runs, cases, _, _ = self.rating_fixture(directory)
+            for name in ("answers_rated.csv", "answers_rated_rater1.csv", "answers_rated_rater2.csv"):
+                path = annotation / name
+                original = path.read_bytes()
+                try:
+                    for value in ("", "NaN", "inf", "-inf", "-1"):
+                        with self.subTest(sheet=name, value=value):
+                            rows = read_csv(path); rows[0]["check_minutes"] = value
+                            write_csv(path, rows, list(rows[0]))
+                            errors = integrity.final_rating_problems(runs, annotation, key, cases)
+                            self.assertTrue(any("invalid check_minutes" in e for e in errors), errors)
+                finally:
+                    path.write_bytes(original)
+
+    def test_gate_rejects_invalid_rf_counts_and_duplicate_evidence_in_all_sheets(self):
+        with tempfile.TemporaryDirectory() as directory:
+            annotation, key, runs, cases, _, _ = self.rating_fixture(directory)
+            for name in ("answers_rated.csv", "answers_rated_rater1.csv", "answers_rated_rater2.csv"):
+                path = annotation / name
+                original = path.read_bytes()
+                try:
+                    for field, value in (("n_key_facts", "NaN"), ("key_facts_supported", "inf"),
+                                         ("n_key_facts", "2"), ("key_fact_evidence", '{"RF1":[],"RF1":[]}')):
+                        with self.subTest(sheet=name, field=field):
+                            rows = read_csv(path); rows[0][field] = value
+                            write_csv(path, rows, list(rows[0]))
+                            errors = integrity.final_rating_problems(runs, annotation, key, cases)
+                            self.assertTrue(any("key-fact" in e or "required-fact" in e for e in errors), errors)
+                finally:
+                    path.write_bytes(original)
+
+    def test_gate_rf_evidence_uses_each_raters_own_pairs(self):
+        with tempfile.TemporaryDirectory() as directory:
+            annotation, key, runs, cases, answers, pairs = self.rating_fixture(directory)
+            source = Path(directory, "source.txt")
+            source.write_text("SYNTHETIC source, not verified evidence", encoding="utf-8")
+            evidence1 = '{"RF1":["A1-T1-1"]}'
+            evidence2 = '{"RF1":["A1-T2-1"]}'
+            answers[0].update(key_facts_supported="1", key_fact_evidence=evidence1)
+            pairs[0].update(pair_id="A1-T1-1", citation_n="1", rating="S2", source_tier="1", time_ok="na",
+                            evidence_url="https://example.invalid/source", evidence_checked_at="2026-01-01T10:00:03+00:00",
+                            evidence_locator="fixture line 1", evidence_excerpt="fictional support",
+                            evidence_snapshot=str(source), evidence_sha256=sha256_file(source))
+            for name in ("answers_rated", "answers_rated_rater1"):
+                write_csv(annotation / (name + ".csv"), answers, list(answers[0]))
+            for name in ("pairs_rated", "pairs_rated_rater1"):
+                write_csv(annotation / (name + ".csv"), pairs, list(pairs[0]))
+            raw2 = dict(answers[0], key_fact_evidence=evidence2, check_minutes="2.5", rater="rater2")
+            raw2_pair = dict(pairs[0], pair_id="A1-T2-1", claim_id="T2", rater="rater2")
+            write_csv(annotation / "answers_rated_rater2.csv", [raw2], list(raw2))
+            write_csv(annotation / "pairs_rated_rater2.csv", [raw2_pair], list(raw2_pair))
+            logs = [dict(item_id=item, item_type=kind, field=field, rater1_value=left, rater2_value=right,
+                         resolution=final, resolved_by="adjudicator", note="synthetic segmentation audit")
+                    for item, kind, field, left, right, final in (
+                        ("A1", "answer", "key_fact_evidence", evidence1, evidence2, evidence1),
+                        ("A1-T1-1", "pair", "present", "yes", "no", "yes"),
+                        ("A1-T2-1", "pair", "present", "no", "yes", "no"))]
+            write_csv(annotation / "disagreements.csv", logs, list(logs[0]))
+            self.assertEqual(integrity.final_rating_problems(runs, annotation, key, cases), [])
+
+            # A valid S2 in another rater's segmentation cannot support raw2's RF.
+            raw2["key_fact_evidence"] = evidence1
+            write_csv(annotation / "answers_rated_rater2.csv", [raw2], list(raw2))
+            write_csv(annotation / "disagreements.csv", logs[1:], list(logs[0]))
+            errors = integrity.final_rating_problems(runs, annotation, key, cases)
+            self.assertEqual(len(errors), 1, errors)
+            self.assertIn("required-fact denominator/evidence invalid", errors[0])
 
     def test_validation_source_evidence_is_complete_and_checked_before_G2(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -243,6 +338,11 @@ class IntegrityTests(unittest.TestCase):
             annotation, key, runs, cases, _, _ = self.rating_fixture(directory)
             cases["DEMO-1"]["reference_valid_as_of"] = "RUN_DAY"
             cases["DEMO-1"]["reference_answer_or_tests"] = dict(required_facts=["indicator", "value and month"], optional_facts=["comparison"])
+            for name in ("answers_rated.csv", "answers_rated_rater1.csv", "answers_rated_rater2.csv"):
+                ratings = read_csv(annotation / name)
+                for rating in ratings:
+                    rating["n_key_facts"] = "2"
+                write_csv(annotation / name, ratings, list(ratings[0]))
             snapshot = Path(directory, "source.txt")
             snapshot.write_text("synthetic daily reference")
             rows = [dict(task_id="DEMO-1", run_date="2026-01-01", fact_id=fid, reference_value="current synthetic fact",

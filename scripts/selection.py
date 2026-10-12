@@ -60,13 +60,13 @@ def validation_selection(snapshot, runs, cases, config, prompts_dir):
             items = [a for a in scored if a["system"] == system and a["condition"] == cond]
             if not items:
                 raise ValueError("validation snapshot has no scored cell: " + system + "/" + cond)
-            cells[(system, cond)] = dict(precision=sum(a["precision"] for a in items) / len(items),
+            cells[(system, cond)] = dict(precision=math.fsum(a["precision"] for a in items) / len(items),
                                           n_cases=len({a["task_id"] for a in items}), n_answers=len(items))
-    means = {c: sum(cells[(s, c)]["precision"] for s in config["systems"]) / len(config["systems"])
+    means = {c: math.fsum(cells[(s, c)]["precision"] for s in config["systems"]) / len(config["systems"])
              for c in config["val_candidates"]}
     lengths = {c: sum(len(Path(resolve_input(Path(prompts_dir, f"{c}_candidate_{lang}.txt"))).read_text(encoding="utf-8"))
                       for lang in ("cs", "en")) / 2 for c in config["val_candidates"]}
-    baseline = sum(cells[(s, "P2")]["precision"] for s in config["systems"]) / len(config["systems"])
+    baseline = math.fsum(cells[(s, "P2")]["precision"] for s in config["systems"]) / len(config["systems"])
     return dict(selected_candidate=choose_candidate(means, lengths), precision_means=means,
                 mean_prompt_characters=lengths, p2_precision=baseline), cells
 

@@ -126,6 +126,10 @@ k opravě hlavní přesnosti, úplnosti, RF pokrytí ani hlavní kappy.
 Agregace = průměr přes úlohy **prvního běhu**, stejné váhy úloh, ne pooling citací.
 Bootstrap 10 000, seed 2026, klastr task_id; rozdíly párované na stejných úlohách,
 produkty nejsou další nezávislé replikace otázky. Správnost a podíly odpovědí: Wilson.
+Součty reálných hodnot používají `math.fsum`, aby změna implementace `sum` mezi
+verzemi Pythonu neposouvala plně přesné průměry ani rozhodnutí na hranicích H1/H2/G2.
+Prahy a pravidla výběru se tím nemění. Replay zachovává i původní pořadí řádků:
+přerovnání vstupních CSV může změnit konečný bootstrap vzorek a není byte-identická reprodukce.
 P2 opakování zvlášť, SD průměrů běhů a změny správnosti jen na společných úlohách všech
 opakování. Pozdější okno směšuje náhodnost, změny zdrojů a produktu, ne čistý modelový šum.
 Deset testových úloh dává hrubé intervaly a nízkou sílu; nevýznamnost není důkaz rovnosti.

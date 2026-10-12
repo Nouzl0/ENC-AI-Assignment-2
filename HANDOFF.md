@@ -239,6 +239,9 @@ python3 scripts/score.py --final --freeze "$WORK/G3.json" --runs "$WORK/runs/run
 Znovu archivovat G3 a hodnocení. `--allow-missing` nikdy nepatří do finálního kroku.
 Výstupy nepřepisovat; nový výstup má novou verzi. Po G3 přidání jakéhokoli souboru do
 svázaných ratingových adresářů mění auditní sadu; nedávat reporty zpět do annotation/key.
+Používat absolutní soukromé cesty mimo worktree i po rozlišení symlinků; existující
+výsledkové symlinky (i dangling) jsou chyba. Nepřerovnávat zmrazené CSV pro replay
+a neopravovat podepsané hashe nebo znovu pečetit staré brány kvůli novější verzi kódu.
 
 ## 6. Odevzdání a zpráva
 

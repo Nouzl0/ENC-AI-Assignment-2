@@ -36,7 +36,7 @@ import statistics
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from common import (PROMPTS, RATINGS, ROOT, SYSTEMS, constraint_problems, diagnostic_problems, finite_number, load_all_cases,  # noqa: E402
+from common import (PROMPTS, RATINGS, ROOT, SYSTEMS, constraint_problems, diagnostic_problems, finite_number, key_fact_problems, load_all_cases,  # noqa: E402
                     read_csv, read_csv_glob, required_facts, run_problems, sha256_file, unique_index, validate_pair_rows, write_csv)
 from integrity import private_path, run_artifact_problems, verify_freeze, verify_plans, write_json_new
 from replay_paths import configure_path_map, resolve_input
@@ -45,7 +45,9 @@ from replay_paths import configure_path_map, resolve_input
 # ----------------------------------------------------------------- statistics helpers
 def mean(xs):
     xs = [x for x in xs if x is not None]
-    return sum(xs) / len(xs) if xs else None
+    # Built-in sum's float algorithm changed in Python 3.12. Keep threshold
+    # decisions and replay aggregates independent of that runtime difference.
+    return math.fsum(xs) / len(xs) if xs else None
 
 
 def quantile(xs, q):
@@ -62,17 +64,14 @@ def bootstrap_ci(case_values, B, seed):
     vals = [v for v in case_values.values() if v is not None]
     if not vals:
         return None, None, None
-    point = sum(vals) / len(vals)
+    point = mean(vals)
     if len(vals) == 1:
         return point, None, None
     rng = random.Random(seed)
     n = len(vals)
     boots = []
     for _ in range(B):
-        s = 0.0
-        for _ in range(n):
-            s += vals[rng.randrange(n)]
-        boots.append(s / n)
+        boots.append(math.fsum(vals[rng.randrange(n)] for _ in range(n)) / n)
     return point, quantile(boots, 0.025), quantile(boots, 0.975)
 
 
@@ -129,8 +128,8 @@ def spearman(x, y):
         return None
     rx, ry = ranks(x), ranks(y)
     mx, my = mean(rx), mean(ry)
-    num = sum((a - mx) * (b - my) for a, b in zip(rx, ry))
-    den = math.sqrt(sum((a - mx) ** 2 for a in rx) * sum((b - my) ** 2 for b in ry))
+    num = math.fsum((a - mx) * (b - my) for a, b in zip(rx, ry))
+    den = math.sqrt(math.fsum((a - mx) ** 2 for a in rx) * math.fsum((b - my) ** 2 for b in ry))
     return num / den if den else None
 
 
@@ -223,18 +222,9 @@ def load_answers(runs, key, pairs, answers, cases, allow_missing, meta=None):
             problems.append(f"answer {bid}: invalid key-fact counts or check_minutes")
             continue
         if not failed:
-            expected_nkf = len(required_facts(case))
-            try:
-                evidence = json.loads(a.get("key_fact_evidence", ""))
-            except (TypeError, ValueError):
-                evidence = None
-            valid_pairs = {p["pair_id"] for p in cited if p["_rating"] == "S2"}
-            valid_facts = {f"RF{i}" for i in range(1, expected_nkf + 1)}
-            valid_evidence = (isinstance(evidence, dict) and set(evidence) <= valid_facts
-                              and all(isinstance(ids, list) and ids and all(isinstance(pid, str) and pid in valid_pairs for pid in ids)
-                                      for ids in evidence.values()))
-            if nkf != expected_nkf or not valid_evidence or len(evidence) != kf:
-                problems.append(f"answer {bid}: required-fact denominator/evidence invalid (only explicit S2 pairs count)")
+            fact_errors = key_fact_problems(a, case, rows)
+            if fact_errors:
+                problems.extend(f"answer {bid}: {e}" for e in fact_errors)
                 continue
         declared_claims = to_float(a.get("n_claims"))
         if not failed and (declared_claims is None or declared_claims != len(claims) or a.get("segmentation_reviewed") != "yes"):
@@ -319,7 +309,7 @@ def case_values(answers, metric):
         v = a[metric]
         if v is not None:
             by_case[a["task_id"]].append(v)
-    return {c: sum(v) / len(v) for c, v in by_case.items() if v}
+    return {c: mean(v) for c, v in by_case.items() if v}
 
 
 # ----------------------------------------------------------------- main
@@ -431,7 +421,7 @@ def main():
         source_path = os.path.realpath(resolve_input(directory))
         if out_path == source_path or out_path.startswith(source_path + os.path.sep):
             raise SystemExit("analysis output must not modify bound annotation/key directories")
-    if any(os.path.exists(os.path.join(args.out, n)) for n in ("metrics.csv", "answer_metrics.csv", "hypotheses.csv", "agreement.csv", "report.md", "scoring_inputs.json")):
+    if any(os.path.lexists(os.path.join(args.out, n)) for n in ("metrics.csv", "answer_metrics.csv", "hypotheses.csv", "agreement.csv", "report.md", "scoring_inputs.json", "replay_provenance.json")):
         raise SystemExit("Refusing to overwrite analysis outputs; use a new versioned --out directory")
     os.makedirs(args.out, exist_ok=True)
     if not args.final and not args.allow_missing:
@@ -626,7 +616,7 @@ def main():
         for c, v in focus.items():
             ov = [others[s][c] for s in others if c in others[s]]
             if ov:
-                diffs[c] = v - sum(ov) / len(ov)
+                diffs[c] = v - mean(ov)
         p, lo, hi = bootstrap_ci(diffs, args.boot, args.seed)
         supported = p is not None and lo is not None and p >= args.h1_margin and lo > 0
         hyp.append({"hypothesis": "H1", "comparison": f"{args.focus} − průměr ostatních, P2, přesnost",
@@ -647,7 +637,7 @@ def main():
                 per_sys[s] = bootstrap_ci(d, args.boot, args.seed)
                 for c, v in d.items():
                     case_diffs[c].append(v)
-        avg = {c: sum(v) / len(v) for c, v in case_diffs.items()}
+        avg = {c: mean(v) for c, v in case_diffs.items()}
         p, lo, hi = bootstrap_ci(avg, args.boot, args.seed)
         improved = sum(1 for s, (pt, _, _) in per_sys.items() if pt is not None and pt > 0)
         need = len(systems) - 1          # 4 of 5 systems; 3 of 4 in the lean variant
@@ -694,7 +684,7 @@ def main():
             report.append(f"| {s} | " + " | ".join(cells) + " |")
         avg_cells = []
         for k in ("P2-P1", "P3-P1", "P3-P2"):
-            pt, lo, hi = bootstrap_ci({c: sum(v) / len(v) for c, v in agg[k].items()}, args.boot, args.seed)
+            pt, lo, hi = bootstrap_ci({c: mean(v) for c, v in agg[k].items()}, args.boot, args.seed)
             avg_cells.append("" if pt is None else f"{fnum(pt, True)} [{fnum(lo, True)}–{fnum(hi, True)}]")
         report.append("| **průměr** | " + " | ".join(avg_cells) + " |")
         lengths = []

@@ -21,7 +21,7 @@ import re
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from common import DATA, EDGE_TYPES, load_cases, sha256_file  # noqa: E402
+from common import DATA, EDGE_TYPES, load_cases, sha256_file, unique_json_object  # noqa: E402
 
 REQUIRED = ["task_id", "capability", "task_type", "difficulty", "language",
             "development_validation_test_split", "user_prompt", "context_or_files",
@@ -107,7 +107,7 @@ def holdout_stratification_problems(rows, blueprint_path):
     """Public aggregate quotas, scaled outwards for holdouts larger than ten."""
     try:
         with open(blueprint_path, encoding="utf-8") as f:
-            blueprint = json.load(f)
+            blueprint = json.load(f, object_pairs_hook=unique_json_object)
         quotas = blueprint["counts_per_10"]
         if (blueprint["schema_version"] != 1 or not isinstance(quotas, dict)
                 or set(quotas) != set(ALLOWED) - {"edge_case_type"}):

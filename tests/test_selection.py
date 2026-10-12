@@ -1,13 +1,49 @@
 import copy
 from pathlib import Path
 import sys
+import tempfile
 import unittest
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
 from selection import check_validation_metrics, choose_candidate, validation_selection
+from test_scoring import fixture
 
 
 class SelectionTests(unittest.TestCase):
+    def test_recomputed_full_precision_means_preserve_point02_boundary(self):
+        snapshot = dict(schema_version=1, kind="scoring_input_snapshot",
+                        tables={name: [] for name in ("runs", "key", "pairs", "answers", "meta")})
+        tables = snapshot["tables"]
+        cases = {}
+        systems = [f"sys_{i}" for i in range(5)]
+        for task in range(10):
+            for system in systems:
+                for condition, n_supported in (("P2", 5), ("P3A", 8), ("P3B", 6)):
+                    run, key, pair, answer, source_cases = fixture()
+                    bid = f"A-{task}-{system}-{condition}"
+                    tid = f"DEMO-{task}"
+                    run.update(run_id=bid, task_id=tid, phase="val", split="val", system=system, condition=condition)
+                    key.update(blind_answer_id=bid, run_id=bid)
+                    answer.update(blind_answer_id=bid, n_claims="100", key_fact_evidence='{"RF1":["' + bid + '-T1-1"]}')
+                    tables["runs"].append(run); tables["key"].append(key); tables["answers"].append(answer)
+                    tables["pairs"].extend(dict(pair, pair_id=f"{bid}-T{i}-1", blind_answer_id=bid,
+                                                 claim_id=f"T{i}", rating="S2" if i <= n_supported else "S0")
+                                            for i in range(1, 101))
+                    cases[tid] = dict(source_cases["TEST"], development_validation_test_split="val")
+        config = dict(systems=systems, val_candidates=["P3A", "P3B"])
+        with tempfile.TemporaryDirectory() as directory:
+            prompts = Path(directory)
+            for candidate, length in (("P3A", 200), ("P3B", 100)):
+                for lang in ("cs", "en"):
+                    (prompts / f"{candidate}_candidate_{lang}.txt").write_text("x" * length, encoding="utf-8")
+            summary, _ = validation_selection(snapshot, tables["runs"], cases, config, prompts)
+            self.assertEqual(summary["precision_means"], {"P3A": .08, "P3B": .06})
+            self.assertEqual(summary["selected_candidate"], "P3A")
+            # G2 uses the same fail-closed RF evidence guard as scoring.
+            tables["answers"][0]["key_fact_evidence"] = '{"RF1":[],"RF1":[]}'
+            with self.assertRaisesRegex(ValueError, "required-fact"):
+                validation_selection(snapshot, tables["runs"], cases, config, prompts)
+
     def test_full_precision_threshold_lengths_and_tie(self):
         lengths = {"P3A": 200, "P3B": 100}
         self.assertEqual(choose_candidate({"P3A": .6, "P3B": .580001}, lengths), "P3B")

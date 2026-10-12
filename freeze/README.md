@@ -124,6 +124,8 @@ soubory i při `core.autocrlf=true`; existující checkout musí skutečně obsa
 LF bytes. Soukromý balíček přenášet beze změny konců řádků (např. v archivu), nikoli
 znovu ukládat přes editor. Stejný commit bez shodných bytes nestačí; rozdíl hashů se
 nesmí řešit jejich přepsáním v manifestu.
+Použít kód přesného zmrazeného commitu, nikoli jeho novější opravenou verzi; existující
+brány se kvůli opravě kódu znovu nepečetí. Zachovat i původní pořadí řádků CSV.
 
 Při jiných absolutních cestách se **nemění žádný podepsaný JSON/CSV ani jeho hashe**.
 Nový soukromý map.json mapuje původní repo a pracovní složku na dva existující,
@@ -148,5 +150,7 @@ python3 scripts/score.py --final --path-map "$WORK/map.json" --freeze "$WORK/G3.
 WORK nyní ukazuje na nový fyzický adresář; `--out` musí být nová fyzická cesta mimo
 annotation/key. Mapa se používá jen při čtení, včetně rekurzivního řetězce G1→G2→G3,
 kontroly hashů a původních vazeb. Únik přes symlink a kolize vazeb se odmítají.
+Existující výsledkové soubory včetně dangling symlinků se odmítají před zápisem.
+Duplicitní JSON klíče v manifestech, snapshotech i mapě cest jsou chyba, ne přepsání hodnoty.
 `--path-map` nelze použít ke sběru či podpisu nové brány. `replay_provenance.json`
 uvádí SHA-256 původního G3, mapy a odvozených výstupů; **není to nový podpis ani schválení**.

@@ -113,7 +113,7 @@ class AnnotationTests(unittest.TestCase):
         validate_pair_rows([dict(row, pair_id="A1-T2a-1")], "split")
 
     def test_bonus_not_in_required_denominator(self):
-        cases = [json.loads(l) for l in (ROOT / "data/cases_dev.jsonl").read_text().splitlines()]
+        cases = [json.loads(l) for l in (ROOT / "data/cases_dev.jsonl").read_text(encoding="utf-8").splitlines()]
         by_id = {c["task_id"]: c for c in cases}
         self.assertEqual(required_facts(by_id["CIT-007"]), ["12 % od 1. 1. 2024"])
         self.assertFalse(any("NTIA" in f for f in required_facts(by_id["CIT-012"])))

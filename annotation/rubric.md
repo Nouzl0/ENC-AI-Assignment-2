@@ -135,7 +135,9 @@ E8 obecná citace; E9 chybějící citace; E10 přijatý chybný předpoklad; E1
    Nikdo nehodnotí vlastní běhy; pro dvojité hodnocení a nerozhodnuté neshody zajistit externího hodnotitele,
    pokud dvoučlenný tým tyto role nezvládne oddělit. Po selhání bez odpovědi se nulové skóre odvozuje z manifestu.
 3. Nezávislé listy před diskusí uložit jako *_rated_rater1.csv / *_rated_rater2.csv a dál je neměnit.
-   Score odmítá duplicity. U různých segmentací počítá kappu jen ze srovnatelných odpovědí a ztrátu pokrytí hlásí.
+   Score i brány odmítají duplicitní ID i JSON klíče. Každý raw/final list musí mít platné
+   RF počty/evidenci vůči vlastním explicitním S2 párům a konečný nezáporný `check_minutes`.
+   U různých segmentací počítá kappu jen ze srovnatelných odpovědí a ztrátu pokrytí hlásí.
    Počet tvrzení je jen hrubá diagnostika, ne důkaz shodných hranic. Je-li nutné sjednocení jednotek,
    provést je bez znalosti ratingů a nové nezávislé hodnocení verzi označit; původní data archivovat mimo aktivní vstup.
 4. Kappa S2 vs ostatní cíl ≥0,6. Konstantní ratingy → kappa nedefinovaná (uvést surovou shodu a n).

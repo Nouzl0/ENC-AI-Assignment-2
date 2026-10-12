@@ -134,6 +134,28 @@ def unique_json_object(pairs):
     return result
 
 
+def key_fact_problems(row, case, pairs):
+    """Validate each rater's RF counts against their own explicit S2 pairs."""
+    kf, nkf = (finite_number(row.get(k)) for k in ("key_facts_supported", "n_key_facts"))
+    if (kf is None or nkf is None or nkf < 1 or not nkf.is_integer()
+            or not kf.is_integer() or not 0 <= kf <= nkf):
+        return ["invalid key-fact counts"]
+    try:
+        evidence = json.loads(row.get("key_fact_evidence", ""), object_pairs_hook=unique_json_object)
+    except (TypeError, ValueError):
+        evidence = None
+    expected_nkf = len(required_facts(case))
+    valid_pairs = {p["pair_id"] for p in pairs if (p.get("rating") or "").strip().upper() == "S2"
+                   and str(p.get("citation_n") or "").strip() not in {"", "*"}}
+    valid_facts = {f"RF{i}" for i in range(1, expected_nkf + 1)}
+    valid_evidence = (isinstance(evidence, dict) and set(evidence) <= valid_facts
+                      and all(isinstance(ids, list) and ids and all(isinstance(pid, str) and pid in valid_pairs for pid in ids)
+                              for ids in evidence.values()))
+    if nkf != expected_nkf or not valid_evidence or len(evidence) != kf:
+        return ["required-fact denominator/evidence invalid (only explicit S2 pairs count)"]
+    return []
+
+
 def constraint_problems(row, case):
     """Question-level source/format constraints are not claim–citation facts."""
     constraints = case.get("reference_answer_or_tests", {}).get("required_constraints", [])
@@ -212,7 +234,7 @@ def load_cases(split, data_dir=DATA, test_file=None):
         raise ValueError("test requires an explicit --test-file; published candidates are not a private holdout")
     path = test_file if split == "test" else os.path.join(data_dir, f"cases_{split}.jsonl")
     with open(resolve_input(path), encoding="utf-8") as f:
-        return [json.loads(line) for line in f if line.strip()]
+        return [json.loads(line, object_pairs_hook=unique_json_object) for line in f if line.strip()]
 
 
 def load_all_cases(data_dir=DATA, test_file=None):

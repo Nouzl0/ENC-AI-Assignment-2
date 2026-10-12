@@ -22,6 +22,32 @@ from make_evidence_example import create_example
 
 
 class PreparationTests(unittest.TestCase):
+    def test_cli_utf8_diagnostics_are_decoded_under_ascii_locale(self):
+        env = dict(os.environ, LC_ALL="C", PYTHONUTF8="0", PYTHONCOERCECLOCALE="0",
+                   PYTHONIOENCODING="ascii", PYTHONDONTWRITEBYTECODE="1")
+        code = """
+import json, sys, tempfile
+from pathlib import Path
+sys.path.insert(0, sys.argv[1])
+from make_demo_data import make_cases, run_cli
+with tempfile.TemporaryDirectory() as directory:
+    work = Path(directory)
+    make_cases(work)
+    path = work / 'data/cases_dev.jsonl'
+    rows = [json.loads(line) for line in path.read_text(encoding='utf-8').splitlines()]
+    rows[0]['language'] = '\\u010de\\u0161tina'
+    path.write_text(''.join(json.dumps(row, ensure_ascii=False) + '\\n' for row in rows), encoding='utf-8')
+    try:
+        run_cli('validate_cases.py', '--data-dir', work / 'data', '--no-test')
+    except RuntimeError as error:
+        assert rows[0]['language'] in str(error), str(error)
+    else:
+        raise AssertionError('invalid language was accepted')
+"""
+        result = subprocess.run([sys.executable, "-c", code, str(ROOT / "scripts")],
+                                env=env, capture_output=True, encoding="utf-8", timeout=30)
+        self.assertEqual(result.returncode, 0, result.stderr)
+
     @unittest.skipUnless(shutil.which("git"), "Git is needed to test checkout byte preservation")
     def test_autocrlf_checkout_preserves_frozen_file_bytes(self):
         """Same commit must retain LF bytes even on a CRLF-configured machine."""

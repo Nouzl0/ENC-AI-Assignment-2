@@ -13,8 +13,10 @@ def configure_path_map(path=None, repo_root=None):
     _PREFIXES = []
     if path is None:
         return
+    # Delay the import: common's file readers depend on this module.
+    from common import unique_json_object
     with open(path, encoding="utf-8") as f:
-        value = json.load(f)
+        value = json.load(f, object_pairs_hook=unique_json_object)
     if not isinstance(value, dict) or value.get("schema_version") != 1 or not isinstance(value.get("prefixes"), list):
         raise ValueError("path map requires schema_version=1 and prefixes")
     prefixes = []

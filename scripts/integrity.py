@@ -6,8 +6,8 @@ import os
 from pathlib import Path
 from replay_paths import input_glob, resolve_input
 
-from common import (ROOT, SYSTEMS, META_FILL_COLUMNS, constraint_problems, diagnostic_problems, finite_number, load_all_cases,
-                    read_csv, required_facts, run_problems, sha256_file, unique_index)
+from common import (ROOT, SYSTEMS, META_FILL_COLUMNS, constraint_problems, diagnostic_problems, finite_number, key_fact_problems, load_all_cases,
+                    read_csv, required_facts, run_problems, sha256_file, unique_index, unique_json_object)
 
 ATTESTATIONS = {
     "G1": ["pilot_calibrated", "independent_references_checked", "fresh_holdout_private",
@@ -23,6 +23,8 @@ ATTESTATIONS = {
 def private_path(path):
     if not path:
         raise ValueError("missing private path (use a directory outside the Git worktree)")
+    if not os.path.isabs(os.fspath(path)):
+        raise ValueError("private artifact path must be absolute")
     p = Path(resolve_input(path)).resolve()
     if p == Path(ROOT) or Path(ROOT) in p.parents:
         raise ValueError(f"private artifact must be outside the worktree, also after resolving symlinks: {p}")
@@ -41,7 +43,7 @@ def timestamp(value):
 
 def read_json(path):
     with open(resolve_input(path), encoding="utf-8") as f:
-        return json.load(f)
+        return json.load(f, object_pairs_hook=unique_json_object)
 
 
 def write_json_new(path, value):
@@ -146,7 +148,8 @@ def holdout_problems(cases):
                 errors.append(f"{c['task_id']}: G1 requires schema_version=2")
         if not rows or sum(c.get("edge_case_type") != "none" for c in rows) / len(rows) < .2:
             errors.append(f"{split}: requires >=20% edge cases")
-    published = [json.loads(l) for l in Path(ROOT, "data/published_test_candidates.jsonl").read_text().splitlines() if l.strip()]
+    published = [json.loads(l, object_pairs_hook=unique_json_object) for l in
+                 Path(ROOT, "data/published_test_candidates.jsonl").read_text(encoding="utf-8").splitlines() if l.strip()]
     exposed = published + [c for c in cases.values() if c not in test]
     for c in test:
         for old in exposed:
@@ -465,8 +468,13 @@ def final_rating_problems(runs, annotation_dir, key_dir, cases):
             if answer.get("correctness") not in {"0", "1", "2"} or answer.get("segmentation_reviewed") != "yes":
                 errors.append(f"{bid}: incomplete raw/final answer-level rating")
             case = cases.get(outcomes[key[bid]["run_id"]]["task_id"], {})
+            own_pairs = [p for p in rows if p["blind_answer_id"] == bid]
+            errors += [f"{bid}: {e}" for e in key_fact_problems(answer, case, own_pairs)]
+            minutes = finite_number(answer.get("check_minutes"))
+            if minutes is None or minutes < 0:
+                errors.append(f"{bid}: invalid check_minutes (finite and nonnegative required)")
             errors += [f"{bid}: {e}" for e in constraint_problems(answer, case)]
-            errors += [f"{bid}: {e}" for e in diagnostic_problems(answer, [p for p in rows if p["blind_answer_id"] == bid], case)]
+            errors += [f"{bid}: {e}" for e in diagnostic_problems(answer, own_pairs, case)]
             claims = {p["claim_id"] for p in rows if p["blind_answer_id"] == bid}
             if finite_number(answer.get("n_claims")) != len(claims):
                 errors.append(f"{bid}: raw/final claim count differs from rating units")

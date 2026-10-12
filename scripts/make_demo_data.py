@@ -27,8 +27,8 @@ DOMAINS = ["veda_zdravi", "pravo", "it", "ekonomika", "historie_kultura"]
 
 def run_cli(script, *args):
     result = subprocess.run([sys.executable, str(Path(ROOT, "scripts", script)), *map(str, args)],
-                            capture_output=True, text=True, timeout=60,
-                            env=dict(os.environ, PYTHONDONTWRITEBYTECODE="1"))
+                            capture_output=True, encoding="utf-8", timeout=60,
+                            env=dict(os.environ, PYTHONDONTWRITEBYTECODE="1", PYTHONIOENCODING="utf-8"))
     if result.returncode:
         raise RuntimeError(f"{script} failed:\n{result.stdout}\n{result.stderr}")
     return result.stdout

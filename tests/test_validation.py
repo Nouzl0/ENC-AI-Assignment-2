@@ -12,8 +12,8 @@ class CaseValidationTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             for split, n in (("dev", 10), ("val", 5), ("test", 10)):
                 name = "published_test_candidates.jsonl" if split == "test" else f"cases_{split}.jsonl"
-                rows = (ROOT / "data" / name).read_text().splitlines()[:n]
-                Path(directory, f"cases_{split}.jsonl").write_text("\n".join(rows) + "\n")
+                rows = (ROOT / "data" / name).read_text(encoding="utf-8").splitlines()[:n]
+                Path(directory, f"cases_{split}.jsonl").write_text("\n".join(rows) + "\n", encoding="utf-8")
             result = subprocess.run([sys.executable, str(ROOT / "scripts/validate_cases.py"), "--data-dir", directory,
                                      "--test-file", str(Path(directory, "cases_test.jsonl"))],
                                     capture_output=True, text=True)
