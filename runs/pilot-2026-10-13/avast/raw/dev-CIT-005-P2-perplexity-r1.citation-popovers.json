@@ -1,0 +1,85 @@
+{
+  "kind": "actual product UI citation associations; not invented URLs or repaired claims",
+  "url": "https://www.perplexity.ai/search/c1ff2cf1-2390-4f51-815e-6cd4f7f4cc31",
+  "groups": [
+    {
+      "index": 0,
+      "label": "e-sbirka.gov",
+      "base": "https://e-sbirka.gov.cz/sb/2021/283/2024-07-01",
+      "expected": 1,
+      "sources": [
+        {
+          "url": "https://e-sbirka.gov.cz/sb/2021/283/2024-07-01",
+          "label": "e-sbirka.gov"
+        }
+      ],
+      "pages": []
+    },
+    {
+      "index": 1,
+      "label": "e-sbirka.gov",
+      "base": "https://e-sbirka.gov.cz/sb/2021/283/2024-07-01",
+      "expected": 1,
+      "sources": [
+        {
+          "url": "https://e-sbirka.gov.cz/sb/2021/283/2024-07-01",
+          "label": "e-sbirka.gov"
+        }
+      ],
+      "pages": []
+    },
+    {
+      "index": 2,
+      "label": "e-sbirka.gov",
+      "base": "https://e-sbirka.gov.cz/sb/2021/283/2024-07-01",
+      "expected": 1,
+      "sources": [
+        {
+          "url": "https://e-sbirka.gov.cz/sb/2021/283/2024-07-01",
+          "label": "e-sbirka.gov"
+        }
+      ],
+      "pages": []
+    },
+    {
+      "index": 3,
+      "label": "e-sbirka.gov",
+      "base": "https://e-sbirka.gov.cz/sb/2021/283?zalozka=dalsiInformace",
+      "expected": 1,
+      "sources": [
+        {
+          "url": "https://e-sbirka.gov.cz/sb/2021/283?zalozka=dalsiInformace",
+          "label": "e-sbirka.gov"
+        }
+      ],
+      "pages": []
+    },
+    {
+      "index": 4,
+      "label": "e-sbirka.gov",
+      "base": "https://e-sbirka.gov.cz/sb/2021/283/2024-07-01",
+      "expected": 1,
+      "sources": [
+        {
+          "url": "https://e-sbirka.gov.cz/sb/2021/283/2024-07-01",
+          "label": "e-sbirka.gov"
+        }
+      ],
+      "pages": []
+    },
+    {
+      "index": 5,
+      "label": "e-sbirka.gov",
+      "base": "https://e-sbirka.gov.cz/sb/2021/283?zalozka=dalsiInformace",
+      "expected": 1,
+      "sources": [
+        {
+          "url": "https://e-sbirka.gov.cz/sb/2021/283?zalozka=dalsiInformace",
+          "label": "e-sbirka.gov"
+        }
+      ],
+      "pages": []
+    }
+  ],
+  "captured_at": "2026-10-12T22:30:42.005112+00:00"
+}

@@ -1,0 +1,16 @@
+{
+  "kind": "terminal observation metadata correction, same first cloud request, no retry",
+  "run_id": "dev-CIT-004-P2-chatgpt-r1",
+  "earlier_partial_capture": {
+    "datetime_end": "2026-10-13T00:08:06.901000+02:00",
+    "latency_s": "18.878",
+    "first_attempt_latency_s": "18.878"
+  },
+  "terminal_observation": "2026-10-12T22:10:05.761Z",
+  "new_fields": {
+    "datetime_end": "2026-10-13T00:10:05.761000+02:00",
+    "latency_s": "137.738",
+    "first_attempt_latency_s": "137.738"
+  },
+  "terminal_evidence_sha256": "19779ee7ee6139ae87fa59295b48a3b00da060e37ccb1b614a89ace06409518e"
+}

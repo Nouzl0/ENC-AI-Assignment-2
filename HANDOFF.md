@@ -1,8 +1,19 @@
 # Předání kolegovi: co provést a co ještě není hotové
 
-**My připravujeme software/metodiku, ty provedeš skutečný benchmark.** Žádné výsledky,
-nezávisle schválené reference, G1/G2/G3 ani vítězný P3 nyní nejsou hotové. Neodevzdávat
-syntetické testy jako výsledky produktů. Postup číst spolu s PROTOCOL.md a rubrikou.
+**Skutečný sběr v Avastu provádí autorizovaný AI operátor.** René spravuje holdout
+a kontroluje reference, Jan je autor promptu; oba mají provést nezávislé lidské
+hodnocení. Již existuje 10 skutečných pilotních odpovědí na dvě úlohy v
+`runs/pilot-2026-10-12/` a pilotní zpráva v `docs/results.md`. Finální analytické
+výsledky, nezávisle schválené reference, G1/G2/G3 ani vítězný P3 hotové nejsou.
+Syntetické testy nejsou výsledky produktů. Postup číst spolu s PROTOCOL.md a rubrikou.
+Rozšířený pilot 13. října přidává 23 odpovědí na šest dalších veřejných úloh;
+celkem 33 odpovědí na osm unikátních úloh. Je zvlášť v `runs/pilot-2026-10-13/`
+a nepřičítá se do analytické matice. Soukromé podklady pro Reného před G1 jsou
+v `czai-private-v1/review-before-G1-v1/`; návrh má prázdný podpis a false attestations.
+
+Kolega může finální text protokolu a zprávy dopracovat později. Schválení G1
+musí předcházet prvnímu analytickému běhu; G2 předchází testu a G3 scoringu.
+Pozdější sepsání dokumentu nenahrazuje tyto skutečně provedené kontroly.
 
 Reprodukce na jiné cestě/počítači: viz freeze/README.md, `--path-map` pouze pro ověření
 a finální replay. Předat učiteli autorizovaný kompletní soukromý balíček i přesný commit;
@@ -11,8 +22,9 @@ nepřepisovat původní absolutní cesty uvnitř podepsaných souborů.
 **Krátce, co jsme změnili a proč:** Zpřesnili jsme férové reference a holdout, opravili
 parser a přenositelnost, zajistili přepočitatelný výběr P3 a stejné podklady pro nezávislé
 hodnotitele. Přidali jsme kalibrační kotvy, ukázku evidence a interpretační kontroly,
-aby učitel mohl postup skutečně ověřit; výkon produktů jsme neměřili. Níže je tvůj
-postup pro reálná data, podpisy a závěry.
+aby učitel mohl postup skutečně ověřit. Pilotní odpovědi, metadata a hashovaný export
+již pocházejí ze skutečných produktů; finální výkon zatím změřen není. Níže je postup
+pro navazující sběr, lidské kontroly a závěry.
 
 ## 0. Role a izolovaný pracovní prostor
 
@@ -25,7 +37,10 @@ postup pro reálná data, podpisy a závěry.
   citlivé cesty/reference holdoutu. Scriptové ověřování manifestu potřebuje číst i holdout,
   proto je nespouští autor promptu. Samotný `.gitignore` nebo slib nenahrazuje oprávnění.
 
-Příkazy provádí správce z kořene aktuálního repozitáře. `WORK` je absolutní cesta mimo Git,
+Příkazy ke skrytému testu, referencím a branám provádí René jako správce.
+Sběr, zaslepení, anotační klíč a automatické kontroly provádí nehodnotící operátor;
+René ani Jan před nezávislým hodnocením nemají přístup k jeho klíči/nápovědám.
+Příkazy níže se spouštějí z kořene aktuálního repozitáře. `WORK` je absolutní cesta mimo Git,
 **ne symlink zpět do repozitáře**. Vybrat novou verzovanou složku:
 
 ```bash
@@ -131,7 +146,7 @@ python3 scripts/score.py --freeze "$WORK/G1.json" --runs "$WORK/runs/run_plan_de
 
 Hodnotitelé dostanou pouze své *_to_rate*.csv a rubriku/kalibrační kotvy/daily reference,
 nikoli klíč či výsledky s názvy systémů. Oba hodnotí bez auto_suggestion, HTTP či match
-nápověd; `pairs_auto_checks.csv` zůstává u správce. Původní čtyři exportované listy **neměnit**. Hodnocení uložit
+nápověd; `pairs_auto_checks.csv` zůstává u nehodnotícího operátora. Původní čtyři exportované listy **neměnit**. Hodnocení uložit
 jako *_rated_rater1.csv (před diskusí), *_rated_rater2.csv (jen vybraný vzorek); konsenzus
 jako pairs_rated.csv a answers_rated.csv. Stejná identita rater v answer i pair.
 Ruční segmentace: žádná nepřečtená část odpovědi, nové pair_id, n_claims a review=yes.
@@ -205,7 +220,7 @@ python3 scripts/check_citations.py --freeze "$WORK/G2.json" --runs "$WORK/runs/r
 Všechna selhání i retry ponechat. Je dovoleno také jeden společný export test+repeat,
 ale nikdy neexportovat znovu stejné run_id. Dodržet 24/72/72h a source checks do 7 dnů;
 porušení zaznamenat, ne upravit časy. Automatický HTTP checker je diagnostika pro
-správce a pozdější porovnání, ne nápověda nezávislým hodnotitelům ani důkaz S2.
+nehodnotícího operátora a pozdější porovnání, ne nápověda nezávislým hodnotitelům ani důkaz S2.
 `--offline` přeskočí HTTP; v ostrém experimentu pak chybí automatická validace shody,
 což nelze prezentovat jako dokončenou. Paywall/403 nepovažovat automaticky za FAB.
 

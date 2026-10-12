@@ -1,0 +1,25 @@
+{
+  "collection": "avast-v2",
+  "kind": "extended pre-G1 pilot; never confirmatory data",
+  "created_at": "2026-10-12T22:03:55.936323+00:00",
+  "task_ids": [
+    "CIT-003",
+    "CIT-004",
+    "CIT-005",
+    "CIT-008",
+    "CIT-012",
+    "CIT-013"
+  ],
+  "systems": [
+    "chatgpt",
+    "gemini",
+    "claude",
+    "grok",
+    "perplexity"
+  ],
+  "condition": "P2",
+  "selection_reason": "Add six public dev tasks across difficulty, language, domain and edge types; together with CIT-001/CIT-020 permit eight unique-task observations. Selection fixed before new responses. No holdout opened to prompt author or P3 optimization.",
+  "claude": "known quota limit; keep planned rows until access returns, do not silently send retries",
+  "original_plan_sha256": "f8c163d4b32ffd85b06b61d4b7e52ffefc1ca6fef903bd1a059b1b1ccc8b3d93",
+  "G1": false
+}

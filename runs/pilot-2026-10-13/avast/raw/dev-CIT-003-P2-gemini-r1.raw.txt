@@ -1,0 +1,12 @@
+ANSWER:
+The true half-life (Cambridge half-life) of carbon-14 is 5,730 ± 40 years [1], [2]. In radiocarbon dating conventions, the older "Libby half-life" value of 5,568 years is still conventionally used to calculate raw radiocarbon ages before calibration [1].
+
+CLAIMS:
+C1: Carbon-14 has a half-life of 5,730 ± 40 years [1].
+C2: The U.S. National Institute of Standards and Technology recognizes the half-life of carbon-14 as about 5,730 years [2].
+
+SOURCES:
+[1] Carbon-14 – Encyclopædia Britannica – October 02, 2026 – https://www.britannica.com/science/carbon-14
+[2] How Do You Know the Age of Fossils and Other Old Things? – National Institute of Standards and Technology – February 24, 2025 – https://www.nist.gov/how-do-you-measure-it/how-do-you-know-age-fossils-and-other-old-things
+
+CONFIDENCE: high – The value is corroborated across official government research institutions and reference encyclopedias.

@@ -1,0 +1,17 @@
+ODPOVĚĎ: Aktuální oficiální nadmořská výška přirozeného vrcholu Sněžky je 1603,296 m n. m. (systém Balt po vyrovnání); dříve uváděných 1602 m odpovídá výšce trigonometrického bodu, který není nejvyšším místem hory.⁠Cuzk
+
+TVRZENÍ:
+
+T1: Zeměměřický úřad (ČÚZK) ve dnech 20.–21. 2. 2014 zaměřil metodou technické nivelace nadmořskou výšku přirozeného vrcholu Sněžky na 1603,296 m n. m. (Balt – po vyrovnání). [1]
+
+T2: Tento nejvyšší bod leží na polském území u kaple sv. Vavřince, přibližně 3,5 m od státní hranice; nejvyšší bod na českém území je asi o 10 cm nižší. [1]
+
+T3: Dříve uváděná výška 1602 m byla zaokrouhlením odvozena z výšky trigonometrického bodu č. 12 Sněžka (přesně 1602,02 m n. m.), který neleží na nejvyšším místě, ale na místě vhodném pro optická měření dalších bodů sítě. [1]
+
+T4: Jde o výšku nestabilizovaného přírodního povrchu, která se může mírně měnit erozí či lidskou činností; trigonometrický bod je stabilní od roku 1936. [1]
+
+ZDROJE:
+
+[1] K výšce Sněžky – Zeměměřický úřad (ČÚZK) – 25. 2. 2014 – https://cuzk.gov.cz/Aktuality-resort/20140225/Snezka.aspx
+
+JISTOTA: vysoká – vychází přímo z oficiálního stanoviska ČÚZK, které potvrdilo měření z roku 2014 a dosud nebylo oficiálně revidováno novějšími údaji.

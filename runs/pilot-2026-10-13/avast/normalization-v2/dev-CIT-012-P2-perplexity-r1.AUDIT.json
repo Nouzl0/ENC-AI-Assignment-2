@@ -1,0 +1,10 @@
+{
+  "kind": "faithful export of native citation groups at original positions",
+  "original_raw_sha256": "c798d259914f651f03b44ac31af9df68c1299a5e81fcc1622a7b5c2dc46f169e",
+  "original_answer_sha256": "b22a4bda70dd481f912a6bd39d09a52f61df2dab05157564c3a55a08c77311ea",
+  "citation_popovers_sha256": "4ff2caf615deda71d497ae13f6c5c12aefa263feafc26f68495e826bad89b778",
+  "normalized_v2_sha256": "14779638ae349753fdd27eb050afe8dc8b6e939a62232aec2ca23628a691ee46",
+  "groups": 10,
+  "source_associations": 13,
+  "changes": "Native actual chip destinations retained; newline chip labels replaced by hostname labels. Claims and source targets unchanged. Original v1/raw preserved."
+}

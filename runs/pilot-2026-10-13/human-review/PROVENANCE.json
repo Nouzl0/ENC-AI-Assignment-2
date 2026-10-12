@@ -1,0 +1,12 @@
+{
+  "kind": "terminal subset for extended pre-G1 pilot annotation, not analytical data or a freeze",
+  "source_plan": "/mnt/d/AI/czai-private-v1/calibration/avast-v2/run_plan_pilot.csv",
+  "source_plan_sha256": "f0439f0f3b4df4f5390c434da36f1d856e0422150ce6b154d5c835e3db081e8b",
+  "source_manifest_sha256": "28034354698ebdcfc2311f3c8398d97827fe83ea5c03aec240970452ae4aacce",
+  "completed_answers": 23,
+  "failed_rows": 1,
+  "planned_rows_retained_in_source": 6,
+  "faithful_perplexity_v2_answers": 6,
+  "second_rater_share": 1.0,
+  "human_ratings_completed": false
+}

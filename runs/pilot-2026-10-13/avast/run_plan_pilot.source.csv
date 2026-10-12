@@ -1,0 +1,781 @@
+seq,run_id,phase,split,task_id,language,condition,prompt_file,prompt_sha256,rendered_prompt_sha256,system,interface,run_index,system_instruction,tool_permissions,context_files,temperature,max_output,answer_file,run_status,final_attempt_ok,attempt1_file,first_attempt_latency_s,model_visible,plan_tier,datetime_start,datetime_end,latency_s,search_used,n_sources_shown,turns,tool_calls_visible,retries,failure_type,first_attempt_ok,manual_intervention,share_link,screenshot_file,operator,cost_note,notes,answer_sha256,raw_answer_file,raw_answer_sha256,screenshot_sha256,attempt1_sha256,failure_artifact_file,failure_artifact_sha256,replacement_run_id,replaces_run_id,prompt_text
+1,dev-CIT-003-P2-perplexity-r1,dev,dev,CIT-003,en,P2,P2_structured_en.txt,96e3772d7a11776b3ff0e949dfb000bdf214b480f7a571e5cab19d61da59b554,657fba53dbb52b758449c6311193bff9360f84d32c065e7552d595d2df6b17db,perplexity,perplexity.ai (web),1,"výchozí, neviditelná",režim Search; Research/Labs vypnuto; Incognito,žádné,"výchozí, nenastavitelné",výchozí,/mnt/d/AI/czai-private-v1/calibration/avast-v2/answers/dev-CIT-003-P2-perplexity-r1.txt,completed,yes,,6.786,Default Search; model name not visible,Free previously observed; not redisplayed,2026-10-13T00:29:46.047000+02:00,2026-10-13T00:29:52.833000+02:00,6.786,unclear,unknown,1,unknown,0,none,yes,"Native browser input; Markdown serialization of original reply DOM with original hyperlink destinations; no claims, URLs or citation repairs",,/mnt/d/AI/czai-private-v1/calibration/avast-v2/screens/dev-CIT-003-P2-perplexity-r1.png,codex-ui-2026-10-12,"Subscription amount, tokens and credits unknown; no separate API charge observed",Real pre-G1 pilot in Avast 153; exact rendered prompt verified. Completion observed by stable reply >=1 s without a visible Stop control; polling adds observation delay. Original reply DOM preserved. Extended public dev pilot. Incognito confirmed by Ukončit anonymní režim. Default ordinary search; no Research/Computer/Labs. Model button without a model name. Exact tier not redisplayed in this new header.,cd4696bbed5c9a9cdcf7d8effcbb1e4fb4f845f4b7b95633853645f893fea0e8,/mnt/d/AI/czai-private-v1/calibration/avast-v2/raw/dev-CIT-003-P2-perplexity-r1.raw.txt,658bd1105f12c1237e982aec8b9a4953848e0ce8efd913eef770b5fe6d12b4b8,61b41d17673510c4543dee4aa38809d2f74e62c5cac105e633ac46dc3289305d,,,,,,"You are a careful research assistant. You support every claim with a source you actually opened in this conversation.
+
+Goal: answer the question accurately and concisely so that the reader can verify every claim.
+
+Question:
+What is the half-life of carbon-14?
+
+Rules:
+1. Search the web. Do not cite a source you did not open, and do not invent URLs.
+2. After every factual claim (number, date, name, definition), add a reference to its source in the form [1], [2].
+3. Cite a specific page or document, not a homepage or a search results page.
+4. Prefer primary and official sources (legislation, public authority, original study, standard).
+5. If the question contains a false premise, correct it first.
+6. If sources disagree, give both values, each with its own source, and explain the difference.
+7. If the question restricts the age of sources, use only sources that meet the restriction and give their dates.
+8. If you cannot find a reliable answer, say so. Do not guess.
+
+Output format:
+ANSWER: 1–3 sentences with the direct answer.
+CLAIMS:
+C1: <one claim> [n]
+C2: <one claim> [n]
+SOURCES:
+[1] <title> – <publisher> – <publication date or ""not stated""> – <full URL>
+CONFIDENCE: high / medium / low – one sentence why.
+"
+2,dev-CIT-003-P2-grok-r1,dev,dev,CIT-003,en,P2,P2_structured_en.txt,96e3772d7a11776b3ff0e949dfb000bdf214b480f7a571e5cab19d61da59b554,657fba53dbb52b758449c6311193bff9360f84d32c065e7552d595d2df6b17db,grok,grok.com (web),1,"výchozí, neviditelná",vyhledávání automatické (web + X); DeepSearch vypnut; Private Chat,žádné,"výchozí, nenastavitelné",výchozí,/mnt/d/AI/czai-private-v1/calibration/avast-v2/answers/dev-CIT-003-P2-grok-r1.txt,completed,yes,,44.845,Fast; underlying model unknown,unknown,2026-10-13T00:10:56.658000+02:00,2026-10-13T00:11:41.503000+02:00,44.845,unclear,unknown,1,unknown,0,none,yes,"Native browser input; Markdown serialization of original reply DOM with original hyperlink destinations; no claims, URLs or citation repairs",,/mnt/d/AI/czai-private-v1/calibration/avast-v2/screens/dev-CIT-003-P2-grok-r1.png,codex-ui-2026-10-12,"Subscription amount, tokens and credits unknown; no separate API charge observed","Real pre-G1 pilot in Avast 153; exact rendered prompt verified. Completion observed by stable reply >=1 s without a visible Stop control; polling adds observation delay. Original reply DOM preserved. Extended public dev pilot. Private chat confirmed by Přepnout na výchozí chat; Model: Fast checked. Ordinary web/X access, no DeepSearch. No age/access intervention during this request.",105813cb3990bb581b8343dafa0b3d7ca39ea755f0e0d06145a8bfa262896bc2,/mnt/d/AI/czai-private-v1/calibration/avast-v2/raw/dev-CIT-003-P2-grok-r1.raw.txt,548d11ccfc8eedccc71cc837d92ea28dcca7f5911de11648006d9d3ead915bd7,a87792f032e90fb32cfeb345a8329cc4835cdc1ea9bd8a6be384f6294e55a686,,,,,,"You are a careful research assistant. You support every claim with a source you actually opened in this conversation.
+
+Goal: answer the question accurately and concisely so that the reader can verify every claim.
+
+Question:
+What is the half-life of carbon-14?
+
+Rules:
+1. Search the web. Do not cite a source you did not open, and do not invent URLs.
+2. After every factual claim (number, date, name, definition), add a reference to its source in the form [1], [2].
+3. Cite a specific page or document, not a homepage or a search results page.
+4. Prefer primary and official sources (legislation, public authority, original study, standard).
+5. If the question contains a false premise, correct it first.
+6. If sources disagree, give both values, each with its own source, and explain the difference.
+7. If the question restricts the age of sources, use only sources that meet the restriction and give their dates.
+8. If you cannot find a reliable answer, say so. Do not guess.
+
+Output format:
+ANSWER: 1–3 sentences with the direct answer.
+CLAIMS:
+C1: <one claim> [n]
+C2: <one claim> [n]
+SOURCES:
+[1] <title> – <publisher> – <publication date or ""not stated""> – <full URL>
+CONFIDENCE: high / medium / low – one sentence why.
+"
+3,dev-CIT-003-P2-claude-r1,dev,dev,CIT-003,en,P2,P2_structured_en.txt,96e3772d7a11776b3ff0e949dfb000bdf214b480f7a571e5cab19d61da59b554,657fba53dbb52b758449c6311193bff9360f84d32c065e7552d595d2df6b17db,claude,claude.ai (web),1,"výchozí, neviditelná",Web search zapnut/automatický; Research vypnut; Incognito chat,žádné,"výchozí, nenastavitelné",výchozí,/mnt/d/AI/czai-private-v1/calibration/avast-v2/answers/dev-CIT-003-P2-claude-r1.txt,planned,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,"You are a careful research assistant. You support every claim with a source you actually opened in this conversation.
+
+Goal: answer the question accurately and concisely so that the reader can verify every claim.
+
+Question:
+What is the half-life of carbon-14?
+
+Rules:
+1. Search the web. Do not cite a source you did not open, and do not invent URLs.
+2. After every factual claim (number, date, name, definition), add a reference to its source in the form [1], [2].
+3. Cite a specific page or document, not a homepage or a search results page.
+4. Prefer primary and official sources (legislation, public authority, original study, standard).
+5. If the question contains a false premise, correct it first.
+6. If sources disagree, give both values, each with its own source, and explain the difference.
+7. If the question restricts the age of sources, use only sources that meet the restriction and give their dates.
+8. If you cannot find a reliable answer, say so. Do not guess.
+
+Output format:
+ANSWER: 1–3 sentences with the direct answer.
+CLAIMS:
+C1: <one claim> [n]
+C2: <one claim> [n]
+SOURCES:
+[1] <title> – <publisher> – <publication date or ""not stated""> – <full URL>
+CONFIDENCE: high / medium / low – one sentence why.
+"
+4,dev-CIT-003-P2-chatgpt-r1,dev,dev,CIT-003,en,P2,P2_structured_en.txt,96e3772d7a11776b3ff0e949dfb000bdf214b480f7a571e5cab19d61da59b554,657fba53dbb52b758449c6311193bff9360f84d32c065e7552d595d2df6b17db,chatgpt,chatgpt.com (web),1,"výchozí, neviditelná",Search vynucen; Deep research vypnut; Temporary chat (Unpersonalized),žádné,"výchozí, nenastavitelné",výchozí,/mnt/d/AI/czai-private-v1/calibration/avast-v2/answers/dev-CIT-003-P2-chatgpt-r1.txt,completed,yes,,55.295,"GPT-6, Střední",unknown,2026-10-13T00:05:05.882000+02:00,2026-10-13T00:06:01.177000+02:00,55.295,unclear,unknown,1,unknown,0,none,yes,"Native browser input; Markdown serialization of original reply DOM with original hyperlink destinations; no claims, URLs or citation repairs",,/mnt/d/AI/czai-private-v1/calibration/avast-v2/screens/dev-CIT-003-P2-chatgpt-r1.png,codex-ui-2026-10-12,"Subscription amount, tokens and credits unknown; no separate API charge observed","Real pre-G1 pilot in Avast 153; exact rendered prompt verified. Completion observed by stable reply >=1 s without a visible Stop control; polling adds observation delay. Original reply DOM preserved. Extended pilot fixed before collection, selected public dev tasks only. Temporary chat confirmed by Vypnout dočasný chat and Bez personalizace. Model menu checked GPT-6=true and displayed Střední. Ordinary tools; no Deep Research. Search mode not separately forced in this UI.",36ec25f0a0d949d4dc6c6a869580031dc071bfd8000ccd8cf8a237f54b4544d3,/mnt/d/AI/czai-private-v1/calibration/avast-v2/raw/dev-CIT-003-P2-chatgpt-r1.raw.txt,f28d9d6b7e82262769d2b20e90556487f2bc7ba72cd4ec39e0c50d2430cbd542,88b8da4d0f615c11aa1c338472caecc37e4c2679e8f518681cae5024d880f9a2,,,,,,"You are a careful research assistant. You support every claim with a source you actually opened in this conversation.
+
+Goal: answer the question accurately and concisely so that the reader can verify every claim.
+
+Question:
+What is the half-life of carbon-14?
+
+Rules:
+1. Search the web. Do not cite a source you did not open, and do not invent URLs.
+2. After every factual claim (number, date, name, definition), add a reference to its source in the form [1], [2].
+3. Cite a specific page or document, not a homepage or a search results page.
+4. Prefer primary and official sources (legislation, public authority, original study, standard).
+5. If the question contains a false premise, correct it first.
+6. If sources disagree, give both values, each with its own source, and explain the difference.
+7. If the question restricts the age of sources, use only sources that meet the restriction and give their dates.
+8. If you cannot find a reliable answer, say so. Do not guess.
+
+Output format:
+ANSWER: 1–3 sentences with the direct answer.
+CLAIMS:
+C1: <one claim> [n]
+C2: <one claim> [n]
+SOURCES:
+[1] <title> – <publisher> – <publication date or ""not stated""> – <full URL>
+CONFIDENCE: high / medium / low – one sentence why.
+"
+5,dev-CIT-003-P2-gemini-r1,dev,dev,CIT-003,en,P2,P2_structured_en.txt,96e3772d7a11776b3ff0e949dfb000bdf214b480f7a571e5cab19d61da59b554,657fba53dbb52b758449c6311193bff9360f84d32c065e7552d595d2df6b17db,gemini,gemini.google.com (web),1,"výchozí, neviditelná",vyhledávání automatické; Deep Research vypnut; Temporary chat,žádné,"výchozí, nenastavitelné",výchozí,/mnt/d/AI/czai-private-v1/calibration/avast-v2/answers/dev-CIT-003-P2-gemini-r1.txt,completed,yes,,8.549,Flash; exact version not redisplayed (prior UI: 3.6 Flash),Plus previously observed; not redisplayed,2026-10-13T00:17:20.941000+02:00,2026-10-13T00:17:29.490000+02:00,8.549,unclear,unknown,1,unknown,0,none,yes,"Native browser input; Markdown serialization of original reply DOM with original hyperlink destinations; no claims, URLs or citation repairs",,/mnt/d/AI/czai-private-v1/calibration/avast-v2/screens/dev-CIT-003-P2-gemini-r1.png,codex-ui-2026-10-12,"Subscription amount, tokens and credits unknown; no separate API charge observed",Real pre-G1 pilot in Avast 153; exact rendered prompt verified. Completion observed by stable reply >=1 s without a visible Stop control; polling adds observation delay. Original reply DOM preserved. Extended public dev pilot. Temporary confirmed by chat-window.is-temporary-chat and mode Flash rechecked. Sidebar closed before input/capture. Ordinary automatic search; no Deep Research. Version/tier notes distinguish current visible state from previous observation.,9fa0a2c3b34c275e4af0988cd4ec73529bd4c1be72fe5f5967806f13393e79d6,/mnt/d/AI/czai-private-v1/calibration/avast-v2/raw/dev-CIT-003-P2-gemini-r1.raw.txt,a37c6a78c063c1d234f4575c22abcb3f9cb405e97bb4bbc4ea9dac2b4be9081d,e4b444d8618880aa604ca9c8f2d61b384e12be9d6a8e030a3037e55122b87c85,,,,,,"You are a careful research assistant. You support every claim with a source you actually opened in this conversation.
+
+Goal: answer the question accurately and concisely so that the reader can verify every claim.
+
+Question:
+What is the half-life of carbon-14?
+
+Rules:
+1. Search the web. Do not cite a source you did not open, and do not invent URLs.
+2. After every factual claim (number, date, name, definition), add a reference to its source in the form [1], [2].
+3. Cite a specific page or document, not a homepage or a search results page.
+4. Prefer primary and official sources (legislation, public authority, original study, standard).
+5. If the question contains a false premise, correct it first.
+6. If sources disagree, give both values, each with its own source, and explain the difference.
+7. If the question restricts the age of sources, use only sources that meet the restriction and give their dates.
+8. If you cannot find a reliable answer, say so. Do not guess.
+
+Output format:
+ANSWER: 1–3 sentences with the direct answer.
+CLAIMS:
+C1: <one claim> [n]
+C2: <one claim> [n]
+SOURCES:
+[1] <title> – <publisher> – <publication date or ""not stated""> – <full URL>
+CONFIDENCE: high / medium / low – one sentence why.
+"
+6,dev-CIT-004-P2-chatgpt-r1,dev,dev,CIT-004,cs,P2,P2_structured_cs.txt,481c3fa95fa65d7c3478e2974c6c6d81653082108a466c467d96111a788211b1,3b5e281c1249f5f899b2e6c7724a51472085478c7c45432b40daeaa16f4f112a,chatgpt,chatgpt.com (web),1,"výchozí, neviditelná",Search vynucen; Deep research vypnut; Temporary chat (Unpersonalized),žádné,"výchozí, nenastavitelné",výchozí,/mnt/d/AI/czai-private-v1/calibration/avast-v2/answers/dev-CIT-004-P2-chatgpt-r1.txt,failed,no,,137.738,"GPT-6, Střední",unknown,2026-10-13T00:07:48.023000+02:00,2026-10-13T00:10:05.761000+02:00,137.738,unclear,unknown,1,unknown,0,tool_error,no,"Native browser input; Markdown serialization of original reply DOM with original hyperlink destinations; no claims, URLs or citation repairs",,/mnt/d/AI/czai-private-v1/calibration/avast-v2/screens/dev-CIT-004-P2-chatgpt-r1.png,codex-ui-2026-10-12,"Subscription amount, tokens and credits unknown; no separate API charge observed","Real pre-G1 pilot in Avast 153; exact rendered prompt verified. Completion observed by stable reply >=1 s without a visible Stop control; polling adds observation delay. Original reply DOM preserved. Extended public dev pilot. Temporary/Bez personalizace and GPT-6/Střední checked in actual UI before submission. Ordinary tools; no Deep Research. Search mode not separately forced in this UI. Terminal verification after initial snapshot found UI load error. Partial original output and screenshot retained unchanged. Earlier stable-text interval is capture time, not proven full completion. No regeneration or resubmission. Terminal failure evidenced at 2026-10-12T22:10:05.761Z. Failure interval corrected to actual later terminal observation (upper bound, includes verification delay); earlier partial snapshot interval archived separately. Failed screenshot may not visibly prove error; terminal TXT/JSON are authoritative.",b629e731448305957f248c27dc72c3ef58c05706e82fedf4b5935e56828bd3c3,/mnt/d/AI/czai-private-v1/calibration/avast-v2/raw/dev-CIT-004-P2-chatgpt-r1.raw.txt,848de704060eaf3fa26ae91c9cd6569d9c690d87c6e39e6aa36afd5f90bb8b3b,455fc0bc47db7caa00c8f5a5fd830a9432cfcb5c730ef56eeab0db237eb8aa47,,/mnt/d/AI/czai-private-v1/calibration/avast-v2/audit/dev-CIT-004-P2-chatgpt-r1.failure.txt,29885610b14ba871bde4743a6aedeef8252f3077e423aea50a719a82d56cb04a,,,"Jste pečlivý rešeršní asistent. Každé tvrzení dokládáte zdrojem, který jste v této konverzaci skutečně otevřeli.
+
+Cíl: odpovězte přesně a stručně na otázku tak, aby si čtenář mohl každé tvrzení ověřit.
+
+Otázka:
+Jaká je nadmořská výška Sněžky? Různé zdroje uvádějí různé hodnoty – uveďte, která je aktuální oficiální a proč se liší.
+
+Pravidla:
+1. Vyhledejte informace na webu. Necitujte zdroj, který jste neotevřeli, a nevymýšlejte URL.
+2. Za každým faktickým tvrzením (číslo, datum, jméno, definice) uveďte odkaz na zdroj ve tvaru [1], [2].
+3. Citujte konkrétní stránku nebo dokument, ne domovskou stránku ani výsledky vyhledávání.
+4. Upřednostňujte primární a oficiální zdroje (zákon, úřad, původní studie, standard).
+5. Pokud otázka obsahuje chybný předpoklad, nejprve ho opravte.
+6. Pokud se zdroje liší, uveďte obě hodnoty, každou s vlastním zdrojem, a vysvětlete rozdíl.
+7. Pokud otázka omezuje stáří zdrojů, použijte jen zdroje, které omezení splňují, a uveďte jejich datum.
+8. Pokud spolehlivou odpověď nenajdete, napište to. Nehádejte.
+
+Formát výstupu:
+ODPOVĚĎ: 1–3 věty s přímou odpovědí.
+TVRZENÍ:
+T1: <jedno tvrzení> [n]
+T2: <jedno tvrzení> [n]
+ZDROJE:
+[1] <název> – <vydavatel> – <datum vydání nebo „neuvedeno“> – <úplná URL>
+JISTOTA: vysoká / střední / nízká – jedna věta proč.
+"
+7,dev-CIT-004-P2-gemini-r1,dev,dev,CIT-004,cs,P2,P2_structured_cs.txt,481c3fa95fa65d7c3478e2974c6c6d81653082108a466c467d96111a788211b1,3b5e281c1249f5f899b2e6c7724a51472085478c7c45432b40daeaa16f4f112a,gemini,gemini.google.com (web),1,"výchozí, neviditelná",vyhledávání automatické; Deep Research vypnut; Temporary chat,žádné,"výchozí, nenastavitelné",výchozí,/mnt/d/AI/czai-private-v1/calibration/avast-v2/answers/dev-CIT-004-P2-gemini-r1.txt,completed,yes,,9.551,Flash; exact version not redisplayed (prior UI: 3.6 Flash),Plus previously observed; not redisplayed,2026-10-13T00:18:49.252000+02:00,2026-10-13T00:18:58.803000+02:00,9.551,unclear,unknown,1,unknown,0,none,yes,"Native browser input; Markdown serialization of original reply DOM with original hyperlink destinations; no claims, URLs or citation repairs",,/mnt/d/AI/czai-private-v1/calibration/avast-v2/screens/dev-CIT-004-P2-gemini-r1.png,codex-ui-2026-10-12,"Subscription amount, tokens and credits unknown; no separate API charge observed",Real pre-G1 pilot in Avast 153; exact rendered prompt verified. Completion observed by stable reply >=1 s without a visible Stop control; polling adds observation delay. Original reply DOM preserved. Extended public dev pilot. Temporary confirmed by chat-window.is-temporary-chat and mode Flash rechecked. Sidebar closed before input/capture. Ordinary automatic search; no Deep Research. Version/tier notes distinguish current visible state from previous observation.,7f5908b6a79a9259f252fde230f7853eb315bd53a95773f1556224f435b4fec7,/mnt/d/AI/czai-private-v1/calibration/avast-v2/raw/dev-CIT-004-P2-gemini-r1.raw.txt,c3c11e62afb0c7800f8003f1aa4cf2fe8f5689c69c87850362bba32ea9975c4e,cc0f5a4db5c323f6bae9eb3a898ba736a38e9adfdf9dbce7771b43521cd262ba,,,,,,"Jste pečlivý rešeršní asistent. Každé tvrzení dokládáte zdrojem, který jste v této konverzaci skutečně otevřeli.
+
+Cíl: odpovězte přesně a stručně na otázku tak, aby si čtenář mohl každé tvrzení ověřit.
+
+Otázka:
+Jaká je nadmořská výška Sněžky? Různé zdroje uvádějí různé hodnoty – uveďte, která je aktuální oficiální a proč se liší.
+
+Pravidla:
+1. Vyhledejte informace na webu. Necitujte zdroj, který jste neotevřeli, a nevymýšlejte URL.
+2. Za každým faktickým tvrzením (číslo, datum, jméno, definice) uveďte odkaz na zdroj ve tvaru [1], [2].
+3. Citujte konkrétní stránku nebo dokument, ne domovskou stránku ani výsledky vyhledávání.
+4. Upřednostňujte primární a oficiální zdroje (zákon, úřad, původní studie, standard).
+5. Pokud otázka obsahuje chybný předpoklad, nejprve ho opravte.
+6. Pokud se zdroje liší, uveďte obě hodnoty, každou s vlastním zdrojem, a vysvětlete rozdíl.
+7. Pokud otázka omezuje stáří zdrojů, použijte jen zdroje, které omezení splňují, a uveďte jejich datum.
+8. Pokud spolehlivou odpověď nenajdete, napište to. Nehádejte.
+
+Formát výstupu:
+ODPOVĚĎ: 1–3 věty s přímou odpovědí.
+TVRZENÍ:
+T1: <jedno tvrzení> [n]
+T2: <jedno tvrzení> [n]
+ZDROJE:
+[1] <název> – <vydavatel> – <datum vydání nebo „neuvedeno“> – <úplná URL>
+JISTOTA: vysoká / střední / nízká – jedna věta proč.
+"
+8,dev-CIT-004-P2-grok-r1,dev,dev,CIT-004,cs,P2,P2_structured_cs.txt,481c3fa95fa65d7c3478e2974c6c6d81653082108a466c467d96111a788211b1,3b5e281c1249f5f899b2e6c7724a51472085478c7c45432b40daeaa16f4f112a,grok,grok.com (web),1,"výchozí, neviditelná",vyhledávání automatické (web + X); DeepSearch vypnut; Private Chat,žádné,"výchozí, nenastavitelné",výchozí,/mnt/d/AI/czai-private-v1/calibration/avast-v2/answers/dev-CIT-004-P2-grok-r1.txt,completed,yes,,21.403,Fast; underlying model unknown,unknown,2026-10-13T00:11:51.276000+02:00,2026-10-13T00:12:12.679000+02:00,21.403,unclear,unknown,1,unknown,0,none,yes,"Native browser input; Markdown serialization of original reply DOM with original hyperlink destinations; no claims, URLs or citation repairs",,/mnt/d/AI/czai-private-v1/calibration/avast-v2/screens/dev-CIT-004-P2-grok-r1.png,codex-ui-2026-10-12,"Subscription amount, tokens and credits unknown; no separate API charge observed","Real pre-G1 pilot in Avast 153; exact rendered prompt verified. Completion observed by stable reply >=1 s without a visible Stop control; polling adds observation delay. Original reply DOM preserved. Extended public dev pilot. Private chat confirmed by Přepnout na výchozí chat; Model: Fast checked. Ordinary web/X access, no DeepSearch. No age/access intervention during this request.",2093f4f897ac6f61a85b2316a5409ecc4e650c7cfec89ba6d7931a037fa77e8d,/mnt/d/AI/czai-private-v1/calibration/avast-v2/raw/dev-CIT-004-P2-grok-r1.raw.txt,bb9520777a5052c9d11ccd41ebe5068806ab9111194e4336be0b751622d3cc22,f8f45ad4a7e57d6f55d23a91a369e6a7622b4b7e53a16800389e701f5ac37879,,,,,,"Jste pečlivý rešeršní asistent. Každé tvrzení dokládáte zdrojem, který jste v této konverzaci skutečně otevřeli.
+
+Cíl: odpovězte přesně a stručně na otázku tak, aby si čtenář mohl každé tvrzení ověřit.
+
+Otázka:
+Jaká je nadmořská výška Sněžky? Různé zdroje uvádějí různé hodnoty – uveďte, která je aktuální oficiální a proč se liší.
+
+Pravidla:
+1. Vyhledejte informace na webu. Necitujte zdroj, který jste neotevřeli, a nevymýšlejte URL.
+2. Za každým faktickým tvrzením (číslo, datum, jméno, definice) uveďte odkaz na zdroj ve tvaru [1], [2].
+3. Citujte konkrétní stránku nebo dokument, ne domovskou stránku ani výsledky vyhledávání.
+4. Upřednostňujte primární a oficiální zdroje (zákon, úřad, původní studie, standard).
+5. Pokud otázka obsahuje chybný předpoklad, nejprve ho opravte.
+6. Pokud se zdroje liší, uveďte obě hodnoty, každou s vlastním zdrojem, a vysvětlete rozdíl.
+7. Pokud otázka omezuje stáří zdrojů, použijte jen zdroje, které omezení splňují, a uveďte jejich datum.
+8. Pokud spolehlivou odpověď nenajdete, napište to. Nehádejte.
+
+Formát výstupu:
+ODPOVĚĎ: 1–3 věty s přímou odpovědí.
+TVRZENÍ:
+T1: <jedno tvrzení> [n]
+T2: <jedno tvrzení> [n]
+ZDROJE:
+[1] <název> – <vydavatel> – <datum vydání nebo „neuvedeno“> – <úplná URL>
+JISTOTA: vysoká / střední / nízká – jedna věta proč.
+"
+9,dev-CIT-004-P2-claude-r1,dev,dev,CIT-004,cs,P2,P2_structured_cs.txt,481c3fa95fa65d7c3478e2974c6c6d81653082108a466c467d96111a788211b1,3b5e281c1249f5f899b2e6c7724a51472085478c7c45432b40daeaa16f4f112a,claude,claude.ai (web),1,"výchozí, neviditelná",Web search zapnut/automatický; Research vypnut; Incognito chat,žádné,"výchozí, nenastavitelné",výchozí,/mnt/d/AI/czai-private-v1/calibration/avast-v2/answers/dev-CIT-004-P2-claude-r1.txt,planned,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,"Jste pečlivý rešeršní asistent. Každé tvrzení dokládáte zdrojem, který jste v této konverzaci skutečně otevřeli.
+
+Cíl: odpovězte přesně a stručně na otázku tak, aby si čtenář mohl každé tvrzení ověřit.
+
+Otázka:
+Jaká je nadmořská výška Sněžky? Různé zdroje uvádějí různé hodnoty – uveďte, která je aktuální oficiální a proč se liší.
+
+Pravidla:
+1. Vyhledejte informace na webu. Necitujte zdroj, který jste neotevřeli, a nevymýšlejte URL.
+2. Za každým faktickým tvrzením (číslo, datum, jméno, definice) uveďte odkaz na zdroj ve tvaru [1], [2].
+3. Citujte konkrétní stránku nebo dokument, ne domovskou stránku ani výsledky vyhledávání.
+4. Upřednostňujte primární a oficiální zdroje (zákon, úřad, původní studie, standard).
+5. Pokud otázka obsahuje chybný předpoklad, nejprve ho opravte.
+6. Pokud se zdroje liší, uveďte obě hodnoty, každou s vlastním zdrojem, a vysvětlete rozdíl.
+7. Pokud otázka omezuje stáří zdrojů, použijte jen zdroje, které omezení splňují, a uveďte jejich datum.
+8. Pokud spolehlivou odpověď nenajdete, napište to. Nehádejte.
+
+Formát výstupu:
+ODPOVĚĎ: 1–3 věty s přímou odpovědí.
+TVRZENÍ:
+T1: <jedno tvrzení> [n]
+T2: <jedno tvrzení> [n]
+ZDROJE:
+[1] <název> – <vydavatel> – <datum vydání nebo „neuvedeno“> – <úplná URL>
+JISTOTA: vysoká / střední / nízká – jedna věta proč.
+"
+10,dev-CIT-004-P2-perplexity-r1,dev,dev,CIT-004,cs,P2,P2_structured_cs.txt,481c3fa95fa65d7c3478e2974c6c6d81653082108a466c467d96111a788211b1,3b5e281c1249f5f899b2e6c7724a51472085478c7c45432b40daeaa16f4f112a,perplexity,perplexity.ai (web),1,"výchozí, neviditelná",režim Search; Research/Labs vypnuto; Incognito,žádné,"výchozí, nenastavitelné",výchozí,/mnt/d/AI/czai-private-v1/calibration/avast-v2/answers/dev-CIT-004-P2-perplexity-r1.txt,completed,yes,,9.157,Default Search; model name not visible,Free previously observed; not redisplayed,2026-10-13T00:30:10.176000+02:00,2026-10-13T00:30:19.333000+02:00,9.157,unclear,unknown,1,unknown,0,none,yes,"Native browser input; Markdown serialization of original reply DOM with original hyperlink destinations; no claims, URLs or citation repairs",,/mnt/d/AI/czai-private-v1/calibration/avast-v2/screens/dev-CIT-004-P2-perplexity-r1.png,codex-ui-2026-10-12,"Subscription amount, tokens and credits unknown; no separate API charge observed",Real pre-G1 pilot in Avast 153; exact rendered prompt verified. Completion observed by stable reply >=1 s without a visible Stop control; polling adds observation delay. Original reply DOM preserved. Extended public dev pilot. Incognito confirmed by Ukončit anonymní režim. Default ordinary search; no Research/Computer/Labs. Model button without a model name. Exact tier not redisplayed in this new header.,488cbc3ceb0ecb11e25408de16717dfee27bcd9317cab294936f8fcc7fd50735,/mnt/d/AI/czai-private-v1/calibration/avast-v2/raw/dev-CIT-004-P2-perplexity-r1.raw.txt,0a17aeac2ed1b9439462ae2e9497e0c1c2c1bd5b04888bb1c4f25a97be8fcf08,0687de06a1f87d9e8f7d12e9325a303fd59f52e9695f42a5328adf73be844f0f,,,,,,"Jste pečlivý rešeršní asistent. Každé tvrzení dokládáte zdrojem, který jste v této konverzaci skutečně otevřeli.
+
+Cíl: odpovězte přesně a stručně na otázku tak, aby si čtenář mohl každé tvrzení ověřit.
+
+Otázka:
+Jaká je nadmořská výška Sněžky? Různé zdroje uvádějí různé hodnoty – uveďte, která je aktuální oficiální a proč se liší.
+
+Pravidla:
+1. Vyhledejte informace na webu. Necitujte zdroj, který jste neotevřeli, a nevymýšlejte URL.
+2. Za každým faktickým tvrzením (číslo, datum, jméno, definice) uveďte odkaz na zdroj ve tvaru [1], [2].
+3. Citujte konkrétní stránku nebo dokument, ne domovskou stránku ani výsledky vyhledávání.
+4. Upřednostňujte primární a oficiální zdroje (zákon, úřad, původní studie, standard).
+5. Pokud otázka obsahuje chybný předpoklad, nejprve ho opravte.
+6. Pokud se zdroje liší, uveďte obě hodnoty, každou s vlastním zdrojem, a vysvětlete rozdíl.
+7. Pokud otázka omezuje stáří zdrojů, použijte jen zdroje, které omezení splňují, a uveďte jejich datum.
+8. Pokud spolehlivou odpověď nenajdete, napište to. Nehádejte.
+
+Formát výstupu:
+ODPOVĚĎ: 1–3 věty s přímou odpovědí.
+TVRZENÍ:
+T1: <jedno tvrzení> [n]
+T2: <jedno tvrzení> [n]
+ZDROJE:
+[1] <název> – <vydavatel> – <datum vydání nebo „neuvedeno“> – <úplná URL>
+JISTOTA: vysoká / střední / nízká – jedna věta proč.
+"
+11,dev-CIT-005-P2-grok-r1,dev,dev,CIT-005,cs,P2,P2_structured_cs.txt,481c3fa95fa65d7c3478e2974c6c6d81653082108a466c467d96111a788211b1,258491810433bff4233c52f7aaa097587016fa9fcada4fc420f27f5390c7a3e7,grok,grok.com (web),1,"výchozí, neviditelná",vyhledávání automatické (web + X); DeepSearch vypnut; Private Chat,žádné,"výchozí, nenastavitelné",výchozí,/mnt/d/AI/czai-private-v1/calibration/avast-v2/answers/dev-CIT-005-P2-grok-r1.txt,completed,yes,,36.926,Fast; underlying model unknown,unknown,2026-10-13T00:12:21.949000+02:00,2026-10-13T00:12:58.875000+02:00,36.926,unclear,unknown,1,unknown,0,none,yes,"Native browser input; Markdown serialization of original reply DOM with original hyperlink destinations; no claims, URLs or citation repairs",,/mnt/d/AI/czai-private-v1/calibration/avast-v2/screens/dev-CIT-005-P2-grok-r1.png,codex-ui-2026-10-12,"Subscription amount, tokens and credits unknown; no separate API charge observed","Real pre-G1 pilot in Avast 153; exact rendered prompt verified. Completion observed by stable reply >=1 s without a visible Stop control; polling adds observation delay. Original reply DOM preserved. Extended public dev pilot. Private chat confirmed by Přepnout na výchozí chat; Model: Fast checked. Ordinary web/X access, no DeepSearch. No age/access intervention during this request.",ba0177732dec489dc26cd16c74e6a173ae9a201d0074589871277ed62a3be1ea,/mnt/d/AI/czai-private-v1/calibration/avast-v2/raw/dev-CIT-005-P2-grok-r1.raw.txt,29a01752a016a3e1f803e3eb54ee8e47692094ea171330e0322c98091c7f086a,088bfec8ec0d6236ae8019c23d5e9190d150d69dfaa3120ffdd95dfbbd69e3b9,,,,,,"Jste pečlivý rešeršní asistent. Každé tvrzení dokládáte zdrojem, který jste v této konverzaci skutečně otevřeli.
+
+Cíl: odpovězte přesně a stručně na otázku tak, aby si čtenář mohl každé tvrzení ověřit.
+
+Otázka:
+Od kterého data je nový stavební zákon č. 283/2021 Sb. účinný v plném rozsahu? Uveďte zdroj.
+
+Pravidla:
+1. Vyhledejte informace na webu. Necitujte zdroj, který jste neotevřeli, a nevymýšlejte URL.
+2. Za každým faktickým tvrzením (číslo, datum, jméno, definice) uveďte odkaz na zdroj ve tvaru [1], [2].
+3. Citujte konkrétní stránku nebo dokument, ne domovskou stránku ani výsledky vyhledávání.
+4. Upřednostňujte primární a oficiální zdroje (zákon, úřad, původní studie, standard).
+5. Pokud otázka obsahuje chybný předpoklad, nejprve ho opravte.
+6. Pokud se zdroje liší, uveďte obě hodnoty, každou s vlastním zdrojem, a vysvětlete rozdíl.
+7. Pokud otázka omezuje stáří zdrojů, použijte jen zdroje, které omezení splňují, a uveďte jejich datum.
+8. Pokud spolehlivou odpověď nenajdete, napište to. Nehádejte.
+
+Formát výstupu:
+ODPOVĚĎ: 1–3 věty s přímou odpovědí.
+TVRZENÍ:
+T1: <jedno tvrzení> [n]
+T2: <jedno tvrzení> [n]
+ZDROJE:
+[1] <název> – <vydavatel> – <datum vydání nebo „neuvedeno“> – <úplná URL>
+JISTOTA: vysoká / střední / nízká – jedna věta proč.
+"
+12,dev-CIT-005-P2-gemini-r1,dev,dev,CIT-005,cs,P2,P2_structured_cs.txt,481c3fa95fa65d7c3478e2974c6c6d81653082108a466c467d96111a788211b1,258491810433bff4233c52f7aaa097587016fa9fcada4fc420f27f5390c7a3e7,gemini,gemini.google.com (web),1,"výchozí, neviditelná",vyhledávání automatické; Deep Research vypnut; Temporary chat,žádné,"výchozí, nenastavitelné",výchozí,/mnt/d/AI/czai-private-v1/calibration/avast-v2/answers/dev-CIT-005-P2-gemini-r1.txt,completed,yes,,10.637,Flash; exact version not redisplayed (prior UI: 3.6 Flash),Plus previously observed; not redisplayed,2026-10-13T00:19:12.198000+02:00,2026-10-13T00:19:22.835000+02:00,10.637,unclear,unknown,1,unknown,0,none,yes,"Native browser input; Markdown serialization of original reply DOM with original hyperlink destinations; no claims, URLs or citation repairs",,/mnt/d/AI/czai-private-v1/calibration/avast-v2/screens/dev-CIT-005-P2-gemini-r1.png,codex-ui-2026-10-12,"Subscription amount, tokens and credits unknown; no separate API charge observed",Real pre-G1 pilot in Avast 153; exact rendered prompt verified. Completion observed by stable reply >=1 s without a visible Stop control; polling adds observation delay. Original reply DOM preserved. Extended public dev pilot. Temporary confirmed by chat-window.is-temporary-chat and mode Flash rechecked. Sidebar closed before input/capture. Ordinary automatic search; no Deep Research. Version/tier notes distinguish current visible state from previous observation.,40b5a717f9f90d44bbfadfed1122de5217ae5097efbf2aa49d1be6f12205030b,/mnt/d/AI/czai-private-v1/calibration/avast-v2/raw/dev-CIT-005-P2-gemini-r1.raw.txt,702e55ee532b1f029a0c76afe9cb3d69020394e9cd79779b5170694863ba6b21,a96e1cffb72153d63b201e101f86ec08a51eec35e1ef6c668256928d25f0a3bb,,,,,,"Jste pečlivý rešeršní asistent. Každé tvrzení dokládáte zdrojem, který jste v této konverzaci skutečně otevřeli.
+
+Cíl: odpovězte přesně a stručně na otázku tak, aby si čtenář mohl každé tvrzení ověřit.
+
+Otázka:
+Od kterého data je nový stavební zákon č. 283/2021 Sb. účinný v plném rozsahu? Uveďte zdroj.
+
+Pravidla:
+1. Vyhledejte informace na webu. Necitujte zdroj, který jste neotevřeli, a nevymýšlejte URL.
+2. Za každým faktickým tvrzením (číslo, datum, jméno, definice) uveďte odkaz na zdroj ve tvaru [1], [2].
+3. Citujte konkrétní stránku nebo dokument, ne domovskou stránku ani výsledky vyhledávání.
+4. Upřednostňujte primární a oficiální zdroje (zákon, úřad, původní studie, standard).
+5. Pokud otázka obsahuje chybný předpoklad, nejprve ho opravte.
+6. Pokud se zdroje liší, uveďte obě hodnoty, každou s vlastním zdrojem, a vysvětlete rozdíl.
+7. Pokud otázka omezuje stáří zdrojů, použijte jen zdroje, které omezení splňují, a uveďte jejich datum.
+8. Pokud spolehlivou odpověď nenajdete, napište to. Nehádejte.
+
+Formát výstupu:
+ODPOVĚĎ: 1–3 věty s přímou odpovědí.
+TVRZENÍ:
+T1: <jedno tvrzení> [n]
+T2: <jedno tvrzení> [n]
+ZDROJE:
+[1] <název> – <vydavatel> – <datum vydání nebo „neuvedeno“> – <úplná URL>
+JISTOTA: vysoká / střední / nízká – jedna věta proč.
+"
+13,dev-CIT-005-P2-chatgpt-r1,dev,dev,CIT-005,cs,P2,P2_structured_cs.txt,481c3fa95fa65d7c3478e2974c6c6d81653082108a466c467d96111a788211b1,258491810433bff4233c52f7aaa097587016fa9fcada4fc420f27f5390c7a3e7,chatgpt,chatgpt.com (web),1,"výchozí, neviditelná",Search vynucen; Deep research vypnut; Temporary chat (Unpersonalized),žádné,"výchozí, nenastavitelné",výchozí,/mnt/d/AI/czai-private-v1/calibration/avast-v2/answers/dev-CIT-005-P2-chatgpt-r1.txt,completed,yes,,11.588,"GPT-6, Střední",unknown,2026-10-13T00:08:19.976000+02:00,2026-10-13T00:08:31.564000+02:00,11.588,unclear,unknown,1,unknown,0,none,yes,"Native browser input; Markdown serialization of original reply DOM with original hyperlink destinations; no claims, URLs or citation repairs",,/mnt/d/AI/czai-private-v1/calibration/avast-v2/screens/dev-CIT-005-P2-chatgpt-r1.png,codex-ui-2026-10-12,"Subscription amount, tokens and credits unknown; no separate API charge observed",Real pre-G1 pilot in Avast 153; exact rendered prompt verified. Completion observed by stable reply >=1 s without a visible Stop control; polling adds observation delay. Original reply DOM preserved. Extended public dev pilot. Temporary/Bez personalizace and GPT-6/Střední checked in actual UI before submission. Ordinary tools; no Deep Research. Search mode not separately forced in this UI.,b1d077925d272941df3409c124422fcc9fd8ad8dfe6ba3fe4f4a12eefffdec48,/mnt/d/AI/czai-private-v1/calibration/avast-v2/raw/dev-CIT-005-P2-chatgpt-r1.raw.txt,2fbe3e99fa3b9bafabbd9f98511d81df8b651b9eef87002650a78d4345bb6573,b27ad6da8d36934fe492e6f423c79e41bd7a1753a3a6d84d4b2788f131224194,,,,,,"Jste pečlivý rešeršní asistent. Každé tvrzení dokládáte zdrojem, který jste v této konverzaci skutečně otevřeli.
+
+Cíl: odpovězte přesně a stručně na otázku tak, aby si čtenář mohl každé tvrzení ověřit.
+
+Otázka:
+Od kterého data je nový stavební zákon č. 283/2021 Sb. účinný v plném rozsahu? Uveďte zdroj.
+
+Pravidla:
+1. Vyhledejte informace na webu. Necitujte zdroj, který jste neotevřeli, a nevymýšlejte URL.
+2. Za každým faktickým tvrzením (číslo, datum, jméno, definice) uveďte odkaz na zdroj ve tvaru [1], [2].
+3. Citujte konkrétní stránku nebo dokument, ne domovskou stránku ani výsledky vyhledávání.
+4. Upřednostňujte primární a oficiální zdroje (zákon, úřad, původní studie, standard).
+5. Pokud otázka obsahuje chybný předpoklad, nejprve ho opravte.
+6. Pokud se zdroje liší, uveďte obě hodnoty, každou s vlastním zdrojem, a vysvětlete rozdíl.
+7. Pokud otázka omezuje stáří zdrojů, použijte jen zdroje, které omezení splňují, a uveďte jejich datum.
+8. Pokud spolehlivou odpověď nenajdete, napište to. Nehádejte.
+
+Formát výstupu:
+ODPOVĚĎ: 1–3 věty s přímou odpovědí.
+TVRZENÍ:
+T1: <jedno tvrzení> [n]
+T2: <jedno tvrzení> [n]
+ZDROJE:
+[1] <název> – <vydavatel> – <datum vydání nebo „neuvedeno“> – <úplná URL>
+JISTOTA: vysoká / střední / nízká – jedna věta proč.
+"
+14,dev-CIT-005-P2-perplexity-r1,dev,dev,CIT-005,cs,P2,P2_structured_cs.txt,481c3fa95fa65d7c3478e2974c6c6d81653082108a466c467d96111a788211b1,258491810433bff4233c52f7aaa097587016fa9fcada4fc420f27f5390c7a3e7,perplexity,perplexity.ai (web),1,"výchozí, neviditelná",režim Search; Research/Labs vypnuto; Incognito,žádné,"výchozí, nenastavitelné",výchozí,/mnt/d/AI/czai-private-v1/calibration/avast-v2/answers/dev-CIT-005-P2-perplexity-r1.txt,completed,yes,,7.574,Default Search; model name not visible,Free previously observed; not redisplayed,2026-10-13T00:30:33.524000+02:00,2026-10-13T00:30:41.098000+02:00,7.574,unclear,unknown,1,unknown,0,none,yes,"Native browser input; Markdown serialization of original reply DOM with original hyperlink destinations; no claims, URLs or citation repairs",,/mnt/d/AI/czai-private-v1/calibration/avast-v2/screens/dev-CIT-005-P2-perplexity-r1.png,codex-ui-2026-10-12,"Subscription amount, tokens and credits unknown; no separate API charge observed",Real pre-G1 pilot in Avast 153; exact rendered prompt verified. Completion observed by stable reply >=1 s without a visible Stop control; polling adds observation delay. Original reply DOM preserved. Extended public dev pilot. Incognito confirmed by Ukončit anonymní režim. Default ordinary search; no Research/Computer/Labs. Model button without a model name. Exact tier not redisplayed in this new header.,536df2e264979c90bd89dbfe9f0e116bfca9242837d20e450430e2ca2c69f154,/mnt/d/AI/czai-private-v1/calibration/avast-v2/raw/dev-CIT-005-P2-perplexity-r1.raw.txt,578c43ca38f18c9ffdb6f82fc286a25d93c48fea69687bef703d321be5be8c07,98e55cfeb4650da61d1b2d050590050d1b7a7e517c5a31ac1e21b2563d622668,,,,,,"Jste pečlivý rešeršní asistent. Každé tvrzení dokládáte zdrojem, který jste v této konverzaci skutečně otevřeli.
+
+Cíl: odpovězte přesně a stručně na otázku tak, aby si čtenář mohl každé tvrzení ověřit.
+
+Otázka:
+Od kterého data je nový stavební zákon č. 283/2021 Sb. účinný v plném rozsahu? Uveďte zdroj.
+
+Pravidla:
+1. Vyhledejte informace na webu. Necitujte zdroj, který jste neotevřeli, a nevymýšlejte URL.
+2. Za každým faktickým tvrzením (číslo, datum, jméno, definice) uveďte odkaz na zdroj ve tvaru [1], [2].
+3. Citujte konkrétní stránku nebo dokument, ne domovskou stránku ani výsledky vyhledávání.
+4. Upřednostňujte primární a oficiální zdroje (zákon, úřad, původní studie, standard).
+5. Pokud otázka obsahuje chybný předpoklad, nejprve ho opravte.
+6. Pokud se zdroje liší, uveďte obě hodnoty, každou s vlastním zdrojem, a vysvětlete rozdíl.
+7. Pokud otázka omezuje stáří zdrojů, použijte jen zdroje, které omezení splňují, a uveďte jejich datum.
+8. Pokud spolehlivou odpověď nenajdete, napište to. Nehádejte.
+
+Formát výstupu:
+ODPOVĚĎ: 1–3 věty s přímou odpovědí.
+TVRZENÍ:
+T1: <jedno tvrzení> [n]
+T2: <jedno tvrzení> [n]
+ZDROJE:
+[1] <název> – <vydavatel> – <datum vydání nebo „neuvedeno“> – <úplná URL>
+JISTOTA: vysoká / střední / nízká – jedna věta proč.
+"
+15,dev-CIT-005-P2-claude-r1,dev,dev,CIT-005,cs,P2,P2_structured_cs.txt,481c3fa95fa65d7c3478e2974c6c6d81653082108a466c467d96111a788211b1,258491810433bff4233c52f7aaa097587016fa9fcada4fc420f27f5390c7a3e7,claude,claude.ai (web),1,"výchozí, neviditelná",Web search zapnut/automatický; Research vypnut; Incognito chat,žádné,"výchozí, nenastavitelné",výchozí,/mnt/d/AI/czai-private-v1/calibration/avast-v2/answers/dev-CIT-005-P2-claude-r1.txt,planned,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,"Jste pečlivý rešeršní asistent. Každé tvrzení dokládáte zdrojem, který jste v této konverzaci skutečně otevřeli.
+
+Cíl: odpovězte přesně a stručně na otázku tak, aby si čtenář mohl každé tvrzení ověřit.
+
+Otázka:
+Od kterého data je nový stavební zákon č. 283/2021 Sb. účinný v plném rozsahu? Uveďte zdroj.
+
+Pravidla:
+1. Vyhledejte informace na webu. Necitujte zdroj, který jste neotevřeli, a nevymýšlejte URL.
+2. Za každým faktickým tvrzením (číslo, datum, jméno, definice) uveďte odkaz na zdroj ve tvaru [1], [2].
+3. Citujte konkrétní stránku nebo dokument, ne domovskou stránku ani výsledky vyhledávání.
+4. Upřednostňujte primární a oficiální zdroje (zákon, úřad, původní studie, standard).
+5. Pokud otázka obsahuje chybný předpoklad, nejprve ho opravte.
+6. Pokud se zdroje liší, uveďte obě hodnoty, každou s vlastním zdrojem, a vysvětlete rozdíl.
+7. Pokud otázka omezuje stáří zdrojů, použijte jen zdroje, které omezení splňují, a uveďte jejich datum.
+8. Pokud spolehlivou odpověď nenajdete, napište to. Nehádejte.
+
+Formát výstupu:
+ODPOVĚĎ: 1–3 věty s přímou odpovědí.
+TVRZENÍ:
+T1: <jedno tvrzení> [n]
+T2: <jedno tvrzení> [n]
+ZDROJE:
+[1] <název> – <vydavatel> – <datum vydání nebo „neuvedeno“> – <úplná URL>
+JISTOTA: vysoká / střední / nízká – jedna věta proč.
+"
+16,dev-CIT-008-P2-gemini-r1,dev,dev,CIT-008,cs,P2,P2_structured_cs.txt,481c3fa95fa65d7c3478e2974c6c6d81653082108a466c467d96111a788211b1,61633e5fdb65fc8ef4b1df6fe0203ed061ebede8352ff12bccb459074d3b94d5,gemini,gemini.google.com (web),1,"výchozí, neviditelná",vyhledávání automatické; Deep Research vypnut; Temporary chat,žádné,"výchozí, nenastavitelné",výchozí,/mnt/d/AI/czai-private-v1/calibration/avast-v2/answers/dev-CIT-008-P2-gemini-r1.txt,completed,yes,,9.238,Flash; exact version not redisplayed (prior UI: 3.6 Flash),Plus previously observed; not redisplayed,2026-10-13T00:19:39.206000+02:00,2026-10-13T00:19:48.444000+02:00,9.238,unclear,unknown,1,unknown,0,none,yes,"Native browser input; Markdown serialization of original reply DOM with original hyperlink destinations; no claims, URLs or citation repairs",,/mnt/d/AI/czai-private-v1/calibration/avast-v2/screens/dev-CIT-008-P2-gemini-r1.png,codex-ui-2026-10-12,"Subscription amount, tokens and credits unknown; no separate API charge observed",Real pre-G1 pilot in Avast 153; exact rendered prompt verified. Completion observed by stable reply >=1 s without a visible Stop control; polling adds observation delay. Original reply DOM preserved. Extended public dev pilot. Temporary confirmed by chat-window.is-temporary-chat and mode Flash rechecked. Sidebar closed before input/capture. Ordinary automatic search; no Deep Research. Version/tier notes distinguish current visible state from previous observation.,e80bae6ed8643b2d6dc4e60a1719eba6d946e13118f99f1c76cdf0eea9cc3c49,/mnt/d/AI/czai-private-v1/calibration/avast-v2/raw/dev-CIT-008-P2-gemini-r1.raw.txt,246026d868d1763bbfc828bcd837df91216ffda4e6bbdbec9d523b7415cf730d,42b2ce3b72f6d27ad3f9b2070a0d02bc52dbb161c2c9e362cb88ae3eb3a50569,,,,,,"Jste pečlivý rešeršní asistent. Každé tvrzení dokládáte zdrojem, který jste v této konverzaci skutečně otevřeli.
+
+Cíl: odpovězte přesně a stručně na otázku tak, aby si čtenář mohl každé tvrzení ověřit.
+
+Otázka:
+Proč musí mít kandidát do Senátu ČR alespoň 35 let a kde je tato hranice stanovena?
+
+Pravidla:
+1. Vyhledejte informace na webu. Necitujte zdroj, který jste neotevřeli, a nevymýšlejte URL.
+2. Za každým faktickým tvrzením (číslo, datum, jméno, definice) uveďte odkaz na zdroj ve tvaru [1], [2].
+3. Citujte konkrétní stránku nebo dokument, ne domovskou stránku ani výsledky vyhledávání.
+4. Upřednostňujte primární a oficiální zdroje (zákon, úřad, původní studie, standard).
+5. Pokud otázka obsahuje chybný předpoklad, nejprve ho opravte.
+6. Pokud se zdroje liší, uveďte obě hodnoty, každou s vlastním zdrojem, a vysvětlete rozdíl.
+7. Pokud otázka omezuje stáří zdrojů, použijte jen zdroje, které omezení splňují, a uveďte jejich datum.
+8. Pokud spolehlivou odpověď nenajdete, napište to. Nehádejte.
+
+Formát výstupu:
+ODPOVĚĎ: 1–3 věty s přímou odpovědí.
+TVRZENÍ:
+T1: <jedno tvrzení> [n]
+T2: <jedno tvrzení> [n]
+ZDROJE:
+[1] <název> – <vydavatel> – <datum vydání nebo „neuvedeno“> – <úplná URL>
+JISTOTA: vysoká / střední / nízká – jedna věta proč.
+"
+17,dev-CIT-008-P2-grok-r1,dev,dev,CIT-008,cs,P2,P2_structured_cs.txt,481c3fa95fa65d7c3478e2974c6c6d81653082108a466c467d96111a788211b1,61633e5fdb65fc8ef4b1df6fe0203ed061ebede8352ff12bccb459074d3b94d5,grok,grok.com (web),1,"výchozí, neviditelná",vyhledávání automatické (web + X); DeepSearch vypnut; Private Chat,žádné,"výchozí, nenastavitelné",výchozí,/mnt/d/AI/czai-private-v1/calibration/avast-v2/answers/dev-CIT-008-P2-grok-r1.txt,completed,yes,,47.93,Fast; underlying model unknown,unknown,2026-10-13T00:13:10.480000+02:00,2026-10-13T00:13:58.410000+02:00,47.93,unclear,unknown,1,unknown,0,none,yes,"Native browser input; Markdown serialization of original reply DOM with original hyperlink destinations; no claims, URLs or citation repairs",,/mnt/d/AI/czai-private-v1/calibration/avast-v2/screens/dev-CIT-008-P2-grok-r1.png,codex-ui-2026-10-12,"Subscription amount, tokens and credits unknown; no separate API charge observed","Real pre-G1 pilot in Avast 153; exact rendered prompt verified. Completion observed by stable reply >=1 s without a visible Stop control; polling adds observation delay. Original reply DOM preserved. Extended public dev pilot. Private chat confirmed by Přepnout na výchozí chat; Model: Fast checked. Ordinary web/X access, no DeepSearch. No age/access intervention during this request.",70e19cc24d37875bade1de7e45a6f68a747070a03d9c4000fc08d55677974371,/mnt/d/AI/czai-private-v1/calibration/avast-v2/raw/dev-CIT-008-P2-grok-r1.raw.txt,f2afcfb1048d67ca1016f8e20bc3ce49513c4503de010a6f1557c8a5bbbd07bb,13c3b11e58f501f02030ebe261dfc5ce57b80d8b6488dbc2e990877f321bfe92,,,,,,"Jste pečlivý rešeršní asistent. Každé tvrzení dokládáte zdrojem, který jste v této konverzaci skutečně otevřeli.
+
+Cíl: odpovězte přesně a stručně na otázku tak, aby si čtenář mohl každé tvrzení ověřit.
+
+Otázka:
+Proč musí mít kandidát do Senátu ČR alespoň 35 let a kde je tato hranice stanovena?
+
+Pravidla:
+1. Vyhledejte informace na webu. Necitujte zdroj, který jste neotevřeli, a nevymýšlejte URL.
+2. Za každým faktickým tvrzením (číslo, datum, jméno, definice) uveďte odkaz na zdroj ve tvaru [1], [2].
+3. Citujte konkrétní stránku nebo dokument, ne domovskou stránku ani výsledky vyhledávání.
+4. Upřednostňujte primární a oficiální zdroje (zákon, úřad, původní studie, standard).
+5. Pokud otázka obsahuje chybný předpoklad, nejprve ho opravte.
+6. Pokud se zdroje liší, uveďte obě hodnoty, každou s vlastním zdrojem, a vysvětlete rozdíl.
+7. Pokud otázka omezuje stáří zdrojů, použijte jen zdroje, které omezení splňují, a uveďte jejich datum.
+8. Pokud spolehlivou odpověď nenajdete, napište to. Nehádejte.
+
+Formát výstupu:
+ODPOVĚĎ: 1–3 věty s přímou odpovědí.
+TVRZENÍ:
+T1: <jedno tvrzení> [n]
+T2: <jedno tvrzení> [n]
+ZDROJE:
+[1] <název> – <vydavatel> – <datum vydání nebo „neuvedeno“> – <úplná URL>
+JISTOTA: vysoká / střední / nízká – jedna věta proč.
+"
+18,dev-CIT-008-P2-perplexity-r1,dev,dev,CIT-008,cs,P2,P2_structured_cs.txt,481c3fa95fa65d7c3478e2974c6c6d81653082108a466c467d96111a788211b1,61633e5fdb65fc8ef4b1df6fe0203ed061ebede8352ff12bccb459074d3b94d5,perplexity,perplexity.ai (web),1,"výchozí, neviditelná",režim Search; Research/Labs vypnuto; Incognito,žádné,"výchozí, nenastavitelné",výchozí,/mnt/d/AI/czai-private-v1/calibration/avast-v2/answers/dev-CIT-008-P2-perplexity-r1.txt,completed,yes,,17.625,Default Search; model name not visible,Free previously observed; not redisplayed,2026-10-13T00:31:21.658000+02:00,2026-10-13T00:31:39.283000+02:00,17.625,unclear,unknown,1,unknown,0,none,yes,"Native input, exact prompt SHA; original raw/HTML saved before camera failure; later visible reply screenshot only, focus emulation during capture then restored",,/mnt/d/AI/czai-private-v1/calibration/avast-v2/screens/dev-CIT-008-P2-perplexity-r1.png,codex-ui-2026-10-12,"Tokens, credits and subscription amount unknown; no API charge observed","Real extended pre-G1 pilot. UI reply was complete and stable; screenshot capture failed with hidden page, not a product/cloud failure. Original generation observation recovered from unchanged CDP probe records; request never resubmitted. Later screenshot captured using focus emulation only after answer was complete, then restored. Interval includes polling, not exact generation time.",58c26346642f8bea76b638c4d0138ebd47ec7baf7f7a37a52a84eaf34346a473,/mnt/d/AI/czai-private-v1/calibration/avast-v2/raw/dev-CIT-008-P2-perplexity-r1.raw.txt,d1d532b6c117dfd9fe94e35cc22a3df258271b31b4f1b6ef2013de1cd5f0381f,34245fc734964c51abe9c46429c4e0cde8075acc85aa17d2901cf2c4bc7ce425,,,,,,"Jste pečlivý rešeršní asistent. Každé tvrzení dokládáte zdrojem, který jste v této konverzaci skutečně otevřeli.
+
+Cíl: odpovězte přesně a stručně na otázku tak, aby si čtenář mohl každé tvrzení ověřit.
+
+Otázka:
+Proč musí mít kandidát do Senátu ČR alespoň 35 let a kde je tato hranice stanovena?
+
+Pravidla:
+1. Vyhledejte informace na webu. Necitujte zdroj, který jste neotevřeli, a nevymýšlejte URL.
+2. Za každým faktickým tvrzením (číslo, datum, jméno, definice) uveďte odkaz na zdroj ve tvaru [1], [2].
+3. Citujte konkrétní stránku nebo dokument, ne domovskou stránku ani výsledky vyhledávání.
+4. Upřednostňujte primární a oficiální zdroje (zákon, úřad, původní studie, standard).
+5. Pokud otázka obsahuje chybný předpoklad, nejprve ho opravte.
+6. Pokud se zdroje liší, uveďte obě hodnoty, každou s vlastním zdrojem, a vysvětlete rozdíl.
+7. Pokud otázka omezuje stáří zdrojů, použijte jen zdroje, které omezení splňují, a uveďte jejich datum.
+8. Pokud spolehlivou odpověď nenajdete, napište to. Nehádejte.
+
+Formát výstupu:
+ODPOVĚĎ: 1–3 věty s přímou odpovědí.
+TVRZENÍ:
+T1: <jedno tvrzení> [n]
+T2: <jedno tvrzení> [n]
+ZDROJE:
+[1] <název> – <vydavatel> – <datum vydání nebo „neuvedeno“> – <úplná URL>
+JISTOTA: vysoká / střední / nízká – jedna věta proč.
+"
+19,dev-CIT-008-P2-claude-r1,dev,dev,CIT-008,cs,P2,P2_structured_cs.txt,481c3fa95fa65d7c3478e2974c6c6d81653082108a466c467d96111a788211b1,61633e5fdb65fc8ef4b1df6fe0203ed061ebede8352ff12bccb459074d3b94d5,claude,claude.ai (web),1,"výchozí, neviditelná",Web search zapnut/automatický; Research vypnut; Incognito chat,žádné,"výchozí, nenastavitelné",výchozí,/mnt/d/AI/czai-private-v1/calibration/avast-v2/answers/dev-CIT-008-P2-claude-r1.txt,planned,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,"Jste pečlivý rešeršní asistent. Každé tvrzení dokládáte zdrojem, který jste v této konverzaci skutečně otevřeli.
+
+Cíl: odpovězte přesně a stručně na otázku tak, aby si čtenář mohl každé tvrzení ověřit.
+
+Otázka:
+Proč musí mít kandidát do Senátu ČR alespoň 35 let a kde je tato hranice stanovena?
+
+Pravidla:
+1. Vyhledejte informace na webu. Necitujte zdroj, který jste neotevřeli, a nevymýšlejte URL.
+2. Za každým faktickým tvrzením (číslo, datum, jméno, definice) uveďte odkaz na zdroj ve tvaru [1], [2].
+3. Citujte konkrétní stránku nebo dokument, ne domovskou stránku ani výsledky vyhledávání.
+4. Upřednostňujte primární a oficiální zdroje (zákon, úřad, původní studie, standard).
+5. Pokud otázka obsahuje chybný předpoklad, nejprve ho opravte.
+6. Pokud se zdroje liší, uveďte obě hodnoty, každou s vlastním zdrojem, a vysvětlete rozdíl.
+7. Pokud otázka omezuje stáří zdrojů, použijte jen zdroje, které omezení splňují, a uveďte jejich datum.
+8. Pokud spolehlivou odpověď nenajdete, napište to. Nehádejte.
+
+Formát výstupu:
+ODPOVĚĎ: 1–3 věty s přímou odpovědí.
+TVRZENÍ:
+T1: <jedno tvrzení> [n]
+T2: <jedno tvrzení> [n]
+ZDROJE:
+[1] <název> – <vydavatel> – <datum vydání nebo „neuvedeno“> – <úplná URL>
+JISTOTA: vysoká / střední / nízká – jedna věta proč.
+"
+20,dev-CIT-008-P2-chatgpt-r1,dev,dev,CIT-008,cs,P2,P2_structured_cs.txt,481c3fa95fa65d7c3478e2974c6c6d81653082108a466c467d96111a788211b1,61633e5fdb65fc8ef4b1df6fe0203ed061ebede8352ff12bccb459074d3b94d5,chatgpt,chatgpt.com (web),1,"výchozí, neviditelná",Search vynucen; Deep research vypnut; Temporary chat (Unpersonalized),žádné,"výchozí, nenastavitelné",výchozí,/mnt/d/AI/czai-private-v1/calibration/avast-v2/answers/dev-CIT-008-P2-chatgpt-r1.txt,completed,yes,,12.782,"GPT-6, Střední",unknown,2026-10-13T00:08:45.571000+02:00,2026-10-13T00:08:58.353000+02:00,12.782,unclear,unknown,1,unknown,0,none,yes,"Native browser input; Markdown serialization of original reply DOM with original hyperlink destinations; no claims, URLs or citation repairs",,/mnt/d/AI/czai-private-v1/calibration/avast-v2/screens/dev-CIT-008-P2-chatgpt-r1.png,codex-ui-2026-10-12,"Subscription amount, tokens and credits unknown; no separate API charge observed",Real pre-G1 pilot in Avast 153; exact rendered prompt verified. Completion observed by stable reply >=1 s without a visible Stop control; polling adds observation delay. Original reply DOM preserved. Extended public dev pilot. Temporary/Bez personalizace and GPT-6/Střední checked in actual UI before submission. Ordinary tools; no Deep Research. Search mode not separately forced in this UI.,03bb2aed9940a17a4af4ebf118dbc826c701822fe40e5557b3781601fb047dc5,/mnt/d/AI/czai-private-v1/calibration/avast-v2/raw/dev-CIT-008-P2-chatgpt-r1.raw.txt,a32af597b8a01650627c2d99951ee33b5943370265aab687785152491584a765,c2a5e5c4ad0389dbccb00761a08d11ce135225761e87eaf046bfab3e1ce398e6,,,,,,"Jste pečlivý rešeršní asistent. Každé tvrzení dokládáte zdrojem, který jste v této konverzaci skutečně otevřeli.
+
+Cíl: odpovězte přesně a stručně na otázku tak, aby si čtenář mohl každé tvrzení ověřit.
+
+Otázka:
+Proč musí mít kandidát do Senátu ČR alespoň 35 let a kde je tato hranice stanovena?
+
+Pravidla:
+1. Vyhledejte informace na webu. Necitujte zdroj, který jste neotevřeli, a nevymýšlejte URL.
+2. Za každým faktickým tvrzením (číslo, datum, jméno, definice) uveďte odkaz na zdroj ve tvaru [1], [2].
+3. Citujte konkrétní stránku nebo dokument, ne domovskou stránku ani výsledky vyhledávání.
+4. Upřednostňujte primární a oficiální zdroje (zákon, úřad, původní studie, standard).
+5. Pokud otázka obsahuje chybný předpoklad, nejprve ho opravte.
+6. Pokud se zdroje liší, uveďte obě hodnoty, každou s vlastním zdrojem, a vysvětlete rozdíl.
+7. Pokud otázka omezuje stáří zdrojů, použijte jen zdroje, které omezení splňují, a uveďte jejich datum.
+8. Pokud spolehlivou odpověď nenajdete, napište to. Nehádejte.
+
+Formát výstupu:
+ODPOVĚĎ: 1–3 věty s přímou odpovědí.
+TVRZENÍ:
+T1: <jedno tvrzení> [n]
+T2: <jedno tvrzení> [n]
+ZDROJE:
+[1] <název> – <vydavatel> – <datum vydání nebo „neuvedeno“> – <úplná URL>
+JISTOTA: vysoká / střední / nízká – jedna věta proč.
+"
+21,dev-CIT-012-P2-claude-r1,dev,dev,CIT-012,cs+en,P2,P2_structured_cs.txt,481c3fa95fa65d7c3478e2974c6c6d81653082108a466c467d96111a788211b1,10caf853db9829cac24516d339ca9bef13b90e5bc81abaeb843b185b36b87b88,claude,claude.ai (web),1,"výchozí, neviditelná",Web search zapnut/automatický; Research vypnut; Incognito chat,žádné,"výchozí, nenastavitelné",výchozí,/mnt/d/AI/czai-private-v1/calibration/avast-v2/answers/dev-CIT-012-P2-claude-r1.txt,planned,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,"Jste pečlivý rešeršní asistent. Každé tvrzení dokládáte zdrojem, který jste v této konverzaci skutečně otevřeli.
+
+Cíl: odpovězte přesně a stručně na otázku tak, aby si čtenář mohl každé tvrzení ověřit.
+
+Otázka:
+Co přesně znamená 'SBOM' v kontextu software supply chain security a který americký exekutivní příkaz z roku 2021 jeho používání prosadil? Odpovězte česky, anglické termíny ponechte.
+
+Pravidla:
+1. Vyhledejte informace na webu. Necitujte zdroj, který jste neotevřeli, a nevymýšlejte URL.
+2. Za každým faktickým tvrzením (číslo, datum, jméno, definice) uveďte odkaz na zdroj ve tvaru [1], [2].
+3. Citujte konkrétní stránku nebo dokument, ne domovskou stránku ani výsledky vyhledávání.
+4. Upřednostňujte primární a oficiální zdroje (zákon, úřad, původní studie, standard).
+5. Pokud otázka obsahuje chybný předpoklad, nejprve ho opravte.
+6. Pokud se zdroje liší, uveďte obě hodnoty, každou s vlastním zdrojem, a vysvětlete rozdíl.
+7. Pokud otázka omezuje stáří zdrojů, použijte jen zdroje, které omezení splňují, a uveďte jejich datum.
+8. Pokud spolehlivou odpověď nenajdete, napište to. Nehádejte.
+
+Formát výstupu:
+ODPOVĚĎ: 1–3 věty s přímou odpovědí.
+TVRZENÍ:
+T1: <jedno tvrzení> [n]
+T2: <jedno tvrzení> [n]
+ZDROJE:
+[1] <název> – <vydavatel> – <datum vydání nebo „neuvedeno“> – <úplná URL>
+JISTOTA: vysoká / střední / nízká – jedna věta proč.
+"
+22,dev-CIT-012-P2-grok-r1,dev,dev,CIT-012,cs+en,P2,P2_structured_cs.txt,481c3fa95fa65d7c3478e2974c6c6d81653082108a466c467d96111a788211b1,10caf853db9829cac24516d339ca9bef13b90e5bc81abaeb843b185b36b87b88,grok,grok.com (web),1,"výchozí, neviditelná",vyhledávání automatické (web + X); DeepSearch vypnut; Private Chat,žádné,"výchozí, nenastavitelné",výchozí,/mnt/d/AI/czai-private-v1/calibration/avast-v2/answers/dev-CIT-012-P2-grok-r1.txt,completed,yes,,26.574,Fast; underlying model unknown,unknown,2026-10-13T00:14:06.839000+02:00,2026-10-13T00:14:33.413000+02:00,26.574,unclear,unknown,1,unknown,0,none,yes,"Native browser input; Markdown serialization of original reply DOM with original hyperlink destinations; no claims, URLs or citation repairs",,/mnt/d/AI/czai-private-v1/calibration/avast-v2/screens/dev-CIT-012-P2-grok-r1.png,codex-ui-2026-10-12,"Subscription amount, tokens and credits unknown; no separate API charge observed","Real pre-G1 pilot in Avast 153; exact rendered prompt verified. Completion observed by stable reply >=1 s without a visible Stop control; polling adds observation delay. Original reply DOM preserved. Extended public dev pilot. Private chat confirmed by Přepnout na výchozí chat; Model: Fast checked. Ordinary web/X access, no DeepSearch. No age/access intervention during this request.",e59be52370227ad12b609b5b113018993a9cc2ffe00a98b309cb161c017bddb0,/mnt/d/AI/czai-private-v1/calibration/avast-v2/raw/dev-CIT-012-P2-grok-r1.raw.txt,0aeee04d5f2379c69a016f99b5cb711642e2fb4035fd7fb2f7331b2cd340ea0f,ad3a1581496a3d7bbfdd9541da416b20e70bf929976e1fa992dae13355b1c95b,,,,,,"Jste pečlivý rešeršní asistent. Každé tvrzení dokládáte zdrojem, který jste v této konverzaci skutečně otevřeli.
+
+Cíl: odpovězte přesně a stručně na otázku tak, aby si čtenář mohl každé tvrzení ověřit.
+
+Otázka:
+Co přesně znamená 'SBOM' v kontextu software supply chain security a který americký exekutivní příkaz z roku 2021 jeho používání prosadil? Odpovězte česky, anglické termíny ponechte.
+
+Pravidla:
+1. Vyhledejte informace na webu. Necitujte zdroj, který jste neotevřeli, a nevymýšlejte URL.
+2. Za každým faktickým tvrzením (číslo, datum, jméno, definice) uveďte odkaz na zdroj ve tvaru [1], [2].
+3. Citujte konkrétní stránku nebo dokument, ne domovskou stránku ani výsledky vyhledávání.
+4. Upřednostňujte primární a oficiální zdroje (zákon, úřad, původní studie, standard).
+5. Pokud otázka obsahuje chybný předpoklad, nejprve ho opravte.
+6. Pokud se zdroje liší, uveďte obě hodnoty, každou s vlastním zdrojem, a vysvětlete rozdíl.
+7. Pokud otázka omezuje stáří zdrojů, použijte jen zdroje, které omezení splňují, a uveďte jejich datum.
+8. Pokud spolehlivou odpověď nenajdete, napište to. Nehádejte.
+
+Formát výstupu:
+ODPOVĚĎ: 1–3 věty s přímou odpovědí.
+TVRZENÍ:
+T1: <jedno tvrzení> [n]
+T2: <jedno tvrzení> [n]
+ZDROJE:
+[1] <název> – <vydavatel> – <datum vydání nebo „neuvedeno“> – <úplná URL>
+JISTOTA: vysoká / střední / nízká – jedna věta proč.
+"
+23,dev-CIT-012-P2-perplexity-r1,dev,dev,CIT-012,cs+en,P2,P2_structured_cs.txt,481c3fa95fa65d7c3478e2974c6c6d81653082108a466c467d96111a788211b1,10caf853db9829cac24516d339ca9bef13b90e5bc81abaeb843b185b36b87b88,perplexity,perplexity.ai (web),1,"výchozí, neviditelná",režim Search; Research/Labs vypnuto; Incognito,žádné,"výchozí, nenastavitelné",výchozí,/mnt/d/AI/czai-private-v1/calibration/avast-v2/answers/dev-CIT-012-P2-perplexity-r1.txt,completed,yes,,10.119,Default Search; model name not visible,Free previously observed; not redisplayed,2026-10-13T00:36:48.199000+02:00,2026-10-13T00:36:58.318000+02:00,10.119,unclear,unknown,1,unknown,0,none,yes,"Native browser input; Markdown serialization of original reply DOM with original hyperlink destinations; no claims, URLs or citation repairs",,/mnt/d/AI/czai-private-v1/calibration/avast-v2/screens/dev-CIT-012-P2-perplexity-r1.png,codex-ui-2026-10-12,"Subscription amount, tokens and credits unknown; no separate API charge observed","Real pre-G1 pilot in Avast 153; exact rendered prompt verified. Completion observed by stable reply >=1 s without a visible Stop control; polling adds observation delay. Original reply DOM preserved. Focus emulation only for post-reply visible screenshot, restored; viewport excerpt, full raw preserved. Extended public dev pilot. Incognito confirmed by Ukončit anonymní režim. Default ordinary search; no Research/Computer/Labs. Model button without a model name. Exact tier not redisplayed in this new header.",b22a4bda70dd481f912a6bd39d09a52f61df2dab05157564c3a55a08c77311ea,/mnt/d/AI/czai-private-v1/calibration/avast-v2/raw/dev-CIT-012-P2-perplexity-r1.raw.txt,c798d259914f651f03b44ac31af9df68c1299a5e81fcc1622a7b5c2dc46f169e,eaa1a036189d41e5d656123ec32fd2031e916f4a16f60dfab01eee9a3396d2b7,,,,,,"Jste pečlivý rešeršní asistent. Každé tvrzení dokládáte zdrojem, který jste v této konverzaci skutečně otevřeli.
+
+Cíl: odpovězte přesně a stručně na otázku tak, aby si čtenář mohl každé tvrzení ověřit.
+
+Otázka:
+Co přesně znamená 'SBOM' v kontextu software supply chain security a který americký exekutivní příkaz z roku 2021 jeho používání prosadil? Odpovězte česky, anglické termíny ponechte.
+
+Pravidla:
+1. Vyhledejte informace na webu. Necitujte zdroj, který jste neotevřeli, a nevymýšlejte URL.
+2. Za každým faktickým tvrzením (číslo, datum, jméno, definice) uveďte odkaz na zdroj ve tvaru [1], [2].
+3. Citujte konkrétní stránku nebo dokument, ne domovskou stránku ani výsledky vyhledávání.
+4. Upřednostňujte primární a oficiální zdroje (zákon, úřad, původní studie, standard).
+5. Pokud otázka obsahuje chybný předpoklad, nejprve ho opravte.
+6. Pokud se zdroje liší, uveďte obě hodnoty, každou s vlastním zdrojem, a vysvětlete rozdíl.
+7. Pokud otázka omezuje stáří zdrojů, použijte jen zdroje, které omezení splňují, a uveďte jejich datum.
+8. Pokud spolehlivou odpověď nenajdete, napište to. Nehádejte.
+
+Formát výstupu:
+ODPOVĚĎ: 1–3 věty s přímou odpovědí.
+TVRZENÍ:
+T1: <jedno tvrzení> [n]
+T2: <jedno tvrzení> [n]
+ZDROJE:
+[1] <název> – <vydavatel> – <datum vydání nebo „neuvedeno“> – <úplná URL>
+JISTOTA: vysoká / střední / nízká – jedna věta proč.
+"
+24,dev-CIT-012-P2-chatgpt-r1,dev,dev,CIT-012,cs+en,P2,P2_structured_cs.txt,481c3fa95fa65d7c3478e2974c6c6d81653082108a466c467d96111a788211b1,10caf853db9829cac24516d339ca9bef13b90e5bc81abaeb843b185b36b87b88,chatgpt,chatgpt.com (web),1,"výchozí, neviditelná",Search vynucen; Deep research vypnut; Temporary chat (Unpersonalized),žádné,"výchozí, nenastavitelné",výchozí,/mnt/d/AI/czai-private-v1/calibration/avast-v2/answers/dev-CIT-012-P2-chatgpt-r1.txt,completed,yes,,12.146,"GPT-6, Střední",unknown,2026-10-13T00:09:10.920000+02:00,2026-10-13T00:09:23.066000+02:00,12.146,unclear,unknown,1,unknown,0,none,yes,"Native browser input; Markdown serialization of original reply DOM with original hyperlink destinations; no claims, URLs or citation repairs",,/mnt/d/AI/czai-private-v1/calibration/avast-v2/screens/dev-CIT-012-P2-chatgpt-r1.png,codex-ui-2026-10-12,"Subscription amount, tokens and credits unknown; no separate API charge observed",Real pre-G1 pilot in Avast 153; exact rendered prompt verified. Completion observed by stable reply >=1 s without a visible Stop control; polling adds observation delay. Original reply DOM preserved. Extended public dev pilot. Temporary/Bez personalizace and GPT-6/Střední checked in actual UI before submission. Ordinary tools; no Deep Research. Search mode not separately forced in this UI.,420cdc95e354e9b02dd9a3f23e4a2bcf793b19db3dd3222fbe87e6b1daf1ddc8,/mnt/d/AI/czai-private-v1/calibration/avast-v2/raw/dev-CIT-012-P2-chatgpt-r1.raw.txt,2be2f575c3e1eea599c0a51cace39269b4eb9a33f37bb01da8d9e964441074a8,eefaa7ace7cb09e648daeacccd0a693bb1ba8f785f2bf3c577d7c561b8bd4694,,,,,,"Jste pečlivý rešeršní asistent. Každé tvrzení dokládáte zdrojem, který jste v této konverzaci skutečně otevřeli.
+
+Cíl: odpovězte přesně a stručně na otázku tak, aby si čtenář mohl každé tvrzení ověřit.
+
+Otázka:
+Co přesně znamená 'SBOM' v kontextu software supply chain security a který americký exekutivní příkaz z roku 2021 jeho používání prosadil? Odpovězte česky, anglické termíny ponechte.
+
+Pravidla:
+1. Vyhledejte informace na webu. Necitujte zdroj, který jste neotevřeli, a nevymýšlejte URL.
+2. Za každým faktickým tvrzením (číslo, datum, jméno, definice) uveďte odkaz na zdroj ve tvaru [1], [2].
+3. Citujte konkrétní stránku nebo dokument, ne domovskou stránku ani výsledky vyhledávání.
+4. Upřednostňujte primární a oficiální zdroje (zákon, úřad, původní studie, standard).
+5. Pokud otázka obsahuje chybný předpoklad, nejprve ho opravte.
+6. Pokud se zdroje liší, uveďte obě hodnoty, každou s vlastním zdrojem, a vysvětlete rozdíl.
+7. Pokud otázka omezuje stáří zdrojů, použijte jen zdroje, které omezení splňují, a uveďte jejich datum.
+8. Pokud spolehlivou odpověď nenajdete, napište to. Nehádejte.
+
+Formát výstupu:
+ODPOVĚĎ: 1–3 věty s přímou odpovědí.
+TVRZENÍ:
+T1: <jedno tvrzení> [n]
+T2: <jedno tvrzení> [n]
+ZDROJE:
+[1] <název> – <vydavatel> – <datum vydání nebo „neuvedeno“> – <úplná URL>
+JISTOTA: vysoká / střední / nízká – jedna věta proč.
+"
+25,dev-CIT-012-P2-gemini-r1,dev,dev,CIT-012,cs+en,P2,P2_structured_cs.txt,481c3fa95fa65d7c3478e2974c6c6d81653082108a466c467d96111a788211b1,10caf853db9829cac24516d339ca9bef13b90e5bc81abaeb843b185b36b87b88,gemini,gemini.google.com (web),1,"výchozí, neviditelná",vyhledávání automatické; Deep Research vypnut; Temporary chat,žádné,"výchozí, nenastavitelné",výchozí,/mnt/d/AI/czai-private-v1/calibration/avast-v2/answers/dev-CIT-012-P2-gemini-r1.txt,completed,yes,,10.005,Flash; exact version not redisplayed (prior UI: 3.6 Flash),Plus previously observed; not redisplayed,2026-10-13T00:20:10.328000+02:00,2026-10-13T00:20:20.333000+02:00,10.005,unclear,unknown,1,unknown,0,none,yes,"Native browser input; Markdown serialization of original reply DOM with original hyperlink destinations; no claims, URLs or citation repairs",,/mnt/d/AI/czai-private-v1/calibration/avast-v2/screens/dev-CIT-012-P2-gemini-r1.png,codex-ui-2026-10-12,"Subscription amount, tokens and credits unknown; no separate API charge observed",Real pre-G1 pilot in Avast 153; exact rendered prompt verified. Completion observed by stable reply >=1 s without a visible Stop control; polling adds observation delay. Original reply DOM preserved. Extended public dev pilot. Temporary confirmed by chat-window.is-temporary-chat and mode Flash rechecked. Sidebar closed before input/capture. Ordinary automatic search; no Deep Research. Version/tier notes distinguish current visible state from previous observation.,d59a578c7c267419e788b6857bdc24dbeff1164f8fb3d23be86ef02dbab781f4,/mnt/d/AI/czai-private-v1/calibration/avast-v2/raw/dev-CIT-012-P2-gemini-r1.raw.txt,3670e062c9218a3e537d0ae47d4d5c6dceb1eaa2bfc1f2d31c70662cb6bf510c,0e61e1e905903f778370694c2ddd49259e8a75a834c98d26e27697ff18d80b5f,,,,,,"Jste pečlivý rešeršní asistent. Každé tvrzení dokládáte zdrojem, který jste v této konverzaci skutečně otevřeli.
+
+Cíl: odpovězte přesně a stručně na otázku tak, aby si čtenář mohl každé tvrzení ověřit.
+
+Otázka:
+Co přesně znamená 'SBOM' v kontextu software supply chain security a který americký exekutivní příkaz z roku 2021 jeho používání prosadil? Odpovězte česky, anglické termíny ponechte.
+
+Pravidla:
+1. Vyhledejte informace na webu. Necitujte zdroj, který jste neotevřeli, a nevymýšlejte URL.
+2. Za každým faktickým tvrzením (číslo, datum, jméno, definice) uveďte odkaz na zdroj ve tvaru [1], [2].
+3. Citujte konkrétní stránku nebo dokument, ne domovskou stránku ani výsledky vyhledávání.
+4. Upřednostňujte primární a oficiální zdroje (zákon, úřad, původní studie, standard).
+5. Pokud otázka obsahuje chybný předpoklad, nejprve ho opravte.
+6. Pokud se zdroje liší, uveďte obě hodnoty, každou s vlastním zdrojem, a vysvětlete rozdíl.
+7. Pokud otázka omezuje stáří zdrojů, použijte jen zdroje, které omezení splňují, a uveďte jejich datum.
+8. Pokud spolehlivou odpověď nenajdete, napište to. Nehádejte.
+
+Formát výstupu:
+ODPOVĚĎ: 1–3 věty s přímou odpovědí.
+TVRZENÍ:
+T1: <jedno tvrzení> [n]
+T2: <jedno tvrzení> [n]
+ZDROJE:
+[1] <název> – <vydavatel> – <datum vydání nebo „neuvedeno“> – <úplná URL>
+JISTOTA: vysoká / střední / nízká – jedna věta proč.
+"
+26,dev-CIT-013-P2-perplexity-r1,dev,dev,CIT-013,cs,P2,P2_structured_cs.txt,481c3fa95fa65d7c3478e2974c6c6d81653082108a466c467d96111a788211b1,253f5459c916d3ac36c12630ef1f872e332d5bf09a6e83bd44b385a91a9908a9,perplexity,perplexity.ai (web),1,"výchozí, neviditelná",režim Search; Research/Labs vypnuto; Incognito,žádné,"výchozí, nenastavitelné",výchozí,/mnt/d/AI/czai-private-v1/calibration/avast-v2/answers/dev-CIT-013-P2-perplexity-r1.txt,completed,yes,,7.58,Default Search; model name not visible,Free previously observed; not redisplayed,2026-10-13T00:37:14.798000+02:00,2026-10-13T00:37:22.378000+02:00,7.58,unclear,unknown,1,unknown,0,none,yes,"Native browser input; Markdown serialization of original reply DOM with original hyperlink destinations; no claims, URLs or citation repairs",,/mnt/d/AI/czai-private-v1/calibration/avast-v2/screens/dev-CIT-013-P2-perplexity-r1.png,codex-ui-2026-10-12,"Subscription amount, tokens and credits unknown; no separate API charge observed","Real pre-G1 pilot in Avast 153; exact rendered prompt verified. Completion observed by stable reply >=1 s without a visible Stop control; polling adds observation delay. Original reply DOM preserved. Focus emulation only for post-reply visible screenshot, restored; viewport excerpt, full raw preserved. Extended public dev pilot. Incognito confirmed by Ukončit anonymní režim. Default ordinary search; no Research/Computer/Labs. Model button without a model name. Exact tier not redisplayed in this new header.",e2e32e28b62fe016105be050c6c7fa7ac96cc691cbc59b698d1de59d2c3db707,/mnt/d/AI/czai-private-v1/calibration/avast-v2/raw/dev-CIT-013-P2-perplexity-r1.raw.txt,7e1111dbf7d13b953eb14251c17bd79d18785978c1dda8aa4e50124647227d22,bc2ceadf75c364b21f703a277d2911e36b4d5c91c1c0d6ffffe39a8148adc64f,,,,,,"Jste pečlivý rešeršní asistent. Každé tvrzení dokládáte zdrojem, který jste v této konverzaci skutečně otevřeli.
+
+Cíl: odpovězte přesně a stručně na otázku tak, aby si čtenář mohl každé tvrzení ověřit.
+
+Otázka:
+Kolik obyvatel měla Česká republika podle výsledků Sčítání lidu, domů a bytů 2021 k rozhodnému okamžiku? Uveďte přesné číslo a zdroj ČSÚ.
+
+Pravidla:
+1. Vyhledejte informace na webu. Necitujte zdroj, který jste neotevřeli, a nevymýšlejte URL.
+2. Za každým faktickým tvrzením (číslo, datum, jméno, definice) uveďte odkaz na zdroj ve tvaru [1], [2].
+3. Citujte konkrétní stránku nebo dokument, ne domovskou stránku ani výsledky vyhledávání.
+4. Upřednostňujte primární a oficiální zdroje (zákon, úřad, původní studie, standard).
+5. Pokud otázka obsahuje chybný předpoklad, nejprve ho opravte.
+6. Pokud se zdroje liší, uveďte obě hodnoty, každou s vlastním zdrojem, a vysvětlete rozdíl.
+7. Pokud otázka omezuje stáří zdrojů, použijte jen zdroje, které omezení splňují, a uveďte jejich datum.
+8. Pokud spolehlivou odpověď nenajdete, napište to. Nehádejte.
+
+Formát výstupu:
+ODPOVĚĎ: 1–3 věty s přímou odpovědí.
+TVRZENÍ:
+T1: <jedno tvrzení> [n]
+T2: <jedno tvrzení> [n]
+ZDROJE:
+[1] <název> – <vydavatel> – <datum vydání nebo „neuvedeno“> – <úplná URL>
+JISTOTA: vysoká / střední / nízká – jedna věta proč.
+"
+27,dev-CIT-013-P2-chatgpt-r1,dev,dev,CIT-013,cs,P2,P2_structured_cs.txt,481c3fa95fa65d7c3478e2974c6c6d81653082108a466c467d96111a788211b1,253f5459c916d3ac36c12630ef1f872e332d5bf09a6e83bd44b385a91a9908a9,chatgpt,chatgpt.com (web),1,"výchozí, neviditelná",Search vynucen; Deep research vypnut; Temporary chat (Unpersonalized),žádné,"výchozí, nenastavitelné",výchozí,/mnt/d/AI/czai-private-v1/calibration/avast-v2/answers/dev-CIT-013-P2-chatgpt-r1.txt,completed,yes,,12.269,"GPT-6, Střední",unknown,2026-10-13T00:09:34.640000+02:00,2026-10-13T00:09:46.909000+02:00,12.269,unclear,unknown,1,unknown,0,none,yes,"Native browser input; Markdown serialization of original reply DOM with original hyperlink destinations; no claims, URLs or citation repairs",,/mnt/d/AI/czai-private-v1/calibration/avast-v2/screens/dev-CIT-013-P2-chatgpt-r1.png,codex-ui-2026-10-12,"Subscription amount, tokens and credits unknown; no separate API charge observed",Real pre-G1 pilot in Avast 153; exact rendered prompt verified. Completion observed by stable reply >=1 s without a visible Stop control; polling adds observation delay. Original reply DOM preserved. Extended public dev pilot. Temporary/Bez personalizace and GPT-6/Střední checked in actual UI before submission. Ordinary tools; no Deep Research. Search mode not separately forced in this UI.,d9298c8963618e1df8bb59d47b2f651fa9632a91d81c98bf623b987669a4bc81,/mnt/d/AI/czai-private-v1/calibration/avast-v2/raw/dev-CIT-013-P2-chatgpt-r1.raw.txt,16547c4748b73e0e8d3c7462c338f7396c60cf3d70542b1b0a0847c21ad1365c,dabe7353313caf6567e04f9d9569b95bb508b9c692ac36fc291bf08c9ce9dfd4,,,,,,"Jste pečlivý rešeršní asistent. Každé tvrzení dokládáte zdrojem, který jste v této konverzaci skutečně otevřeli.
+
+Cíl: odpovězte přesně a stručně na otázku tak, aby si čtenář mohl každé tvrzení ověřit.
+
+Otázka:
+Kolik obyvatel měla Česká republika podle výsledků Sčítání lidu, domů a bytů 2021 k rozhodnému okamžiku? Uveďte přesné číslo a zdroj ČSÚ.
+
+Pravidla:
+1. Vyhledejte informace na webu. Necitujte zdroj, který jste neotevřeli, a nevymýšlejte URL.
+2. Za každým faktickým tvrzením (číslo, datum, jméno, definice) uveďte odkaz na zdroj ve tvaru [1], [2].
+3. Citujte konkrétní stránku nebo dokument, ne domovskou stránku ani výsledky vyhledávání.
+4. Upřednostňujte primární a oficiální zdroje (zákon, úřad, původní studie, standard).
+5. Pokud otázka obsahuje chybný předpoklad, nejprve ho opravte.
+6. Pokud se zdroje liší, uveďte obě hodnoty, každou s vlastním zdrojem, a vysvětlete rozdíl.
+7. Pokud otázka omezuje stáří zdrojů, použijte jen zdroje, které omezení splňují, a uveďte jejich datum.
+8. Pokud spolehlivou odpověď nenajdete, napište to. Nehádejte.
+
+Formát výstupu:
+ODPOVĚĎ: 1–3 věty s přímou odpovědí.
+TVRZENÍ:
+T1: <jedno tvrzení> [n]
+T2: <jedno tvrzení> [n]
+ZDROJE:
+[1] <název> – <vydavatel> – <datum vydání nebo „neuvedeno“> – <úplná URL>
+JISTOTA: vysoká / střední / nízká – jedna věta proč.
+"
+28,dev-CIT-013-P2-gemini-r1,dev,dev,CIT-013,cs,P2,P2_structured_cs.txt,481c3fa95fa65d7c3478e2974c6c6d81653082108a466c467d96111a788211b1,253f5459c916d3ac36c12630ef1f872e332d5bf09a6e83bd44b385a91a9908a9,gemini,gemini.google.com (web),1,"výchozí, neviditelná",vyhledávání automatické; Deep Research vypnut; Temporary chat,žádné,"výchozí, nenastavitelné",výchozí,/mnt/d/AI/czai-private-v1/calibration/avast-v2/answers/dev-CIT-013-P2-gemini-r1.txt,completed,yes,,10.375,Flash; exact version not redisplayed (prior UI: 3.6 Flash),Plus previously observed; not redisplayed,2026-10-13T00:21:02.121000+02:00,2026-10-13T00:21:12.496000+02:00,10.375,unclear,unknown,1,unknown,0,none,yes,"Native browser input; Markdown serialization of original reply DOM with original hyperlink destinations; no claims, URLs or citation repairs",,/mnt/d/AI/czai-private-v1/calibration/avast-v2/screens/dev-CIT-013-P2-gemini-r1.png,codex-ui-2026-10-12,"Subscription amount, tokens and credits unknown; no separate API charge observed",Real pre-G1 pilot in Avast 153; exact rendered prompt verified. Completion observed by stable reply >=1 s without a visible Stop control; polling adds observation delay. Original reply DOM preserved. Extended public dev pilot. Temporary confirmed by chat-window.is-temporary-chat and mode Flash rechecked. Sidebar closed before input/capture. Ordinary automatic search; no Deep Research. Version/tier notes distinguish current visible state from previous observation.,44d03a4b4cb75977907b426fac2f0bceb61da9a4359f43d1f6418539d3693b0a,/mnt/d/AI/czai-private-v1/calibration/avast-v2/raw/dev-CIT-013-P2-gemini-r1.raw.txt,6f370ad1701ba03049f6b8c524c4ed9d3ce60c97483b6bee1bdd1565ef601f6a,6f3a5b73a8186db55adf2b68735fd7ca21f95dc7038d93142d0f89d14e229919,,,,,,"Jste pečlivý rešeršní asistent. Každé tvrzení dokládáte zdrojem, který jste v této konverzaci skutečně otevřeli.
+
+Cíl: odpovězte přesně a stručně na otázku tak, aby si čtenář mohl každé tvrzení ověřit.
+
+Otázka:
+Kolik obyvatel měla Česká republika podle výsledků Sčítání lidu, domů a bytů 2021 k rozhodnému okamžiku? Uveďte přesné číslo a zdroj ČSÚ.
+
+Pravidla:
+1. Vyhledejte informace na webu. Necitujte zdroj, který jste neotevřeli, a nevymýšlejte URL.
+2. Za každým faktickým tvrzením (číslo, datum, jméno, definice) uveďte odkaz na zdroj ve tvaru [1], [2].
+3. Citujte konkrétní stránku nebo dokument, ne domovskou stránku ani výsledky vyhledávání.
+4. Upřednostňujte primární a oficiální zdroje (zákon, úřad, původní studie, standard).
+5. Pokud otázka obsahuje chybný předpoklad, nejprve ho opravte.
+6. Pokud se zdroje liší, uveďte obě hodnoty, každou s vlastním zdrojem, a vysvětlete rozdíl.
+7. Pokud otázka omezuje stáří zdrojů, použijte jen zdroje, které omezení splňují, a uveďte jejich datum.
+8. Pokud spolehlivou odpověď nenajdete, napište to. Nehádejte.
+
+Formát výstupu:
+ODPOVĚĎ: 1–3 věty s přímou odpovědí.
+TVRZENÍ:
+T1: <jedno tvrzení> [n]
+T2: <jedno tvrzení> [n]
+ZDROJE:
+[1] <název> – <vydavatel> – <datum vydání nebo „neuvedeno“> – <úplná URL>
+JISTOTA: vysoká / střední / nízká – jedna věta proč.
+"
+29,dev-CIT-013-P2-grok-r1,dev,dev,CIT-013,cs,P2,P2_structured_cs.txt,481c3fa95fa65d7c3478e2974c6c6d81653082108a466c467d96111a788211b1,253f5459c916d3ac36c12630ef1f872e332d5bf09a6e83bd44b385a91a9908a9,grok,grok.com (web),1,"výchozí, neviditelná",vyhledávání automatické (web + X); DeepSearch vypnut; Private Chat,žádné,"výchozí, nenastavitelné",výchozí,/mnt/d/AI/czai-private-v1/calibration/avast-v2/answers/dev-CIT-013-P2-grok-r1.txt,completed,yes,,17.37,Fast; underlying model unknown,unknown,2026-10-13T00:14:41.801000+02:00,2026-10-13T00:14:59.171000+02:00,17.37,unclear,unknown,1,unknown,0,none,yes,"Native browser input; Markdown serialization of original reply DOM with original hyperlink destinations; no claims, URLs or citation repairs",,/mnt/d/AI/czai-private-v1/calibration/avast-v2/screens/dev-CIT-013-P2-grok-r1.png,codex-ui-2026-10-12,"Subscription amount, tokens and credits unknown; no separate API charge observed","Real pre-G1 pilot in Avast 153; exact rendered prompt verified. Completion observed by stable reply >=1 s without a visible Stop control; polling adds observation delay. Original reply DOM preserved. Extended public dev pilot. Private chat confirmed by Přepnout na výchozí chat; Model: Fast checked. Ordinary web/X access, no DeepSearch. No age/access intervention during this request.",32f68c0e6d73adc2c1138b8bdab436d68c6c1c7d4ef1f72bfa47f082c9353f44,/mnt/d/AI/czai-private-v1/calibration/avast-v2/raw/dev-CIT-013-P2-grok-r1.raw.txt,400bcafa97bc499b5d26e9e558932bc2b6f7f276621d20f84d1294708b061b41,c12f82147e761af7953d0753050cd08dc667de9438f0a2557a5dd0cab42e1786,,,,,,"Jste pečlivý rešeršní asistent. Každé tvrzení dokládáte zdrojem, který jste v této konverzaci skutečně otevřeli.
+
+Cíl: odpovězte přesně a stručně na otázku tak, aby si čtenář mohl každé tvrzení ověřit.
+
+Otázka:
+Kolik obyvatel měla Česká republika podle výsledků Sčítání lidu, domů a bytů 2021 k rozhodnému okamžiku? Uveďte přesné číslo a zdroj ČSÚ.
+
+Pravidla:
+1. Vyhledejte informace na webu. Necitujte zdroj, který jste neotevřeli, a nevymýšlejte URL.
+2. Za každým faktickým tvrzením (číslo, datum, jméno, definice) uveďte odkaz na zdroj ve tvaru [1], [2].
+3. Citujte konkrétní stránku nebo dokument, ne domovskou stránku ani výsledky vyhledávání.
+4. Upřednostňujte primární a oficiální zdroje (zákon, úřad, původní studie, standard).
+5. Pokud otázka obsahuje chybný předpoklad, nejprve ho opravte.
+6. Pokud se zdroje liší, uveďte obě hodnoty, každou s vlastním zdrojem, a vysvětlete rozdíl.
+7. Pokud otázka omezuje stáří zdrojů, použijte jen zdroje, které omezení splňují, a uveďte jejich datum.
+8. Pokud spolehlivou odpověď nenajdete, napište to. Nehádejte.
+
+Formát výstupu:
+ODPOVĚĎ: 1–3 věty s přímou odpovědí.
+TVRZENÍ:
+T1: <jedno tvrzení> [n]
+T2: <jedno tvrzení> [n]
+ZDROJE:
+[1] <název> – <vydavatel> – <datum vydání nebo „neuvedeno“> – <úplná URL>
+JISTOTA: vysoká / střední / nízká – jedna věta proč.
+"
+30,dev-CIT-013-P2-claude-r1,dev,dev,CIT-013,cs,P2,P2_structured_cs.txt,481c3fa95fa65d7c3478e2974c6c6d81653082108a466c467d96111a788211b1,253f5459c916d3ac36c12630ef1f872e332d5bf09a6e83bd44b385a91a9908a9,claude,claude.ai (web),1,"výchozí, neviditelná",Web search zapnut/automatický; Research vypnut; Incognito chat,žádné,"výchozí, nenastavitelné",výchozí,/mnt/d/AI/czai-private-v1/calibration/avast-v2/answers/dev-CIT-013-P2-claude-r1.txt,planned,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,"Jste pečlivý rešeršní asistent. Každé tvrzení dokládáte zdrojem, který jste v této konverzaci skutečně otevřeli.
+
+Cíl: odpovězte přesně a stručně na otázku tak, aby si čtenář mohl každé tvrzení ověřit.
+
+Otázka:
+Kolik obyvatel měla Česká republika podle výsledků Sčítání lidu, domů a bytů 2021 k rozhodnému okamžiku? Uveďte přesné číslo a zdroj ČSÚ.
+
+Pravidla:
+1. Vyhledejte informace na webu. Necitujte zdroj, který jste neotevřeli, a nevymýšlejte URL.
+2. Za každým faktickým tvrzením (číslo, datum, jméno, definice) uveďte odkaz na zdroj ve tvaru [1], [2].
+3. Citujte konkrétní stránku nebo dokument, ne domovskou stránku ani výsledky vyhledávání.
+4. Upřednostňujte primární a oficiální zdroje (zákon, úřad, původní studie, standard).
+5. Pokud otázka obsahuje chybný předpoklad, nejprve ho opravte.
+6. Pokud se zdroje liší, uveďte obě hodnoty, každou s vlastním zdrojem, a vysvětlete rozdíl.
+7. Pokud otázka omezuje stáří zdrojů, použijte jen zdroje, které omezení splňují, a uveďte jejich datum.
+8. Pokud spolehlivou odpověď nenajdete, napište to. Nehádejte.
+
+Formát výstupu:
+ODPOVĚĎ: 1–3 věty s přímou odpovědí.
+TVRZENÍ:
+T1: <jedno tvrzení> [n]
+T2: <jedno tvrzení> [n]
+ZDROJE:
+[1] <název> – <vydavatel> – <datum vydání nebo „neuvedeno“> – <úplná URL>
+JISTOTA: vysoká / střední / nízká – jedna věta proč.
+"

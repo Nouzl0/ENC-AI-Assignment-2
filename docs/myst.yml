@@ -40,6 +40,9 @@ project:
       rešeršních dotazech v češtině a angličtině a ve třech promptových
       podmínkách. Hlavní metrikou je citační přesnost na úrovni tvrzení,
       doplněná úplností citací a správností odpovědi.
+      Reálný pilot obsahuje 33 odpovědí na osm unikátních úloh a konkrétní analýzu
+      úspěchů, citačních problémů a provozního selhání. Finální analytické měření
+      a nezávislé lidské ratingy zatím nejsou dokončené.
 
     acknowledgements: >
       Mendelova univerzita v Brně, Provozně ekonomická fakulta.

@@ -1,6 +1,9 @@
 # Výzkumný protokol – návrh před G1
 
-**Dosud nezmrazeno; nejsou výsledky ani podepsané brány.** Tento soubor a rubrika jsou
+**Dosud nezmrazeno; nejsou finální analytické výsledky ani podepsané brány.** Skutečný
+pilot je uložený v `runs/pilot-2026-10-12/` a `runs/pilot-2026-10-13/`
+a popsaný v `docs/results.md`.
+Tento soubor a rubrika jsou
 aktuální normativní podklad. Původní DOCX je historický návrh. Skutečné schválení,
 časové údaje a hashe uloží správce do soukromých manifestů podle `freeze/README.md`.
 
@@ -214,7 +217,7 @@ Hodnotitel 1 všechny completed odpovědi, hodnotitel 2 předem náhodně vybran
 v každém stratu fáze×produkt×podmínka, zaokrouhleno nahoru. Nikdo nehodnotí vlastní běh;
 v malém týmu může být nutný externí hodnotitel. Zaslepení je částečné, formát může
 prozradit podmínku. Oba dostávají stejné podklady bez automatických nápověd; ty jsou
-odděleně u správce a porovnávají se až po nezávislém ratingu. Před G1 projít plné offline
+odděleně u nehodnotícího operátora a porovnávají se až po nezávislém ratingu. Před G1 projít plné offline
 kotvy v annotation/calibration.md a pilot CIT-001 + CIT-020. Raw listy před diskusí
 zachovat, finální konsenzus není raw IRR.
 Kappa S2/ostatní cíl ≥0,6, pět kategorií a správnost doplňkově, segmentace zvlášť;

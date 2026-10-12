@@ -1,0 +1,85 @@
+{
+  "kind": "actual supplementary AI source retrievals; not human ratings or G1 verification",
+  "sources": [
+    {
+      "task_id": "CIT-001",
+      "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC7745181/fullTextXML",
+      "checked_at": "2026-10-12T22:11:24.761038+00:00",
+      "sha256": "985d422a37ea3543aa204be4892e0809aaf3f0ed4b2db43b097b130142f55cf1",
+      "bytes": 103915,
+      "http_status": "200"
+    },
+    {
+      "task_id": "CIT-003",
+      "url": "https://www.nist.gov/how-do-you-measure-it/how-do-you-know-age-fossils-and-other-old-things",
+      "checked_at": "2026-10-12T22:11:24.762159+00:00",
+      "sha256": "dea8036e5c197ad39fa66f9ddd79163c2252c119f67e93c6a67cd721cb023e4b",
+      "bytes": 83742,
+      "http_status": "200"
+    },
+    {
+      "task_id": "CIT-004",
+      "url": "https://cuzk.gov.cz/Aktuality-resort/20140225/Snezka.aspx",
+      "checked_at": "2026-10-12T22:11:24.763544+00:00",
+      "sha256": "38894dd538ce9c342b4993ef36f9e14bd7747502e475932a05dac1390ff0111c",
+      "bytes": 123804,
+      "http_status": "200"
+    },
+    {
+      "task_id": "CIT-005",
+      "url": "https://mmr.gov.cz/cs/ostatni/web/novinky/novy-stavebni-zakon-zacal-platit-i-pro-bezne-stavb",
+      "checked_at": "2026-10-12T22:11:24.764732+00:00",
+      "sha256": "792f20d034f32a67a882514662b6548c72328dfcf00668f527275fd265f3949a",
+      "bytes": 64340,
+      "http_status": "200"
+    },
+    {
+      "task_id": "CIT-008",
+      "url": "https://www.psp.cz/docs/laws/constitution.html",
+      "checked_at": "2026-10-12T22:11:25.209726+00:00",
+      "sha256": "7d2fde5faec295d7b57212a1c79991d09a170d8110248a9955b51b710068403e",
+      "bytes": 66781,
+      "http_status": "200"
+    },
+    {
+      "task_id": "CIT-012",
+      "url": "https://www.govinfo.gov/content/pkg/FR-2021-05-17/html/2021-10460.htm",
+      "checked_at": "2026-10-12T22:11:25.314787+00:00",
+      "sha256": "24d323dc90ddb4a3b00d0d546441aad5d2e624b54c93a98068ae152f110f9fab",
+      "bytes": 70154,
+      "http_status": "200"
+    },
+    {
+      "task_id": "CIT-013",
+      "url": "https://csu.gov.cz/produkty/csu-predstavil-prvni-vysledky-scitani-2021",
+      "checked_at": "2026-10-12T22:11:25.476416+00:00",
+      "sha256": "1a7bdbd7a4799da53cf515101b015e2a147cdc92d0e2a83de1acadde12bd9b52",
+      "bytes": 76718,
+      "http_status": "200"
+    },
+    {
+      "task_id": "CIT-020",
+      "url": "https://www.shakespeare.org.uk/explore-shakespeare/shakespedia/william-shakespeare/when-was-shakespeare-born/",
+      "checked_at": "2026-10-12T22:11:25.596807+00:00",
+      "sha256": "474be7953dc90ed5dad36db5613c25cda884cdd573b7699e3410cd1d10ac33c7",
+      "bytes": 84249,
+      "http_status": "200"
+    },
+    {
+      "task_id": "CIT-007",
+      "url": "https://financnisprava.gov.cz/assets/cs/prilohy/fs-financni-sprava-cr/EtR_DPH_20230606.pdf",
+      "checked_at": "2026-10-12T22:11:25.654080+00:00",
+      "sha256": "fb3b3e7bfd1530608cd182a86a035861b7e5925b22efee7e0d1da55991a385d8",
+      "bytes": 328128,
+      "http_status": "200"
+    },
+    {
+      "task_id": "CIT-010",
+      "url": "https://news.microsoft.com/de-de/mit-windows-11-copilot-pcs-und-windows-365-sicher-bleiben/",
+      "checked_at": "2026-10-12T22:11:25.978523+00:00",
+      "sha256": "9768a45404339c54f6a6d0fe8f3beed0e70cda3a56e00d0fc993579ebc598209",
+      "bytes": 155797,
+      "http_status": "200"
+    }
+  ]
+}

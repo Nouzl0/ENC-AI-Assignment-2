@@ -1,0 +1,17 @@
+ANSWER: The half-life of carbon-14 (¹⁴C) is approximately 5,730 years. This means that after 5,730 years, half of the original carbon-14 atoms in a sample will have undergone radioactive decay. [1]
+
+CLAIMS:
+
+C1: Carbon-14 has a half-life of approximately 5,730 years. [1]
+
+C2: Carbon-14 decays into nitrogen-14. [1]
+
+C3: Half-life is the time required for half of the radioactive atoms in a sample to decay. [1]
+
+SOURCES:
+
+[1] How Do You Know the Age of Fossils and Other Old Things? – National Institute of Standards and Technology (NIST) – April 3, 2025 (updated) – [https://www.nist.gov/how-do-you-measure-it/how-do-you-know-age-fossils-and-other-old-things](https://www.nist.gov/how-do-you-measure-it/how-do-you-know-age-fossils-and-other-old-things)
+
+[2] The Remarkable Metrological History of Radiocarbon Dating [II] – NIST – August 1, 2004 – [https://www.nist.gov/publications/remarkable-metrological-history-radiocarbon-dating-ii](https://www.nist.gov/publications/remarkable-metrological-history-radiocarbon-dating-ii)
+
+CONFIDENCE: high – The half-life is directly confirmed by two official NIST publications. [1][2]

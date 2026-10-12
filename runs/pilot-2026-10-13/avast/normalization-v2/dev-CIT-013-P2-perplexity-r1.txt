@@ -1,0 +1,14 @@
+ODPOVĚĎ: Podle výsledků Sčítání lidu, domů a bytů 2021 měla Česká republika k rozhodnému okamžiku, tj. k 26. březnu 2021, 10 524 167 obyvatel (obvykle bydlících osob). [csu.gov.cz](https://csu.gov.cz/scitani-2021) [csu.gov.cz](https://csu.gov.cz/docs/107508/25d43c10-cad9-9723-deda-040ebc5dcd94/17038923.pdf)
+
+TVRZENÍ:
+T1: K rozhodnému okamžiku Sčítání 2021 žilo v Česku 10 524 167 obvykle bydlících osob. [csu.gov.cz](https://csu.gov.cz/scitani-2021) [csu.gov.cz](https://csu.gov.cz/docs/107508/25d43c10-cad9-9723-deda-040ebc5dcd94/17038923.pdf)
+T2: Rozhodným okamžikem byla půlnoc z 26. na 27. března 2021; ČSÚ jej v souvislosti s počtem obyvatel uvádí také jako 26. 3. 2021. [csu.gov.cz](https://csu.gov.cz/docs/107508/25d43c10-cad9-9723-deda-040ebc5dcd94/17038923.pdf) [csu.gov.cz](https://csu.gov.cz/pha/metodika_scitani) [scitani.gov.cz](https://scitani.gov.cz/zakon-o-scitani-2021-2376)
+T3: Údaj zahrnuje osoby s obvyklým pobytem na území ČR, nikoli pouze osoby s trvalým pobytem. [csu.gov.cz](https://csu.gov.cz/pha/metodika_scitani)
+
+ZDROJE:
+Sčítání 2021 – Český statistický úřad – 13. 1. 2022 – [https://csu.gov.cz/scitani-2021](https://csu.gov.cz/scitani-2021) [csu.gov.cz](https://csu.gov.cz/scitani-2021)
+Metodika – sčítání lidu, domů a bytů – Český statistický úřad – neuvedeno – [https://csu.gov.cz/pha/metodika_scitani](https://csu.gov.cz/pha/metodika_scitani) [csu.gov.cz](https://csu.gov.cz/pha/metodika_scitani)
+Základní výsledky Sčítání lidu, domů a bytů 2021 (PDF) – Český statistický úřad – neuvedeno – [https://csu.gov.cz/docs/107508/25d43c10-cad9-9723-deda-040ebc5dcd94/17038923.pdf](https://csu.gov.cz/docs/107508/25d43c10-cad9-9723-deda-040ebc5dcd94/17038923.pdf) [csu.gov.cz](https://csu.gov.cz/docs/107508/25d43c10-cad9-9723-deda-040ebc5dcd94/17038923.pdf)
+Zákon o Sčítání 2021 – scitani.gov.cz (ČSÚ) – neuvedeno – [https://scitani.gov.cz/zakon-o-scitani-2021-2376](https://scitani.gov.cz/zakon-o-scitani-2021-2376) [scitani.gov.cz](https://scitani.gov.cz/zakon-o-scitani-2021-2376)
+
+JISTOTA: vysoká – přesné číslo je jednoznačně uvedeno v oficiálních výsledcích a metodice ČSÚ.

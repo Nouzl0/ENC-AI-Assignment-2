@@ -1,0 +1,14 @@
+ODPOVĚĎ: Aktuální oficiální výška přirozeného vrcholu Sněžky je 1603,296 m n. m. (běžně zaokrouhleno 1603 m). Dřívější hodnota 1602 m se liší, protože neuvádí nejvyšší bod hory, nýbrž výšku trigonometrického bodu č. 12, který leží o něco níže. [cuzk.gov](https://cuzk.gov.cz/Aktuality-resort/20140225/Snezka.aspx)
+
+TVRZENÍ:
+T1: Český úřad zeměměřický a katastrální (ČÚZK) stanovil výšku přirozeného vrcholu Sněžky na 1603,296 m nad střední hladinou Baltského moře v Kronštadtu (výškový systém Balt). [cuzk.gov](https://cuzk.gov.cz/Aktuality-resort/20140225/Snezka.aspx)
+T2: Dosavadní údaj 1602 m byl zaokrouhlením výšky trigonometrického bodu č. 12 Sněžka, přesně 1602,02 m; tento bod neleží na nejvyšším místě hory. [cuzk.gov](https://cuzk.gov.cz/Aktuality-resort/20140225/Snezka.aspx)
+T3: Nejvyšší bod Sněžky se nachází na polském území u kaple svatého Vavřince; nejvyšší bod na české straně je zhruba o 10 cm nižší. [cuzk.gov](https://cuzk.gov.cz/Aktuality-resort/20140225/Snezka.aspx)
+T4: Rozdíl mezi 1602 m a 1603 m tedy není změnou výšky hory, ale rozdílem mezi výškou geodetického bodu a skutečným přirozeným vrcholem. [cuzk.gov
++1](https://cuzk.gov.cz/Aktuality-resort/20140225/Snezka.aspx)
+
+ZDROJE:
+K výšce Sněžky – Český úřad zeměměřický a katastrální – 25. 2. 2014 – [https://cuzk.gov.cz/Aktuality-resort/20140225/Snezka.aspx](https://cuzk.gov.cz/Aktuality-resort/20140225/Snezka.aspx) [cuzk.gov](https://cuzk.gov.cz/Aktuality-resort/20140225/Snezka.aspx)
+Sněžka má opravdu 1603 metrů. Oficiálně to potvrdil i zeměměřičský úřad – Český rozhlas Hradec Králové – 26. 2. 2014 – [https://hradec.rozhlas.cz/snezka-ma-opravdu-1603-metru-oficialne-potvrdil-i-zememericsky-urad-6153924](https://hradec.rozhlas.cz/snezka-ma-opravdu-1603-metru-oficialne-potvrdil-i-zememericsky-urad-6153924) [hradec.rozhlas](https://hradec.rozhlas.cz/snezka-ma-opravdu-1603-metru-oficialne-potvrdil-i-zememericsky-urad-6153924)
+
+JISTOTA: vysoká – primární zdroj ČÚZK explicitně uvádí přesnou hodnotu 1603,296 m a vysvětluje původ dřívějšího údaje 1602 m.

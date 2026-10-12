@@ -1,0 +1,24 @@
+ODPOVĚĎ: SBOM (Software Bill of Materials) je formální záznam (vnořený inventář / „seznam ingrediencí“) obsahující detaily a vztahy v dodavatelském řetězci jednotlivých komponent použitých při sestavení softwaru; jeho používání prosadil americký Executive Order 14028 z 12. května 2021 (Improving the Nation’s Cybersecurity).[⁠Nist](https://www.nist.gov/itl/executive-order-14028-improving-nations-cybersecurity/software-supply-chain-security-guidance-20)
+
+
+TVRZENÍ:
+
+T1: SBOM znamená Software Bill of Materials a v kontextu software supply chain security jde o formální záznam (nested inventory / list of ingredients) obsahující detaily a supply chain relationships různých komponent použitých při budování softwaru. [1][2][3]
+
+T2: Tento koncept a povinnost poskytovat SBOM (přímo nebo na veřejném webu) pro software prodávaný federálním agenturám prosadil Executive Order 14028 ze dne 12. května 2021 (Improving the Nation’s Cybersecurity), který také nařídil zveřejnění minimálních prvků SBOM. [1][4][5]
+
+
+ZDROJE:
+
+[1] Software Security in Supply Chains: Software Bill of Materials (SBOM) – NIST – aktualizováno 1. listopadu 2024 (původně 3. května 2022) – [https://www.nist.gov/itl/executive-order-14028-improving-nations-cybersecurity/software-supply-chain-security-guidance-20](https://www.nist.gov/itl/executive-order-14028-improving-nations-cybersecurity/software-supply-chain-security-guidance-20)
+
+[2] Software Bill of Materials (SBOM) – CISA – neuvedeno – [https://www.cisa.gov/topics/information-communications-technology-supply-chain-security/sbom](https://www.cisa.gov/topics/information-communications-technology-supply-chain-security/sbom)
+
+[3] The Minimum Elements For a Software Bill of Materials (SBOM) – U.S. Department of Commerce / NTIA – 12. července 2021 – [https://www.ntia.gov/files/ntia/publications/sbom_minimum_elements_report.pdf](https://www.ntia.gov/files/ntia/publications/sbom_minimum_elements_report.pdf)
+
+[4] Improving the Nation’s Cybersecurity (Executive Order 14028) – Federal Register – 17. května 2021 (EO podepsán 12. května 2021) – [https://www.federalregister.gov/documents/2021/05/17/2021-10460/improving-the-nations-cybersecurity](https://www.federalregister.gov/documents/2021/05/17/2021-10460/improving-the-nations-cybersecurity)
+
+[5] 2023 CISA SBOM-a-Rama – Federal Register – 22. května 2023 – [https://www.federalregister.gov/documents/2023/05/22/2023-10825/2023-cisa-sbom-a-rama](https://www.federalregister.gov/documents/2023/05/22/2023-10825/2023-cisa-sbom-a-rama)
+
+
+JISTOTA: vysoká – definice i číslo a datum EO 14028 jsou přímo citovány z oficiálních primárních zdrojů (NIST, CISA, NTIA/Department of Commerce a Federal Register).

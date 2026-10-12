@@ -23,7 +23,7 @@ rozhodnutí týmu. Hodnoty se nesmí odhadovat. Zdroj pravdy je [PROTOCOL.md](..
 **Project scope:**
 
 - [x] Jedna schopnost: správnost a úplnost citací na úrovni tvrzení
-- [x] Pět produktů jako kompletních systémů, bezplatná úroveň, běžný chat s webovým vyhledáváním, bez Deep Research
+- [x] Návrh s pěti produkty jako kompletními systémy, existující přihlášené účty, běžný chat s webovým vyhledáváním, bez Deep Research; rozdílné tarify patří do omezení
 - [x] 40 faktických rešeršních úloh v češtině a angličtině z pěti oblastí, tři podmínky promptu
 
 **Worksheet version and date:** v0.1 (počáteční), 2026-10-12
@@ -87,7 +87,7 @@ Tabulka zaznamenává skutečně viditelné pilotní nastavení 12. 10. 2026. U 
 - [x] Návrh podle schopností produktu: každý systém používá své běžné webové vyhledávání a výsledek je výslovně porovnáním produktů
 - [ ] Dvouvrstvý návrh (volitelné API rozšíření je jen možnost, nepočítá se do plánu)
 
-**What cannot be made equal?** Vyhledávač, index, zobrazení citací, bezpečnostní vrstva, skryté systémové instrukce, teplota a limit výstupu, nastavení modelu v bezplatné úrovni a režim vyhledávání. Model nelze odpojit od vyhledávání a produkt od rozhraní.
+**What cannot be made equal?** Vyhledávač, index, zobrazení citací, bezpečnostní vrstva, skryté systémové instrukce, teplota a limit výstupu, dostupné modely a režimy podle skutečných účtů. Model nelze odpojit od vyhledávání a produkt od rozhraní.
 
 **How will this limitation affect interpretation?** Rozdíly nelze připsat modelu. Závěry formulujeme jen o testovaných produktech, režimech, účtech, jazycích, oblastech a období. Neznámé hodnoty (skryté instrukce, teplota) zapisujeme jako „výchozí/neznámé", nikdy je nedomýšlíme.
 
@@ -259,7 +259,7 @@ Checklist níže potvrzuje připravená metadata, nikoli provedení všech běh�
 - [x] Surový text odpovědi, normalizace a SHA-256
 - [x] Snímek obrazovky a odkaz na sdílení
 
-**Storage location:** Originální sběr: `D:\AI\czai-private-v1` (ve WSL `/mnt/d/AI/czai-private-v1`), mimo worktree. Nový pilot je oddělený v `calibration/avast-v1/`. Schválený export pro odevzdání bude v `ENC-AI-Project`; podepsané originály se nepřepisují a holdout se před G2 nepublikuje.
+**Storage location:** Originální sběr: `D:\AI\czai-private-v1` (ve WSL `/mnt/d/AI/czai-private-v1`), mimo worktree. Pilotní kolekce jsou oddělené v `calibration/avast-v1/` a `calibration/avast-v2/`. Schválené pilotní exporty již jsou v `ENC-AI-Project/runs/`; podepsané originály se nepřepisují a holdout se před G2 nepublikuje.
 
 **Anonymization and data-protection procedure:** Dotazy jsou syntetické veřejné fakty, bez osobních údajů. Nový pilot používá existující přihlášené účty a dočasné/anonymní chaty; rozdíly úrovní a personalizace se evidují. Analytická konfigurace se rozhodne před G1. Soukromé snapshoty a klíče zůstávají mimo Git a sdílejí se jen oprávněně. Přístupové údaje ani osobní data se neukládají. Publikace testu a odsanitizovaných artefaktů až po G3 a souhlasu týmu.
 
@@ -267,9 +267,9 @@ Checklist níže potvrzuje připravená metadata, nikoli provedení všech běh�
 
 ## K. Pilot review
 
-**Pilot size:** Plán: CIT-001 a CIT-020 × 5 produktů = 10 odpovědí před G1. Původní sběr má dvě dokončené odpovědi CIT-001 (ChatGPT, Perplexity). Nový sběr v Avastu probíhá odděleně; aktuální doložené běhy jsou v [results.md](../results.md). Pilot není analytický dev.
+**Pilot size:** Plán: CIT-001 a CIT-020 × 5 produktů = 10 odpovědí před G1. Původní sběr má dvě dokončené odpovědi CIT-001 (ChatGPT, Perplexity). Nový sběr v Avastu probíhá odděleně; aktuální doložené běhy jsou v [results.md](../results.md). Rozšíření přidalo šest veřejných úloh a 23 dokončených odpovědí; dohromady osm unikátních úloh a 33 odpovědí. Pilot není analytický dev.
 
-**What failed in the pilot?** Původní přístup bez účtů: Grok vyžádal registraci, Gemini přesměroval na přihlášení, Claude neumožnil zadat dotaz. Uživatel následně zpřístupnil přihlášený Avast a jeho vzdálené ovládání. Provozní pokusy a screenshoty se zachovávají; nejsou zaměněné za selhání finálního benchmarku.
+**What failed in the pilot?** Původní přístup bez účtů: Grok vyžádal registraci, Gemini přesměroval na přihlášení, Claude neumožnil zadat dotaz. Uživatel následně zpřístupnil přihlášený Avast a jeho vzdálené ovládání. Nový Claude pokus skončil limitem; rozšířený ChatGPT CIT-004 skončil chybou načtení po částečném textu. Perplexity CIT-008 mělo hotovou odpověď a následnou chybu kamery, zachycení bylo obnoveno bez opakování promptu. Provozní pokusy a screenshoty se zachovávají; nejsou zaměněné za selhání finálního benchmarku.
 
 **Which cases were rewritten or removed?** Otázky nebyly odstraněny; reference CIT-007/015/023/027 byly opraveny a historické zdroje CIT-007/010 doplněny podle [data/CHANGES.md](../../data/CHANGES.md). Původní pilotní odpovědi zůstaly zachované.
 
@@ -303,11 +303,11 @@ Checklist níže potvrzuje připravená metadata, nikoli provedení všech běh�
 
 **Dosud nezměřeno / nedokončeno po G3.** Doporučení se smí týkat jen testovaných produktů, režimu, účtů, jazyků, oblastí a období. Nesmí tvrdit „nejlepší AI" ani se opírat o hypotézu, kterou data nepodpořila.
 
-**Best system for the defined capability:** Z dvou pilotních úloh nelze určit. Žebříček nevytváříme.
+**Best system for the defined capability:** Z osmi účelově vybraných pilotních úloh v P2 bez nezávislých ratingů nelze určit. Žebříček nevytváříme.
 
 **Best prompt condition:** Nelze určit: pilot používá pouze P2.
 
-**Conditions under which this recommendation holds:** Průběžné pozorování platí jen pro konkrétní pilot, účty a UI z 12. 10. 2026.
+**Conditions under which this recommendation holds:** Průběžné pozorování platí jen pro konkrétní pilot, účty a UI z 12.–13. 10. 2026.
 
 **Important cost, latency, or human-effort trade-off:** Některé intervaly zahrnují zachycení/opravy kolektoru a nejsou čistou latencí. Tokeny/cena unknown; lidský čas anotace dosud nezměřen.
 
@@ -335,4 +335,4 @@ Checklist níže potvrzuje připravená metadata, nikoli provedení všech běh�
 
 ## Aktuální pilotní podklady a komentář
 
-V projektu je 10 skutečných odpovědí (8 nových, 2 původní) na 2 unikátní úlohy, metadata, raw, snímky a hashe. Viz [výsledky pilotu](../results.md), [komentář týmu](../../results/pilot/team_commentary.md) a [export](../../runs/pilot-2026-10-12/README.md). Oba lidé mají připravené totožné nevyplněné listy pro 8 nových odpovědí; provedené ratingy ani podpisy to nenahrazuje. Požadavek analýzy 8 unikátních úloh dosud splněn není.
+V projektu je **33 skutečných odpovědí na 8 unikátních úloh**, metadata, raw, snímky, audit prvních pokusů a hashe. Viz [výsledky pilotu](../results.md), [analýza osmi úloh](../error-analysis.md), [komentáře týmu](../../results/pilot/team_commentary.md) a exporty [12. října](../../runs/pilot-2026-10-12/README.md) / [13. října](../../runs/pilot-2026-10-13/README.md). Oba lidé mají stejné nevyplněné listy pro 8 + 23 nových odpovědí. Provedené ratingy, kalibraci ani podpisy to nenahrazuje; pojmenované pilotní originály v projektu omezují zaslepení. Rozbor již zahrnuje osm různých úloh, zůstává však pomocnou analýzou pilotu před G1, nikoli finálního testu.

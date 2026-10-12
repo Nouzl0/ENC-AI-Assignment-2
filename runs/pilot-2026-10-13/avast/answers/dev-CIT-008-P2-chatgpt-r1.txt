@@ -1,0 +1,19 @@
+ODPOVĚĎ:
+
+Předpoklad otázky je chybný: kandidát do Senátu ČR musí dosáhnout věku nejméně 40 let, nikoli 35 let. Tuto hranici výslovně stanoví článek 19 odst. 2 Ústavy České republiky. [1] Podle Ministerstva vnitra musí kandidát dosáhnout požadovaného věku nejpozději druhý den voleb. [2]
+
+TVRZENÍ:
+
+T1: Článek 19 odst. 2 Ústavy ČR stanoví: „Do Senátu může být zvolen každý občan České republiky, který má právo volit a dosáhl věku 40 let.“ [1]
+
+T2: Do Poslanecké sněmovny může být zvolen občan ČR od 21 let, jak stanoví článek 19 odst. 1 Ústavy ČR. [1]
+
+T3: Ministerstvo vnitra upřesňuje, že kandidát do Senátu musí dosáhnout věku 40 let alespoň druhý den voleb. [2]
+
+ZDROJE:
+
+[1] Ústava České republiky, článek 19 – Senát Parlamentu ČR – 16. 12. 1992 – [https://www.senat.cz/informace/zakon106/zakony/ustava.php](https://www.senat.cz/informace/zakon106/zakony/ustava.php)
+
+[2] Informace o podmínkách kandidatury ve volbách do Senátu v roce 2026 – Ministerstvo vnitra ČR – 3. 6. 2026 – [https://archiv.mv.gov.cz/volby/clanek/informace-o-podminkach-kandidatury-ve-volbach-do-senatu-v-roce-2026.aspx](https://archiv.mv.gov.cz/volby/clanek/informace-o-podminkach-kandidatury-ve-volbach-do-senatu-v-roce-2026.aspx)
+
+JISTOTA: vysoká – Věková hranice je jednoznačně stanovena přímo Ústavou ČR a potvrzena oficiálními informacemi Ministerstva vnitra.

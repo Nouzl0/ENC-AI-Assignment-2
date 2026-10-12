@@ -1,0 +1,20 @@
+ODPOVĚĎ:
+
+SBOM (Software Bill of Materials) je formální seznam softwarových komponent, jejich závislostí a vztahů v rámci software supply chain; slouží k identifikaci komponent a vyhodnocování bezpečnostních zranitelností. [1] Jeho používání prosadil americký Executive Order 14028 – Improving the Nation’s Cybersecurity, podepsaný prezidentem Joem Bidenem 12. května 2021. [1]
+
+TVRZENÍ:
+
+T1: SBOM znamená Software Bill of Materials a představuje formální záznam o komponentách použitých při tvorbě softwaru a jejich vzájemných vztazích. [1]
+
+T2: SBOM umožňuje identifikovat zranitelné komponenty, analyzovat licenční rizika a zlepšovat software supply chain security. [1]
+
+T3: Executive Order 14028 ze dne 12. května 2021 v sekci 4(e)(vii) zahrnul poskytování SBOM mezi doporučované bezpečnostní postupy a v sekci 4(f) nařídil definovat jeho minimální náležitosti. [1]
+
+ZDROJE:
+
+[1] Executive Order 14028 of May 12, 2021: Improving the Nation’s Cybersecurity – The White House / Federal Register – 17. května 2021 (publikace; podepsáno 12. května 2021) – 
+https://www.govinfo.gov/content/pkg/FR-2021-05-17/html/2021-10460.htm
+
+Relevantní ustanovení: § 4(e)(vii), § 4(f), § 10(j).
+
+JISTOTA: vysoká – Definice SBOM, číslo příkazu, datum i příslušná ustanovení jsou přímo ověřeny v oficiálním textu Executive Order.

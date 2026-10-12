@@ -1,0 +1,8 @@
+{
+  "kind": "pre-submission selector correction; no cloud request",
+  "at": "2026-10-12T22:17:16.673276+00:00",
+  "previous_selector": "button.send-button",
+  "actual_observed_selector": "button[aria-label=\"Poslat zprávu\"]",
+  "submitted_marker_exists": false,
+  "row_status": "planned before corrected first submission"
+}

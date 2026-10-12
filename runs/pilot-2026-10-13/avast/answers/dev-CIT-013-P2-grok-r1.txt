@@ -1,0 +1,22 @@
+ODPOVĚĎ: Podle výsledků Sčítání lidu, domů a bytů 2021 měla Česká republika k rozhodnému okamžiku (půlnoc z 26. na 27. března 2021) přesně 10 524 167 obyvatel s obvyklým pobytem.[⁠Csu](https://csu.gov.cz/produkty/csu-predstavil-prvni-vysledky-scitani-2021)
+
+
+TVRZENÍ:
+
+T1: Počet obyvatel České republiky podle výsledků Sčítání lidu, domů a bytů 2021 činil 10 524 167 osob. [1][2][3]
+
+T2: Rozhodným okamžikem sčítání byla půlnoc z 26. na 27. března 2021. [1][2]
+
+T3: Údaj se týká obyvatel s obvyklým pobytem. [2][3]
+
+
+ZDROJE:
+
+[1] ČSÚ představil první výsledky Sčítání 2021 – Český statistický úřad – 13. 01. 2022 – [https://csu.gov.cz/produkty/csu-predstavil-prvni-vysledky-scitani-2021](https://csu.gov.cz/produkty/csu-predstavil-prvni-vysledky-scitani-2021)
+
+[2] Sčítání 2021 – Český statistický úřad – neuvedeno – [https://csu.gov.cz/scitani-2021](https://csu.gov.cz/scitani-2021)
+
+[3] Obyvatelstvo | Sčítání 2021 – Český statistický úřad / scitani.gov.cz – neuvedeno – [https://scitani.gov.cz/obyvatelstvo](https://scitani.gov.cz/obyvatelstvo)
+
+
+JISTOTA: vysoká – číslo je konzistentně uváděno na oficiálních stránkách a v tiskové zprávě ČSÚ z 13. ledna 2022.

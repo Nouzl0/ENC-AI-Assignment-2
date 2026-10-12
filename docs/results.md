@@ -1,7 +1,9 @@
 (results)=
 # Výsledky skutečného pilotu
 
-Sběr z 12. 10. 2026 obsahuje **10 skutečných odpovědí na 2 unikátní úlohy**:
+Celkem jsou uložené **33 skutečné odpovědi na 8 unikátních úloh** ve třech
+oddělených pilotních kolekcích. Původní sběr z 12. 10. 2026 obsahuje
+**10 skutečných odpovědí na 2 unikátní úlohy**:
 2 z původního anonymního pilotu a 8 z nového sběru v Avast Secure Browser 153.
 Originální odpovědi, raw HTML/texty, metadata, snímky a SHA-256 jsou exportovány
 v `runs/pilot-2026-10-12/`. Obě kolekce se uchovávají odděleně; nesléváme je do skóre.
@@ -22,6 +24,57 @@ Claude hlásil obnovení limitu 13. 10. v 19:00 a sdílení limitů s Claude Cod
 Pokus je uchován v auditu, není kvalitativně hodnocen jako odpověď modelu.
 Původní anonymní pilot navíc obsahuje odpovědi ChatGPT a Perplexity na CIT-001;
 jejich raw/normalizované texty a snímky byly ověřeny po bytech.
+
+## Rozšířený pilot 13. 10. 2026
+
+Šest dalších veřejných dev úloh bylo určeno před odesláním v nové kolekci
+`avast-v2`: CIT-003, CIT-004, CIT-005, CIT-008, CIT-012 a CIT-013, všechny v P2.
+Spolu s původními CIT-001 a CIT-020 dávají osm unikátních úloh. Rozšíření je
+přípravný pilot před G1; budoucí analytická dev sada se sbírá nově po zmrazení.
+Originály jsou v soukromé složce, schválený export v `runs/pilot-2026-10-13/`.
+
+| Produkt | Dokončené odpovědi / odeslané první pokusy | Provozní selhání | Neodeslané řádky |
+| --- | --- | --- | --- |
+| ChatGPT | 5 / 6 | 1 – chyba načtení odpovědi CIT-004 | 0 |
+| Gemini | 6 / 6 | 0 | 0 |
+| Grok | 6 / 6 | 0 | 0 |
+| Perplexity | 6 / 6 | 0 | 0 |
+| Claude | 0 / 0 | 0 nových pokusů | 6 – známý limit |
+
+To je **23 dokončených odpovědí z 24 odeslaných prvních pokusů** (95,8 %)
+a 6 neodeslaných řádků. Nebyl opakován žádný cloudový požadavek; úspěšnost na
+první a konečný pokus je zde shodná. Jde o provozní výsledek pilotu, nikoli
+citační přesnost nebo odhad spolehlivosti produktu v populaci úloh. Mezi kolekcemi
+se lišilo nastavení i způsob zachycení, jejich kvalita se neslévá do jednoho skóre.
+
+ChatGPT CIT-004 po částečném výstupu zobrazil skutečnou chybu načtení. Raw
+partial je uchován; terminální pozorování a metadata mají interval 137,738 s,
+původní částečný snímek 18,878 s je zvlášť doložen. U Perplexity CIT-008 byla
+naopak odpověď již hotová: selhala až kamera kvůli skryté stránce. Kompletní text,
+HTML a původní pozorování dokončení po 17,625 s zůstaly zachované; pozdější
+snímek a citace se zachytily bez nového promptu. Emulace aktivity stránky se
+použila jen po dokončení odpovědi při snímku/čtení karuselů a poté vypnula.
+Část snímků zachycuje jen prompt, částečný viewport či černý výřez; úplný obsah
+se posuzuje z raw textu/HTML a terminálních JSON/TXT.
+
+Nové chaty ověřily ChatGPT GPT-6/Střední/Bez personalizace, Grok Private/Fast,
+Gemini Temporary/Flash a Perplexity Incognito/výchozí Search. Gemini nový header
+neukázal přesnou verzi a tarif; dřívější pozorování 3.6 Flash/Plus je od aktuálního
+štítku oddělené. Totéž platí pro dříve pozorovaný Free u Perplexity. Neviditelné
+hodnoty se nepřevádějí na odhad.
+
+Šest nových Perplexity odpovědí obsahovalo **44 skutečných citačních skupin a
+57 zdrojových vazeb**; všechny byly zachyceny z původních UI karuselů. Originální
+v1/raw a auditované v2 zůstaly oddělené. Parser nové kolekce připravil **148
+anotačních řádků**, identifikoval 15 necitovaných tvrzení a provedl HTTP kontroly
+49 unikátních URL. Oba lidé mají stejné nevyplněné listy pro všech 23 odpovědí
+(100% pilotní překryv). Formálně zaslepené listy nezaručují zaslepení lidí, kteří
+již četli pojmenované zdrojové odpovědi v projektu. Automatické kontroly a klíč
+zůstávají mimo Git; žádné nezávislé ratingy se tím nevykazují.
+
+[Analýza osmi úloh](#error-analysis) obsahuje konkrétní pozitivní i negativní
+pozorování s primárními kontrolními pasážemi. Soukromé zdrojové snapshoty mají
+čas a SHA-256; pomocná kontrola AI nenahrazuje lidskou verifikaci před G1.
 
 ## Provozní výsledky a jejich meze
 

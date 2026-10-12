@@ -1,0 +1,15 @@
+ANSWER: The half-life of carbon-14 is about 5,730 years—the time for half of a sample to decay into nitrogen-14. [nist
++1](https://www.nist.gov/how-do-you-measure-it/how-do-you-know-age-fossils-and-other-old-things)
+
+CLAIMS:
+C1: Carbon-14 has a half-life of 5,730 years. [nist
++1](https://www.nist.gov/how-do-you-measure-it/how-do-you-know-age-fossils-and-other-old-things)
+C2: Carbon-14 decays into nitrogen-14. [nist](https://www.nist.gov/how-do-you-measure-it/how-do-you-know-age-fossils-and-other-old-things)
+C3: The older “Libby half-life” of 5,568 years is a convention used in radiocarbon-dating calculations, not the currently accepted physical half-life. [ciaaw](https://www.ciaaw.org/carbon.htm)
+
+SOURCES:
+How Do You Know the Age of Fossils and Other Old Things? – NIST – 2025-02-24 – [https://www.nist.gov/how-do-you-measure-it/how-do-you-know-age-fossils-and-other-old-things](https://www.nist.gov/how-do-you-measure-it/how-do-you-know-age-fossils-and-other-old-things) [nist](https://www.nist.gov/how-do-you-measure-it/how-do-you-know-age-fossils-and-other-old-things)
+Atomic Weight of Carbon – IUPAC Commission on Isotopic Abundances and Atomic Weights (CIAAW) – not stated – [https://www.ciaaw.org/carbon.htm](https://www.ciaaw.org/carbon.htm) [nvlpubs.nist](https://nvlpubs.nist.gov/nistpubs/jres/46/jresv46n4p328_A1b.pdf)
+
+CONFIDENCE: high – NIST and CIAAW independently state the same 5,730-year half-life. [nist
++1](https://www.nist.gov/how-do-you-measure-it/how-do-you-know-age-fossils-and-other-old-things)

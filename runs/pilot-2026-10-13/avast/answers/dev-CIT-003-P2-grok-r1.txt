@@ -1,0 +1,26 @@
+ANSWER: The currently accepted half-life of carbon-14 is 5700 ± 30 years according to nuclear data evaluations (including the National Nuclear Data Center and the Decay Data Evaluation Project). An older value of 5730 ± 40 years, adopted by the radiocarbon dating community in 1962, is still sometimes cited.⁠Wikipedia +2
+
+
+CLAIMS:
+
+C1: The half-life of carbon-14 is 5700 ± 30 years. [1][2][3]
+
+C2: A 1962 radiocarbon conference adopted 5730 ± 40 years, which remains used in that community. [4]
+
+C3: One independent evaluation of measured values gives a weighted average of 5686 ± 40 years (or 5699 ± 20 years from the five most recent measurements). [4]
+
+C4: Conventional radiocarbon ages historically used the “Libby half-life” of 5568 ± 30 years for consistency with early results, even though it differs from the physical half-life. [2][4]
+
+
+SOURCES:
+
+[1] Carbon-14 – Wikipedia – page updated 2026 – [https://en.wikipedia.org/wiki/Carbon-14](https://en.wikipedia.org/wiki/Carbon-14)
+
+[2] Radiocarbon age is just a number – Nature Physics / PMC (NIST author) – 2021 – [https://pmc.ncbi.nlm.nih.gov/articles/PMC9805314/](https://pmc.ncbi.nlm.nih.gov/articles/PMC9805314/)
+
+[3] The Half-Life of 14C—Why Is It So Long? – Radiocarbon (Cambridge) – 2019 – [https://www.cambridge.org/core/journals/radiocarbon/article/halflife-of-14cwhy-is-it-so-long/40C969D635697E923338763B56402862](https://www.cambridge.org/core/journals/radiocarbon/article/halflife-of-14cwhy-is-it-so-long/40C969D635697E923338763B56402862)
+
+[4] 14C β−-Decay Evaluated Data – TUNL Nuclear Data Evaluation – last modified 2021 – [https://nucldata.tunl.duke.edu/nucldata/GroundStatedecays/14C.shtml](https://nucldata.tunl.duke.edu/nucldata/GroundStatedecays/14C.shtml)
+
+
+CONFIDENCE: high – Multiple independent nuclear-data evaluations and official sources converge on 5700 ± 30 years; differences with older radiocarbon-community values are well-documented and explained by the sources.

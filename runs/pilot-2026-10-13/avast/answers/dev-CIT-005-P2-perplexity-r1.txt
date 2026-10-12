@@ -1,0 +1,12 @@
+ODPOVĚĎ: Nový stavební zákon č. 283/2021 Sb. nabyl účinnosti 1. ledna 2024, ale jeho plný rozsah se uplatňuje od 1. července 2024, kdy skončilo přechodné období od 1. ledna do 30. června 2024. [e-sbirka.gov](https://e-sbirka.gov.cz/sb/2021/283/2024-07-01)
+
+TVRZENÍ:
+T1: Zákon č. 283/2021 Sb., stavební zákon, nabyl účinnosti dnem 1. ledna 2024, s výjimkou některých ustanovení uvedených v § 335. [e-sbirka.gov](https://e-sbirka.gov.cz/sb/2021/283/2024-07-01)
+T2: Pro účely přechodných ustanovení je přechodné období stanoveno od 1. ledna 2024 do 30. června 2024; zákon tedy začal platit v plném rozsahu od 1. července 2024. [e-sbirka.gov](https://e-sbirka.gov.cz/sb/2021/283/2024-07-01)
+T3: Oficiální e-Sbírka uvádí u zákona č. 283/2021 Sb. datum účinnosti 1. 1. 2024, což odpovídá počátku jeho účinnosti, nikoli konci přechodného období. [e-sbirka.gov](https://e-sbirka.gov.cz/sb/2021/283?zalozka=dalsiInformace)
+
+ZDROJE:
+Zákon č. 283/2021 Sb., znění účinné od 1. 7. 2024 – e-Sbírka, Ministerstvo vnitra ČR – neuvedeno – [https://e-sbirka.gov.cz/sb/2021/283/2024-07-01](https://e-sbirka.gov.cz/sb/2021/283/2024-07-01) [e-sbirka.gov](https://e-sbirka.gov.cz/sb/2021/283/2024-07-01)
+Další informace k zákonu č. 283/2021 Sb., informativní znění systému e-Sbírka – e-Sbírka, Ministerstvo vnitra ČR – neuvedeno – [https://e-sbirka.gov.cz/sb/2021/283?zalozka=dalsiInformace](https://e-sbirka.gov.cz/sb/2021/283?zalozka=dalsiInformace) [e-sbirka.gov](https://e-sbirka.gov.cz/sb/2021/283?zalozka=dalsiInformace)
+
+JISTOTA: vysoká – odpověď vychází z oficiální e-Sbírky a z textu § 335 a přechodných ustanovení zákona.

@@ -1,0 +1,13 @@
+collection,system,completed_answers,failed_first_attempts,planned_not_sent,submitted_first_attempts,first_attempt_success_pct,final_success_pct,cloud_retries,human_ratings,interpretation
+legacy,chatgpt,1,0,0,1,100.0,100.0,0,not performed,pilot operational counts only; not citation quality or population reliability
+legacy,perplexity,1,0,0,1,100.0,100.0,0,not performed,pilot operational counts only; not citation quality or population reliability
+avast,chatgpt,2,0,0,2,100.0,100.0,0,not performed,pilot operational counts only; not citation quality or population reliability
+avast,gemini,2,0,0,2,100.0,100.0,0,not performed,pilot operational counts only; not citation quality or population reliability
+avast,grok,2,0,0,2,100.0,100.0,0,not performed,pilot operational counts only; not citation quality or population reliability
+avast,perplexity,2,0,0,2,100.0,100.0,0,not performed,pilot operational counts only; not citation quality or population reliability
+avast,claude,0,1,1,1,0.0,0.0,0,not performed,pilot operational counts only; not citation quality or population reliability
+avast-v2,chatgpt,5,1,0,6,83.333,83.333,0,not performed,pilot operational counts only; not citation quality or population reliability
+avast-v2,gemini,6,0,0,6,100.0,100.0,0,not performed,pilot operational counts only; not citation quality or population reliability
+avast-v2,grok,6,0,0,6,100.0,100.0,0,not performed,pilot operational counts only; not citation quality or population reliability
+avast-v2,perplexity,6,0,0,6,100.0,100.0,0,not performed,pilot operational counts only; not citation quality or population reliability
+avast-v2,claude,0,0,6,0,,,0,not performed,pilot operational counts only; not citation quality or population reliability

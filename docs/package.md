@@ -14,7 +14,7 @@ původní auditní balíček a read-only mapu cest podle `freeze/README.md`.
 | 4 | Metadata a původní výstupy | `runs/README.md`, generátor a pilot; analytické běhy zatím neexistují |
 | 5 | Kód a rubrika | `scripts/`, `annotation/`, `tests/`; softwarové testy jsou oddělené od experimentu |
 | 6 | Výsledky a nejistota | [](#results), `results/README.md`; finální CSV vyžadují skutečné ratingy a G3 |
-| 7 | Analýza ≥8 unikátních úloh | `analysis/`, [](#error-analysis); zatím plán |
+| 7 | Analýza ≥8 unikátních úloh | `analysis/`, [](#error-analysis); konkrétní rozbor osmi skutečných pilotních úloh, finální test dosud chybí |
 | 8 | Závěrečná zpráva | MyST zdroje v `docs/` a PDF `docs/exports/project.pdf`; pracovní verze |
 
 Worksheet je v `docs/deliverables/worksheet.md`. Stav povinností je v

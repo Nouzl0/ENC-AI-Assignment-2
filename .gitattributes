@@ -8,3 +8,4 @@
 *.jpeg binary
 # Pilot originals contain genuine Windows CRLF; preserve their recorded hashes.
 runs/pilot-2026-10-12/** -text whitespace=-blank-at-eol,-blank-at-eof,-space-before-tab,cr-at-eol
+runs/pilot-2026-10-13/** -text whitespace=-blank-at-eol,-blank-at-eof,-space-before-tab,cr-at-eol

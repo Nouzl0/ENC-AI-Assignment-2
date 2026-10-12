@@ -1,14 +1,22 @@
 # CZAI Assignment 1 – Správnost citací AI asistentů
 
-**Přípravný balíček, nikoli dokončený experiment.** Směr B: porovnání produktů s webovým
-vyhledáváním (ChatGPT, Gemini, Claude, Perplexity, Grok), ne izolovaných modelů.
-G1/G2/G3 nejsou splněny, reference čekají na nezávislou kontrolu a P3_final ani finální analytické
-výsledky zatím neexistují. Uživatel 12. 10. 2026 pověřil agenta skutečným sběrem v Avastu. Existují
-10 původních/nových skutečných pilotních odpovědí na 2 unikátní úlohy,
-exportovaných v [runs/pilot-2026-10-12](runs/pilot-2026-10-12/README.md).
-[Souhrn runů](results/pilot/run_summary.csv) a [návrh komentáře týmu](results/pilot/team_commentary.md)
-jsou uložené v projektu; analytický benchmark není dokončený.
-Aktuální evidence: [docs/results.md](docs/results.md), postup: [HANDOFF.md](HANDOFF.md).
+**Projekt obsahuje 33 skutečných pilotních odpovědí a rozbor 8 unikátních úloh.**
+Směr B: porovnání produktů s webovým vyhledáváním (ChatGPT, Gemini, Claude,
+Perplexity, Grok), ne izolovaných modelů. Exporty jsou v
+[runs/pilot-2026-10-12](runs/pilot-2026-10-12/README.md) a
+[runs/pilot-2026-10-13](runs/pilot-2026-10-13/README.md).
+[Souhrn runů](results/pilot/run_summary.csv),
+[provozní výsledky](results/pilot/operational_summary.csv),
+[rozbor osmi úloh](docs/error-analysis.md) a
+[návrhy komentářů Reného a Jana](results/pilot/team_commentary.md) jsou v projektu.
+
+Finální analytický benchmark zatím není dokončený: G1/G2/G3 nejsou splněny,
+reference a ratingy čekají na skutečné lidské kontroly, P3_final ani finální
+skóre s CI neexistují. Claude hlásil limit do 13. 10. v 19:00; neodeslané
+řádky jsou oddělené od selhání. Pilotní a pomocná AI hodnocení nejsou vydávána
+za nezávislou lidskou práci. Aktuální evidence je v [docs/results.md](docs/results.md),
+postup v [HANDOFF.md](HANDOFF.md); pracovní zpráva je i v
+[PDF](docs/exports/project.pdf).
 
 ## Co je autoritativní
 
@@ -110,13 +118,13 @@ P3 souboru sama o sobě neotevře test či finální analýzu.
 | Povinný výstup | Připraveno zde | Co ještě musí vzniknout |
 | --- | --- | --- |
 | Výzkumný protokol | PROTOCOL.md + freeze/README.md | skutečně schválené a archivované G1/G2/G3 |
-| Benchmarková data | data/ + schéma + evidence šablona | nové soukromé testy, nezávisle ověřené reference |
+| Benchmarková data | dev 20 + val 10, soukromý návrh 10 nových testů, schéma a evidence | schválení holdoutu a nezávislé ověření všech referencí |
 | Prompty a verze | prompts/ + CHANGELOG | dev důvody úprav, validační výběr, P3_final |
-| Metadata běhů | generátor, runs/README.md | kompletní vyplněné plány, původní výstupy a artefakty |
+| Metadata běhů | generátor, 33 skutečných pilotních odpovědí a hashované exporty | kompletní analytická matice a její původní artefakty |
 | Hodnoticí postup/kód | scripts/, rubrika, kalibrační kotvy, tests/ | skutečné nezávislé ratingy a zdrojová rozhodnutí |
-| Výsledky s nejistotou | score.py | G3 výsledky, náklady a limity měření |
-| Analýza chyb | analysis/ + CSV šablona | ≥8 unikátních úloh včetně úspěchů a protipříkladů |
-| Závěrečná zpráva | REPORT_TEMPLATE.md | závěry založené výhradně na skutečných datech |
+| Výsledky s nejistotou | score.py, provozní pilotní souhrny a docs/results.md | finální G3 metriky a CI, kvalita vs. úsilí |
+| Analýza chyb | konkrétní rozbor 8 unikátních pilotních úloh v docs/error-analysis.md | návazná analýza finálních analytických výsledků |
+| Závěrečná zpráva | MyST zdroje a pracovní PDF se skutečným pilotem | dokončení závěrů po plném benchmarku |
 
 Celá standardní matice má **500 analytických + 10 pilotních** záznamů. Doporučená
 úsporná varianta zachová všech 5 produktů: jeden P3 kandidát a 5 repeat úloh před G1 →

@@ -16,8 +16,8 @@ finální výsledky zatím neexistují (viz [PROTOCOL.md](../../PROTOCOL.md)).
 | 4 | Metadata běhů | [runs/README.md](../../runs/README.md), `scripts/make_run_plan.py` | Generátor a skutečný oddělený pilot; analytická matice ještě chybí |
 | 5 | Kód a postupy hodnocení, rubrika | [scripts/](../../scripts/), [annotation/rubric.md](../../annotation/rubric.md), [annotation/calibration.md](../../annotation/calibration.md) | Hotovo, testováno na syntetických datech |
 | 6 | Výsledky (skóre, nejistota, opakování, kvalita vs. úsilí) | Vznikne z `scripts/score.py` | Chybí, vyžaduje reálné běhy a G3 |
-| 7 | Analýza chyb (≥8 případů, úspěšné i neúspěšné) | [analysis/README.md](../../analysis/README.md), `analysis/error_analysis_TEMPLATE.csv` | Pouze šablona |
-| 8 | Závěrečná zpráva | [REPORT_TEMPLATE.md](../../REPORT_TEMPLATE.md), [docs/](../) | Kostra bez výsledků |
+| 7 | Analýza chyb (≥8 případů, úspěšné i neúspěšné) | [docs/error-analysis.md](../error-analysis.md), [analysis/README.md](../../analysis/README.md) | Rozbor osmi unikátních skutečných pilotních úloh s úspěchy, citačními problémy i selháním; pomocná analýza AI, finální test chybí |
+| 8 | Závěrečná zpráva | [docs/](../), [PDF](../exports/project.pdf) | Pracovní zpráva se skutečnými pilotními výsledky a analýzou, nikoli dokončený analytický benchmark |
 
 ## Podmíněné povinnosti ze zadání
 

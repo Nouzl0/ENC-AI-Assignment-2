@@ -1,0 +1,19 @@
+ODPOVĚĎ:
+Nový stavební zákon č. 283/2021 Sb. nabyl účinnosti v plném rozsahu dne 1. července 2024 [1], [2]. Pro vyhrazené stavby (např. dálnice či železnice) platila účinnost již od 1. ledna 2024 [2].   
+ČKAIT
++ 2
+
+TVRZENÍ:
+T1: Nový stavební zákon byl schválen a vyšel pod č. 283/2021 Sb. [1]
+T2: Pro vyhrazené stavby nabyla většina ustanovení zákona účinnosti 1. ledna 2024 [2].
+T3: V plném rozsahu pro ostatní stavby a zbývající ustanovení nabyl zákon č. 283/2021 Sb. účinnosti 1. července 2024 [1], [2].   
+Zákony pro lidi
++ 3
+
+ZDROJE:
+[1] Zákon č. 283/2021 Sb. - e-Sbírka – Ministerstvo vnitra ČR / Digitální informační agentura – 13. 7. 2021 – https://e-sbirka.gov.cz/sb/2021/283
+[2] 283/2021 Sb. Stavební zákon (nový) – Zákony pro lidi – 13. 7. 2021 – https://www.zakonyprolidi.cz/cs/2021-283   
+TZB-info
++ 2
+
+JISTOTA: vysoká – Informace vychází přímo ze znění předpisu a oficiální databáze e-Sbírka.

@@ -1,0 +1,781 @@
+seq,run_id,phase,split,task_id,language,condition,prompt_file,prompt_sha256,rendered_prompt_sha256,system,interface,run_index,system_instruction,tool_permissions,context_files,temperature,max_output,answer_file,run_status,final_attempt_ok,attempt1_file,first_attempt_latency_s,model_visible,plan_tier,datetime_start,datetime_end,latency_s,search_used,n_sources_shown,turns,tool_calls_visible,retries,failure_type,first_attempt_ok,manual_intervention,share_link,screenshot_file,operator,cost_note,notes,answer_sha256,raw_answer_file,raw_answer_sha256,screenshot_sha256,attempt1_sha256,failure_artifact_file,failure_artifact_sha256,replacement_run_id,replaces_run_id,prompt_text
+1,dev-CIT-003-P2-perplexity-r1,dev,dev,CIT-003,en,P2,P2_structured_en.txt,96e3772d7a11776b3ff0e949dfb000bdf214b480f7a571e5cab19d61da59b554,657fba53dbb52b758449c6311193bff9360f84d32c065e7552d595d2df6b17db,perplexity,perplexity.ai (web),1,"výchozí, neviditelná",režim Search; Research/Labs vypnuto; Incognito,žádné,"výchozí, nenastavitelné",výchozí,/mnt/d/AI/czai-private-v1/calibration/avast-v2/answers/dev-CIT-003-P2-perplexity-r1.txt,planned,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,"You are a careful research assistant. You support every claim with a source you actually opened in this conversation.
+
+Goal: answer the question accurately and concisely so that the reader can verify every claim.
+
+Question:
+What is the half-life of carbon-14?
+
+Rules:
+1. Search the web. Do not cite a source you did not open, and do not invent URLs.
+2. After every factual claim (number, date, name, definition), add a reference to its source in the form [1], [2].
+3. Cite a specific page or document, not a homepage or a search results page.
+4. Prefer primary and official sources (legislation, public authority, original study, standard).
+5. If the question contains a false premise, correct it first.
+6. If sources disagree, give both values, each with its own source, and explain the difference.
+7. If the question restricts the age of sources, use only sources that meet the restriction and give their dates.
+8. If you cannot find a reliable answer, say so. Do not guess.
+
+Output format:
+ANSWER: 1–3 sentences with the direct answer.
+CLAIMS:
+C1: <one claim> [n]
+C2: <one claim> [n]
+SOURCES:
+[1] <title> – <publisher> – <publication date or ""not stated""> – <full URL>
+CONFIDENCE: high / medium / low – one sentence why.
+"
+2,dev-CIT-003-P2-grok-r1,dev,dev,CIT-003,en,P2,P2_structured_en.txt,96e3772d7a11776b3ff0e949dfb000bdf214b480f7a571e5cab19d61da59b554,657fba53dbb52b758449c6311193bff9360f84d32c065e7552d595d2df6b17db,grok,grok.com (web),1,"výchozí, neviditelná",vyhledávání automatické (web + X); DeepSearch vypnut; Private Chat,žádné,"výchozí, nenastavitelné",výchozí,/mnt/d/AI/czai-private-v1/calibration/avast-v2/answers/dev-CIT-003-P2-grok-r1.txt,planned,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,"You are a careful research assistant. You support every claim with a source you actually opened in this conversation.
+
+Goal: answer the question accurately and concisely so that the reader can verify every claim.
+
+Question:
+What is the half-life of carbon-14?
+
+Rules:
+1. Search the web. Do not cite a source you did not open, and do not invent URLs.
+2. After every factual claim (number, date, name, definition), add a reference to its source in the form [1], [2].
+3. Cite a specific page or document, not a homepage or a search results page.
+4. Prefer primary and official sources (legislation, public authority, original study, standard).
+5. If the question contains a false premise, correct it first.
+6. If sources disagree, give both values, each with its own source, and explain the difference.
+7. If the question restricts the age of sources, use only sources that meet the restriction and give their dates.
+8. If you cannot find a reliable answer, say so. Do not guess.
+
+Output format:
+ANSWER: 1–3 sentences with the direct answer.
+CLAIMS:
+C1: <one claim> [n]
+C2: <one claim> [n]
+SOURCES:
+[1] <title> – <publisher> – <publication date or ""not stated""> – <full URL>
+CONFIDENCE: high / medium / low – one sentence why.
+"
+3,dev-CIT-003-P2-claude-r1,dev,dev,CIT-003,en,P2,P2_structured_en.txt,96e3772d7a11776b3ff0e949dfb000bdf214b480f7a571e5cab19d61da59b554,657fba53dbb52b758449c6311193bff9360f84d32c065e7552d595d2df6b17db,claude,claude.ai (web),1,"výchozí, neviditelná",Web search zapnut/automatický; Research vypnut; Incognito chat,žádné,"výchozí, nenastavitelné",výchozí,/mnt/d/AI/czai-private-v1/calibration/avast-v2/answers/dev-CIT-003-P2-claude-r1.txt,planned,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,"You are a careful research assistant. You support every claim with a source you actually opened in this conversation.
+
+Goal: answer the question accurately and concisely so that the reader can verify every claim.
+
+Question:
+What is the half-life of carbon-14?
+
+Rules:
+1. Search the web. Do not cite a source you did not open, and do not invent URLs.
+2. After every factual claim (number, date, name, definition), add a reference to its source in the form [1], [2].
+3. Cite a specific page or document, not a homepage or a search results page.
+4. Prefer primary and official sources (legislation, public authority, original study, standard).
+5. If the question contains a false premise, correct it first.
+6. If sources disagree, give both values, each with its own source, and explain the difference.
+7. If the question restricts the age of sources, use only sources that meet the restriction and give their dates.
+8. If you cannot find a reliable answer, say so. Do not guess.
+
+Output format:
+ANSWER: 1–3 sentences with the direct answer.
+CLAIMS:
+C1: <one claim> [n]
+C2: <one claim> [n]
+SOURCES:
+[1] <title> – <publisher> – <publication date or ""not stated""> – <full URL>
+CONFIDENCE: high / medium / low – one sentence why.
+"
+4,dev-CIT-003-P2-chatgpt-r1,dev,dev,CIT-003,en,P2,P2_structured_en.txt,96e3772d7a11776b3ff0e949dfb000bdf214b480f7a571e5cab19d61da59b554,657fba53dbb52b758449c6311193bff9360f84d32c065e7552d595d2df6b17db,chatgpt,chatgpt.com (web),1,"výchozí, neviditelná",Search vynucen; Deep research vypnut; Temporary chat (Unpersonalized),žádné,"výchozí, nenastavitelné",výchozí,/mnt/d/AI/czai-private-v1/calibration/avast-v2/answers/dev-CIT-003-P2-chatgpt-r1.txt,planned,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,"You are a careful research assistant. You support every claim with a source you actually opened in this conversation.
+
+Goal: answer the question accurately and concisely so that the reader can verify every claim.
+
+Question:
+What is the half-life of carbon-14?
+
+Rules:
+1. Search the web. Do not cite a source you did not open, and do not invent URLs.
+2. After every factual claim (number, date, name, definition), add a reference to its source in the form [1], [2].
+3. Cite a specific page or document, not a homepage or a search results page.
+4. Prefer primary and official sources (legislation, public authority, original study, standard).
+5. If the question contains a false premise, correct it first.
+6. If sources disagree, give both values, each with its own source, and explain the difference.
+7. If the question restricts the age of sources, use only sources that meet the restriction and give their dates.
+8. If you cannot find a reliable answer, say so. Do not guess.
+
+Output format:
+ANSWER: 1–3 sentences with the direct answer.
+CLAIMS:
+C1: <one claim> [n]
+C2: <one claim> [n]
+SOURCES:
+[1] <title> – <publisher> – <publication date or ""not stated""> – <full URL>
+CONFIDENCE: high / medium / low – one sentence why.
+"
+5,dev-CIT-003-P2-gemini-r1,dev,dev,CIT-003,en,P2,P2_structured_en.txt,96e3772d7a11776b3ff0e949dfb000bdf214b480f7a571e5cab19d61da59b554,657fba53dbb52b758449c6311193bff9360f84d32c065e7552d595d2df6b17db,gemini,gemini.google.com (web),1,"výchozí, neviditelná",vyhledávání automatické; Deep Research vypnut; Temporary chat,žádné,"výchozí, nenastavitelné",výchozí,/mnt/d/AI/czai-private-v1/calibration/avast-v2/answers/dev-CIT-003-P2-gemini-r1.txt,planned,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,"You are a careful research assistant. You support every claim with a source you actually opened in this conversation.
+
+Goal: answer the question accurately and concisely so that the reader can verify every claim.
+
+Question:
+What is the half-life of carbon-14?
+
+Rules:
+1. Search the web. Do not cite a source you did not open, and do not invent URLs.
+2. After every factual claim (number, date, name, definition), add a reference to its source in the form [1], [2].
+3. Cite a specific page or document, not a homepage or a search results page.
+4. Prefer primary and official sources (legislation, public authority, original study, standard).
+5. If the question contains a false premise, correct it first.
+6. If sources disagree, give both values, each with its own source, and explain the difference.
+7. If the question restricts the age of sources, use only sources that meet the restriction and give their dates.
+8. If you cannot find a reliable answer, say so. Do not guess.
+
+Output format:
+ANSWER: 1–3 sentences with the direct answer.
+CLAIMS:
+C1: <one claim> [n]
+C2: <one claim> [n]
+SOURCES:
+[1] <title> – <publisher> – <publication date or ""not stated""> – <full URL>
+CONFIDENCE: high / medium / low – one sentence why.
+"
+6,dev-CIT-004-P2-chatgpt-r1,dev,dev,CIT-004,cs,P2,P2_structured_cs.txt,481c3fa95fa65d7c3478e2974c6c6d81653082108a466c467d96111a788211b1,3b5e281c1249f5f899b2e6c7724a51472085478c7c45432b40daeaa16f4f112a,chatgpt,chatgpt.com (web),1,"výchozí, neviditelná",Search vynucen; Deep research vypnut; Temporary chat (Unpersonalized),žádné,"výchozí, nenastavitelné",výchozí,/mnt/d/AI/czai-private-v1/calibration/avast-v2/answers/dev-CIT-004-P2-chatgpt-r1.txt,planned,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,"Jste pečlivý rešeršní asistent. Každé tvrzení dokládáte zdrojem, který jste v této konverzaci skutečně otevřeli.
+
+Cíl: odpovězte přesně a stručně na otázku tak, aby si čtenář mohl každé tvrzení ověřit.
+
+Otázka:
+Jaká je nadmořská výška Sněžky? Různé zdroje uvádějí různé hodnoty – uveďte, která je aktuální oficiální a proč se liší.
+
+Pravidla:
+1. Vyhledejte informace na webu. Necitujte zdroj, který jste neotevřeli, a nevymýšlejte URL.
+2. Za každým faktickým tvrzením (číslo, datum, jméno, definice) uveďte odkaz na zdroj ve tvaru [1], [2].
+3. Citujte konkrétní stránku nebo dokument, ne domovskou stránku ani výsledky vyhledávání.
+4. Upřednostňujte primární a oficiální zdroje (zákon, úřad, původní studie, standard).
+5. Pokud otázka obsahuje chybný předpoklad, nejprve ho opravte.
+6. Pokud se zdroje liší, uveďte obě hodnoty, každou s vlastním zdrojem, a vysvětlete rozdíl.
+7. Pokud otázka omezuje stáří zdrojů, použijte jen zdroje, které omezení splňují, a uveďte jejich datum.
+8. Pokud spolehlivou odpověď nenajdete, napište to. Nehádejte.
+
+Formát výstupu:
+ODPOVĚĎ: 1–3 věty s přímou odpovědí.
+TVRZENÍ:
+T1: <jedno tvrzení> [n]
+T2: <jedno tvrzení> [n]
+ZDROJE:
+[1] <název> – <vydavatel> – <datum vydání nebo „neuvedeno“> – <úplná URL>
+JISTOTA: vysoká / střední / nízká – jedna věta proč.
+"
+7,dev-CIT-004-P2-gemini-r1,dev,dev,CIT-004,cs,P2,P2_structured_cs.txt,481c3fa95fa65d7c3478e2974c6c6d81653082108a466c467d96111a788211b1,3b5e281c1249f5f899b2e6c7724a51472085478c7c45432b40daeaa16f4f112a,gemini,gemini.google.com (web),1,"výchozí, neviditelná",vyhledávání automatické; Deep Research vypnut; Temporary chat,žádné,"výchozí, nenastavitelné",výchozí,/mnt/d/AI/czai-private-v1/calibration/avast-v2/answers/dev-CIT-004-P2-gemini-r1.txt,planned,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,"Jste pečlivý rešeršní asistent. Každé tvrzení dokládáte zdrojem, který jste v této konverzaci skutečně otevřeli.
+
+Cíl: odpovězte přesně a stručně na otázku tak, aby si čtenář mohl každé tvrzení ověřit.
+
+Otázka:
+Jaká je nadmořská výška Sněžky? Různé zdroje uvádějí různé hodnoty – uveďte, která je aktuální oficiální a proč se liší.
+
+Pravidla:
+1. Vyhledejte informace na webu. Necitujte zdroj, který jste neotevřeli, a nevymýšlejte URL.
+2. Za každým faktickým tvrzením (číslo, datum, jméno, definice) uveďte odkaz na zdroj ve tvaru [1], [2].
+3. Citujte konkrétní stránku nebo dokument, ne domovskou stránku ani výsledky vyhledávání.
+4. Upřednostňujte primární a oficiální zdroje (zákon, úřad, původní studie, standard).
+5. Pokud otázka obsahuje chybný předpoklad, nejprve ho opravte.
+6. Pokud se zdroje liší, uveďte obě hodnoty, každou s vlastním zdrojem, a vysvětlete rozdíl.
+7. Pokud otázka omezuje stáří zdrojů, použijte jen zdroje, které omezení splňují, a uveďte jejich datum.
+8. Pokud spolehlivou odpověď nenajdete, napište to. Nehádejte.
+
+Formát výstupu:
+ODPOVĚĎ: 1–3 věty s přímou odpovědí.
+TVRZENÍ:
+T1: <jedno tvrzení> [n]
+T2: <jedno tvrzení> [n]
+ZDROJE:
+[1] <název> – <vydavatel> – <datum vydání nebo „neuvedeno“> – <úplná URL>
+JISTOTA: vysoká / střední / nízká – jedna věta proč.
+"
+8,dev-CIT-004-P2-grok-r1,dev,dev,CIT-004,cs,P2,P2_structured_cs.txt,481c3fa95fa65d7c3478e2974c6c6d81653082108a466c467d96111a788211b1,3b5e281c1249f5f899b2e6c7724a51472085478c7c45432b40daeaa16f4f112a,grok,grok.com (web),1,"výchozí, neviditelná",vyhledávání automatické (web + X); DeepSearch vypnut; Private Chat,žádné,"výchozí, nenastavitelné",výchozí,/mnt/d/AI/czai-private-v1/calibration/avast-v2/answers/dev-CIT-004-P2-grok-r1.txt,planned,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,"Jste pečlivý rešeršní asistent. Každé tvrzení dokládáte zdrojem, který jste v této konverzaci skutečně otevřeli.
+
+Cíl: odpovězte přesně a stručně na otázku tak, aby si čtenář mohl každé tvrzení ověřit.
+
+Otázka:
+Jaká je nadmořská výška Sněžky? Různé zdroje uvádějí různé hodnoty – uveďte, která je aktuální oficiální a proč se liší.
+
+Pravidla:
+1. Vyhledejte informace na webu. Necitujte zdroj, který jste neotevřeli, a nevymýšlejte URL.
+2. Za každým faktickým tvrzením (číslo, datum, jméno, definice) uveďte odkaz na zdroj ve tvaru [1], [2].
+3. Citujte konkrétní stránku nebo dokument, ne domovskou stránku ani výsledky vyhledávání.
+4. Upřednostňujte primární a oficiální zdroje (zákon, úřad, původní studie, standard).
+5. Pokud otázka obsahuje chybný předpoklad, nejprve ho opravte.
+6. Pokud se zdroje liší, uveďte obě hodnoty, každou s vlastním zdrojem, a vysvětlete rozdíl.
+7. Pokud otázka omezuje stáří zdrojů, použijte jen zdroje, které omezení splňují, a uveďte jejich datum.
+8. Pokud spolehlivou odpověď nenajdete, napište to. Nehádejte.
+
+Formát výstupu:
+ODPOVĚĎ: 1–3 věty s přímou odpovědí.
+TVRZENÍ:
+T1: <jedno tvrzení> [n]
+T2: <jedno tvrzení> [n]
+ZDROJE:
+[1] <název> – <vydavatel> – <datum vydání nebo „neuvedeno“> – <úplná URL>
+JISTOTA: vysoká / střední / nízká – jedna věta proč.
+"
+9,dev-CIT-004-P2-claude-r1,dev,dev,CIT-004,cs,P2,P2_structured_cs.txt,481c3fa95fa65d7c3478e2974c6c6d81653082108a466c467d96111a788211b1,3b5e281c1249f5f899b2e6c7724a51472085478c7c45432b40daeaa16f4f112a,claude,claude.ai (web),1,"výchozí, neviditelná",Web search zapnut/automatický; Research vypnut; Incognito chat,žádné,"výchozí, nenastavitelné",výchozí,/mnt/d/AI/czai-private-v1/calibration/avast-v2/answers/dev-CIT-004-P2-claude-r1.txt,planned,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,"Jste pečlivý rešeršní asistent. Každé tvrzení dokládáte zdrojem, který jste v této konverzaci skutečně otevřeli.
+
+Cíl: odpovězte přesně a stručně na otázku tak, aby si čtenář mohl každé tvrzení ověřit.
+
+Otázka:
+Jaká je nadmořská výška Sněžky? Různé zdroje uvádějí různé hodnoty – uveďte, která je aktuální oficiální a proč se liší.
+
+Pravidla:
+1. Vyhledejte informace na webu. Necitujte zdroj, který jste neotevřeli, a nevymýšlejte URL.
+2. Za každým faktickým tvrzením (číslo, datum, jméno, definice) uveďte odkaz na zdroj ve tvaru [1], [2].
+3. Citujte konkrétní stránku nebo dokument, ne domovskou stránku ani výsledky vyhledávání.
+4. Upřednostňujte primární a oficiální zdroje (zákon, úřad, původní studie, standard).
+5. Pokud otázka obsahuje chybný předpoklad, nejprve ho opravte.
+6. Pokud se zdroje liší, uveďte obě hodnoty, každou s vlastním zdrojem, a vysvětlete rozdíl.
+7. Pokud otázka omezuje stáří zdrojů, použijte jen zdroje, které omezení splňují, a uveďte jejich datum.
+8. Pokud spolehlivou odpověď nenajdete, napište to. Nehádejte.
+
+Formát výstupu:
+ODPOVĚĎ: 1–3 věty s přímou odpovědí.
+TVRZENÍ:
+T1: <jedno tvrzení> [n]
+T2: <jedno tvrzení> [n]
+ZDROJE:
+[1] <název> – <vydavatel> – <datum vydání nebo „neuvedeno“> – <úplná URL>
+JISTOTA: vysoká / střední / nízká – jedna věta proč.
+"
+10,dev-CIT-004-P2-perplexity-r1,dev,dev,CIT-004,cs,P2,P2_structured_cs.txt,481c3fa95fa65d7c3478e2974c6c6d81653082108a466c467d96111a788211b1,3b5e281c1249f5f899b2e6c7724a51472085478c7c45432b40daeaa16f4f112a,perplexity,perplexity.ai (web),1,"výchozí, neviditelná",režim Search; Research/Labs vypnuto; Incognito,žádné,"výchozí, nenastavitelné",výchozí,/mnt/d/AI/czai-private-v1/calibration/avast-v2/answers/dev-CIT-004-P2-perplexity-r1.txt,planned,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,"Jste pečlivý rešeršní asistent. Každé tvrzení dokládáte zdrojem, který jste v této konverzaci skutečně otevřeli.
+
+Cíl: odpovězte přesně a stručně na otázku tak, aby si čtenář mohl každé tvrzení ověřit.
+
+Otázka:
+Jaká je nadmořská výška Sněžky? Různé zdroje uvádějí různé hodnoty – uveďte, která je aktuální oficiální a proč se liší.
+
+Pravidla:
+1. Vyhledejte informace na webu. Necitujte zdroj, který jste neotevřeli, a nevymýšlejte URL.
+2. Za každým faktickým tvrzením (číslo, datum, jméno, definice) uveďte odkaz na zdroj ve tvaru [1], [2].
+3. Citujte konkrétní stránku nebo dokument, ne domovskou stránku ani výsledky vyhledávání.
+4. Upřednostňujte primární a oficiální zdroje (zákon, úřad, původní studie, standard).
+5. Pokud otázka obsahuje chybný předpoklad, nejprve ho opravte.
+6. Pokud se zdroje liší, uveďte obě hodnoty, každou s vlastním zdrojem, a vysvětlete rozdíl.
+7. Pokud otázka omezuje stáří zdrojů, použijte jen zdroje, které omezení splňují, a uveďte jejich datum.
+8. Pokud spolehlivou odpověď nenajdete, napište to. Nehádejte.
+
+Formát výstupu:
+ODPOVĚĎ: 1–3 věty s přímou odpovědí.
+TVRZENÍ:
+T1: <jedno tvrzení> [n]
+T2: <jedno tvrzení> [n]
+ZDROJE:
+[1] <název> – <vydavatel> – <datum vydání nebo „neuvedeno“> – <úplná URL>
+JISTOTA: vysoká / střední / nízká – jedna věta proč.
+"
+11,dev-CIT-005-P2-grok-r1,dev,dev,CIT-005,cs,P2,P2_structured_cs.txt,481c3fa95fa65d7c3478e2974c6c6d81653082108a466c467d96111a788211b1,258491810433bff4233c52f7aaa097587016fa9fcada4fc420f27f5390c7a3e7,grok,grok.com (web),1,"výchozí, neviditelná",vyhledávání automatické (web + X); DeepSearch vypnut; Private Chat,žádné,"výchozí, nenastavitelné",výchozí,/mnt/d/AI/czai-private-v1/calibration/avast-v2/answers/dev-CIT-005-P2-grok-r1.txt,planned,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,"Jste pečlivý rešeršní asistent. Každé tvrzení dokládáte zdrojem, který jste v této konverzaci skutečně otevřeli.
+
+Cíl: odpovězte přesně a stručně na otázku tak, aby si čtenář mohl každé tvrzení ověřit.
+
+Otázka:
+Od kterého data je nový stavební zákon č. 283/2021 Sb. účinný v plném rozsahu? Uveďte zdroj.
+
+Pravidla:
+1. Vyhledejte informace na webu. Necitujte zdroj, který jste neotevřeli, a nevymýšlejte URL.
+2. Za každým faktickým tvrzením (číslo, datum, jméno, definice) uveďte odkaz na zdroj ve tvaru [1], [2].
+3. Citujte konkrétní stránku nebo dokument, ne domovskou stránku ani výsledky vyhledávání.
+4. Upřednostňujte primární a oficiální zdroje (zákon, úřad, původní studie, standard).
+5. Pokud otázka obsahuje chybný předpoklad, nejprve ho opravte.
+6. Pokud se zdroje liší, uveďte obě hodnoty, každou s vlastním zdrojem, a vysvětlete rozdíl.
+7. Pokud otázka omezuje stáří zdrojů, použijte jen zdroje, které omezení splňují, a uveďte jejich datum.
+8. Pokud spolehlivou odpověď nenajdete, napište to. Nehádejte.
+
+Formát výstupu:
+ODPOVĚĎ: 1–3 věty s přímou odpovědí.
+TVRZENÍ:
+T1: <jedno tvrzení> [n]
+T2: <jedno tvrzení> [n]
+ZDROJE:
+[1] <název> – <vydavatel> – <datum vydání nebo „neuvedeno“> – <úplná URL>
+JISTOTA: vysoká / střední / nízká – jedna věta proč.
+"
+12,dev-CIT-005-P2-gemini-r1,dev,dev,CIT-005,cs,P2,P2_structured_cs.txt,481c3fa95fa65d7c3478e2974c6c6d81653082108a466c467d96111a788211b1,258491810433bff4233c52f7aaa097587016fa9fcada4fc420f27f5390c7a3e7,gemini,gemini.google.com (web),1,"výchozí, neviditelná",vyhledávání automatické; Deep Research vypnut; Temporary chat,žádné,"výchozí, nenastavitelné",výchozí,/mnt/d/AI/czai-private-v1/calibration/avast-v2/answers/dev-CIT-005-P2-gemini-r1.txt,planned,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,"Jste pečlivý rešeršní asistent. Každé tvrzení dokládáte zdrojem, který jste v této konverzaci skutečně otevřeli.
+
+Cíl: odpovězte přesně a stručně na otázku tak, aby si čtenář mohl každé tvrzení ověřit.
+
+Otázka:
+Od kterého data je nový stavební zákon č. 283/2021 Sb. účinný v plném rozsahu? Uveďte zdroj.
+
+Pravidla:
+1. Vyhledejte informace na webu. Necitujte zdroj, který jste neotevřeli, a nevymýšlejte URL.
+2. Za každým faktickým tvrzením (číslo, datum, jméno, definice) uveďte odkaz na zdroj ve tvaru [1], [2].
+3. Citujte konkrétní stránku nebo dokument, ne domovskou stránku ani výsledky vyhledávání.
+4. Upřednostňujte primární a oficiální zdroje (zákon, úřad, původní studie, standard).
+5. Pokud otázka obsahuje chybný předpoklad, nejprve ho opravte.
+6. Pokud se zdroje liší, uveďte obě hodnoty, každou s vlastním zdrojem, a vysvětlete rozdíl.
+7. Pokud otázka omezuje stáří zdrojů, použijte jen zdroje, které omezení splňují, a uveďte jejich datum.
+8. Pokud spolehlivou odpověď nenajdete, napište to. Nehádejte.
+
+Formát výstupu:
+ODPOVĚĎ: 1–3 věty s přímou odpovědí.
+TVRZENÍ:
+T1: <jedno tvrzení> [n]
+T2: <jedno tvrzení> [n]
+ZDROJE:
+[1] <název> – <vydavatel> – <datum vydání nebo „neuvedeno“> – <úplná URL>
+JISTOTA: vysoká / střední / nízká – jedna věta proč.
+"
+13,dev-CIT-005-P2-chatgpt-r1,dev,dev,CIT-005,cs,P2,P2_structured_cs.txt,481c3fa95fa65d7c3478e2974c6c6d81653082108a466c467d96111a788211b1,258491810433bff4233c52f7aaa097587016fa9fcada4fc420f27f5390c7a3e7,chatgpt,chatgpt.com (web),1,"výchozí, neviditelná",Search vynucen; Deep research vypnut; Temporary chat (Unpersonalized),žádné,"výchozí, nenastavitelné",výchozí,/mnt/d/AI/czai-private-v1/calibration/avast-v2/answers/dev-CIT-005-P2-chatgpt-r1.txt,planned,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,"Jste pečlivý rešeršní asistent. Každé tvrzení dokládáte zdrojem, který jste v této konverzaci skutečně otevřeli.
+
+Cíl: odpovězte přesně a stručně na otázku tak, aby si čtenář mohl každé tvrzení ověřit.
+
+Otázka:
+Od kterého data je nový stavební zákon č. 283/2021 Sb. účinný v plném rozsahu? Uveďte zdroj.
+
+Pravidla:
+1. Vyhledejte informace na webu. Necitujte zdroj, který jste neotevřeli, a nevymýšlejte URL.
+2. Za každým faktickým tvrzením (číslo, datum, jméno, definice) uveďte odkaz na zdroj ve tvaru [1], [2].
+3. Citujte konkrétní stránku nebo dokument, ne domovskou stránku ani výsledky vyhledávání.
+4. Upřednostňujte primární a oficiální zdroje (zákon, úřad, původní studie, standard).
+5. Pokud otázka obsahuje chybný předpoklad, nejprve ho opravte.
+6. Pokud se zdroje liší, uveďte obě hodnoty, každou s vlastním zdrojem, a vysvětlete rozdíl.
+7. Pokud otázka omezuje stáří zdrojů, použijte jen zdroje, které omezení splňují, a uveďte jejich datum.
+8. Pokud spolehlivou odpověď nenajdete, napište to. Nehádejte.
+
+Formát výstupu:
+ODPOVĚĎ: 1–3 věty s přímou odpovědí.
+TVRZENÍ:
+T1: <jedno tvrzení> [n]
+T2: <jedno tvrzení> [n]
+ZDROJE:
+[1] <název> – <vydavatel> – <datum vydání nebo „neuvedeno“> – <úplná URL>
+JISTOTA: vysoká / střední / nízká – jedna věta proč.
+"
+14,dev-CIT-005-P2-perplexity-r1,dev,dev,CIT-005,cs,P2,P2_structured_cs.txt,481c3fa95fa65d7c3478e2974c6c6d81653082108a466c467d96111a788211b1,258491810433bff4233c52f7aaa097587016fa9fcada4fc420f27f5390c7a3e7,perplexity,perplexity.ai (web),1,"výchozí, neviditelná",režim Search; Research/Labs vypnuto; Incognito,žádné,"výchozí, nenastavitelné",výchozí,/mnt/d/AI/czai-private-v1/calibration/avast-v2/answers/dev-CIT-005-P2-perplexity-r1.txt,planned,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,"Jste pečlivý rešeršní asistent. Každé tvrzení dokládáte zdrojem, který jste v této konverzaci skutečně otevřeli.
+
+Cíl: odpovězte přesně a stručně na otázku tak, aby si čtenář mohl každé tvrzení ověřit.
+
+Otázka:
+Od kterého data je nový stavební zákon č. 283/2021 Sb. účinný v plném rozsahu? Uveďte zdroj.
+
+Pravidla:
+1. Vyhledejte informace na webu. Necitujte zdroj, který jste neotevřeli, a nevymýšlejte URL.
+2. Za každým faktickým tvrzením (číslo, datum, jméno, definice) uveďte odkaz na zdroj ve tvaru [1], [2].
+3. Citujte konkrétní stránku nebo dokument, ne domovskou stránku ani výsledky vyhledávání.
+4. Upřednostňujte primární a oficiální zdroje (zákon, úřad, původní studie, standard).
+5. Pokud otázka obsahuje chybný předpoklad, nejprve ho opravte.
+6. Pokud se zdroje liší, uveďte obě hodnoty, každou s vlastním zdrojem, a vysvětlete rozdíl.
+7. Pokud otázka omezuje stáří zdrojů, použijte jen zdroje, které omezení splňují, a uveďte jejich datum.
+8. Pokud spolehlivou odpověď nenajdete, napište to. Nehádejte.
+
+Formát výstupu:
+ODPOVĚĎ: 1–3 věty s přímou odpovědí.
+TVRZENÍ:
+T1: <jedno tvrzení> [n]
+T2: <jedno tvrzení> [n]
+ZDROJE:
+[1] <název> – <vydavatel> – <datum vydání nebo „neuvedeno“> – <úplná URL>
+JISTOTA: vysoká / střední / nízká – jedna věta proč.
+"
+15,dev-CIT-005-P2-claude-r1,dev,dev,CIT-005,cs,P2,P2_structured_cs.txt,481c3fa95fa65d7c3478e2974c6c6d81653082108a466c467d96111a788211b1,258491810433bff4233c52f7aaa097587016fa9fcada4fc420f27f5390c7a3e7,claude,claude.ai (web),1,"výchozí, neviditelná",Web search zapnut/automatický; Research vypnut; Incognito chat,žádné,"výchozí, nenastavitelné",výchozí,/mnt/d/AI/czai-private-v1/calibration/avast-v2/answers/dev-CIT-005-P2-claude-r1.txt,planned,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,"Jste pečlivý rešeršní asistent. Každé tvrzení dokládáte zdrojem, který jste v této konverzaci skutečně otevřeli.
+
+Cíl: odpovězte přesně a stručně na otázku tak, aby si čtenář mohl každé tvrzení ověřit.
+
+Otázka:
+Od kterého data je nový stavební zákon č. 283/2021 Sb. účinný v plném rozsahu? Uveďte zdroj.
+
+Pravidla:
+1. Vyhledejte informace na webu. Necitujte zdroj, který jste neotevřeli, a nevymýšlejte URL.
+2. Za každým faktickým tvrzením (číslo, datum, jméno, definice) uveďte odkaz na zdroj ve tvaru [1], [2].
+3. Citujte konkrétní stránku nebo dokument, ne domovskou stránku ani výsledky vyhledávání.
+4. Upřednostňujte primární a oficiální zdroje (zákon, úřad, původní studie, standard).
+5. Pokud otázka obsahuje chybný předpoklad, nejprve ho opravte.
+6. Pokud se zdroje liší, uveďte obě hodnoty, každou s vlastním zdrojem, a vysvětlete rozdíl.
+7. Pokud otázka omezuje stáří zdrojů, použijte jen zdroje, které omezení splňují, a uveďte jejich datum.
+8. Pokud spolehlivou odpověď nenajdete, napište to. Nehádejte.
+
+Formát výstupu:
+ODPOVĚĎ: 1–3 věty s přímou odpovědí.
+TVRZENÍ:
+T1: <jedno tvrzení> [n]
+T2: <jedno tvrzení> [n]
+ZDROJE:
+[1] <název> – <vydavatel> – <datum vydání nebo „neuvedeno“> – <úplná URL>
+JISTOTA: vysoká / střední / nízká – jedna věta proč.
+"
+16,dev-CIT-008-P2-gemini-r1,dev,dev,CIT-008,cs,P2,P2_structured_cs.txt,481c3fa95fa65d7c3478e2974c6c6d81653082108a466c467d96111a788211b1,61633e5fdb65fc8ef4b1df6fe0203ed061ebede8352ff12bccb459074d3b94d5,gemini,gemini.google.com (web),1,"výchozí, neviditelná",vyhledávání automatické; Deep Research vypnut; Temporary chat,žádné,"výchozí, nenastavitelné",výchozí,/mnt/d/AI/czai-private-v1/calibration/avast-v2/answers/dev-CIT-008-P2-gemini-r1.txt,planned,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,"Jste pečlivý rešeršní asistent. Každé tvrzení dokládáte zdrojem, který jste v této konverzaci skutečně otevřeli.
+
+Cíl: odpovězte přesně a stručně na otázku tak, aby si čtenář mohl každé tvrzení ověřit.
+
+Otázka:
+Proč musí mít kandidát do Senátu ČR alespoň 35 let a kde je tato hranice stanovena?
+
+Pravidla:
+1. Vyhledejte informace na webu. Necitujte zdroj, který jste neotevřeli, a nevymýšlejte URL.
+2. Za každým faktickým tvrzením (číslo, datum, jméno, definice) uveďte odkaz na zdroj ve tvaru [1], [2].
+3. Citujte konkrétní stránku nebo dokument, ne domovskou stránku ani výsledky vyhledávání.
+4. Upřednostňujte primární a oficiální zdroje (zákon, úřad, původní studie, standard).
+5. Pokud otázka obsahuje chybný předpoklad, nejprve ho opravte.
+6. Pokud se zdroje liší, uveďte obě hodnoty, každou s vlastním zdrojem, a vysvětlete rozdíl.
+7. Pokud otázka omezuje stáří zdrojů, použijte jen zdroje, které omezení splňují, a uveďte jejich datum.
+8. Pokud spolehlivou odpověď nenajdete, napište to. Nehádejte.
+
+Formát výstupu:
+ODPOVĚĎ: 1–3 věty s přímou odpovědí.
+TVRZENÍ:
+T1: <jedno tvrzení> [n]
+T2: <jedno tvrzení> [n]
+ZDROJE:
+[1] <název> – <vydavatel> – <datum vydání nebo „neuvedeno“> – <úplná URL>
+JISTOTA: vysoká / střední / nízká – jedna věta proč.
+"
+17,dev-CIT-008-P2-grok-r1,dev,dev,CIT-008,cs,P2,P2_structured_cs.txt,481c3fa95fa65d7c3478e2974c6c6d81653082108a466c467d96111a788211b1,61633e5fdb65fc8ef4b1df6fe0203ed061ebede8352ff12bccb459074d3b94d5,grok,grok.com (web),1,"výchozí, neviditelná",vyhledávání automatické (web + X); DeepSearch vypnut; Private Chat,žádné,"výchozí, nenastavitelné",výchozí,/mnt/d/AI/czai-private-v1/calibration/avast-v2/answers/dev-CIT-008-P2-grok-r1.txt,planned,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,"Jste pečlivý rešeršní asistent. Každé tvrzení dokládáte zdrojem, který jste v této konverzaci skutečně otevřeli.
+
+Cíl: odpovězte přesně a stručně na otázku tak, aby si čtenář mohl každé tvrzení ověřit.
+
+Otázka:
+Proč musí mít kandidát do Senátu ČR alespoň 35 let a kde je tato hranice stanovena?
+
+Pravidla:
+1. Vyhledejte informace na webu. Necitujte zdroj, který jste neotevřeli, a nevymýšlejte URL.
+2. Za každým faktickým tvrzením (číslo, datum, jméno, definice) uveďte odkaz na zdroj ve tvaru [1], [2].
+3. Citujte konkrétní stránku nebo dokument, ne domovskou stránku ani výsledky vyhledávání.
+4. Upřednostňujte primární a oficiální zdroje (zákon, úřad, původní studie, standard).
+5. Pokud otázka obsahuje chybný předpoklad, nejprve ho opravte.
+6. Pokud se zdroje liší, uveďte obě hodnoty, každou s vlastním zdrojem, a vysvětlete rozdíl.
+7. Pokud otázka omezuje stáří zdrojů, použijte jen zdroje, které omezení splňují, a uveďte jejich datum.
+8. Pokud spolehlivou odpověď nenajdete, napište to. Nehádejte.
+
+Formát výstupu:
+ODPOVĚĎ: 1–3 věty s přímou odpovědí.
+TVRZENÍ:
+T1: <jedno tvrzení> [n]
+T2: <jedno tvrzení> [n]
+ZDROJE:
+[1] <název> – <vydavatel> – <datum vydání nebo „neuvedeno“> – <úplná URL>
+JISTOTA: vysoká / střední / nízká – jedna věta proč.
+"
+18,dev-CIT-008-P2-perplexity-r1,dev,dev,CIT-008,cs,P2,P2_structured_cs.txt,481c3fa95fa65d7c3478e2974c6c6d81653082108a466c467d96111a788211b1,61633e5fdb65fc8ef4b1df6fe0203ed061ebede8352ff12bccb459074d3b94d5,perplexity,perplexity.ai (web),1,"výchozí, neviditelná",režim Search; Research/Labs vypnuto; Incognito,žádné,"výchozí, nenastavitelné",výchozí,/mnt/d/AI/czai-private-v1/calibration/avast-v2/answers/dev-CIT-008-P2-perplexity-r1.txt,planned,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,"Jste pečlivý rešeršní asistent. Každé tvrzení dokládáte zdrojem, který jste v této konverzaci skutečně otevřeli.
+
+Cíl: odpovězte přesně a stručně na otázku tak, aby si čtenář mohl každé tvrzení ověřit.
+
+Otázka:
+Proč musí mít kandidát do Senátu ČR alespoň 35 let a kde je tato hranice stanovena?
+
+Pravidla:
+1. Vyhledejte informace na webu. Necitujte zdroj, který jste neotevřeli, a nevymýšlejte URL.
+2. Za každým faktickým tvrzením (číslo, datum, jméno, definice) uveďte odkaz na zdroj ve tvaru [1], [2].
+3. Citujte konkrétní stránku nebo dokument, ne domovskou stránku ani výsledky vyhledávání.
+4. Upřednostňujte primární a oficiální zdroje (zákon, úřad, původní studie, standard).
+5. Pokud otázka obsahuje chybný předpoklad, nejprve ho opravte.
+6. Pokud se zdroje liší, uveďte obě hodnoty, každou s vlastním zdrojem, a vysvětlete rozdíl.
+7. Pokud otázka omezuje stáří zdrojů, použijte jen zdroje, které omezení splňují, a uveďte jejich datum.
+8. Pokud spolehlivou odpověď nenajdete, napište to. Nehádejte.
+
+Formát výstupu:
+ODPOVĚĎ: 1–3 věty s přímou odpovědí.
+TVRZENÍ:
+T1: <jedno tvrzení> [n]
+T2: <jedno tvrzení> [n]
+ZDROJE:
+[1] <název> – <vydavatel> – <datum vydání nebo „neuvedeno“> – <úplná URL>
+JISTOTA: vysoká / střední / nízká – jedna věta proč.
+"
+19,dev-CIT-008-P2-claude-r1,dev,dev,CIT-008,cs,P2,P2_structured_cs.txt,481c3fa95fa65d7c3478e2974c6c6d81653082108a466c467d96111a788211b1,61633e5fdb65fc8ef4b1df6fe0203ed061ebede8352ff12bccb459074d3b94d5,claude,claude.ai (web),1,"výchozí, neviditelná",Web search zapnut/automatický; Research vypnut; Incognito chat,žádné,"výchozí, nenastavitelné",výchozí,/mnt/d/AI/czai-private-v1/calibration/avast-v2/answers/dev-CIT-008-P2-claude-r1.txt,planned,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,"Jste pečlivý rešeršní asistent. Každé tvrzení dokládáte zdrojem, který jste v této konverzaci skutečně otevřeli.
+
+Cíl: odpovězte přesně a stručně na otázku tak, aby si čtenář mohl každé tvrzení ověřit.
+
+Otázka:
+Proč musí mít kandidát do Senátu ČR alespoň 35 let a kde je tato hranice stanovena?
+
+Pravidla:
+1. Vyhledejte informace na webu. Necitujte zdroj, který jste neotevřeli, a nevymýšlejte URL.
+2. Za každým faktickým tvrzením (číslo, datum, jméno, definice) uveďte odkaz na zdroj ve tvaru [1], [2].
+3. Citujte konkrétní stránku nebo dokument, ne domovskou stránku ani výsledky vyhledávání.
+4. Upřednostňujte primární a oficiální zdroje (zákon, úřad, původní studie, standard).
+5. Pokud otázka obsahuje chybný předpoklad, nejprve ho opravte.
+6. Pokud se zdroje liší, uveďte obě hodnoty, každou s vlastním zdrojem, a vysvětlete rozdíl.
+7. Pokud otázka omezuje stáří zdrojů, použijte jen zdroje, které omezení splňují, a uveďte jejich datum.
+8. Pokud spolehlivou odpověď nenajdete, napište to. Nehádejte.
+
+Formát výstupu:
+ODPOVĚĎ: 1–3 věty s přímou odpovědí.
+TVRZENÍ:
+T1: <jedno tvrzení> [n]
+T2: <jedno tvrzení> [n]
+ZDROJE:
+[1] <název> – <vydavatel> – <datum vydání nebo „neuvedeno“> – <úplná URL>
+JISTOTA: vysoká / střední / nízká – jedna věta proč.
+"
+20,dev-CIT-008-P2-chatgpt-r1,dev,dev,CIT-008,cs,P2,P2_structured_cs.txt,481c3fa95fa65d7c3478e2974c6c6d81653082108a466c467d96111a788211b1,61633e5fdb65fc8ef4b1df6fe0203ed061ebede8352ff12bccb459074d3b94d5,chatgpt,chatgpt.com (web),1,"výchozí, neviditelná",Search vynucen; Deep research vypnut; Temporary chat (Unpersonalized),žádné,"výchozí, nenastavitelné",výchozí,/mnt/d/AI/czai-private-v1/calibration/avast-v2/answers/dev-CIT-008-P2-chatgpt-r1.txt,planned,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,"Jste pečlivý rešeršní asistent. Každé tvrzení dokládáte zdrojem, který jste v této konverzaci skutečně otevřeli.
+
+Cíl: odpovězte přesně a stručně na otázku tak, aby si čtenář mohl každé tvrzení ověřit.
+
+Otázka:
+Proč musí mít kandidát do Senátu ČR alespoň 35 let a kde je tato hranice stanovena?
+
+Pravidla:
+1. Vyhledejte informace na webu. Necitujte zdroj, který jste neotevřeli, a nevymýšlejte URL.
+2. Za každým faktickým tvrzením (číslo, datum, jméno, definice) uveďte odkaz na zdroj ve tvaru [1], [2].
+3. Citujte konkrétní stránku nebo dokument, ne domovskou stránku ani výsledky vyhledávání.
+4. Upřednostňujte primární a oficiální zdroje (zákon, úřad, původní studie, standard).
+5. Pokud otázka obsahuje chybný předpoklad, nejprve ho opravte.
+6. Pokud se zdroje liší, uveďte obě hodnoty, každou s vlastním zdrojem, a vysvětlete rozdíl.
+7. Pokud otázka omezuje stáří zdrojů, použijte jen zdroje, které omezení splňují, a uveďte jejich datum.
+8. Pokud spolehlivou odpověď nenajdete, napište to. Nehádejte.
+
+Formát výstupu:
+ODPOVĚĎ: 1–3 věty s přímou odpovědí.
+TVRZENÍ:
+T1: <jedno tvrzení> [n]
+T2: <jedno tvrzení> [n]
+ZDROJE:
+[1] <název> – <vydavatel> – <datum vydání nebo „neuvedeno“> – <úplná URL>
+JISTOTA: vysoká / střední / nízká – jedna věta proč.
+"
+21,dev-CIT-012-P2-claude-r1,dev,dev,CIT-012,cs+en,P2,P2_structured_cs.txt,481c3fa95fa65d7c3478e2974c6c6d81653082108a466c467d96111a788211b1,10caf853db9829cac24516d339ca9bef13b90e5bc81abaeb843b185b36b87b88,claude,claude.ai (web),1,"výchozí, neviditelná",Web search zapnut/automatický; Research vypnut; Incognito chat,žádné,"výchozí, nenastavitelné",výchozí,/mnt/d/AI/czai-private-v1/calibration/avast-v2/answers/dev-CIT-012-P2-claude-r1.txt,planned,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,"Jste pečlivý rešeršní asistent. Každé tvrzení dokládáte zdrojem, který jste v této konverzaci skutečně otevřeli.
+
+Cíl: odpovězte přesně a stručně na otázku tak, aby si čtenář mohl každé tvrzení ověřit.
+
+Otázka:
+Co přesně znamená 'SBOM' v kontextu software supply chain security a který americký exekutivní příkaz z roku 2021 jeho používání prosadil? Odpovězte česky, anglické termíny ponechte.
+
+Pravidla:
+1. Vyhledejte informace na webu. Necitujte zdroj, který jste neotevřeli, a nevymýšlejte URL.
+2. Za každým faktickým tvrzením (číslo, datum, jméno, definice) uveďte odkaz na zdroj ve tvaru [1], [2].
+3. Citujte konkrétní stránku nebo dokument, ne domovskou stránku ani výsledky vyhledávání.
+4. Upřednostňujte primární a oficiální zdroje (zákon, úřad, původní studie, standard).
+5. Pokud otázka obsahuje chybný předpoklad, nejprve ho opravte.
+6. Pokud se zdroje liší, uveďte obě hodnoty, každou s vlastním zdrojem, a vysvětlete rozdíl.
+7. Pokud otázka omezuje stáří zdrojů, použijte jen zdroje, které omezení splňují, a uveďte jejich datum.
+8. Pokud spolehlivou odpověď nenajdete, napište to. Nehádejte.
+
+Formát výstupu:
+ODPOVĚĎ: 1–3 věty s přímou odpovědí.
+TVRZENÍ:
+T1: <jedno tvrzení> [n]
+T2: <jedno tvrzení> [n]
+ZDROJE:
+[1] <název> – <vydavatel> – <datum vydání nebo „neuvedeno“> – <úplná URL>
+JISTOTA: vysoká / střední / nízká – jedna věta proč.
+"
+22,dev-CIT-012-P2-grok-r1,dev,dev,CIT-012,cs+en,P2,P2_structured_cs.txt,481c3fa95fa65d7c3478e2974c6c6d81653082108a466c467d96111a788211b1,10caf853db9829cac24516d339ca9bef13b90e5bc81abaeb843b185b36b87b88,grok,grok.com (web),1,"výchozí, neviditelná",vyhledávání automatické (web + X); DeepSearch vypnut; Private Chat,žádné,"výchozí, nenastavitelné",výchozí,/mnt/d/AI/czai-private-v1/calibration/avast-v2/answers/dev-CIT-012-P2-grok-r1.txt,planned,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,"Jste pečlivý rešeršní asistent. Každé tvrzení dokládáte zdrojem, který jste v této konverzaci skutečně otevřeli.
+
+Cíl: odpovězte přesně a stručně na otázku tak, aby si čtenář mohl každé tvrzení ověřit.
+
+Otázka:
+Co přesně znamená 'SBOM' v kontextu software supply chain security a který americký exekutivní příkaz z roku 2021 jeho používání prosadil? Odpovězte česky, anglické termíny ponechte.
+
+Pravidla:
+1. Vyhledejte informace na webu. Necitujte zdroj, který jste neotevřeli, a nevymýšlejte URL.
+2. Za každým faktickým tvrzením (číslo, datum, jméno, definice) uveďte odkaz na zdroj ve tvaru [1], [2].
+3. Citujte konkrétní stránku nebo dokument, ne domovskou stránku ani výsledky vyhledávání.
+4. Upřednostňujte primární a oficiální zdroje (zákon, úřad, původní studie, standard).
+5. Pokud otázka obsahuje chybný předpoklad, nejprve ho opravte.
+6. Pokud se zdroje liší, uveďte obě hodnoty, každou s vlastním zdrojem, a vysvětlete rozdíl.
+7. Pokud otázka omezuje stáří zdrojů, použijte jen zdroje, které omezení splňují, a uveďte jejich datum.
+8. Pokud spolehlivou odpověď nenajdete, napište to. Nehádejte.
+
+Formát výstupu:
+ODPOVĚĎ: 1–3 věty s přímou odpovědí.
+TVRZENÍ:
+T1: <jedno tvrzení> [n]
+T2: <jedno tvrzení> [n]
+ZDROJE:
+[1] <název> – <vydavatel> – <datum vydání nebo „neuvedeno“> – <úplná URL>
+JISTOTA: vysoká / střední / nízká – jedna věta proč.
+"
+23,dev-CIT-012-P2-perplexity-r1,dev,dev,CIT-012,cs+en,P2,P2_structured_cs.txt,481c3fa95fa65d7c3478e2974c6c6d81653082108a466c467d96111a788211b1,10caf853db9829cac24516d339ca9bef13b90e5bc81abaeb843b185b36b87b88,perplexity,perplexity.ai (web),1,"výchozí, neviditelná",režim Search; Research/Labs vypnuto; Incognito,žádné,"výchozí, nenastavitelné",výchozí,/mnt/d/AI/czai-private-v1/calibration/avast-v2/answers/dev-CIT-012-P2-perplexity-r1.txt,planned,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,"Jste pečlivý rešeršní asistent. Každé tvrzení dokládáte zdrojem, který jste v této konverzaci skutečně otevřeli.
+
+Cíl: odpovězte přesně a stručně na otázku tak, aby si čtenář mohl každé tvrzení ověřit.
+
+Otázka:
+Co přesně znamená 'SBOM' v kontextu software supply chain security a který americký exekutivní příkaz z roku 2021 jeho používání prosadil? Odpovězte česky, anglické termíny ponechte.
+
+Pravidla:
+1. Vyhledejte informace na webu. Necitujte zdroj, který jste neotevřeli, a nevymýšlejte URL.
+2. Za každým faktickým tvrzením (číslo, datum, jméno, definice) uveďte odkaz na zdroj ve tvaru [1], [2].
+3. Citujte konkrétní stránku nebo dokument, ne domovskou stránku ani výsledky vyhledávání.
+4. Upřednostňujte primární a oficiální zdroje (zákon, úřad, původní studie, standard).
+5. Pokud otázka obsahuje chybný předpoklad, nejprve ho opravte.
+6. Pokud se zdroje liší, uveďte obě hodnoty, každou s vlastním zdrojem, a vysvětlete rozdíl.
+7. Pokud otázka omezuje stáří zdrojů, použijte jen zdroje, které omezení splňují, a uveďte jejich datum.
+8. Pokud spolehlivou odpověď nenajdete, napište to. Nehádejte.
+
+Formát výstupu:
+ODPOVĚĎ: 1–3 věty s přímou odpovědí.
+TVRZENÍ:
+T1: <jedno tvrzení> [n]
+T2: <jedno tvrzení> [n]
+ZDROJE:
+[1] <název> – <vydavatel> – <datum vydání nebo „neuvedeno“> – <úplná URL>
+JISTOTA: vysoká / střední / nízká – jedna věta proč.
+"
+24,dev-CIT-012-P2-chatgpt-r1,dev,dev,CIT-012,cs+en,P2,P2_structured_cs.txt,481c3fa95fa65d7c3478e2974c6c6d81653082108a466c467d96111a788211b1,10caf853db9829cac24516d339ca9bef13b90e5bc81abaeb843b185b36b87b88,chatgpt,chatgpt.com (web),1,"výchozí, neviditelná",Search vynucen; Deep research vypnut; Temporary chat (Unpersonalized),žádné,"výchozí, nenastavitelné",výchozí,/mnt/d/AI/czai-private-v1/calibration/avast-v2/answers/dev-CIT-012-P2-chatgpt-r1.txt,planned,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,"Jste pečlivý rešeršní asistent. Každé tvrzení dokládáte zdrojem, který jste v této konverzaci skutečně otevřeli.
+
+Cíl: odpovězte přesně a stručně na otázku tak, aby si čtenář mohl každé tvrzení ověřit.
+
+Otázka:
+Co přesně znamená 'SBOM' v kontextu software supply chain security a který americký exekutivní příkaz z roku 2021 jeho používání prosadil? Odpovězte česky, anglické termíny ponechte.
+
+Pravidla:
+1. Vyhledejte informace na webu. Necitujte zdroj, který jste neotevřeli, a nevymýšlejte URL.
+2. Za každým faktickým tvrzením (číslo, datum, jméno, definice) uveďte odkaz na zdroj ve tvaru [1], [2].
+3. Citujte konkrétní stránku nebo dokument, ne domovskou stránku ani výsledky vyhledávání.
+4. Upřednostňujte primární a oficiální zdroje (zákon, úřad, původní studie, standard).
+5. Pokud otázka obsahuje chybný předpoklad, nejprve ho opravte.
+6. Pokud se zdroje liší, uveďte obě hodnoty, každou s vlastním zdrojem, a vysvětlete rozdíl.
+7. Pokud otázka omezuje stáří zdrojů, použijte jen zdroje, které omezení splňují, a uveďte jejich datum.
+8. Pokud spolehlivou odpověď nenajdete, napište to. Nehádejte.
+
+Formát výstupu:
+ODPOVĚĎ: 1–3 věty s přímou odpovědí.
+TVRZENÍ:
+T1: <jedno tvrzení> [n]
+T2: <jedno tvrzení> [n]
+ZDROJE:
+[1] <název> – <vydavatel> – <datum vydání nebo „neuvedeno“> – <úplná URL>
+JISTOTA: vysoká / střední / nízká – jedna věta proč.
+"
+25,dev-CIT-012-P2-gemini-r1,dev,dev,CIT-012,cs+en,P2,P2_structured_cs.txt,481c3fa95fa65d7c3478e2974c6c6d81653082108a466c467d96111a788211b1,10caf853db9829cac24516d339ca9bef13b90e5bc81abaeb843b185b36b87b88,gemini,gemini.google.com (web),1,"výchozí, neviditelná",vyhledávání automatické; Deep Research vypnut; Temporary chat,žádné,"výchozí, nenastavitelné",výchozí,/mnt/d/AI/czai-private-v1/calibration/avast-v2/answers/dev-CIT-012-P2-gemini-r1.txt,planned,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,"Jste pečlivý rešeršní asistent. Každé tvrzení dokládáte zdrojem, který jste v této konverzaci skutečně otevřeli.
+
+Cíl: odpovězte přesně a stručně na otázku tak, aby si čtenář mohl každé tvrzení ověřit.
+
+Otázka:
+Co přesně znamená 'SBOM' v kontextu software supply chain security a který americký exekutivní příkaz z roku 2021 jeho používání prosadil? Odpovězte česky, anglické termíny ponechte.
+
+Pravidla:
+1. Vyhledejte informace na webu. Necitujte zdroj, který jste neotevřeli, a nevymýšlejte URL.
+2. Za každým faktickým tvrzením (číslo, datum, jméno, definice) uveďte odkaz na zdroj ve tvaru [1], [2].
+3. Citujte konkrétní stránku nebo dokument, ne domovskou stránku ani výsledky vyhledávání.
+4. Upřednostňujte primární a oficiální zdroje (zákon, úřad, původní studie, standard).
+5. Pokud otázka obsahuje chybný předpoklad, nejprve ho opravte.
+6. Pokud se zdroje liší, uveďte obě hodnoty, každou s vlastním zdrojem, a vysvětlete rozdíl.
+7. Pokud otázka omezuje stáří zdrojů, použijte jen zdroje, které omezení splňují, a uveďte jejich datum.
+8. Pokud spolehlivou odpověď nenajdete, napište to. Nehádejte.
+
+Formát výstupu:
+ODPOVĚĎ: 1–3 věty s přímou odpovědí.
+TVRZENÍ:
+T1: <jedno tvrzení> [n]
+T2: <jedno tvrzení> [n]
+ZDROJE:
+[1] <název> – <vydavatel> – <datum vydání nebo „neuvedeno“> – <úplná URL>
+JISTOTA: vysoká / střední / nízká – jedna věta proč.
+"
+26,dev-CIT-013-P2-perplexity-r1,dev,dev,CIT-013,cs,P2,P2_structured_cs.txt,481c3fa95fa65d7c3478e2974c6c6d81653082108a466c467d96111a788211b1,253f5459c916d3ac36c12630ef1f872e332d5bf09a6e83bd44b385a91a9908a9,perplexity,perplexity.ai (web),1,"výchozí, neviditelná",režim Search; Research/Labs vypnuto; Incognito,žádné,"výchozí, nenastavitelné",výchozí,/mnt/d/AI/czai-private-v1/calibration/avast-v2/answers/dev-CIT-013-P2-perplexity-r1.txt,planned,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,"Jste pečlivý rešeršní asistent. Každé tvrzení dokládáte zdrojem, který jste v této konverzaci skutečně otevřeli.
+
+Cíl: odpovězte přesně a stručně na otázku tak, aby si čtenář mohl každé tvrzení ověřit.
+
+Otázka:
+Kolik obyvatel měla Česká republika podle výsledků Sčítání lidu, domů a bytů 2021 k rozhodnému okamžiku? Uveďte přesné číslo a zdroj ČSÚ.
+
+Pravidla:
+1. Vyhledejte informace na webu. Necitujte zdroj, který jste neotevřeli, a nevymýšlejte URL.
+2. Za každým faktickým tvrzením (číslo, datum, jméno, definice) uveďte odkaz na zdroj ve tvaru [1], [2].
+3. Citujte konkrétní stránku nebo dokument, ne domovskou stránku ani výsledky vyhledávání.
+4. Upřednostňujte primární a oficiální zdroje (zákon, úřad, původní studie, standard).
+5. Pokud otázka obsahuje chybný předpoklad, nejprve ho opravte.
+6. Pokud se zdroje liší, uveďte obě hodnoty, každou s vlastním zdrojem, a vysvětlete rozdíl.
+7. Pokud otázka omezuje stáří zdrojů, použijte jen zdroje, které omezení splňují, a uveďte jejich datum.
+8. Pokud spolehlivou odpověď nenajdete, napište to. Nehádejte.
+
+Formát výstupu:
+ODPOVĚĎ: 1–3 věty s přímou odpovědí.
+TVRZENÍ:
+T1: <jedno tvrzení> [n]
+T2: <jedno tvrzení> [n]
+ZDROJE:
+[1] <název> – <vydavatel> – <datum vydání nebo „neuvedeno“> – <úplná URL>
+JISTOTA: vysoká / střední / nízká – jedna věta proč.
+"
+27,dev-CIT-013-P2-chatgpt-r1,dev,dev,CIT-013,cs,P2,P2_structured_cs.txt,481c3fa95fa65d7c3478e2974c6c6d81653082108a466c467d96111a788211b1,253f5459c916d3ac36c12630ef1f872e332d5bf09a6e83bd44b385a91a9908a9,chatgpt,chatgpt.com (web),1,"výchozí, neviditelná",Search vynucen; Deep research vypnut; Temporary chat (Unpersonalized),žádné,"výchozí, nenastavitelné",výchozí,/mnt/d/AI/czai-private-v1/calibration/avast-v2/answers/dev-CIT-013-P2-chatgpt-r1.txt,planned,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,"Jste pečlivý rešeršní asistent. Každé tvrzení dokládáte zdrojem, který jste v této konverzaci skutečně otevřeli.
+
+Cíl: odpovězte přesně a stručně na otázku tak, aby si čtenář mohl každé tvrzení ověřit.
+
+Otázka:
+Kolik obyvatel měla Česká republika podle výsledků Sčítání lidu, domů a bytů 2021 k rozhodnému okamžiku? Uveďte přesné číslo a zdroj ČSÚ.
+
+Pravidla:
+1. Vyhledejte informace na webu. Necitujte zdroj, který jste neotevřeli, a nevymýšlejte URL.
+2. Za každým faktickým tvrzením (číslo, datum, jméno, definice) uveďte odkaz na zdroj ve tvaru [1], [2].
+3. Citujte konkrétní stránku nebo dokument, ne domovskou stránku ani výsledky vyhledávání.
+4. Upřednostňujte primární a oficiální zdroje (zákon, úřad, původní studie, standard).
+5. Pokud otázka obsahuje chybný předpoklad, nejprve ho opravte.
+6. Pokud se zdroje liší, uveďte obě hodnoty, každou s vlastním zdrojem, a vysvětlete rozdíl.
+7. Pokud otázka omezuje stáří zdrojů, použijte jen zdroje, které omezení splňují, a uveďte jejich datum.
+8. Pokud spolehlivou odpověď nenajdete, napište to. Nehádejte.
+
+Formát výstupu:
+ODPOVĚĎ: 1–3 věty s přímou odpovědí.
+TVRZENÍ:
+T1: <jedno tvrzení> [n]
+T2: <jedno tvrzení> [n]
+ZDROJE:
+[1] <název> – <vydavatel> – <datum vydání nebo „neuvedeno“> – <úplná URL>
+JISTOTA: vysoká / střední / nízká – jedna věta proč.
+"
+28,dev-CIT-013-P2-gemini-r1,dev,dev,CIT-013,cs,P2,P2_structured_cs.txt,481c3fa95fa65d7c3478e2974c6c6d81653082108a466c467d96111a788211b1,253f5459c916d3ac36c12630ef1f872e332d5bf09a6e83bd44b385a91a9908a9,gemini,gemini.google.com (web),1,"výchozí, neviditelná",vyhledávání automatické; Deep Research vypnut; Temporary chat,žádné,"výchozí, nenastavitelné",výchozí,/mnt/d/AI/czai-private-v1/calibration/avast-v2/answers/dev-CIT-013-P2-gemini-r1.txt,planned,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,"Jste pečlivý rešeršní asistent. Každé tvrzení dokládáte zdrojem, který jste v této konverzaci skutečně otevřeli.
+
+Cíl: odpovězte přesně a stručně na otázku tak, aby si čtenář mohl každé tvrzení ověřit.
+
+Otázka:
+Kolik obyvatel měla Česká republika podle výsledků Sčítání lidu, domů a bytů 2021 k rozhodnému okamžiku? Uveďte přesné číslo a zdroj ČSÚ.
+
+Pravidla:
+1. Vyhledejte informace na webu. Necitujte zdroj, který jste neotevřeli, a nevymýšlejte URL.
+2. Za každým faktickým tvrzením (číslo, datum, jméno, definice) uveďte odkaz na zdroj ve tvaru [1], [2].
+3. Citujte konkrétní stránku nebo dokument, ne domovskou stránku ani výsledky vyhledávání.
+4. Upřednostňujte primární a oficiální zdroje (zákon, úřad, původní studie, standard).
+5. Pokud otázka obsahuje chybný předpoklad, nejprve ho opravte.
+6. Pokud se zdroje liší, uveďte obě hodnoty, každou s vlastním zdrojem, a vysvětlete rozdíl.
+7. Pokud otázka omezuje stáří zdrojů, použijte jen zdroje, které omezení splňují, a uveďte jejich datum.
+8. Pokud spolehlivou odpověď nenajdete, napište to. Nehádejte.
+
+Formát výstupu:
+ODPOVĚĎ: 1–3 věty s přímou odpovědí.
+TVRZENÍ:
+T1: <jedno tvrzení> [n]
+T2: <jedno tvrzení> [n]
+ZDROJE:
+[1] <název> – <vydavatel> – <datum vydání nebo „neuvedeno“> – <úplná URL>
+JISTOTA: vysoká / střední / nízká – jedna věta proč.
+"
+29,dev-CIT-013-P2-grok-r1,dev,dev,CIT-013,cs,P2,P2_structured_cs.txt,481c3fa95fa65d7c3478e2974c6c6d81653082108a466c467d96111a788211b1,253f5459c916d3ac36c12630ef1f872e332d5bf09a6e83bd44b385a91a9908a9,grok,grok.com (web),1,"výchozí, neviditelná",vyhledávání automatické (web + X); DeepSearch vypnut; Private Chat,žádné,"výchozí, nenastavitelné",výchozí,/mnt/d/AI/czai-private-v1/calibration/avast-v2/answers/dev-CIT-013-P2-grok-r1.txt,planned,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,"Jste pečlivý rešeršní asistent. Každé tvrzení dokládáte zdrojem, který jste v této konverzaci skutečně otevřeli.
+
+Cíl: odpovězte přesně a stručně na otázku tak, aby si čtenář mohl každé tvrzení ověřit.
+
+Otázka:
+Kolik obyvatel měla Česká republika podle výsledků Sčítání lidu, domů a bytů 2021 k rozhodnému okamžiku? Uveďte přesné číslo a zdroj ČSÚ.
+
+Pravidla:
+1. Vyhledejte informace na webu. Necitujte zdroj, který jste neotevřeli, a nevymýšlejte URL.
+2. Za každým faktickým tvrzením (číslo, datum, jméno, definice) uveďte odkaz na zdroj ve tvaru [1], [2].
+3. Citujte konkrétní stránku nebo dokument, ne domovskou stránku ani výsledky vyhledávání.
+4. Upřednostňujte primární a oficiální zdroje (zákon, úřad, původní studie, standard).
+5. Pokud otázka obsahuje chybný předpoklad, nejprve ho opravte.
+6. Pokud se zdroje liší, uveďte obě hodnoty, každou s vlastním zdrojem, a vysvětlete rozdíl.
+7. Pokud otázka omezuje stáří zdrojů, použijte jen zdroje, které omezení splňují, a uveďte jejich datum.
+8. Pokud spolehlivou odpověď nenajdete, napište to. Nehádejte.
+
+Formát výstupu:
+ODPOVĚĎ: 1–3 věty s přímou odpovědí.
+TVRZENÍ:
+T1: <jedno tvrzení> [n]
+T2: <jedno tvrzení> [n]
+ZDROJE:
+[1] <název> – <vydavatel> – <datum vydání nebo „neuvedeno“> – <úplná URL>
+JISTOTA: vysoká / střední / nízká – jedna věta proč.
+"
+30,dev-CIT-013-P2-claude-r1,dev,dev,CIT-013,cs,P2,P2_structured_cs.txt,481c3fa95fa65d7c3478e2974c6c6d81653082108a466c467d96111a788211b1,253f5459c916d3ac36c12630ef1f872e332d5bf09a6e83bd44b385a91a9908a9,claude,claude.ai (web),1,"výchozí, neviditelná",Web search zapnut/automatický; Research vypnut; Incognito chat,žádné,"výchozí, nenastavitelné",výchozí,/mnt/d/AI/czai-private-v1/calibration/avast-v2/answers/dev-CIT-013-P2-claude-r1.txt,planned,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,"Jste pečlivý rešeršní asistent. Každé tvrzení dokládáte zdrojem, který jste v této konverzaci skutečně otevřeli.
+
+Cíl: odpovězte přesně a stručně na otázku tak, aby si čtenář mohl každé tvrzení ověřit.
+
+Otázka:
+Kolik obyvatel měla Česká republika podle výsledků Sčítání lidu, domů a bytů 2021 k rozhodnému okamžiku? Uveďte přesné číslo a zdroj ČSÚ.
+
+Pravidla:
+1. Vyhledejte informace na webu. Necitujte zdroj, který jste neotevřeli, a nevymýšlejte URL.
+2. Za každým faktickým tvrzením (číslo, datum, jméno, definice) uveďte odkaz na zdroj ve tvaru [1], [2].
+3. Citujte konkrétní stránku nebo dokument, ne domovskou stránku ani výsledky vyhledávání.
+4. Upřednostňujte primární a oficiální zdroje (zákon, úřad, původní studie, standard).
+5. Pokud otázka obsahuje chybný předpoklad, nejprve ho opravte.
+6. Pokud se zdroje liší, uveďte obě hodnoty, každou s vlastním zdrojem, a vysvětlete rozdíl.
+7. Pokud otázka omezuje stáří zdrojů, použijte jen zdroje, které omezení splňují, a uveďte jejich datum.
+8. Pokud spolehlivou odpověď nenajdete, napište to. Nehádejte.
+
+Formát výstupu:
+ODPOVĚĎ: 1–3 věty s přímou odpovědí.
+TVRZENÍ:
+T1: <jedno tvrzení> [n]
+T2: <jedno tvrzení> [n]
+ZDROJE:
+[1] <název> – <vydavatel> – <datum vydání nebo „neuvedeno“> – <úplná URL>
+JISTOTA: vysoká / střední / nízká – jedna věta proč.
+"

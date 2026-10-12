@@ -1,0 +1,12 @@
+ODPOVĚĎ: Otázka obsahuje chybný předpoklad: kandidát do Senátu ČR nemusí mít alespoň 35, ale 40 let. Tato podmínka je stanovena v čl. 16 odst. 2 Ústavy ČR a rozvedena v § 57 volebního zákona č. 247/1995 Sb. [www.hrad.cz](https://www.hrad.cz/cs/ceska-republika/ustava-cr) [www.zakonyprolidi.cz](https://www.zakonyprolidi.cz/cs/1995-247)
+
+TVRZENÍ:
+T1: Do Senátu může být zvolen každý občan České republiky, který má právo volit a dosáhl věku 40 let. [www.hrad.cz](https://www.hrad.cz/cs/ceska-republika/ustava-cr)
+T2: Volební zákon upřesňuje, že senátorem může být zvolen každý volič, který alespoň ve druhý den voleb dosáhl věku nejméně 40 let a nemá překážku ve výkonu práva být volen. [www.zakonyprolidi.cz](https://www.zakonyprolidi.cz/cs/1995-247)
+T3: Kandidát do Senátu tedy nemusí mít „alespoň 35 let“; správná věková hranice je 40 let. [www.hrad.cz](https://www.hrad.cz/cs/ceska-republika/ustava-cr) [www.zakonyprolidi.cz](https://www.zakonyprolidi.cz/cs/1995-247)
+
+ZDROJE:
+Ústava České republiky – Kancelář prezidenta republiky – neuvedeno – [https://www.hrad.cz/cs/ceska-republika/ustava-cr](https://www.hrad.cz/cs/ceska-republika/ustava-cr) [www.psp.cz](https://www.psp.cz/docs/texts/elections.html)
+Zákon č. 247/1995 Sb., o volbách do Parlamentu České republiky, § 57 – ZakonyProLidi.cz – 30. 10. 1995 – [https://www.zakonyprolidi.cz/cs/1995-247](https://www.zakonyprolidi.cz/cs/1995-247) [mv.gov.cz](https://mv.gov.cz/migration/docDetail.aspx?docid=21501496&docType=ART)
+
+JISTOTA: vysoká – obě oficiální a právní zdroje jednoznačně uvádějí věkovou hranici 40 let, nikoli 35 let.

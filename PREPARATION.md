@@ -283,3 +283,54 @@ Softwarové syntetické fixture výsledky nejsou benchmarkovými výsledky.
 
 G1/G2/G3, skutečné lidské ratingy, P3_final a analytické dev/val/test/repeat běhy
 zatím nejsou dokončené; nebylo předstíráno score --final ani kompletní assignment.
+
+
+## 13. 10. 2026 – rozšířený skutečný pilot a osm případů
+
+Před novými odpověďmi byl zaznamenán samostatný pre-G1 plán na šesti dalších
+veřejných dev úlohách v P2 (SCOPE + původní plán + immutable manifest).
+V dostupných produktech skutečně odesláno 24 prvních požadavků: 23 completed,
+1 failed/tool_error (ChatGPT CIT-004), 6 Claude řádků neodesláno kvůli známému
+limitu. Originální partial chybového výstupu je uchován; terminální metadata
+137,738 s jsou opravená s auditem a oddělená od partial capture 18,878 s.
+U Perplexity CIT-008 se po hotové odpovědi nezdařila kamera skryté stránky;
+původní text/HTML a probe zůstaly uložené, pozorování dokončení 17,625 s bylo
+obnoveno bez nového cloudového požadavku. Focus emulation se použila pouze
+po odpovědi pro snímek/čtení skutečných karuselů, potom obnovila původní stav.
+Původní uživatelské karty zůstaly otevřené; uzavřené byly jen nové operátorem
+vytvořené karty po zachycení, aby se uvolnily prostředky. Vyřízená stará CDP
+queue byla archivována soukromě, bez přehrávání původních mutací.
+
+Export do projektu má 183 byte-identických artefaktů. Původní kolekce 64
+artefaktů se nemění. Dohromady 33 odpovědí na osm unikátních úloh; summary má
+42 řádků včetně 2 skutečných selhání a 7 neodeslaných řádků. Šest Perplexity
+výstupů zachovává 44 původních skupin a 57 skutečných zdrojových vazeb v
+normalizaci v2, v1/raw se nemění. Parser připravil 23 zaslepených odpovědí a
+148 řádků, 15 necitovaných tvrzení a HTTP kontroly 49 unikátních URL. Oba lidé
+mají totožné prázdné listy pro všech 23 odpovědí; pojmenované originály v Git
+omezují zaslepení pilotu. Nejde o provedené ratingy. Klíč, nápovědy, queue,
+přístupové údaje, nesouvisející historie, zdrojové články a holdout se nepublikují.
+
+Uživatelem popsaný smíšený názor Reného a příznivější názor Jana jsou rozepsané
+v první osobě jako návrhy k revizi. Pomocná AI kontrola osmi veřejných úloh má
+skutečné primární snapshoty, čas a hash; není vydávána za lidskou verifikaci.
+René má soukromý review-before-G1-v1 s konkrétně připraveným návrhem branové
+konfigurace; podpis/čas jsou prázdné a všechna potvrzení false. G1 se na něm
+správně odmítne. Nezmrazený protokol opravuje rozpory držitele klíče: klíč i
+auto kontroly má nehodnotící operátor, René jako správce je zároveň plánovaný rater.
+
+Kritický read-only reviewer ověřil všech 183 nových i 64 starých hashů/velikostí,
+30 immutable řádků a 24 submission hashů, blank ratingy bez nápověd, šest
+normalizačních auditů a osm rizikových snímků bez účtů/historie. Opraveny summary
+odkazy neodeslaných Claude řádků. Přidán konkrétní negativní protipříklad
+Perplexity CIT-008: 40 let s nesprávným čl. 16 odst. 2 namísto 19 odst. 2,
+proti správné opravě ChatGPT; originál zůstává zachovaný. Analýza má osm různých
+úloh s pozitivními i negativními příklady a provozním selháním.
+
+Kontroly: WSL Python 3.12.3, 87 unittestů OK (262,960 s), veřejný validátor OK,
+Ruff check + format --check OK (60 souborů), git diff --check OK. MyST/Typst
+pracovní PDF sestavené, 32 stran, bez DOPLNIT a náhradních znaků; zdroje i PDF
+zůstávají v projektu. Upstream upozornění Typst na latinské číslování nebrání
+sestavení. Vzdálené CI není potvrzené. Syntetické testové skóre se nepublikuje
+jako experiment. Finální analytická matice, G1/G2/G3, lidské ratingy a P3_final
+zůstávají nedokončené; nepředstíráme splnění celého assignmentu.
