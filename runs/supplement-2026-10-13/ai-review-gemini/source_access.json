@@ -1,0 +1,35 @@
+[
+  {
+    "url": "https://www.dnb.nl/en/the-euro-and-europe/the-ecb-s-monetary-policy/ecb-interest-rates/",
+    "key": "e7448d30639b81e5",
+    "checked_at": "2026-10-13T10:05:30.437449+00:00",
+    "error": "HTTP Error 403: Forbidden"
+  },
+  {
+    "url": "https://www.ecb.europa.eu/press/economic-bulletin/html/eb202606.en.html",
+    "key": "124ae777e8dcf8cb",
+    "checked_at": "2026-10-13T10:05:31.368226+00:00",
+    "status": 200,
+    "final_url": "https://www.ecb.europa.eu/press/economic-bulletin/html/eb202606.en.html",
+    "sha256": "bd5e23c75e64bd14ce0e4f8bbf24044d447a140cc4ffa52997d130ace142cb7a",
+    "text_chars": 111475
+  },
+  {
+    "url": "https://cryptoticker.io/en/satoshi-bitcoin-freeze-bip-361-quantum/",
+    "key": "a542e26b80b52bdd",
+    "checked_at": "2026-10-13T10:05:31.734902+00:00",
+    "status": 200,
+    "final_url": "https://cryptoticker.io/en/satoshi-bitcoin-freeze-bip-361-quantum/",
+    "sha256": "1ddf6cdfe93a7baf20610a8a512bdf00cc5e3d2a727aa5549c3313f5e18a4a71",
+    "text_chars": 22463
+  },
+  {
+    "url": "https://bitslog.com/2013/04/17/the-well-deserved-fortune-of-satoshi-nakamoto/",
+    "key": "c69624dca898aa35",
+    "checked_at": "2026-10-13T10:05:32.138062+00:00",
+    "status": 200,
+    "final_url": "https://bitslog.com/2013/04/17/the-well-deserved-fortune-of-satoshi-nakamoto/",
+    "sha256": "2dab2f71cb0505e2366cbb9974b7f2d137c666cba18955c511574e723613f3c7",
+    "text_chars": 12286
+  }
+]

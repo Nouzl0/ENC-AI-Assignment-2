@@ -37,3 +37,8 @@ Pro každou změnu doplnit: skutečné datum, autor, stará/nová verze a CZ/EN 
 konkrétní obecná změna, ≥3 dev run_id a kódy, předpokládaný mechanismus/jistota,
 val metriky všech plánovaných kandidátů a P2, délky, aplikované pravidlo výběru,
 zlepšení nebo zhoršení a odkaz na selection_record/G2. Prázdná šablona není důkaz.
+
+
+## 13. 10. 2026 – samostatný doplňkový sběr
+
+P1/P2 a kandidát P3A byly byte/hash fixovány před vytvořením10nových oddělených otázek (záznam `runs/supplement-2026-10-13/gemini-grok/supplement_freeze.json`). Žádná šablona se po otevření těchto otázek neupravovala. Obecný mechanismus P3A (citovat konkrétní podpůrný úryvek) reaguje na skutečné dev nálezy v CIT001Perplexity(E4), CIT004Grok(E2) a CIT008Perplexity(E5), popsané v analýze a AI auditu; nejde o prokázané zlepšení. Kandidát byl zvolen předem, nikoli vyhlášen vítězem neprovedené validace. Pět nových otázek má skutečné P1/P2/P3A; kompletní přenositelnost napříč produkty nelze z této matice odhadnout. Původní P3_final a G2 se netvrdí.

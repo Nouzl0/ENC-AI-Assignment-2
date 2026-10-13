@@ -1,0 +1,5 @@
+Solve the task below. Answer only in the required format.
+
+Task:
+Which collaboration produced the first image of a black hole, which object did it show, and on what date was it published?
+Format: a concise answer with links to the sources you used (URLs).

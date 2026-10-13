@@ -1,0 +1,3 @@
+metric,mean,ci95_percentile_low,ci95_percentile_high,n_answers,n_tasks,bootstrap_draws,seed,scope
+draft_precision_lower,0.5635688684075781,0.3807603686635945,0.7008704557091654,31,8,10000,20261013,AI diagnostic parser draft; not protocol main precision
+draft_precision_upper,0.7995135688684076,0.7076984126984127,0.8853174603174603,31,8,10000,20261013,AI diagnostic parser draft; not protocol main precision

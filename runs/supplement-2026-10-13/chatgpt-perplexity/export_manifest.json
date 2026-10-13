@@ -1,0 +1,430 @@
+{
+  "scope": "Sanitized public supplement and explicitly AI qualitative review; no human ratings",
+  "files": [
+    {
+      "file": "AI_REVIEW.md",
+      "bytes": 1602,
+      "sha256": "3c1077459986249efa8055dd618aa4c633b95735bad104db1b8ce7d744d269de"
+    },
+    {
+      "file": "AI_REVIEW_PUBLIC_22.csv",
+      "bytes": 11872,
+      "sha256": "47227f307ad907ff5f01ba50ee72daf52209c1a0d661808138bca56cd0b625c5"
+    },
+    {
+      "file": "AI_REVIEW_PUBLIC_22.json",
+      "bytes": 18272,
+      "sha256": "0434b9ac43538b1a4aa5af94fb8f9958fdbadf1ce96a5da98bb49f30bd71226a"
+    },
+    {
+      "file": "README.md",
+      "bytes": 1979,
+      "sha256": "86d71a6c0d9b2667b583a852985c1954cdc7805f4de0a2a9f61ab0e66d841853"
+    },
+    {
+      "file": "chatgpt/CIT-002-P1.answer.md",
+      "bytes": 623,
+      "sha256": "7807d6d81dd885d425ae5ab679d5d6836e683c5c719448c4d22fde6b0c468586"
+    },
+    {
+      "file": "chatgpt/CIT-002-P1.metadata.json",
+      "bytes": 1759,
+      "sha256": "e2b8842cfc2699173a826d97bf1b80ee77239bff5e7693e6451099869462b854"
+    },
+    {
+      "file": "chatgpt/CIT-002-P1.png",
+      "bytes": 64925,
+      "sha256": "22157edfe27aec6e4d02d35c15e31c206a8ca0d92d38bd2199ea3cdeab3f8619"
+    },
+    {
+      "file": "chatgpt/CIT-002-P1.raw.html",
+      "bytes": 23404,
+      "sha256": "15e0a28d51457c117a291c7b07e5989e8dd27a9bc8630b22cee8373c1de50439"
+    },
+    {
+      "file": "chatgpt/CIT-002-P2.answer.md",
+      "bytes": 1076,
+      "sha256": "59bcd377c7eb04851bd38ef4173e86b775d7dfc8f9415512a97f3c1dd0577298"
+    },
+    {
+      "file": "chatgpt/CIT-002-P2.metadata.json",
+      "bytes": 3071,
+      "sha256": "f9d2339bf4bd72cfc99ccf931cccd197796dbc8a3e4024a2c4d2ccce4c74c3cb"
+    },
+    {
+      "file": "chatgpt/CIT-002-P2.png",
+      "bytes": 89308,
+      "sha256": "011ccca43e41edbb786aaee9fc5e5e57e6ea70594dc2d186432e3229776d06c5"
+    },
+    {
+      "file": "chatgpt/CIT-002-P2.raw.html",
+      "bytes": 46605,
+      "sha256": "217ae547ba83f0e87b2e5bfe85758ce4b2421683a2b1210067b19fa365f7f01b"
+    },
+    {
+      "file": "chatgpt/CIT-006-P2.answer.md",
+      "bytes": 1,
+      "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+    },
+    {
+      "file": "chatgpt/CIT-006-P2.metadata.json",
+      "bytes": 3008,
+      "sha256": "563b498f6cb15fe67ef4e3a5ed33068dd1afd58cbb31f119756906ea0a3824b8"
+    },
+    {
+      "file": "chatgpt/CIT-006-P2.png",
+      "bytes": 54992,
+      "sha256": "0f1978d776f8f6fdf9c6743e57c8dc11764933e60cbdc537347fef9bd49a0e21"
+    },
+    {
+      "file": "chatgpt/CIT-006-P2.raw.html",
+      "bytes": 626,
+      "sha256": "87e2381787019b7eeefe76f594afcdd9a3aea77b9daf91b6b5bcb14748fe8e4f"
+    },
+    {
+      "file": "chatgpt/CIT-007-P2.answer.md",
+      "bytes": 968,
+      "sha256": "a34a448d1f9989913707970d84088e10aef1b5edb11bde34896a8388ee874e7e"
+    },
+    {
+      "file": "chatgpt/CIT-007-P2.metadata.json",
+      "bytes": 2919,
+      "sha256": "bdd92b999925302232cfd4e41b6316ffa6974c3880bca87df787dd758ae8744e"
+    },
+    {
+      "file": "chatgpt/CIT-007-P2.png",
+      "bytes": 88951,
+      "sha256": "6eea2eed0be5b56bbb1aa2f619a569fc2853d4839c743925656dc0752d9e0e83"
+    },
+    {
+      "file": "chatgpt/CIT-007-P2.raw.html",
+      "bytes": 35765,
+      "sha256": "0c950ba2063b33e287505a8c7275097d79e117478c34715d3018e89669f1b152"
+    },
+    {
+      "file": "chatgpt/CIT-021-P2.answer.md",
+      "bytes": 1120,
+      "sha256": "6d0ce9a5bfa33c9d53aa157a9a899b386fcc318ca9face69dad3532d25808363"
+    },
+    {
+      "file": "chatgpt/CIT-021-P2.metadata.json",
+      "bytes": 2993,
+      "sha256": "fb54c1f6416e3f420fed75480dc04d42919ebe529af5cb12ebe4383d39298a65"
+    },
+    {
+      "file": "chatgpt/CIT-021-P2.png",
+      "bytes": 82979,
+      "sha256": "8569c00046ccdf68c93b3d0e021687b00d421700000b5e68b3bebadfba6ded22"
+    },
+    {
+      "file": "chatgpt/CIT-021-P2.raw.html",
+      "bytes": 44705,
+      "sha256": "b3a0865b040c7a785a1ca65e988cab8533bbae565f9e9216e6ce0aa65b23d86a"
+    },
+    {
+      "file": "chatgpt/CIT-022-P2.answer.md",
+      "bytes": 1112,
+      "sha256": "b524f58056b32b8fb3113d37dd5d825a3e1bbe4d9b896a67d8d718ea4ec6a454"
+    },
+    {
+      "file": "chatgpt/CIT-022-P2.metadata.json",
+      "bytes": 3029,
+      "sha256": "936d1c4606a5fd3890d162bf5275c0173bd291f79aab45488c036d3023b7579c"
+    },
+    {
+      "file": "chatgpt/CIT-022-P2.png",
+      "bytes": 87731,
+      "sha256": "2f3cc8c94e203f6fbe9eea0c0de1d257ae04afec042d06e516c3ee069042db70"
+    },
+    {
+      "file": "chatgpt/CIT-022-P2.raw.html",
+      "bytes": 43714,
+      "sha256": "bba874126c8fd4af9a20f13e7b56436576d7f3bd7b25c71145ee6fa3871953f7"
+    },
+    {
+      "file": "chatgpt/CIT-023-P2.answer.md",
+      "bytes": 1135,
+      "sha256": "a6218f3134ff16b66401126a90893969bdc4548b99ae1a45bab05e4887590af9"
+    },
+    {
+      "file": "chatgpt/CIT-023-P2.metadata.json",
+      "bytes": 2939,
+      "sha256": "8cb6c38ff01ef31573d157a82e51003d34ff239c6a826cbb288a0cec0211c2a3"
+    },
+    {
+      "file": "chatgpt/CIT-023-P2.png",
+      "bytes": 89517,
+      "sha256": "2086505843d44bc51d54e55c0833e0f55f54d40ec6e51906043c445530659249"
+    },
+    {
+      "file": "chatgpt/CIT-023-P2.raw.html",
+      "bytes": 42959,
+      "sha256": "c46d52be74618da5f04bd743281dcb04b37263f817a933621261bde3e628b53f"
+    },
+    {
+      "file": "chatgpt/CIT-024-P2.answer.md",
+      "bytes": 874,
+      "sha256": "17f33306ce86b595132a30b137f587442c3891a54aa01e1efbd1abe92ac61792"
+    },
+    {
+      "file": "chatgpt/CIT-024-P2.metadata.json",
+      "bytes": 2834,
+      "sha256": "62269a65a9dab10a6febfa183f70e3815018947a2da1106832b65d2353c8405e"
+    },
+    {
+      "file": "chatgpt/CIT-024-P2.png",
+      "bytes": 84490,
+      "sha256": "259b9ed11e454c91e5af462f94fe70dcf48644c7da5d1d6b599ebdc8377688b4"
+    },
+    {
+      "file": "chatgpt/CIT-024-P2.raw.html",
+      "bytes": 35328,
+      "sha256": "cbd4cc56a509c1c7128119888a99baa6cbab2869ed38d870b95b755a35998b54"
+    },
+    {
+      "file": "chatgpt/CIT-025-P2.answer.md",
+      "bytes": 1790,
+      "sha256": "c4ada768a7f9ea9a0cec20d0c03545ed4972493338c51b92444fb742f1f8ec1f"
+    },
+    {
+      "file": "chatgpt/CIT-025-P2.metadata.json",
+      "bytes": 2915,
+      "sha256": "8166fbccd8875fe938a69c103b661af12f9da5597670437ca3b424f7b118f269"
+    },
+    {
+      "file": "chatgpt/CIT-025-P2.png",
+      "bytes": 88968,
+      "sha256": "86045aeb74c09252ebfa5e21349811c40f58c88a554650a6acbdc81e0df186c4"
+    },
+    {
+      "file": "chatgpt/CIT-025-P2.raw.html",
+      "bytes": 64410,
+      "sha256": "35e0d6754d5c32bf0edcf156e28d389371d3ba8e288e443fad3304e5c5a13317"
+    },
+    {
+      "file": "chatgpt/CIT-026-P2.answer.md",
+      "bytes": 818,
+      "sha256": "1aa460ba852560ebf53377cbd568bb602071e8dac40d334eb7e74e771941986f"
+    },
+    {
+      "file": "chatgpt/CIT-026-P2.metadata.json",
+      "bytes": 2738,
+      "sha256": "8341d96606f942bc85b3d8ce80d0925721547611dc9bb793b261546d2a3b0e4f"
+    },
+    {
+      "file": "chatgpt/CIT-026-P2.png",
+      "bytes": 79251,
+      "sha256": "bfef889b22fe6dcb77ecb006e7d96dab2dc7355e242353b83b32fdbe9b4835b4"
+    },
+    {
+      "file": "chatgpt/CIT-026-P2.raw.html",
+      "bytes": 48075,
+      "sha256": "6ca9023fa8c07ab849c4fe2f48e75712e14443427a2991df9dc693176325bb03"
+    },
+    {
+      "file": "chatgpt/CIT-027-P2.answer.md",
+      "bytes": 1306,
+      "sha256": "dbf38cfe16e6fae89502af5ec7a77559b2ff21bd64f35edcca4238b29ab66073"
+    },
+    {
+      "file": "chatgpt/CIT-027-P2.metadata.json",
+      "bytes": 2833,
+      "sha256": "6ebdaef86692185d4cdd236b6729ecc3d37822ec7c17d8017c8a945484a71db7"
+    },
+    {
+      "file": "chatgpt/CIT-027-P2.png",
+      "bytes": 89077,
+      "sha256": "50c54d5b45047eea1208c1ffb979ba981037a9634f469b43c43102e723dd7c0d"
+    },
+    {
+      "file": "chatgpt/CIT-027-P2.raw.html",
+      "bytes": 52641,
+      "sha256": "6277b25e1c8c01fb7755c387ef2db29505798e4dcdae20d122173c1668097502"
+    },
+    {
+      "file": "chatgpt/CIT-028-P2.answer.md",
+      "bytes": 1286,
+      "sha256": "a3626d18c2a2b76d282304a9e6dc50abe8bb97648a0fe33c53e5f93d839829de"
+    },
+    {
+      "file": "chatgpt/CIT-028-P2.metadata.json",
+      "bytes": 3015,
+      "sha256": "9a190de5d8ac14d9a355d48358a75e6cae89a56660a3e4393118134f23cdde76"
+    },
+    {
+      "file": "chatgpt/CIT-028-P2.png",
+      "bytes": 87781,
+      "sha256": "5ddb92c96b8198a73df7447e57d8ab156e43a31a8060341cf9b12745356fa8d1"
+    },
+    {
+      "file": "chatgpt/CIT-028-P2.raw.html",
+      "bytes": 47078,
+      "sha256": "cf1f81a3d638ab143c0be027841a850b05696bf9b0861b2ff739a2f4b59ef15f"
+    },
+    {
+      "file": "chatgpt/CIT-029-P2.answer.md",
+      "bytes": 1051,
+      "sha256": "92ee98544f4e1a00ff3f26af1a6efe2f40b34923369128a0752411a3874ab7fc"
+    },
+    {
+      "file": "chatgpt/CIT-029-P2.metadata.json",
+      "bytes": 3004,
+      "sha256": "e2bd95ce7da44e2137394a60604586eaedf3a3f81027118ab544df46e8a5f6b4"
+    },
+    {
+      "file": "chatgpt/CIT-029-P2.png",
+      "bytes": 82649,
+      "sha256": "309eb1f833c906dc35e97dce3c55047674d93403e011e54002d32e3b9fb9128c"
+    },
+    {
+      "file": "chatgpt/CIT-029-P2.raw.html",
+      "bytes": 38322,
+      "sha256": "a408ca76f469814e2b1245e417f3e4ffa4338d0b628b75f16314546fc8f3e966"
+    },
+    {
+      "file": "chatgpt/CIT-030-P2.answer.md",
+      "bytes": 750,
+      "sha256": "eff7baa12e6fd7360ba50d1cf6960697ea7affad7008b6d63bd4f7b12bbfb006"
+    },
+    {
+      "file": "chatgpt/CIT-030-P2.metadata.json",
+      "bytes": 2906,
+      "sha256": "8767c6728b03e2bc02bf5559aafbf04f14884227f783e9f33e22b21dd20d5ae4"
+    },
+    {
+      "file": "chatgpt/CIT-030-P2.png",
+      "bytes": 80213,
+      "sha256": "c8e19866784598655a480a39bba164d7c5cdadfa3355f89c7c537b63f555e02c"
+    },
+    {
+      "file": "chatgpt/CIT-030-P2.raw.html",
+      "bytes": 37031,
+      "sha256": "e0e7080f5473e501fd2a42d812717368db220552efa6a13d6030651d2ffd0875"
+    },
+    {
+      "file": "gemini-public/CIT-010-P2.answer.md",
+      "bytes": 1669,
+      "sha256": "abe9b857906b965c354f9863b387a55d17cd1ab985efa22f427821f6260649a1"
+    },
+    {
+      "file": "gemini-public/CIT-010-P2.metadata.json",
+      "bytes": 2716,
+      "sha256": "f8e343c6b2a06b28d6a3f9988b8f48f38ba31012f3ce16bddaf6edfde3f37b9e"
+    },
+    {
+      "file": "gemini-public/CIT-010-P2.png",
+      "bytes": 87619,
+      "sha256": "516e511c8efc875ff67f36f0a58c4c33b71747018155676f30e850e60eed95e1"
+    },
+    {
+      "file": "gemini-public/CIT-010-P2.raw.json",
+      "bytes": 10140,
+      "sha256": "dfe9c14eb65262f55081497c62cdd39056464e611c962c291e919955a05424e1"
+    },
+    {
+      "file": "gemini-public/CIT-011-P2.answer.md",
+      "bytes": 1486,
+      "sha256": "5c5a3a497677f00e26bcc289b1bd8d8bf694b92727ee8a889068c969ebb35d94"
+    },
+    {
+      "file": "gemini-public/CIT-011-P2.metadata.json",
+      "bytes": 2659,
+      "sha256": "81bf68bfead3f46aa81a910ed6d42edd59d279ea2d251876545d51fc4f33b150"
+    },
+    {
+      "file": "gemini-public/CIT-011-P2.png",
+      "bytes": 80030,
+      "sha256": "46863cdf2c9dfbe4ad6e072002c0908700770d05870b3f17b719033e05b60a8f"
+    },
+    {
+      "file": "gemini-public/CIT-011-P2.raw.json",
+      "bytes": 7563,
+      "sha256": "02bf43915469b160158ce7be7311cbb6e78517ea0059d794d5a427560d66c9bf"
+    },
+    {
+      "file": "gemini-public/CIT-014-P2.answer.md",
+      "bytes": 748,
+      "sha256": "f4232a3b5adfd9f64f5c49e6b032196106355b6c0c1100a1536492919be53166"
+    },
+    {
+      "file": "gemini-public/CIT-014-P2.metadata.json",
+      "bytes": 2659,
+      "sha256": "3b151ebb746d42e0cabcd72efaf78ead89a6f8e4ed2d48d717e89374d5e2d0f0"
+    },
+    {
+      "file": "gemini-public/CIT-014-P2.png",
+      "bytes": 75052,
+      "sha256": "bcb8f7b9d6fee8ce365d33ce64068d8a001ff5c8a1118c1afb0d18aafcd47c60"
+    },
+    {
+      "file": "gemini-public/CIT-014-P2.raw.json",
+      "bytes": 3340,
+      "sha256": "18c9a03c1614ce88cc2e1e082daa65cbc4190eda51d25a8252c7263d7c81f8bf"
+    },
+    {
+      "file": "perplexity/CIT-002-P1.answer.md",
+      "bytes": 927,
+      "sha256": "1acc19a858f1a9ed12450fc40b6c935e2bb06326fc279909c686129966a2903f"
+    },
+    {
+      "file": "perplexity/CIT-002-P1.metadata.json",
+      "bytes": 2126,
+      "sha256": "7b68cd1eed85178f1eb40e1d608e8bc39875941f004e44fd2d14de79e6f449d5"
+    },
+    {
+      "file": "perplexity/CIT-002-P1.png",
+      "bytes": 76828,
+      "sha256": "c5d1e278b9e7ec0715239466d753d20eb4e4c1243c1b7628841bd7c402f346a7"
+    },
+    {
+      "file": "perplexity/CIT-002-P1.raw.html",
+      "bytes": 5359,
+      "sha256": "59cfc7fcb962075ab6bac199ea0258bad0aab4a34ef71f78f71bd1be51b62f60"
+    },
+    {
+      "file": "perplexity/CIT-006-P2.answer.md",
+      "bytes": 2353,
+      "sha256": "3e0a525058a7bcb81a1a4a9f1b0f503f2dd22fafb856800fb4bea32f391fca50"
+    },
+    {
+      "file": "perplexity/CIT-006-P2.metadata.json",
+      "bytes": 3279,
+      "sha256": "8a5acd2d9ab74741cac90c7b2f7c510a4d2a7281ddc20d14a19b3c43a043456c"
+    },
+    {
+      "file": "perplexity/CIT-006-P2.png",
+      "bytes": 33470,
+      "sha256": "36d15d1a0b8c2da4c3d49835d35557aa98b68cb73629fcf51425d99f8b5e520e"
+    },
+    {
+      "file": "perplexity/CIT-006-P2.raw.html",
+      "bytes": 15465,
+      "sha256": "c5a74fbad68656caff6cae82821c9db95d154a88b2e4845d31e3e7043de8453b"
+    },
+    {
+      "file": "perplexity/CIT-009-P2.answer.md",
+      "bytes": 34,
+      "sha256": "3ba7a89143d734f8fff0d6ae3162713c47c51854bd6c5826add69d216fafb7e9"
+    },
+    {
+      "file": "perplexity/CIT-009-P2.metadata.json",
+      "bytes": 3098,
+      "sha256": "8b3ab7f38365dfa4b929e1221a2175d7259ed47bba64a96d2d6b7e7ae2ebcaec"
+    },
+    {
+      "file": "perplexity/CIT-009-P2.png",
+      "bytes": 30642,
+      "sha256": "3161874057d82fd8c2b7d5f558acff03b8a8cfe7a910ad4eeb0bc52f6fb2966b"
+    },
+    {
+      "file": "perplexity/CIT-009-P2.raw.html",
+      "bytes": 342,
+      "sha256": "271564ecd31a84cf5827a65ca32964bb25a21a980e644d620af466a33b8aaab9"
+    },
+    {
+      "file": "run_index.json",
+      "bytes": 57759,
+      "sha256": "d43dd542193cedad7f2dfd56254fa4911b2f107e27a2eb56d4db775f272863fe"
+    }
+  ]
+}

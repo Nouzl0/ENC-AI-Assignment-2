@@ -1,0 +1,14 @@
+ODPOVĚĎ:
+Evropské nařízení GDPR vstoupilo v platnost 24. května 2016, ale obecně se začalo používat až o dva roky později, tedy od 25. května 2018.   
+eur-lex.europa.eu
+
+TVRZENÍ:
+T1: Nařízení GDPR vstoupilo v platnost 24. května 2016. [1.1.4] „Dne 24. května 2026 si připomínáme deset let od okamžiku, kdy v platnost vstoupilo obecné nařízení o ochraně osobních údajů (GDPR).“
+T2: Použitelnost nařízení (začátek platnosti povinností) nastala 25. května 2018. [1.1.1] „Dne 25. května 2018 začíná platit ve všech členských státech EU obecné nařízení o ochraně údajů“
+
+ZDROJE:
+[1.1.4] Deset let platnosti obecného nařízení o ochraně osobních údajů – Evropská komise – 22. května 2026 – https://commission.europa.eu/news-and-media/news/ten-years-gdpr-your-data-your-rights-2026-05-22_cs
+[1.1.1] Dne 25. května 2018 začíná platit ve všech členských státech EU – EUR-Lex – neuvedeno – https://eur-lex.europa.eu/content/news/general-data-protection-regulation-GDPR-applies-from-25-May-2018.html?locale=cs
+
+JISTOTA: vysoká – Oficiální portály Evropské unie (EUR-Lex a Evropská komise) jednoznačně a shodně uvádějí datum vstupu v platnost i datum počátku použitelnosti.   
+EUR-Lex - European Union

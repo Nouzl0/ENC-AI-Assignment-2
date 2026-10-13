@@ -1,0 +1,119 @@
+{
+  "review_type": "AI supplementary nonfinal",
+  "answers_reviewed": 33,
+  "draft_pairs": 202,
+  "draft_answers": 31,
+  "tasks": 8,
+  "ratings": {
+    "NONE": 19,
+    "S2": 113,
+    "S1": 35,
+    "NA": 32,
+    "S0": 3
+  },
+  "source_urls_checked": 62,
+  "human_ratings_completed": 0,
+  "gates_satisfied": false,
+  "snapshot_store": "outside repository; operator workspace",
+  "inputs": [
+    {
+      "path": "runs/pilot-2026-10-12/human-review/answers_to_rate.csv",
+      "sha256": "9c53f975c89f04c8a484090d0bddad0f6873ca6034a41b2a537d4d77a79aacdb"
+    },
+    {
+      "path": "runs/pilot-2026-10-12/human-review/pairs_to_rate.csv",
+      "sha256": "09a79aef3681dfb26c82d77ef2f238cee7aaa5547f0db7da4f7f561fb2741d96"
+    },
+    {
+      "path": "runs/pilot-2026-10-13/human-review/answers_to_rate.csv",
+      "sha256": "a393d60a3e0a99e8b47b2df8da848138671126deadd539d7c134dda940b34830"
+    },
+    {
+      "path": "runs/pilot-2026-10-13/human-review/pairs_to_rate.csv",
+      "sha256": "a8f09ca7326e110fef46a45a9a59ccbdc3bde45c663d273322aaaf1ed985461b"
+    }
+  ],
+  "restricted_atomic_review": {
+    "answers": 11,
+    "tasks": [
+      "CIT-004",
+      "CIT-008",
+      "CIT-013"
+    ],
+    "claim_units": 61,
+    "explicit_pairs": 87,
+    "precision_lower": 0.7141164391164391,
+    "precision_upper": 0.80502553002553,
+    "lower_ci95": [
+      0.6,
+      0.8005698005698005
+    ],
+    "upper_ci95": [
+      0.7633928571428571,
+      0.85
+    ],
+    "bootstrap_draws": 10000,
+    "seed": 20261013,
+    "selection": "purposeful; not representative"
+  },
+  "content_review": {
+    "answers": 33,
+    "required_facts_correct": 47,
+    "required_facts_total": 48,
+    "rf_completeness_macro": 0.9848484848484849,
+    "completeness_ci95": [
+      0.9516129032258065,
+      1.0
+    ]
+  },
+  "files": [
+    {
+      "path": "README.md",
+      "sha256": "e856459b75c8abca6d8dc9aebce8786f209dea445078826d8bfbaed93992917c"
+    },
+    {
+      "path": "answer_review.csv",
+      "sha256": "7c84d6a921a29402b78e237d69601bf0112ec22e1a8b9051f150d921883a8aa8"
+    },
+    {
+      "path": "content_metrics.csv",
+      "sha256": "9c2aeb036ff43ce1e7fdd949b0db2d3d78d85c7fa17a156f2b1f126897452d72"
+    },
+    {
+      "path": "content_review.csv",
+      "sha256": "7920d4b170a3bf84c7ab4807416015d7315beb2ddbed88c60184220f143766c6"
+    },
+    {
+      "path": "diagnostic_metrics.csv",
+      "sha256": "c37cbbe45c1e4f5cb442d174af6965c9cb43f49015df3eff40d314285e4ae1b1"
+    },
+    {
+      "path": "draft_pair_review.csv",
+      "sha256": "977eb2247ca9e23788016ee3da84bd479fc51a6c350a863d9f4bd3ff751b3319"
+    },
+    {
+      "path": "restricted_atomic_answers.csv",
+      "sha256": "45851416e42f6e0342397d506764669202a9e9c307f80e12fe66b8341950ef1b"
+    },
+    {
+      "path": "restricted_atomic_metrics.csv",
+      "sha256": "16bc4592fa02052c246e534f05cc62cecdb28932fd3896ada4341f852f44373c"
+    },
+    {
+      "path": "restricted_atomic_pairs.csv",
+      "sha256": "df9b69dacd6f9cf702975104806646e57bed91bfe49a5af9111fe80fac40da13"
+    },
+    {
+      "path": "segmentation_audit.csv",
+      "sha256": "7346b80f19d5ebbb32f4badca658361a36cd3ef233cfd91120abcc321c5d8e7f"
+    },
+    {
+      "path": "source_access.csv",
+      "sha256": "ee9db5a5be831ba5b41f35842e966ff0c6ca43775fcda1e5ea5c17e17628b737"
+    },
+    {
+      "path": "summary.md",
+      "sha256": "cb4571187de84b998d61c405e01b49b2b9f02a0d81b748e1cd6ab838a13a97b9"
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+ODPOVĚĎ: Sémantiku HTTP v sérii standardů zveřejněné v červnu 2022 definuje číslo RFC 9110 [1]. Tento dokument tvoří core specifikaci pro všechny verze protokolu HTTP [2].
+
+TVRZENÍ:
+T1: Sémantiku HTTP v sérii standardů z roku 2022 definuje RFC 9110 [1].
+T2: Dokument byl publikován v červnu 2022 a slouží jako referenční příručka pro koncepty HTTP [2].
+
+ZDROJE:
+[1] RFC 9110: HTTP Semantics – RFC Editor – neuvedeno – https://www.rfc-editor.org/info/rfc9110/
+[2] A Brief History of HTTP – INNOQ – 9. dubna 2025 – https://www.innoq.com/en/blog/2025/04/kurze-geschichte-von-http/
+
+JISTOTA: vysoká – Informace je plně podložena oficiálními technickými standardy IETF a odbornou literaturou.

@@ -1,14 +1,14 @@
 (results)=
 # Výsledky skutečného pilotu
 
-Pilot ověřil, že lze od všech pěti produktů získat věrně uložené odpovědi včetně citací, a poskytl první
+Pilot zachytil odpovědi čtyř produktů a přístupové omezení pátého, a poskytl první
 pozorování chyb citací. Je to **provozní a kvalitativní výsledek na malém vzorku**, ne odhad citační přesnosti
 produktů. Originály (text, HTML, snímek, metadata, SHA-256) jsou v `runs/pilot-2026-10-12/` a
 `runs/pilot-2026-10-13/`, souhrn řádků v `results/pilot/run_summary.csv`.
 
 
 :::{important} Výsledky v kostce
-- **33 skutečných odpovědí** na **8 úloh** od **5 produktů**, každá uložená s textem, HTML, snímkem a SHA-256.
+- **33 skutečných odpovědí** na **8 úloh** od **4 odpovídajících produktů**; pátý měl přístupové omezení, každá uložená s textem, HTML, snímkem a SHA-256.
 - **95,8 %** (23 z 24) odeslaných prvních pokusů rozšířeného pilotu skončilo odpovědí, bez jediného opakování.
 - **183 citovaných dvojic** tvrzení–zdroj z 31 odpovědí zpracováno parserem, **59 unikátních URL** zkontrolováno.
 - **Pět konkrétních nálezů** o chybách citací, přiznání nejistoty a věrnosti exportu ([](#error-analysis)).
@@ -96,3 +96,55 @@ Jak to číst: u každého produktu zůstala zhruba čtvrtina až polovina citac
 a bez intervalů; **pořadí produktů z nich nevyvozujeme**. Latence jsou horní meze (včetně pollingu a zachycení); medián je robustnější než p90, které ovlivnily
 jednotlivé extrémy (až 1 211 s u Groku). Claude nemá žádnou dokončenou odpověď. Výpočet je reprodukovatelný skriptem
 `analysis/pilot_proxy.py`, výstup je v `results/pilot/pilot_metrics.csv`. Skutečná citační přesnost bude podíl lidských hodnocení S2.
+
+## Dokončený doplňkový sběr (13. 10. 2026)
+
+Celkové pokrytí nyní činí **40 různých úloh a 84 věcných odpovědí**.
+Doplněk přidává 51 odpovědí: všechny zbývající veřejné dev/val otázky a
+10 nových samostatných otázek. Obsahuje také jednu oddělenou náhradu
+operátorské chyby; náhrada není nový případ. Autentizační text a dvě chyby bez
+odpovědi jsou mimo tento počet, ale zůstávají v datech.
+
+| Kolekce | Věcné odpovědi | Unikátní úlohy | Interpretace |
+| --- | --- | --- | --- |
+| Původní pilot | 33 | 8 | Historické P2, účty a podmínky zachovány |
+| Doplněk | 51 | 32 | Částečně překrývající se úlohy, včetně nových promptových běhů |
+| Sjednocení ID | 84 | 40 | Počet uložených odpovědí; nikoli společné produktové skóre |
+
+Pět nových otázek má Gemini P1/P2/P3A; další tři veřejné validační otázky mají
+Gemini P1/P3A a původní doplňkový P2 z jiného produktu. Tyto tři se proto
+nepovažují za párové měření promptového efektu. Registry a tabulky jsou v
+`runs/supplement-2026-10-13/`. Přesné prompty jsou stejné jako ve fixovaných
+kopiích; P3A není původní validačně vybraný P3_final. Metoda: [](#supplement).
+
+## Skutečně provedené pomocné AI hodnocení
+
+Všech 33 původních odpovědí má obsahové AI posouzení. Nových 22 veřejných
+otázek má kvalitativní zdrojový audit, nová oddělená sada AI kontrolu hlavních
+faktů a primárních referencí. Žádná z těchto tabulek není lidský rating.
+
+| Výsledek | Rozsah | Odhad / meze | Deskriptivní 95% interval |
+| --- | --- | --- | --- |
+| Pokrytí povinných faktů po odpovědích | 33 odpovědí / 8 úloh; 47/48 RF správně | 0,9848 | 0,9516–1,0000 |
+| Obsahová správnost, škála 0–2 | 33 odpovědí / 8 úloh; nejisté RC a bonusy zachovány | 1,6970–1,9091 | Dolní mez: 1,4211–1,9063; horní: 1,8333–1,9706 |
+| Precision, atomizovaný subset | 11 odpovědí / 3 úlohy / 87 explicitních párů | 0,7141–0,8050 | Dolní mez: 0,6000–0,8006; horní: 0,7634–0,8500 |
+
+Dolní precision ponechává nepřístupné citace ve jmenovateli, horní představuje
+možnou plnou podporu těchto neověřených vztahů. Nejde o jeden interval spolehlivosti
+0,7141–0,8050. Zvlášť jsou uvedeny bootstrapové intervaly každé meze
+(10 000 výběrů úloh s vracením, seed 20261013). Atomizovaný subset tvoří
+CIT-004, CIT-008 a CIT-013; byl vybrán účelově a neodhadujeme z něj pořadí
+produktů. Úplnost RF není citační recall. Nejistota nezahrnuje chyby AI hodnotitele.
+
+Všech 202 původních parserových návrhů bylo AI posouzeno: 113 S2, 35 S1,
+3 S0, 32 NA a 19 NONE (necitovaná tvrzení nebo UI artefakty). Žádný řádek
+nezůstal REVIEW_PENDING. Není to hlavní atomická segmentace celého pilotu;
+původní parserové řádky i audit dělení zůstaly uchované.
+
+Nejvýznamnější nové nálezy: chybný článek Ústavy při správném věku, rozhlasový
+zdroj bez uvedené přesnosti výšky, nesoulad nativních značek Gemini se seznamem
+zdrojů a nedoložené stáří publikace u CIT-015. Nečitelný zdroj je NA, nikoli FAB.
+Podklady: `results/ai-review-2026-10-13/`, kolekční AI review v `runs/supplement-2026-10-13/`.
+
+H1/H2 se nepotvrzují: chybí úplná párová matice a skutečné lidské hodnocení.
+Přístupové limity a rozdílné konfigurace se zachovávají, jejich dopad se nezakrývá.

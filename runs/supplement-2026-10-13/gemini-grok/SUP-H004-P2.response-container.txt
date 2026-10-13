@@ -1,0 +1,13 @@
+Odpověď Gemini
+
+ANSWER: The Charter of the United Nations entered into force on October 24, 1945, after receiving the required ratifications [1, 2].
+
+CLAIMS:
+C1: The Charter of the United Nations entered into force on October 24, 1945 [1, 2].
+C2: The entry into force occurred in accordance with Article 110 after necessary ratifications [1, 2].
+
+SOURCES:
+[1] UN Charter – United Nations – not stated – https://www.un.org/en/about-us/un-charter
+[2] Charter of the United Nations - UNTC – United Nations Treaty Collection – not stated – https://treaties.un.org/pages/ViewDetails.aspx?src=TREATY&mtdsg_no=I-1&chapter=1&clang=_en
+
+CONFIDENCE: high – The date is directly and consistently documented by primary official United Nations sources.

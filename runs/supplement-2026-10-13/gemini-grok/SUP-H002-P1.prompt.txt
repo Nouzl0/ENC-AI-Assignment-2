@@ -1,0 +1,5 @@
+Solve the task below. Answer only in the required format.
+
+Task:
+What exact numerical value does the SI definition assign to the speed of light in vacuum, and in which unit?
+Format: a concise answer with links to the sources you used (URLs).

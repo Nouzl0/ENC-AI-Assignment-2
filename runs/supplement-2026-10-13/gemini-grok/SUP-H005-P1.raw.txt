@@ -1,0 +1,10 @@
+Sémantiku HTTP v sérii standardů zveřejněné v roce 2022 definuje RFC 9110.   
+Afnic
+
+Použité zdroje:
+
+RFC 9110: HTTP Semantics (RFC Editor)   
+Medium
+
+RFC 9110 - HTTP Semantics (RFCinfo)   
+rfcinfo.com

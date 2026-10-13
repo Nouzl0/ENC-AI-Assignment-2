@@ -1,7 +1,25 @@
+---
+title: AI Student worksheet - správnost citací
+authors:
+  - name: Jan Dub
+  - name: René Mrákava
+  - name: Nikolas Nosál
+parts:
+  abstract: >
+    Pracovní odevzdávací worksheet: 40 různých měřených úloh, 84 věcných odpovědí,
+    oddělené AI hodnocení. Plná produktová matice a skutečná lidská složka
+    zůstávají nedokončené; původní G1/G2/G3 se netvrdí.
+exports:
+  - format: pdf
+    template: ../templates/lapreprint-typst
+    output: worksheet.pdf
+    kind: "CZAI Assignment 1"
+---
+
 # AI Student worksheet
 
-**Verze: závěrečná k odevzdání (13. 10. 2026), rozsah pilotu.** Worksheet obsahuje skutečně změřené hodnoty z pilotu
-(33 odpovědí, 8 úloh). Pole označená **Nevyhodnoceno** se týkají analytických běhů, které se kvůli omezenému času a rozpočtu
+**Verze: pracovní odevzdávací podklady (13. 10. 2026), pilot a označený doplněk.** Worksheet obsahuje skutečně změřené hodnoty z pilotu
+(33 odpovědí, 8 úloh), doplněné o 51 dalších odpovědí; celkové pokrytí je 40 různých úloh a 84 věcných odpovědí. Pole označená **Nevyhodnoceno** se týkají analytických běhů, které se kvůli omezenému času a rozpočtu
 na využití produktů a AI agentů nestihly; hodnoty se neodhadují. Zdroj pravdy je [PROTOCOL.md](../../PROTOCOL.md).
 
 ## A. Project identity
@@ -23,10 +41,10 @@ na využití produktů a AI agentů nestihly; hodnoty se neodhadují. Zdroj prav
 **Project scope:**
 
 - [x] Jedna schopnost: správnost a úplnost citací na úrovni tvrzení
-- [x] Pět produktů jako kompletních systémů, bezplatná úroveň, běžný chat s webovým vyhledáváním, bez Deep Research
-- [x] 40 faktických rešeršních úloh v češtině a angličtině z pěti oblastí, tři podmínky promptu
+- [x] Návrh porovnání pěti produktů jako kompletních systémů, běžný chat s webovým vyhledáváním, bez Deep Research; skutečné účty nemají shodný tarif
+- [ ] Dokončené měření 40 různých faktických úloh se všemi třemi promptovými podmínkami napříč zahrnutými produkty
 
-**Worksheet version and date:** v0.1 (počáteční), 2026-10-12
+**Worksheet version and date:** v0.2 (pilot a doplňkový sběr), 2026-10-13
 
 ---
 
@@ -95,7 +113,7 @@ Nastavení vychází z nápovědy výrobců k 29. 9. 2026. Viditelný model a da
 
 ## E. Data and test-set plan
 
-**Total cases:** 40 (30 týmových dev/val návrhů + nový soukromý test alespoň 10)
+**Total cases:** 40 skutečně měřených různých úloh: 30 veřejných dev/val a 10 nových oddělených AI vytvořených otázek. Původní pilot a doplněk jsou oddělené kolekce, nikoli kompletní původní analytická matice.
 
 **Development cases:** 20 (CIT-001 – CIT-020)
 
@@ -217,7 +235,7 @@ Podrobný záznam je v [prompts/CHANGELOG.md](../../prompts/CHANGELOG.md).
 
 **Inter-rater agreement measure:** Cohenova kappa (S2 proti ostatním, cíl ≥ 0,6), procento shody, doplňkově pět kategorií a správnost. Při konstantní kategorii je kappa nedefinovaná, uvede se n a surová shoda. Původní nezávislé ratingy se zachovávají a každá neshoda se zapisuje do auditu.
 
-**LLM-as-judge used?** No
+**LLM-as-judge used?** Ano, pouze v odděleném pomocném AI hodnocení od 13. 10. 2026. Původní lidské listy zůstávají nevyplněné; nebyla naměřena shoda lidských hodnotitelů. Metoda a omezení: [supplement.md](../supplement.md).
 
 Hlavní závěry stavíme jen na lidském hodnocení. LLM lze nanejvýš použít k předběžnému rozdělení P1 odpovědí na tvrzení, které člověk zkontroluje. Pokud se použije jako hodnotitel podpory citací, uvedeme model a verzi, rubriku, kalibrační vzorek 50 dvojic a rizika (délka odpovědi, pořadí, sebepreference).
 
@@ -259,7 +277,7 @@ Checklist níže potvrzuje připravená metadata, nikoli provedení všech běh�
 - [x] Surový text odpovědi, normalizace a SHA-256
 - [x] Snímek obrazovky a odkaz na sdílení
 
-**Storage location:** Originální sběr: `D:\AI\czai-private-v1` (ve WSL `/mnt/d/AI/czai-private-v1`), mimo worktree. Nový pilot je oddělený v `calibration/avast-v1/`. Schválený export pro odevzdání bude v `ENC-AI-Project`; podepsané originály se nepřepisují a holdout se před G2 nepublikuje.
+**Storage location:** Doplněk 13. 10. 2026: původní artefakty mimo Git v pracovním adresáři operátorů; schválený export `runs/supplement-2026-10-13/` s relativními cestami, metadata a SHA-256. Historický originální sběr: `D:\AI\czai-private-v1` (ve WSL `/mnt/d/AI/czai-private-v1`), mimo worktree. Nový pilot je oddělený v `calibration/avast-v1/`. Schválený export pro odevzdání bude v `ENC-AI-Project`; podepsané originály se nepřepisují a holdout se před G2 nepublikuje.
 
 **Anonymization and data-protection procedure:** Dotazy jsou syntetické veřejné fakty, bez osobních údajů. Nový pilot používá existující přihlášené účty a dočasné/anonymní chaty; rozdíly úrovní a personalizace se evidují. Analytická konfigurace se rozhodne před G1. Soukromé snapshoty a klíče zůstávají mimo Git a sdílejí se jen oprávněně. Přístupové údaje ani osobní data se neukládají. Publikace testu a odsanitizovaných artefaktů až po G3 a souhlasu týmu.
 
@@ -282,6 +300,8 @@ Checklist níže potvrzuje připravená metadata, nikoli provedení všech běh�
 ---
 
 ## L. Results table
+
+**Aktuální doplněk:** 84 věcných odpovědí / 40 různých úloh; pět nových úloh má Gemini P1/P2/P3A. AI obsahový audit pilotu: 47/48 RF, průměr pokrytí 0,9848 (CI 0,9516–1,0000). Atomizovaný subset 11 odpovědí / 3 úlohy / 87 párů: precision meze 0,7141–0,8050; zvláštní CI a omezení v [results.md](../results.md). Jde o skutečný pomocný AI audit, ne lidské hodnocení ani finální G3 skóre.
 
 **Nevykázáno: agregovaná skóre vyžadují lidské ratingy a G3. Orientační provozní metriky a lexikální proxy podpory (nejde o rating) jsou v [results.md](../results.md) a `results/pilot/pilot_metrics.csv`.** Sloupce plné tabulky: System, Condition, N, Primary score, Interval or variation, Secondary score, Median latency, Cost, First-attempt success. Řádky: pět produktů × Baseline / Structured / Optimized (Claude Code se nehodnotí). Žádná hodnota se nevymýšlí ani nepřebírá ze syntetické ukázky.
 
@@ -329,6 +349,6 @@ Checklist níže potvrzuje připravená metadata, nikoli provedení všech běh�
 
 **Product or model-version drift:** Model, rozhraní i vyhledávání se mohou změnit během dnů. Zmírňujeme to 72hodinovým oknem, záznamem viditelného modelu a data a snímky obrazovky.
 
-**Evaluation bias or judge bias:** Hodnotitelé jsou studenti a u odborných zdrojů (právo, zdraví) mohou chybovat. Zaslepení je jen částečné. Zmírňujeme to kalibrací, druhým hodnocením ≥25 % a auditem neshod. LLM hodnotitel se nepoužívá.
+**Evaluation bias or judge bias:** Plánovaní lidští hodnotitelé jsou studenti a u odborných zdrojů mohou chybovat; jejich kalibrace, nezávislé ratingy a audit neshod nejsou dokončené. Doplňkový AI hodnotitel není zaslepený vůči produktu, může chybně posoudit význam a vykazovat sebepreferenci. Jeho hodnocení je oddělené; intervaly nezohledňují tuto systematickou chybu.
 
 **Most important follow-up experiment:** Opakování na větší nezávislé sadě s nezávisle ověřenými referencemi a rozšíření o API vrstvu s ekvivalentními nástroji (dvouvrstvý návrh).

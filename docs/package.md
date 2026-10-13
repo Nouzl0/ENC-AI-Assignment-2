@@ -1,7 +1,10 @@
 (package)=
 # Příloha A: odevzdávané artefakty a reprodukce
 
-Všechny povinné části zadání jsou v repozitáři; zpráva na ně odkazuje, nekopíruje je.
+Repozitář obsahuje metodiku, skutečný pilot a dostupné doplňkové výstupy.
+Ne všechny povinné části zadání jsou dokončené; tabulka rozlišuje nástroje,
+návrhy a skutečně provedené měření. Omezení času samo o sobě není schválenou
+výjimkou z minimálních požadavků zadání.
 
 | # | Povinný výstup | Umístění | Stav |
 | --- | --- | --- | --- |
@@ -37,3 +40,8 @@ Složky `runs/*/avast/` jsou původní názvy evidence z pilotu; sběr probíhal
 
 Úlohy jsou syntetické a týkají se veřejných faktů; neobsahují osobní údaje ani důvěrná data. K pilotním
 odpovědím nepatří přihlašovací údaje ani profily účtů.
+
+
+## Aktualizace 13. 10. 2026
+
+Doplňkový sběr nyní dokládá 40 různých měřených úloh a 84 věcných odpovědí. Pět nových úloh má Gemini P1/P2/P3A. Dostupný AI audit a intervaly jsou v kapitole [](#results), metoda v [](#supplement). Původní úplná matice a skutečné lidské hodnocení nejsou dokončené; starší plánované počty v této kapitole nejsou aktuální počet uložených odpovědí.

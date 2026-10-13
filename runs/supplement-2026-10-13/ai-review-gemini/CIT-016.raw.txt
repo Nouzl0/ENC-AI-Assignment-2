@@ -1,0 +1,14 @@
+ANSWER: Exactly how many bitcoins Satoshi Nakamoto owns is unknown because Satoshi never publicly disclosed their wallet addresses [1.1.1]. However, blockchain forensic analysis by computer scientist Sergio Demian Lerner attributes approximately 1.1 million bitcoins to Satoshi based on a distinctive early mining pattern known as the "Patoshi" pattern [1.1.1, 1.1.2].
+
+CLAIMS:
+C1: Nobody knows the exact number of bitcoins Satoshi Nakamoto owns because Satoshi never disclosed their wallet addresses [1.1.1].
+C2: Computer scientist Sergio Demian Lerner estimated through blockchain analysis that Satoshi mined approximately 1.1 million bitcoins [1.1.1, 1.1.4].
+
+SOURCES:
+[1] Satoshi's 1.1 million bitcoin: why a freeze looms – CryptoTicker – October 11 2026 – https://cryptoticker.io/en/satoshi-bitcoin-freeze-bip-361-quantum/
+[2] Why Satoshi mined 1 million bitcoin (Sergio Demian Lerner, S15 E7) – YouTube – January 24 2024 – https://www.youtube.com/shorts/0LKgcpOnJeI
+
+CONFIDENCE: High – The estimate is widely documented across blockchain security and historical research, grounded in well-known forensic studies by Sergio Demian Lerner.
+
+Why Satoshi mined 1 million bitcoin
+This short video features researcher Sergio Demian Lerner discussing the blockchain patterns used to estimate Satoshi Nakamoto's mined bitcoin holdings.

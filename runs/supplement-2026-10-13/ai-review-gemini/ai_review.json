@@ -1,0 +1,51 @@
+[
+  {
+    "task_id": "CIT-015",
+    "system": "gemini",
+    "condition": "P2",
+    "review_type": "AI unblinded supplementary review",
+    "n_required_facts": 2,
+    "required_facts_correct": 2,
+    "rf_completeness": 1,
+    "correctness_lower": 1,
+    "correctness_upper": 1,
+    "constraint_results": {
+      "RC1": "unknown"
+    },
+    "source_support": [
+      {
+        "claim": "MRO rate2.65%",
+        "citation_marker": "1.1.2",
+        "rating": "S2",
+        "url": "https://www.dnb.nl/en/the-euro-and-europe/the-ecb-s-monetary-policy/ecb-interest-rates/",
+        "locator": "Rates; lines350-352 of rendered web result",
+        "checked_at": "2026-10-13T10:09:54.026415+00:00"
+      },
+      {
+        "claim": "Effective16September2026",
+        "citation_marker": "1.1.2",
+        "rating": "S2",
+        "url": "https://www.dnb.nl/en/the-euro-and-europe/the-ecb-s-monetary-policy/ecb-interest-rates/",
+        "locator": "Rates; line350",
+        "checked_at": "2026-10-13T10:09:54.026415+00:00"
+      }
+    ],
+    "publication_date_verified": "no",
+    "notes": "Both RF supported. Publication date not stated; cannot establish source age<=30days. High confidence assertion thattimewindowmet unsupported. Preserve decimalcitationmarker1.1.2; source list defines same marker, so relation is unambiguous despite failing requested simple[n]format. CanonicalECB independently agrees; does not repairRC."
+  },
+  {
+    "task_id": "CIT-016",
+    "system": "gemini",
+    "condition": "P2",
+    "review_type": "AI unblinded supplementary review",
+    "n_required_facts": 1,
+    "required_facts_correct": 1,
+    "rf_completeness": 1,
+    "correctness_lower": 1,
+    "correctness_upper": 2,
+    "constraint_results": {},
+    "source_support": [],
+    "publication_date_verified": "not applicable",
+    "notes": "Requiredfactexactnumberunknown correctly stated. Actual output links markers1.1.1/1.1.2/1.1.4 but source list defines only1/2; mapping is unresolved and must notbeinvented. CryptoTicker source text supportsunknown andapprox1.1millionforlateranalyses, notdirect2013Lernerprecision. YouTubecontent notopened. No completeclaimprecisiongiven before unresolvedmarkersandfullsegmentationadjudication."
+  }
+]

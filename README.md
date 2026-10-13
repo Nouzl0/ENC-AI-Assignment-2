@@ -1,22 +1,24 @@
 # CZAI Assignment 1 – Správnost citací AI asistentů
 
-**Projekt obsahuje 33 skutečných pilotních odpovědí a rozbor 8 unikátních úloh.**
-Směr B: porovnání produktů s webovým vyhledáváním (ChatGPT, Gemini, Claude,
-Perplexity, Grok), ne izolovaných modelů. Exporty jsou v
-[runs/pilot-2026-10-12](runs/pilot-2026-10-12/README.md) a
-[runs/pilot-2026-10-13](runs/pilot-2026-10-13/README.md).
-[Souhrn runů](results/pilot/run_summary.csv),
-[provozní výsledky](results/pilot/operational_summary.csv),
-[rozbor osmi úloh](docs/error-analysis.md) a
-[návrhy komentářů Reného a Jana](results/pilot/team_commentary.md) jsou v projektu.
+**Aktuálně: 40 různých skutečně měřených úloh a 84 věcných odpovědí.**
+Původní pilot má 33 odpovědí na osm úloh; doplňkový sběr přidává 51 odpovědí
+na zbývající veřejné otázky a deset nových oddělených otázek. Náhradní zachycení
+nepřidává další task_id. Jedno autentizační odmítnutí a dvě chyby bez odpovědi
+jsou evidovány zvlášť. [Přesné pokrytí](runs/supplement-2026-10-13/README.md),
+[registry](runs/supplement-2026-10-13/run_registry.jsonl) a
+[zpráva](docs/exports/project.pdf).
 
-Finální analytický benchmark zatím není dokončený: G1/G2/G3 nejsou splněny,
-reference a ratingy čekají na skutečné lidské kontroly, P3_final ani finální
-skóre s CI neexistují. Claude hlásil limit do 13. 10. v 19:00; neodeslané
-řádky jsou oddělené od selhání. Pilotní a pomocná AI hodnocení nejsou vydávána
-za nezávislou lidskou práci. Aktuální evidence je v [docs/results.md](docs/results.md),
-postup v [HANDOFF.md](HANDOFF.md); pracovní zpráva je i v
-[PDF](docs/exports/project.pdf).
+**Hodnocení je označené jako AI, nikoli práce Reného a Jana.** Obsahově bylo
+posouzeno všech 33 původních odpovědí i nové úlohy; citační metriky a intervaly
+jsou dostupné pro výslovně vymezený atomizovaný subset. Pět nových otázek má
+stejný produkt v P1/P2/P3A. Matice všech produktů a promptů není úplná,
+P3A není validační vítěz původního protokolu, lidské ratingy a G1/G2/G3 nejsou
+splněné. Dosažení 40 úloh samo o sobě neznamená splnění všech požadavků zadání.
+[Metoda doplňku](docs/supplement.md), [AI audit](results/ai-review-2026-10-13/README.md),
+[worksheet](docs/deliverables/worksheet.md).
+
+Testy a lint se při této etapě na přání uživatele nespouštěly. Původní raw
+pilotní exporty a lidské anotační listy se nepřepisují.
 
 ## Co je autoritativní
 

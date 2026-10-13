@@ -1,0 +1,5 @@
+Vyřešte níže uvedenou úlohu. Odpovězte pouze v požadovaném formátu.
+
+Úloha:
+Které číslo RFC definuje sémantiku HTTP v sérii standardů zveřejněné roku 2022? Nezaměňte s dokumentem pro HTTP/2.
+Formát: stručná odpověď s odkazy na použité zdroje (URL).

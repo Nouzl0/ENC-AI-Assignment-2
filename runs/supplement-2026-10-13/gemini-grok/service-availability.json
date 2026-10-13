@@ -1,0 +1,19 @@
+{
+  "observed_at": "2026-10-13T10:05:40.862Z",
+  "gemini": {
+    "available": true,
+    "model": "Flash-Lite",
+    "tier": "Pro",
+    "existing_session": true
+  },
+  "claude": {
+    "available": false,
+    "reason": "Redirect to login; no response attempted; no credentials supplied"
+  },
+  "grok": {
+    "available": "composer only; response capability not established by this agent",
+    "model": "Fast",
+    "tier": "unsigned anonymous",
+    "note": "Root reports actual anonymous submission hits signup gate"
+  }
+}

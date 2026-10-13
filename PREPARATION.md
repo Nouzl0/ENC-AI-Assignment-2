@@ -334,3 +334,8 @@ zůstávají v projektu. Upstream upozornění Typst na latinské číslování 
 sestavení. Vzdálené CI není potvrzené. Syntetické testové skóre se nepublikuje
 jako experiment. Finální analytická matice, G1/G2/G3, lidské ratingy a P3_final
 zůstávají nedokončené; nepředstíráme splnění celého assignmentu.
+
+
+## 13. 10. 2026 – doplňkový sběr a AI audit
+
+Na výslovný pokyn uživatele paralelní sběr ve třech subagentech a kořenovém agentu: 51 nových věcných odpovědí, celkem40 různých úloh/84odpovědí. P1/P2/P3A stejného Gemini na5nových úlohách. Původní pilot/humanlisty neměněné. Atomizovaný AI subset11odpovědí, obsahový AI audit33pilotních a novézdrojové review. Žádné fiktivní ratingy, podpisy nebo G3. Aktualizované odevzdávací dokumenty a PDF. Testy, lint, původní validátor ani vzdálenéCI nebyly na přání uživatele spuštěny.

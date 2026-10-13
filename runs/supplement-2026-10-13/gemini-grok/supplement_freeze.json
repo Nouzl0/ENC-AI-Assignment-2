@@ -1,0 +1,15 @@
+{
+  "recorded_at": "2026-10-13T09:56:26.907554+00:00",
+  "status": "SUPPLEMENTARY_PRECOLLECTION_FREEZE_NOT_G1_G2",
+  "P3_selection": "P3A fixed a priori, no winner claim",
+  "human_approval": false,
+  "questions_sha256": "70cb9d1f2b2a9c5e27877f67be3a4bce5d9748c30c6b822b9bbc866a8383bea0",
+  "prompt_hashes": {
+    "P1_baseline_cs.txt": "d0326d3204d161e8cf67a556ddd5691ffb585c466de351e8aefef034cf3e3316",
+    "P1_baseline_en.txt": "4c307ffc626b24bb62f89ccea6e36e9f65477aba426c4400a76d23d114494ac3",
+    "P2_structured_cs.txt": "481c3fa95fa65d7c3478e2974c6c6d81653082108a466c467d96111a788211b1",
+    "P2_structured_en.txt": "96e3772d7a11776b3ff0e949dfb000bdf214b480f7a571e5cab19d61da59b554",
+    "P3A_candidate_cs.txt": "9cb3a622f6a76f0b975432969e1883777c6ed186fda74234015370aa866d242a",
+    "P3A_candidate_en.txt": "a71d6a853de0f8ea69c747e293c2abacc2e95ba0e73704fad7b7793a078f8016"
+  }
+}

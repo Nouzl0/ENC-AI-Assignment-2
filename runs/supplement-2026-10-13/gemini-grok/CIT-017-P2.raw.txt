@@ -1,0 +1,15 @@
+ODPOVĚĎ: Univerzitu Karlovu založil český a římský král Karel IV.. Samotný proces vzniku se skládal z více kroků, přičemž klíčovým mezníkem je vydání papežské buly 26. ledna 1347 a královské nadační listiny 7. dubna 1348.   
+Wikipedia
+
+TVRZENÍ:
+T1: Pražskou univerzitu založil český a římský král Karel IV.
+T2: Papež Klement VI. vydal souhlas se zřízením univerzity 26. ledna 1347.
+T3: Karel IV. vydal nadační listinu (či fundační privilegium) 7. dubna 1348.   
+Univerzita Karlova
++ 3
+
+ZDROJE:
+[1] Historie UK – Univerzita Karlova – neuvedeno – https://www.cuni.cz/uk-374.html
+[2] Univerzita Karlova – Wikipedia – neuvedeno – https://cs.wikipedia.org/wiki/Univerzita_Karlova
+
+JISTOTA: vysoká – Informace pocházejí z oficiálních stránek Univerzity Karlovy a ověřených historických pramenů.

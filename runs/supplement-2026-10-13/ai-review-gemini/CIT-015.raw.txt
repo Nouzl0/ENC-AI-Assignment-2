@@ -1,0 +1,10 @@
+ANSWER: The current interest rate on the European Central Bank's (ECB) main refinancing operations is 2.65%, which took effect on 16 September 2026.
+
+CLAIMS:
+C1: The current interest rate on the ECB's main refinancing operations is 2.65% [1.1.2].
+C2: This rate took effect on 16 September 2026 [1.1.2].
+
+SOURCES:
+[1.1.2] ECB interest rates – De Nederlandsche Bank (DNB) – not stated – https://www.dnb.nl/en/the-euro-and-europe/the-ecb-s-monetary-policy/ecb-interest-rates/
+
+CONFIDENCE: high – The official central bank data and national bank publications clearly state the exact rate and effective date within the requested timeframe.

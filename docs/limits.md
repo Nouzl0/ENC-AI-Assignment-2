@@ -26,3 +26,8 @@ Zda se na této sadě a v tomto období liší citační přesnost produktů a z
 :::{warning} Co prokázat nemohou
 Který jazykový model je lepší, jak se produkty chovají na jiných typech dotazů a zda rozdíly vydrží po další aktualizaci produktu.
 :::
+
+
+## Aktualizace 13. 10. 2026
+
+Doplňkový sběr nyní dokládá 40 různých měřených úloh a 84 věcných odpovědí. Pět nových úloh má Gemini P1/P2/P3A. Dostupný AI audit a intervaly jsou v kapitole [](#results), metoda v [](#supplement). Původní úplná matice a skutečné lidské hodnocení nejsou dokončené; starší plánované počty v této kapitole nejsou aktuální počet uložených odpovědí.

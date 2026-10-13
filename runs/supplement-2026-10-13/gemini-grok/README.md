@@ -1,0 +1,9 @@
+# Supplemental Gemini collection — 2026-10-13
+
+24 genuine completed responses: 20 holdout condition rows (10P2,5P1,5P3A), one separate P2 operator replacement, and3publicdev P2. This adds13unique questions, not24. New holdout was AIconstructed after byte freezing existing P1/P2/P3A; P3A selected apriori, not validation winner. Five new questions have full P1/P2/P3A pairing; remaining five onlyP2. No original protocol gate or human approval is asserted.
+
+Gemini existing Pro account, Flash-Lite, temporary chats, no new subscription/account. Search visibly observed; token/credit counts unknown. Claude redirected to login; Grok emptycomposer alone is not evidence of response availability.
+
+Runrecords/per-runmetadata contain relative exported paths; original evidence remains outsidegit. Original native chips and unusual[1.1.x] labels are preserved; rendered plain text is not a fully normalized citation export. HTML/screens are authoritative for linkhref/chips. Original H002P2 raw retained but matching screenshot lost due documented operator error; separate replacement is linked and does not add a unique task. H003 manually transcribed from recordedDOM/matching screenshot after filename error; H004 recovered from matching original text/screenshot. Timings H002/H003/H004/H005 unknown, not invented. Read collection_audit.md.
+
+AI_REFERENCE_REVIEW is a nonindependent AI lookup, not human gold. Eight official references were inspected on opened pages; RFC/IMF evidence includes primary search-index excerpts and direct-access limitations. AI_ANSWER_REVIEW flags core required-fact agreement in21holdoutresponses, including replacement; it does not assign full correctness or citationprecision because all additional claims and native citationpairs were not independently annotated. No humanratings, kappas, finalS2metrics or gate signatures are fabricated. No tests/lint run.

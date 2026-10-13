@@ -45,3 +45,8 @@ Pilotní odpovědi sbíral AI operátor v Chromu; jeho výstupy hodnotí lidé.
 
 Každé selhání a ruční zásah je v metadatech (`failure_type`, `retries`, `manual_intervention`); neúspěšné pokusy se nemažou.
 Úplné příkazy s manifesty a soukromými cestami jsou v `HANDOFF.md`.
+
+
+## Aktualizace 13. 10. 2026
+
+Doplňkový sběr nyní dokládá 40 různých měřených úloh a 84 věcných odpovědí. Pět nových úloh má Gemini P1/P2/P3A. Dostupný AI audit a intervaly jsou v kapitole [](#results), metoda v [](#supplement). Původní úplná matice a skutečné lidské hodnocení nejsou dokončené; starší plánované počty v této kapitole nejsou aktuální počet uložených odpovědí.

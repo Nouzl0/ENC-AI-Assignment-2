@@ -1,0 +1,10 @@
+ODPOVĚĎ: Světová premiéra Mozartovy opery Don Giovanni proběhla 29. října 1787 v Nostitzově divadle (dnes Stavovském divadle) v Praze [1.1.1]. Skladatel dílo sám hudebně nastudoval a dirigoval [1.1.2].
+
+TVRZENÍ:
+T1: Světová premiéra opery Don Giovanni se konala 29. října 1787 [1.1.1].
+T2: Premiéra proběhla v pražském Nostitzově divadle, které je dnes známé jako Stavovské divadlo [1.1.1].
+
+ZDROJE:
+[1] Opera Don Giovanni: Mozartovo dílo, které vzniklo v Praze – Autorské šperky – 6. září 2026 – https://autorskesperky.com/blog/post/opera-don-giovanni-mozart.html
+
+JISTOTA: vysoká – Datum a místo světové premiéry jsou historicky doložené a ověřené primárními prameny i encyklopediemi.

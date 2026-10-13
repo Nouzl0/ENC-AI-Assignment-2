@@ -1,0 +1,11 @@
+ANSWER: The Bretton Woods conference was held in July 1944, and it led to the creation of the International Monetary Fund (IMF) and the International Bank for Reconstruction and Development (IBRD), which is part of the World Bank Group.
+
+CLAIMS:
+C1: The Bretton Woods conference took place from July 1–22, 1944. [1.1.2]
+C2: The conference resulted in the establishment of the International Monetary Fund. [1.1.2]
+C3: The conference also resulted in the establishment of the International Bank for Reconstruction and Development. [1.1.5]
+
+SOURCES:
+[1] Bretton Woods Conference begins | Timeline – World Bank – not stated – https://timeline.worldbank.org/en/timeline/home
+
+CONFIDENCE: high – The dates and resulting institutions are standard historical facts supported by official institutional records.

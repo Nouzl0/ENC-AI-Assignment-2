@@ -62,8 +62,10 @@ listy v náhodném pořadí (seed 2026) bez automatických nápověd, produkt a 
 posoudí všechny odpovědi, druhý předem náhodně vybraných **≥ 25 % v každém stratu** (fáze × produkt × podmínka;
 zadání vyžaduje nejméně 20 %). Původní ratingy zůstanou zachované před diskusí; Cohenova kappa (Cohen, 1960; S2 vs. ostatní)
 a surová shoda se počítají z nich, ne z konsenzu. Neshody se auditují a nevyřešené rozhoduje třetí člověk.
-Automatické kontroly (HTTP dostupnost, shoda entit) slouží jen správci. LLM jako jediný hodnotitel
-se nepoužívá; AI pomoc je oddělená a označená.
+Automatické kontroly (HTTP dostupnost, shoda entit) slouží jen správci. Původní
+hlavní analýza vyžaduje lidské ratingy. Od 13. 10. vzniká oddělené pomocné
+AI hodnocení podle stejné rubriky ([](#supplement)); nesplňuje lidskou složku
+zadání, není lidskou shodou a neopravňuje finální skórování G3.
 
 ## Nejistota
 

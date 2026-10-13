@@ -1,0 +1,13 @@
+ODPOVĚĎ: Evropské nařízení GDPR (EU 2016/679) vstoupilo v platnost dne 24. května 2016, avšak obecně se používá (je účinné) až od 25. května 2018 [1], [2]. Dvouletá lhůta mezi těmito daty poskytla členským státům a organizacím čas na přizpůsobení se novým pravidlům [3].
+
+TVRZENÍ:
+T1: Nařízení GDPR vstoupilo v platnost dne 24. května 2016 [1].
+T2: Nařízení se stalo obecně použitelným a účinným od 25. května 2018 [2].
+T3: Období mezi platností a použitelností trvalo dva roky [3].
+
+ZDROJE:
+[1] Consolidated TEXT: 32016R0679 — EN — 04.05.2016 – EUR-Lex – neuvedeno – https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CELEX:02016R0679-20160504
+[2] The general data protection regulation – Consilium.europa.eu – neuvedeno – https://www.consilium.europa.eu/en/policies/data-protection-regulation/
+[3] Guidance on upcoming new data protection rules across the EU – EUR-Lex – neuvedeno – https://eur-lex.europa.eu/content/news/guidance-for-general-data-protection-regulation-application.html
+
+JISTOTA: vysoká – data jsou ověřena přímo v oficiálním znění nařízení a na webových stránkách Evropské unie.

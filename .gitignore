@@ -190,6 +190,8 @@ cython_debug/
 !/results/README.md
 !/results/pilot/
 !/results/pilot/**
+!/results/ai-review-2026-10-13/
+!/results/ai-review-2026-10-13/**
 /private/
 /data/cases_test.jsonl
 /data/source_evidence.csv

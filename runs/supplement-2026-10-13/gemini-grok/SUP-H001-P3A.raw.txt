@@ -1,0 +1,11 @@
+ODPOVĚĎ: Penicilin objevil skotský bakteriolog Alexander Fleming v roce 1928, kdy si všiml, že plíseň rodu Penicillium brání růstu bakterií na kultivační misce.   
+PBS
+
+TVRZENÍ:
+T1: Penicilin objevil skotský bakteriolog Alexander Fleming [1.1.2] „Penicillin was discovered in 1928 by bacteriologist Alexander Fleming, working at St. Mary's Hospital in London.“
+T2: Původní objev proběhl v roce 1928 [1.1.2] „Penicillin was discovered in 1928 by bacteriologist Alexander Fleming, working at St. Mary's Hospital in London.“
+
+ZDROJE:
+[1] Penicillin: Opening the Era of Antibiotics – USDA ARS – 8. února 2024 – https://www.ars.usda.gov/midwest-area/peoria-il/national-center-for-agricultural-utilization-research/docs/penicillin-opening-the-era-of-antibiotics/
+
+JISTOTA: vysoká – Historický fakt o objeviteli a roce objevu penicilinu je jednoznačně podložen oficiálními zdroji.

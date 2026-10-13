@@ -1,0 +1,10 @@
+ANSWER: The Python programming language was created by Dutch programmer Guido van Rossum, with its first public version released in February 1991 [1.1.1, 1.1.5].
+
+CLAIMS:
+C1: Python was created by Guido van Rossum [1.1.1].
+C2: The first public version was released on February 20, 1991 [1.1.1].
+
+SOURCES:
+[1.1.1] About Python – Python Institute – not stated – https://pythoninstitute.org/about-python
+
+CONFIDENCE: high – The creator and the exact public release date of Python are well-documented historical facts confirmed by official and industry sources.

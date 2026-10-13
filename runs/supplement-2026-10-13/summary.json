@@ -1,0 +1,16 @@
+{
+  "pilot_substantive_answers": 33,
+  "supplement_substantive_answers": 51,
+  "total_substantive_answers": 84,
+  "unique_tasks": 40,
+  "public_dev_val_tasks": 30,
+  "new_holdout_supplement_tasks": 10,
+  "supplement_records": 54,
+  "supplement_access_refusals": 1,
+  "supplement_no_answer": 2,
+  "human_ratings_completed": 0,
+  "original_gates_satisfied": false,
+  "paired_all_three_same_product_new_tasks": 5,
+  "interpretation": "Separate collections; not pooled citation scores, not full balanced product matrix, AI evaluation only.",
+  "supplement_unique_tasks": 32
+}

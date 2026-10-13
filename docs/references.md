@@ -25,4 +25,7 @@ Python (standardní knihovna) pro skripty a testy, MyST Markdown a Typst pro saz
 Odpovědi hodnocených produktů (ChatGPT, Gemini, Claude, Perplexity, Grok) jsou předmětem studie. Sběr pilotních odpovědí z webových rozhraní,
 pomocná kontrola referencí, návrhy komentářů a část nástrojů a textu vznikly s pomocí AI agentů pod dohledem týmu. Všechny výstupy AI jsou v
 projektu označeny (např. `SUPPLEMENTARY_AI_REVIEW_NOT_HUMAN_VERIFIED`), neslouží jako nezávislé lidské hodnocení ani jako jediný důkaz závěrů
-a hodnoticí LLM se pro hlavní metriku nepoužívá. Zodpovědnost za obsah nesou autoři.
+a původní hlavní metrika nadále vyžaduje lidské ratingy. Od 13. 10. 2026 je navíc
+odděleně zveřejněno pomocné AI hodnocení; jeho metoda a omezení jsou v příloze
+[](#supplement). Toto hodnocení se nevydává za lidskou práci členů týmu.
+Zodpovědnost za obsah nesou autoři.

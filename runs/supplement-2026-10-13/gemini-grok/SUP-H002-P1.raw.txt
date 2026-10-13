@@ -1,0 +1,22 @@
+Numerical Value: 299,792,458   
+National Institute of Standards and Technology (.gov)
+
+Unit: meters per second (
+m/s
+m/s or 
+m
+⋅
+s
+−
+1
+m⋅s
+−1
+)   
+National Institute of Standards and Technology (.gov)
+
+Sources:
+
+NIST CODATA Value: Speed of Light in Vacuum   
+National Institute of Standards and Technology (.gov)
+
+NIST Definitions of SI Base Units

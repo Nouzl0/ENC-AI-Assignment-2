@@ -1,0 +1,10 @@
+ANSWER: The SI definition assigns an exact numerical value of 299,792,458 to the speed of light in vacuum, expressed in metres per second (m/s).
+
+CLAIMS:
+C1: The speed of light in vacuum is assigned a fixed numerical value of 299,792,458 by the SI definition [1.1.5].
+C2: The unit for this value is metres per second (m/s) [1.1.5].
+
+SOURCES:
+[1.1.5] A concise summary of the International System of Units, SI – BIPM – not stated – [https://www.bipm.org/documents/20126/41483022/SI-Brochure-9-concise-EN.pdf/2fda4656-e236-0fcb-3867-36ca74eea4e3](https://www.bipm.org/documents/20126/41483022/SI-Brochure-9-concise-EN.pdf/2fda4656-e236-0fcb-3867-36ca74eea4e3)
+
+CONFIDENCE: high – The value is explicitly defined by international standards bodies (BIPM) and universally documented.
