@@ -36,7 +36,7 @@ se dokládá konkrétní chybou, nikoli náhradní vymyšlenou odpovědí.
 ## Hodnocení
 
 Aktuální výstupy v `results/ai-review-2026-10-13-v2/` představují **pomocné AI hodnocení**
-podle existující rubriky. Nejsou prací Reného Mrákavy ani Jana Duba. Pokud
+podle existující rubriky. Nejsou prací lidských hodnotitelů týmu. Pokud
 nebylo možné otevřít přesně citovaný zdroj, je tato skutečnost zachována;
 jiný kontrolní zdroj nedokazuje podporu původní citace. Přístupové selhání
 není důkazem FAB.

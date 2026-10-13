@@ -57,7 +57,7 @@ neznámé hodnoty (tokeny, kredity) se uvádějí jako *unknown*, nikdy jako nul
 (human-rating)=
 ## Dva nezávislí hodnotitelé
 
-Hodnotí **René Mrákava a Jan Dub**; operátor, který odpovědi sbíral, je nehodnotí. Oba dostanou stejné zaslepené
+Hodnotí **dva nezávislí členové týmu**; operátor, který odpovědi sbíral, je nehodnotí. Oba dostanou stejné zaslepené
 listy v náhodném pořadí (seed 2026) bez automatických nápověd, produkt a podmínka jsou skryté. První hodnotitel
 posoudí všechny odpovědi, druhý předem náhodně vybraných **≥ 25 % v každém stratu** (fáze × produkt × podmínka;
 zadání vyžaduje nejméně 20 %). Původní ratingy zůstanou zachované před diskusí; Cohenova kappa (Cohen, 1960; S2 vs. ostatní)

@@ -50,7 +50,7 @@ mimo Git; veřejná provenance je součástí exportu rozšířeného pilotu. Ka
 kontrolní zdroj výše není automaticky důkazem S2 pro jinou URL, kterou
 citoval produkt. Nezávislí hodnotitelé musí posoudit každý původní pár, celý text
 odpovědi a všechny dobrovolné doplňky. Kódy chyb zde označují nálezy nebo výslovná
-rizika k přezkumu, nikoli vyplněné ratingy pod identitou Reného a Jana.
+rizika k přezkumu, nikoli vyplněné ratingy pod identitou lidských hodnotitelů.
 
 U ChatGPT CIT-004 se interval od odeslání do terminálního pozorování chyby
 137,738 s odděluje od původního částečného zachycení po 18,878 s. Ani jeden

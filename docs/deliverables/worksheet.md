@@ -1,9 +1,7 @@
 ---
 title: AI Student worksheet - správnost citací
 authors:
-  - name: Jan Dub
-  - name: René Mrákava
-  - name: Nikolas Nosál
+  - name: Tým ENC-AI
 parts:
   abstract: >
     Pracovní odevzdávací worksheet: 40 různých měřených úloh, 93 uložených věcných odpovědí,
@@ -14,6 +12,7 @@ exports:
     template: ../templates/lapreprint-typst
     output: worksheet.pdf
     kind: "CZAI Assignment 1"
+    short_citation: "Tým ENC-AI"
 ---
 
 # AI Student worksheet
@@ -26,9 +25,9 @@ na využití produktů a AI agentů nestihly; hodnoty se neodhadují. Zdroj prav
 
 **Project title:** Správnost citací AI asistentů s webovým vyhledáváním
 
-**Team members:** Jan Dub, René Mrákava, Nikolas Nosál (Mendelova univerzita v Brně, Provozně ekonomická fakulta)
+**Team:** Tým ENC-AI (Mendelova univerzita v Brně, Provozně ekonomická fakulta)
 
-**Roles:** René Mrákava: správce skrytého testu, nezávislý ověřovatel referencí a hodnotitel; Jan Dub: autor promptu a hodnotitel (potvrzeno uživatelem 12. 10. 2026). Nový operátor: `codex-ui-2026-10-12`, AI agent ovládající chrome. Jan před G2 nedostává obsah testu. Přiřazení role není provedený rating ani podpis brány. Viz [plan.md](../plan.md).
+**Roles:** Správce dat: správce skrytého testu, nezávislý ověřovatel referencí a hodnotitel; Autor promptu: autor promptu a hodnotitel (potvrzeno uživatelem 12. 10. 2026). Nový operátor: `codex-ui-2026-10-12`, AI agent ovládající chrome. Autor promptu před G2 nedostává obsah testu. Přiřazení role není provedený rating ani podpis brány. Viz [plan.md](../plan.md).
 
 **Primary track:**
 

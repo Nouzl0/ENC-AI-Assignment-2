@@ -8,16 +8,7 @@ project:
   open_access: false
 
   authors:
-    - name: Jan Dub
-      email: jan.dub@mendelu.cz
-      affiliations:
-        - mendelu
-    - name: René Mrákava
-      email: xmrakav1@mendelu.cz
-      affiliations:
-        - mendelu
-    - name: Nikolas Nosál
-      email: xnosal@mendelu.cz
+    - name: Tým ENC-AI
       affiliations:
         - mendelu
 
@@ -45,7 +36,7 @@ project:
 
     acknowledgements: >
       Mendelova univerzita v Brně, Provozně ekonomická fakulta.
-      Všichni autoři přispěli k vypracování zadání.
+      Týmový projekt ENC-AI.
 
     availability: >
       Protokol, data, prompty, skripty a testy jsou dostupné na
@@ -56,6 +47,7 @@ project:
       template: templates/lapreprint-typst
       output: exports/project.pdf
       kind: "ENC-AI Project"
+      short_citation: "Tým ENC-AI"
       logo: figures/logo.jpg
       theme: blue.darken(60%)
 

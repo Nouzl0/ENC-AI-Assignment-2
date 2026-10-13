@@ -23,7 +23,7 @@ Tři brány dávají studii pevné pořadí a zabraňují ladění na testu.
 | Autor promptu | P2, kandidáti P3, changelog | Neotevře test před zmrazením P3 |
 | Hodnotitelé | Nezávislé ratingy, dvojité hodnocení ≥ 25 % | Nehodnotí vlastní běhy |
 
-Plánovaní hodnotitelé jsou René Mrákava a Jan Dub (správce soukromého testu: René, autor promptu: Jan). Nikolas Nosál
+Plánovaní hodnotitelé jsou dva členové týmu (správce soukromého testu a autor promptu). Další člen týmu
 zajišťuje analýzu, dokumentaci a sběr. Přiřazení rolí není provedené hodnocení ani podpis brány.
 Pilotní odpovědi sbíral AI operátor v Chromu; jeho výstupy hodnotí lidé.
 
