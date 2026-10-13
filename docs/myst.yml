@@ -49,7 +49,7 @@ project:
 
     availability: >
       Protokol, data, prompty, skripty a testy jsou dostupné na
-      https://github.com/Nouzl0/ENC-AI-Project.
+      https://github.com/Nouzl0/ENC-AI-Assignment-2.
 
   exports:
     - format: pdf

@@ -372,3 +372,24 @@ hash kontroly jsou součástí závěrečného commitu. Vzdálené CI netvrdíme
 Skutečné lidské ratingy, nezávislé reference, úplná produktová matice, validační
 P3_final a G1/G2/G3 nejsou vyrobené ani zpětně schválené. Nové pokyny pro tým
 jsou bez jmen; zajišťují nezávislé hodnocení před diskusí o neshodách.
+
+
+## Dostupná adresa projektu a PDF odkazy (13. 10. 2026)
+
+Aktivní gh účet má právo WRITE do `Nouzl0/ENC-AI-Assignment-2`; stará adresa
+`Nouzl0/ENC-AI-Project` vracela 404. Historie main se shodovala s lokálním
+rodičem 5671247, origin byl opraven a audit ee336d7 úspěšně odeslán.
+
+Aktualizovaná zpráva a worksheet používají tuto dostupnou adresu. Šablona
+Typst odstraňuje escapování `_` a `&` pouze z exportovaných hypertextových
+cílů a převádí odkazy na kapitoly na vnitřní PDF cíle; samostatný worksheet
+odkazuje na další dokumenty v GitHubu. Původní měření, jejich URL a ratingy
+se neměnily. Dva chybně vysázené symboly ve zdrojovém auditu nahrazuje text.
+
+Oba PDF exporty prošly sestavením: zpráva 23 stran, worksheet 13. Kontrola
+PDF anotací ověřila 50 externích URI a 26 platných vnitřních cílů zprávy,
+10 externích URI worksheetu a žádné zbylé escapované či relativní webové cíle.
+Viditelný text se změnil jen na stranách 1 a 21 zprávy a 11 worksheetu;
+tyto strany prošly vizuální kontrolou. `git diff --check` prošel. Dřívějších
+114 lokálních softwarových testů zůstává výsledkem předchozí etapy;
+kvůli těmto dokumentačním opravám se celá sada znovu nespouštěla.

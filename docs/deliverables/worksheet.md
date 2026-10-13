@@ -20,7 +20,7 @@ exports:
 
 **Verze: pracovní odevzdávací podklady (13. 10. 2026), pilot a označený doplněk.** Worksheet obsahuje skutečně změřené hodnoty z pilotu
 (33 odpovědí, 8 úloh), doplněné o 60 dalších odpovědí; celkové pokrytí je 40 různých úloh a 93 uložených věcných odpovědí. Pole označená **Nevyhodnoceno** se týkají analytických běhů, které se kvůli omezenému času a rozpočtu
-na využití produktů a AI agentů nestihly; hodnoty se neodhadují. Zdroj pravdy je [PROTOCOL.md](../../PROTOCOL.md).
+na využití produktů a AI agentů nestihly; hodnoty se neodhadují. Zdroj pravdy je [PROTOCOL.md](https://github.com/Nouzl0/ENC-AI-Assignment-2/blob/main/PROTOCOL.md).
 
 ## A. Project identity
 
@@ -144,7 +144,7 @@ Nastavení vychází z nápovědy výrobců k 29. 9. 2026. Viditelný model a da
 
 ## F. Prompt protocol
 
-Plné znění je v [prompts/](../../prompts/). Zde je české znění P1 a P2 a stav P3.
+Plné znění je v [prompts/](https://github.com/Nouzl0/ENC-AI-Assignment-2/tree/main/prompts/). Zde je české znění P1 a P2 a stav P3.
 
 #### Common baseline prompt
 
@@ -207,7 +207,7 @@ a prompts/P3B_candidate_*.txt. Jsou to hypotézy, ne naměřená zlepšení.
 
 ## G. Prompt-change log
 
-Podrobný záznam je v [prompts/CHANGELOG.md](../../prompts/CHANGELOG.md).
+Podrobný záznam je v [prompts/CHANGELOG.md](https://github.com/Nouzl0/ENC-AI-Assignment-2/blob/main/prompts/CHANGELOG.md).
 
 | Version | Date | Change | Evidence | Expected effect | Actual validation effect | Retained? |
 | --- | --- | --- | --- | --- | --- | --- |
@@ -285,7 +285,7 @@ Checklist níže potvrzuje připravená metadata, nikoli provedení všech běh�
 
 ## K. Pilot review
 
-**Pilot size:** Plán: CIT-001 a CIT-020 × 5 produktů = 10 odpovědí před G1. Původní sběr má dvě dokončené odpovědi CIT-001 (ChatGPT, Perplexity). Nový sběr v Avastu probíhá odděleně; aktuální doložené běhy jsou v [results.md](../results.md). Pilot není analytický dev.
+**Pilot size:** Plán: CIT-001 a CIT-020 × 5 produktů = 10 odpovědí před G1. Původní sběr má dvě dokončené odpovědi CIT-001 (ChatGPT, Perplexity). Další pilotní sběr je evidován odděleně; aktuální doložené běhy jsou v [results.md](../results.md). Pilot není analytický dev.
 
 **What failed in the pilot?** Původní přístup bez účtů: Grok vyžádal registraci, Gemini přesměroval na přihlášení, Claude neumožnil zadat dotaz. Uživatel následně zpřístupnil přihlášený Avast a jeho vzdálené ovládání. Provozní pokusy a screenshoty se zachovávají; nejsou zaměněné za selhání finálního benchmarku.
 
@@ -293,7 +293,7 @@ Checklist níže potvrzuje připravená metadata, nikoli provedení všech běh�
 
 **Which metric or rubric changes were made?** Normativní metriky a rubrika se neměnily. Dokumentace byla opravena podle PROTOCOL.md: všechna tvrzení, explicitní atribuce, oddělená opakování a zaslepené ratingy bez automatických nápověd.
 
-**What evidence supports freezing the benchmark?** Skutečný pilot na 8 úlohách a 33 odpovědích, připravené nástroje a postup. Formální zmrazení G1 se pro omezený rozsah neprovedlo. Podmínky G1 jsou v [freeze/README.md](../../freeze/README.md): pilot, role, dostupnost, nezávislé reference, nový soukromý holdout, hashe.
+**What evidence supports freezing the benchmark?** Skutečný pilot na 8 úlohách a 33 odpovědích, připravené nástroje a postup. Formální zmrazení G1 se pro omezený rozsah neprovedlo. Podmínky G1 jsou v [freeze/README.md](https://github.com/Nouzl0/ENC-AI-Assignment-2/blob/main/freeze/README.md): pilot, role, dostupnost, nezávislé reference, nový soukromý holdout, hashe.
 
 **What remains uncertain?** Nový holdout, nezávislé ověření referencí, lidská kalibrace a G1 nebyly v rozsahu projektu dokončeny. Skutečné úrovně účtů musí být sladěné nebo odchylky deklarované před G1; V doplňku byl viditelný Flash-Lite; tarif není jednotně doložený.
 
@@ -309,7 +309,7 @@ Checklist níže potvrzuje připravená metadata, nikoli provedení všech běh�
 
 ### M. Error analysis
 
-**Provedeno na pilotu (8 úloh, 33 odpovědí), viz [error-analysis.md](../error-analysis.md).** Plán pro plný experiment: nejméně 8 unikátních task_id, ideálně 12–16 odpovědí, alespoň 2 za každý systém, alespoň 3 úspěšné odpovědi a alespoň jeden případ z každého typu okrajové podmínky, s hlavním kódem chyby E1–E11. Postup a šablona jsou v [analysis/README.md](../../analysis/README.md).
+**Provedeno na pilotu (8 úloh, 33 odpovědí), viz [error-analysis.md](../error-analysis.md).** Plán pro plný experiment: nejméně 8 unikátních task_id, ideálně 12–16 odpovědí, alespoň 2 za každý systém, alespoň 3 úspěšné odpovědi a alespoň jeden případ z každého typu okrajové podmínky, s hlavním kódem chyby E1–E11. Postup a šablona jsou v [analysis/README.md](https://github.com/Nouzl0/ENC-AI-Assignment-2/blob/main/analysis/README.md).
 
 **Most frequent error:** Nelze určit; pilot nemá lidské ratingy ani četnosti kódů. Pozorováno: nesoulad inline odkazu a seznamu zdrojů (CIT-001) a nadbytečná tvrzení nad referencí (CIT-004).
 

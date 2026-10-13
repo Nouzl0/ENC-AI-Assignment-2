@@ -74,7 +74,38 @@
   // Set document metadata.
   set document(title: title, author: authors.map(author => author.name))
 
-  show link: it => [#text(fill: theme)[#it]]
+  let chapter-headings = (
+    human-handoff: [Předání nezávislým hodnotitelům],
+    evaluation: [Hodnocení: metriky, lidé a nejistota],
+    source-audit: [Kontrola referencí před G1],
+    references: [Příloha C: zdroje a použití AI],
+    supplement: [Doplňkový sběr a výslovně označené AI hodnocení],
+    error-analysis: [Analýza osmi skutečných pilotních úloh],
+    limits: [Limity a platnost výsledků],
+    results: [Výsledky skutečného pilotu],
+    plan: [Plán, role a další kroky],
+  )
+  // Undo URI escaping and resolve web routes to chapters in this PDF.
+  show link: it => context {
+    let destination = it.dest
+    if type(destination) == str {
+      destination = destination.replace("\\_", "_").replace("\\&", "&")
+      if destination.starts-with("/") {
+        let title = chapter-headings.at(destination.slice(1), default: none)
+        if title != none {
+          let matches = query(heading).filter(h => h.body == title)
+          destination = if matches.len() == 1 {
+            matches.first().location()
+          } else {
+            "https://github.com/Nouzl0/ENC-AI-Assignment-2/blob/main/docs" + destination + ".md"
+          }
+        }
+      }
+    }
+    text(fill: theme, if destination == it.dest { it } else {
+      link(destination, it.body)
+    })
+  }
   show ref: it => [#text(fill: theme)[#it]]
 
   set page(
