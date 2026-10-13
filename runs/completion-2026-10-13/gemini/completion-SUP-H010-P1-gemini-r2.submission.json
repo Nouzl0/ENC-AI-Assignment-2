@@ -1,0 +1,16 @@
+{
+  "run_id": "completion-SUP-H010-P1-gemini-r2",
+  "task_id": "SUP-H010",
+  "condition": "P1",
+  "system": "gemini",
+  "run_status": "planned",
+  "template_name": "P1_baseline_en.txt",
+  "template_sha256": "4c307ffc626b24bb62f89ccea6e36e9f65477aba426c4400a76d23d114494ac3",
+  "rendered_prompt_sha256": "b9a31cb93852d0901d3e1315eb89f41636a1f45cf97523135606d0223dd05b39",
+  "data_status": "supplement published after initial P2 collection; fixed templates unchanged; not unseen holdout for future optimization",
+  "retry_of": "completion-SUP-H010-P1-gemini-r1",
+  "datetime_start": "2026-10-13T12:03:13.875Z",
+  "temporary_chat": true,
+  "temporary_notice_verified": true,
+  "interface": "Gemini Temporary chat; Flash-Lite"
+}

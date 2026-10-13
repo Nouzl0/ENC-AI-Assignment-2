@@ -1,24 +1,27 @@
 # CZAI Assignment 1 – Správnost citací AI asistentů
 
-**Aktuálně: 40 různých skutečně měřených úloh a 84 věcných odpovědí.**
-Původní pilot má 33 odpovědí na osm úloh; doplňkový sběr přidává 51 odpovědí
-na zbývající veřejné otázky a deset nových oddělených otázek. Náhradní zachycení
-nepřidává další task_id. Jedno autentizační odmítnutí a dvě chyby bez odpovědi
-jsou evidovány zvlášť. [Přesné pokrytí](runs/supplement-2026-10-13/README.md),
-[registry](runs/supplement-2026-10-13/run_registry.jsonl) a
-[zpráva](docs/exports/project.pdf).
+**Aktuálně: 40 různých měřených úloh, 93 uložených věcných odpovědí a 92 podkladů způsobilých k hodnocení.**
+Původní pilot má 33 odpovědí; pozdější sběr přidává 60. Původní chybný
+export SUP-H002/P2 zůstává uložený, ale do hodnocení vstupuje jeho náhrada jednou.
+Čtyři starší clipboard exporty jsou věrně obnovené z původního AX a snímku.
+[Registr a pokrytí](runs/canonical-2026-10-13/README.md) jsou zdroj pravdy.
 
-**Hodnocení je označené jako AI, nikoli práce Reného a Jana.** Obsahově bylo
-posouzeno všech 33 původních odpovědí i nové úlohy; citační metriky a intervaly
-jsou dostupné pro výslovně vymezený atomizovaný subset. Pět nových otázek má
-stejný produkt v P1/P2/P3A. Matice všech produktů a promptů není úplná,
-P3A není validační vítěz původního protokolu, lidské ratingy a G1/G2/G3 nejsou
-splněné. Dosažení 40 úloh samo o sobě neznamená splnění všech požadavků zadání.
-[Metoda doplňku](docs/supplement.md), [AI audit](results/ai-review-2026-10-13/README.md),
+**Připraveno k nezávislému lidskému hodnocení.** První hodnotitel má všechny
+způsobilé odpovědi, druhý náhodný výběr ≥25 % v každém stratu fáze × produkt ×
+podmínka. Listy jsou zaslepené a ratingy prázdné; klíč a AI audit jsou oddělené.
+[Postup pro tým bez jmen](docs/human-handoff.md). Hodnocení AI se nevydává za lidské.
+
+Gemini má 9 nových otázek v P1/P2/P3A. Ostatní produktová matice je neúplná;
+P3A je fixovaný kandidát, nikoli validační vítěz. Deset nových otázek už je
+zveřejněných, tedy nejsou neviděný holdout pro další ladění. Lidské ratingy,
+nezávislé schválení referencí a původní G1/G2/G3 zůstávají nedokončené.
+[Opravený AI audit v2](results/ai-review-2026-10-13-v2/README.md),
+[metoda](docs/supplement.md), [zpráva](docs/exports/project.pdf) a
 [worksheet](docs/deliverables/worksheet.md).
 
-Testy a lint se při této etapě na přání uživatele nespouštěly. Původní raw
-pilotní exporty a lidské anotační listy se nepřepisují.
+Softwarové testy a lokální kontroly jsou odlišné od produktových měření.
+Aktuální skutečné výsledky kontrol jsou v PREPARATION.md; vzdálené CI se zde
+netvrdí. Původní surové exporty a nezávislé ratingy se nepřepisují.
 
 ## Co je autoritativní
 
@@ -89,14 +92,15 @@ a neověřují reference nebo experimentální výsledky. CI se touto lokální 
 
 V Git je **20 dev + 10 val** ve schématu v2 a **10 historických zveřejněných testových
 kandidátů** v `data/published_test_candidates.jsonl`. Ty nejsou skutečným skrytým testem.
-Přejmenování neodstranilo historii. Operátor připravil 10 nových soukromých kandidátů pro Reného; návrh čeká na
-jeho nezávislou lidskou kontrolu a schválení. Nejde o již zmrazený holdout.
+Přejmenování neodstranilo historii. Doplňková sada SUP-H001–010 je nyní zveřejněná a post-collection AI ověřená.
+Pro další potvrzující experiment je třeba jiný skutečně skrytý, nezávisle schválený test.
 Číselné a datované reference se musí nezávisle doložit; samotný validátor neověřuje pravdu.
 [Vyplněné příklady evidence](data/evidence_examples.md) ukazují rozdíl fact_text/hodnota,
 statické RF/OF a RUN_DAY se snapshoty/hashy. Výstupy DEMO_NOT_VERIFIED jsou záměrně
 neschválitelné, nelze je přejmenovat na skutečné gold důkazy.
 
-Všechny reálné plány, odpovědi, ratingy, klíče, snapshoty i výsledky jsou **mimo worktree**.
+Originály a neveřejné ratingy, klíče a zdrojové snapshoty jsou **mimo worktree**;
+Git obsahuje autorizované sanitizované exporty již zveřejněného exploratorního sběru.
 `.gitignore` není řízení přístupu. Holdout a jeho důkazy nesmí vidět autor promptu před G2;
 CLI s manifesty provádí správce dat. Hodnotitelům předává jen jejich zaslepené listy,
 nikoli celý pracovní adresář nebo `answer_metrics.csv` s názvy systémů.
@@ -120,13 +124,13 @@ P3 souboru sama o sobě neotevře test či finální analýzu.
 | Povinný výstup | Připraveno zde | Co ještě musí vzniknout |
 | --- | --- | --- |
 | Výzkumný protokol | PROTOCOL.md + freeze/README.md | skutečně schválené a archivované G1/G2/G3 |
-| Benchmarková data | dev 20 + val 10, soukromý návrh 10 nových testů, schéma a evidence | schválení holdoutu a nezávislé ověření všech referencí |
+| Benchmarková data | dev 20 + val 10 + 10 zveřejněných SUP, schéma a AI evidence | schválení holdoutu a nezávislé ověření všech referencí |
 | Prompty a verze | prompts/ + CHANGELOG | dev důvody úprav, validační výběr, P3_final |
-| Metadata běhů | generátor, 33 skutečných pilotních odpovědí a hashované exporty | kompletní analytická matice a její původní artefakty |
+| Metadata běhů | kanonický registr 93 uložených odpovědí / 92 způsobilých podkladů | kompletní analytická matice a její původní artefakty |
 | Hodnoticí postup/kód | scripts/, rubrika, kalibrační kotvy, tests/ | skutečné nezávislé ratingy a zdrojová rozhodnutí |
-| Výsledky s nejistotou | score.py, provozní pilotní souhrny a docs/results.md | finální G3 metriky a CI, kvalita vs. úsilí |
+| Výsledky s nejistotou | score.py, provozní souhrny, AI audit v2 a docs/results.md | finální G3 metriky a CI, kvalita vs. úsilí |
 | Analýza chyb | konkrétní rozbor 8 unikátních pilotních úloh v docs/error-analysis.md | návazná analýza finálních analytických výsledků |
-| Závěrečná zpráva | MyST zdroje a pracovní PDF se skutečným pilotem | dokončení závěrů po plném benchmarku |
+| Závěrečná zpráva | aktuální MyST zpráva a PDF s pilotem, doplňkem a AI auditem | dokončení závěrů po plném benchmarku |
 
 Celá standardní matice má **500 analytických + 10 pilotních** záznamů. Doporučená
 úsporná varianta zachová všech 5 produktů: jeden P3 kandidát a 5 repeat úloh před G1 →

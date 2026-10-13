@@ -1,0 +1,11 @@
+{
+  "run_id": "completion-SUP-H008-P1-gemini-r1",
+  "task_id": "SUP-H008",
+  "condition": "P1",
+  "datetime_start": "2026-10-13T11:53:38.404Z",
+  "rendered_prompt_sha256": "276378e31c00f9d7c122378cbbc96293bcb24c71b6f42b68c67a1c574c5bc1cf",
+  "model_visible": "Flash-Lite",
+  "plan_tier": "unknown",
+  "interface": "Gemini Temporary chat verified before submit",
+  "ui_setup_correction": "Native click did not send or activate mode; semantic controls used before first model submission"
+}

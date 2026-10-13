@@ -57,3 +57,18 @@ nikoli lidskou verifikaci G1. Výsledek a mezery jsou v `docs/source-audit.md`.
 
 Neúplně doložené bonusy ani negativní závěry CIT-016/029 nebyly potichu označeny za
 ověřené či odstraněny. Po jejich přezkoumání je nutná další výslovná před-G1 revize.
+
+## 13. 10. 2026 – post-collection verze doplňkových referencí
+
+Původní veřejné dev/val a SUP rawcase soubor se nemění. Nový autorizovaný export
+`runs/reference-correction-2026-10-13/cases_supplement_v2.jsonl` zachovává přesně
+10 task_id, otázky a jazyky. Opravuje 4 neplatné doménové enumy, doplňuje chybějící
+RF data účinnosti GDPR a explicitní RC oficiálního zdroje OSN. Všech 18 RF má
+post-collection AI důkaz na otevřeném oficiálním zdroji; 2 RC jsou vyznačené zvlášť.
+Původní 10 fact/medium případů se nepřeklasifikuje podle výsledků. Tyto již
+zveřejněné otázky nejsou budoucí skrytý test. Nejde o lidské schválení ani G1.
+
+Kanonický registr rozlišuje template/rendered SHA, originály, náhrady a selhání.
+Čtyři clipboard chyby jsou opravené v samostatné exportní verzi bez nového modelového
+běhu. Pro lidské zaslepení byl odstraněn pouze UI nadpis z jediné odpovědi; raw
+a původní citace zůstávají zachované. Původní lidské ratingy nebyly změněné.

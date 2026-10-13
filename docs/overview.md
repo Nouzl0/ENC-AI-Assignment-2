@@ -2,35 +2,37 @@
 # Shrnutí
 
 Studie sleduje podporu tvrzení jejich citovanými zdroji u rešeršních AI produktů.
-Aktuální balíček obsahuje **40 různých měřených úloh a 84 věcných odpovědí**:
-33 původních pilotních a 51 doplňkových. Jde o 20 vývojových, 10 validačních
-veřejných otázek a 10 nových otázek připravených odděleně po zmrazení šablon.
-Náhrada chybně zachyceného snímku není další úloha.
+Aktuální export obsahuje **40 různých úloh, 93 věcných odpovědí a 92
+podkladů pro lidské hodnocení**. Původních 33 odpovědí je oddělených od doplňku.
+Deset nových otázek vzniklo po byte/hash fixaci šablon; nyní už jsou zveřejněné.
+Původní chybné zachycení SUP-H002/P2 je vyřazené, náhrada vybraná jednou.
 
-Původní pilot zahrnuje odpovědi ChatGPT, Gemini, Grok a Perplexity; Claude neměl
-dokončenou odpověď. Doplňkový sběr používá dostupná rozhraní, uchovává přístupové
-chyby a rozdíly účtů. Pět nových úloh má Gemini ve všech třech podmínkách
-P1/P2/P3A, ostatní pokrytí je neúplné. P3A je předem fixovaný kandidát;
-nejde o zpětně vyhlášeného vítěze validace.
+Odpovídaly ChatGPT, Gemini, Grok a Perplexity; Claude neměl dokončenou odpověď.
+Účty a konfigurace se liší. Gemini má 9 nových otázek ve všech třech
+podmínkách P1/P2/P3A. P3A zůstal předem fixovaný, nevyhlašuje se validačním vítězem.
 
-## Doložené výsledky
+## Výsledky a kontrola
 
-- Pomocné AI obsahové posouzení původního pilotu: 47 ze 48 povinných faktů správně;
-  průměr pokrytí po 33 odpovědích 0,9848, deskriptivní 95% interval 0,9516–1,0000.
-- Atomizovaný účelový subset 11 odpovědí na třech úlohách: 61 faktických jednotek
-  a 87 explicitních citačních párů. Průměrné meze precision 0,7141–0,8050;
-  intervaly a nejistota nedostupných zdrojů jsou v kapitole [](#results).
-- Kvalitativně se opakuje správné číslo s chybným odkazem/locatorem, neověřená
-  bonusová tvrzení a nestandardní citační značky. U časově omezené úlohy správná
-  hodnota sama nedokazuje požadované stáří publikace.
+AI obsahové posouzení všech 33 pilotních odpovědí našlo 47 ze 48 RF správně:
+makro pokrytí 0,9848, bootstrap 95% interval 0,9516–1,0000. Opravený atomizovaný
+subset 11 dokončených odpovědí na CIT-004, CIT-008 a CIT-013 má 99 explicitních
+párů: 78 S2, 1 S1, 20 S0. Makro precision je 0,7954 (CI 0,7265–0,8433).
+Po započtení jednoho terminálního selhání jako nuly jde o 0.7291 z 12 pokusů.
+Tři záměrně vybrané klastry neumožňují obecný žebříček ani potvrzení H1/H2.
 
-## Rozsah interpretace
+Čtyři starší clipboard exporty byly obnoveny z tehdejších záznamů, bez nového
+modelového běhu. Nové exporty čtou text a href přímo z příslušného DOM, bez
+schránky. Reference deseti doplňkových otázek mají AI důkazy pro 18 RF;
+nezávislá lidská kontrola zůstává nutná.
 
-Hodnocení je výslovně **AI hodnocení**. Lidské ratingy, jejich shoda a původní
-G1/G2/G3 nejsou dokončené. Subset není reprezentativní, intervaly nezahrnují
-chybu AI hodnotitele a nemají platnost obecného žebříčku produktů. Výsledky
-původního pilotu a doplňku se neslévají do jediného skóre.
+## Lidské hodnocení a rozsah
 
-Balíček odstraňuje chybějící počet měřených úloh a přidává skutečné odpovědi,
-AI audit a aktualizované dokumenty. Zbývá plná vyvážená matice a zadáním
-vyžadovaná skutečná lidská složka. Časová tíseň není schválenou výjimkou.
+Zaslepené listy mají prázdné ratingy. První hodnotitel pokryje všechny
+způsobilé odpovědi; druhý ≥25 % v každém stratu fáze × produkt × podmínka.
+Klíč, značky produktů a automatické návrhy ratingů se nepředávají. Postup je
+v [](#human-handoff). Intervaly AI auditu nezahrnují chyby hodnotitele ani lidskou shodu.
+
+Plná vyvážená matice, nezávislé ratingy a původní G1/G2/G3 nejsou dokončené.
+Pozdější ratingy exploratorních dat nemohou zpětně schválit původní brány nebo
+obnovit utajený holdout. Aktuální podklady jsou připravené k přezkumu, nikoli
+vydávané za úplný potvrzující experiment.

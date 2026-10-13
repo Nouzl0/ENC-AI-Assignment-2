@@ -1,0 +1,10 @@
+{
+  "run_id": "completion-SUP-H007-P3A-gemini-r1",
+  "task_id": "SUP-H007",
+  "condition": "P3A",
+  "datetime_start": "2026-10-13T11:41:16.690Z",
+  "rendered_prompt_sha256": "cf357985805a8c0cad10b368132c7204c14589c2897300cf1c6ab864692c1691",
+  "model_visible": "Flash-Lite",
+  "plan_tier": "unknown",
+  "interface": "Gemini Temporary chat"
+}

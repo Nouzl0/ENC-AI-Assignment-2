@@ -1,0 +1,671 @@
+{
+  "status": "APPROVED_EXPLORATORY_EXPORT_NOT_G3",
+  "path_base": "manifest directory",
+  "files": [
+    {
+      "path": "README.md",
+      "bytes": 1607,
+      "sha256": "cbca2afedfcc71af55bb09886d9c32f865343072103bb07f010604a22fd61990"
+    },
+    {
+      "path": "capture-corrections.json",
+      "bytes": 4725,
+      "sha256": "eea914ca37b529f8586d8016f59745d510a3b0b12ed6ef15ec88dcc371a31735"
+    },
+    {
+      "path": "coverage.json",
+      "bytes": 957,
+      "sha256": "19b38bfb99d1dec69772ead1c4f2d256859c7e7565eaef5f384c209c430901bc"
+    },
+    {
+      "path": "recovery-v2/CIT-021-P1.answer.v2.txt",
+      "bytes": 585,
+      "sha256": "cc4734a18ca07c51e654187459c815907e9c0776105f459220430a4a7aa08749"
+    },
+    {
+      "path": "recovery-v2/CIT-021-P1.citation-evidence.v2.json",
+      "bytes": 2125,
+      "sha256": "607095fdb34ccb1477c031ab5477fbd30015363f2445301f32670abae837e755"
+    },
+    {
+      "path": "recovery-v2/CIT-021-P1.response.ax.v2.txt",
+      "bytes": 1303,
+      "sha256": "33f2b079e6e17a133f098a0b8f5b7528d78df4b974b2b46a330dd969373411c7"
+    },
+    {
+      "path": "recovery-v2/CIT-021-P3A.answer.v2.txt",
+      "bytes": 1462,
+      "sha256": "d62fa8a3522abe8f2a9c2a4ce0e9533174a6ddc24a01472d2b1706f071bf61d0"
+    },
+    {
+      "path": "recovery-v2/CIT-021-P3A.citation-evidence.v2.json",
+      "bytes": 2946,
+      "sha256": "0a27dec6264274ca38bc170fd273c52bf09a143d7e854a1b283bf103bd17b11b"
+    },
+    {
+      "path": "recovery-v2/CIT-021-P3A.response.ax.v2.txt",
+      "bytes": 2307,
+      "sha256": "e8a2da32c19f71d4da5ff83940b81123aab10e2aa1ecc43af62b751fdb795886"
+    },
+    {
+      "path": "recovery-v2/CIT-023-P1.answer.v2.txt",
+      "bytes": 592,
+      "sha256": "d41d0cd966580f1f06bfedb7303da6ea1bad75bece756430a2432cf0ca217861"
+    },
+    {
+      "path": "recovery-v2/CIT-023-P1.citation-evidence.v2.json",
+      "bytes": 2783,
+      "sha256": "580306e39c61cda959b89e9c70a84ac5c7695d67a8d0d6c6b2fba715b2142ef1"
+    },
+    {
+      "path": "recovery-v2/CIT-023-P1.response.ax.v2.txt",
+      "bytes": 1573,
+      "sha256": "72d80ea63297263e8e6ed4613c668e3985a798f0de63a46266705e8ebdb544b1"
+    },
+    {
+      "path": "recovery-v2/CIT-023-P3A.answer.v2.txt",
+      "bytes": 1232,
+      "sha256": "ffff5cf16c4fcdfd00915167b042c28724990fda22a5281d25f11bc2ff8db951"
+    },
+    {
+      "path": "recovery-v2/CIT-023-P3A.citation-evidence.v2.json",
+      "bytes": 3323,
+      "sha256": "929d1f6566c067f25595f96152c0da1b4562c8cdcf3880a3a6253928de730469"
+    },
+    {
+      "path": "recovery-v2/CIT-023-P3A.response.ax.v2.txt",
+      "bytes": 2327,
+      "sha256": "218b58b4ab8171b9c11be1877f9d050ed9391b26a76cab664dbff3b90ca2e9f9"
+    },
+    {
+      "path": "recovery-v2/SUP-H004-P2.answer.ui-heading-removed.v2.txt",
+      "bytes": 737,
+      "sha256": "ba815cc380d4d644a333355811cf1def3c1d4d1b6b04b2a0555a5c34ce0869a6"
+    },
+    {
+      "path": "registry.jsonl",
+      "bytes": 267676,
+      "sha256": "0e1f73f744f1203290d90335e548a5a19b164ee35cce7f8281b6a214cfa44069"
+    },
+    {
+      "path": "rendered-prompts/ai-review-gemini--supp-ai-review-gemini-CIT-015-P2-gemini-r1.txt",
+      "bytes": 1366,
+      "sha256": "625ba95cf971ba94cf2aae171ae0338804b979f6df213376df61fb05f89a5281"
+    },
+    {
+      "path": "rendered-prompts/ai-review-gemini--supp-ai-review-gemini-CIT-016-P2-gemini-r1.txt",
+      "bytes": 1251,
+      "sha256": "8480e243735b510a130af68bc825ac96168be8a8f0297e23fd63486c4e2f056d"
+    },
+    {
+      "path": "rendered-prompts/avast--dev-CIT-001-P2-chatgpt-r1.txt",
+      "bytes": 1393,
+      "sha256": "5b27249f1882b0a833043eebe72ad8481ad25ad03cfa65f9c141cf79d4bbf089"
+    },
+    {
+      "path": "rendered-prompts/avast--dev-CIT-001-P2-claude-r1.txt",
+      "bytes": 1393,
+      "sha256": "5b27249f1882b0a833043eebe72ad8481ad25ad03cfa65f9c141cf79d4bbf089"
+    },
+    {
+      "path": "rendered-prompts/avast--dev-CIT-001-P2-gemini-r1.txt",
+      "bytes": 1393,
+      "sha256": "5b27249f1882b0a833043eebe72ad8481ad25ad03cfa65f9c141cf79d4bbf089"
+    },
+    {
+      "path": "rendered-prompts/avast--dev-CIT-001-P2-grok-r1.txt",
+      "bytes": 1393,
+      "sha256": "5b27249f1882b0a833043eebe72ad8481ad25ad03cfa65f9c141cf79d4bbf089"
+    },
+    {
+      "path": "rendered-prompts/avast--dev-CIT-001-P2-perplexity-r1.txt",
+      "bytes": 1393,
+      "sha256": "5b27249f1882b0a833043eebe72ad8481ad25ad03cfa65f9c141cf79d4bbf089"
+    },
+    {
+      "path": "rendered-prompts/avast--dev-CIT-020-P2-chatgpt-r1.txt",
+      "bytes": 1250,
+      "sha256": "c799d338009777b6dd4a237b004328c1b4a7b05b109fcfd3149bad820f57a965"
+    },
+    {
+      "path": "rendered-prompts/avast--dev-CIT-020-P2-claude-r1.txt",
+      "bytes": 1250,
+      "sha256": "c799d338009777b6dd4a237b004328c1b4a7b05b109fcfd3149bad820f57a965"
+    },
+    {
+      "path": "rendered-prompts/avast--dev-CIT-020-P2-gemini-r1.txt",
+      "bytes": 1250,
+      "sha256": "c799d338009777b6dd4a237b004328c1b4a7b05b109fcfd3149bad820f57a965"
+    },
+    {
+      "path": "rendered-prompts/avast--dev-CIT-020-P2-grok-r1.txt",
+      "bytes": 1250,
+      "sha256": "c799d338009777b6dd4a237b004328c1b4a7b05b109fcfd3149bad820f57a965"
+    },
+    {
+      "path": "rendered-prompts/avast--dev-CIT-020-P2-perplexity-r1.txt",
+      "bytes": 1250,
+      "sha256": "c799d338009777b6dd4a237b004328c1b4a7b05b109fcfd3149bad820f57a965"
+    },
+    {
+      "path": "rendered-prompts/avast-v2--dev-CIT-003-P2-chatgpt-r1.txt",
+      "bytes": 1234,
+      "sha256": "657fba53dbb52b758449c6311193bff9360f84d32c065e7552d595d2df6b17db"
+    },
+    {
+      "path": "rendered-prompts/avast-v2--dev-CIT-003-P2-claude-r1.txt",
+      "bytes": 1234,
+      "sha256": "657fba53dbb52b758449c6311193bff9360f84d32c065e7552d595d2df6b17db"
+    },
+    {
+      "path": "rendered-prompts/avast-v2--dev-CIT-003-P2-gemini-r1.txt",
+      "bytes": 1234,
+      "sha256": "657fba53dbb52b758449c6311193bff9360f84d32c065e7552d595d2df6b17db"
+    },
+    {
+      "path": "rendered-prompts/avast-v2--dev-CIT-003-P2-grok-r1.txt",
+      "bytes": 1234,
+      "sha256": "657fba53dbb52b758449c6311193bff9360f84d32c065e7552d595d2df6b17db"
+    },
+    {
+      "path": "rendered-prompts/avast-v2--dev-CIT-003-P2-perplexity-r1.txt",
+      "bytes": 1234,
+      "sha256": "657fba53dbb52b758449c6311193bff9360f84d32c065e7552d595d2df6b17db"
+    },
+    {
+      "path": "rendered-prompts/avast-v2--dev-CIT-004-P2-chatgpt-r1.txt",
+      "bytes": 1441,
+      "sha256": "3b5e281c1249f5f899b2e6c7724a51472085478c7c45432b40daeaa16f4f112a"
+    },
+    {
+      "path": "rendered-prompts/avast-v2--dev-CIT-004-P2-claude-r1.txt",
+      "bytes": 1441,
+      "sha256": "3b5e281c1249f5f899b2e6c7724a51472085478c7c45432b40daeaa16f4f112a"
+    },
+    {
+      "path": "rendered-prompts/avast-v2--dev-CIT-004-P2-gemini-r1.txt",
+      "bytes": 1441,
+      "sha256": "3b5e281c1249f5f899b2e6c7724a51472085478c7c45432b40daeaa16f4f112a"
+    },
+    {
+      "path": "rendered-prompts/avast-v2--dev-CIT-004-P2-grok-r1.txt",
+      "bytes": 1441,
+      "sha256": "3b5e281c1249f5f899b2e6c7724a51472085478c7c45432b40daeaa16f4f112a"
+    },
+    {
+      "path": "rendered-prompts/avast-v2--dev-CIT-004-P2-perplexity-r1.txt",
+      "bytes": 1441,
+      "sha256": "3b5e281c1249f5f899b2e6c7724a51472085478c7c45432b40daeaa16f4f112a"
+    },
+    {
+      "path": "rendered-prompts/avast-v2--dev-CIT-005-P2-chatgpt-r1.txt",
+      "bytes": 1398,
+      "sha256": "258491810433bff4233c52f7aaa097587016fa9fcada4fc420f27f5390c7a3e7"
+    },
+    {
+      "path": "rendered-prompts/avast-v2--dev-CIT-005-P2-claude-r1.txt",
+      "bytes": 1398,
+      "sha256": "258491810433bff4233c52f7aaa097587016fa9fcada4fc420f27f5390c7a3e7"
+    },
+    {
+      "path": "rendered-prompts/avast-v2--dev-CIT-005-P2-gemini-r1.txt",
+      "bytes": 1398,
+      "sha256": "258491810433bff4233c52f7aaa097587016fa9fcada4fc420f27f5390c7a3e7"
+    },
+    {
+      "path": "rendered-prompts/avast-v2--dev-CIT-005-P2-grok-r1.txt",
+      "bytes": 1398,
+      "sha256": "258491810433bff4233c52f7aaa097587016fa9fcada4fc420f27f5390c7a3e7"
+    },
+    {
+      "path": "rendered-prompts/avast-v2--dev-CIT-005-P2-perplexity-r1.txt",
+      "bytes": 1398,
+      "sha256": "258491810433bff4233c52f7aaa097587016fa9fcada4fc420f27f5390c7a3e7"
+    },
+    {
+      "path": "rendered-prompts/avast-v2--dev-CIT-008-P2-chatgpt-r1.txt",
+      "bytes": 1386,
+      "sha256": "61633e5fdb65fc8ef4b1df6fe0203ed061ebede8352ff12bccb459074d3b94d5"
+    },
+    {
+      "path": "rendered-prompts/avast-v2--dev-CIT-008-P2-claude-r1.txt",
+      "bytes": 1386,
+      "sha256": "61633e5fdb65fc8ef4b1df6fe0203ed061ebede8352ff12bccb459074d3b94d5"
+    },
+    {
+      "path": "rendered-prompts/avast-v2--dev-CIT-008-P2-gemini-r1.txt",
+      "bytes": 1386,
+      "sha256": "61633e5fdb65fc8ef4b1df6fe0203ed061ebede8352ff12bccb459074d3b94d5"
+    },
+    {
+      "path": "rendered-prompts/avast-v2--dev-CIT-008-P2-grok-r1.txt",
+      "bytes": 1386,
+      "sha256": "61633e5fdb65fc8ef4b1df6fe0203ed061ebede8352ff12bccb459074d3b94d5"
+    },
+    {
+      "path": "rendered-prompts/avast-v2--dev-CIT-008-P2-perplexity-r1.txt",
+      "bytes": 1386,
+      "sha256": "61633e5fdb65fc8ef4b1df6fe0203ed061ebede8352ff12bccb459074d3b94d5"
+    },
+    {
+      "path": "rendered-prompts/avast-v2--dev-CIT-012-P2-chatgpt-r1.txt",
+      "bytes": 1494,
+      "sha256": "10caf853db9829cac24516d339ca9bef13b90e5bc81abaeb843b185b36b87b88"
+    },
+    {
+      "path": "rendered-prompts/avast-v2--dev-CIT-012-P2-claude-r1.txt",
+      "bytes": 1494,
+      "sha256": "10caf853db9829cac24516d339ca9bef13b90e5bc81abaeb843b185b36b87b88"
+    },
+    {
+      "path": "rendered-prompts/avast-v2--dev-CIT-012-P2-gemini-r1.txt",
+      "bytes": 1494,
+      "sha256": "10caf853db9829cac24516d339ca9bef13b90e5bc81abaeb843b185b36b87b88"
+    },
+    {
+      "path": "rendered-prompts/avast-v2--dev-CIT-012-P2-grok-r1.txt",
+      "bytes": 1494,
+      "sha256": "10caf853db9829cac24516d339ca9bef13b90e5bc81abaeb843b185b36b87b88"
+    },
+    {
+      "path": "rendered-prompts/avast-v2--dev-CIT-012-P2-perplexity-r1.txt",
+      "bytes": 1494,
+      "sha256": "10caf853db9829cac24516d339ca9bef13b90e5bc81abaeb843b185b36b87b88"
+    },
+    {
+      "path": "rendered-prompts/avast-v2--dev-CIT-013-P2-chatgpt-r1.txt",
+      "bytes": 1453,
+      "sha256": "253f5459c916d3ac36c12630ef1f872e332d5bf09a6e83bd44b385a91a9908a9"
+    },
+    {
+      "path": "rendered-prompts/avast-v2--dev-CIT-013-P2-claude-r1.txt",
+      "bytes": 1453,
+      "sha256": "253f5459c916d3ac36c12630ef1f872e332d5bf09a6e83bd44b385a91a9908a9"
+    },
+    {
+      "path": "rendered-prompts/avast-v2--dev-CIT-013-P2-gemini-r1.txt",
+      "bytes": 1453,
+      "sha256": "253f5459c916d3ac36c12630ef1f872e332d5bf09a6e83bd44b385a91a9908a9"
+    },
+    {
+      "path": "rendered-prompts/avast-v2--dev-CIT-013-P2-grok-r1.txt",
+      "bytes": 1453,
+      "sha256": "253f5459c916d3ac36c12630ef1f872e332d5bf09a6e83bd44b385a91a9908a9"
+    },
+    {
+      "path": "rendered-prompts/avast-v2--dev-CIT-013-P2-perplexity-r1.txt",
+      "bytes": 1453,
+      "sha256": "253f5459c916d3ac36c12630ef1f872e332d5bf09a6e83bd44b385a91a9908a9"
+    },
+    {
+      "path": "rendered-prompts/chatgpt-perplexity--supp-chatgpt-perplexity-CIT-002-P1-chatgpt-r1.txt",
+      "bytes": 294,
+      "sha256": "017f2de0f0387c6fb7fc652d90d0853b18ba2b2c89e451308ee4c2369d26d163"
+    },
+    {
+      "path": "rendered-prompts/chatgpt-perplexity--supp-chatgpt-perplexity-CIT-002-P1-perplexity-r1.txt",
+      "bytes": 294,
+      "sha256": "017f2de0f0387c6fb7fc652d90d0853b18ba2b2c89e451308ee4c2369d26d163"
+    },
+    {
+      "path": "rendered-prompts/chatgpt-perplexity--supp-chatgpt-perplexity-CIT-002-P2-chatgpt-r1.txt",
+      "bytes": 1438,
+      "sha256": "332c8a099ce0132f735782033644dabd2ffc5590dcd27fbd5f0555d455fb50a0"
+    },
+    {
+      "path": "rendered-prompts/chatgpt-perplexity--supp-chatgpt-perplexity-CIT-006-P2-chatgpt-r1.txt",
+      "bytes": 1496,
+      "sha256": "ff46a98656a97e5e9226cfe082d5ed61d899032eda983ec0cb6dcfa636308d91"
+    },
+    {
+      "path": "rendered-prompts/chatgpt-perplexity--supp-chatgpt-perplexity-CIT-006-P2-perplexity-r1.txt",
+      "bytes": 1496,
+      "sha256": "ff46a98656a97e5e9226cfe082d5ed61d899032eda983ec0cb6dcfa636308d91"
+    },
+    {
+      "path": "rendered-prompts/chatgpt-perplexity--supp-chatgpt-perplexity-CIT-007-P2-chatgpt-r1.txt",
+      "bytes": 1434,
+      "sha256": "c5451f53f90b05679d22afe471c4d128ea079d84ada2d88095667a5b31bfd499"
+    },
+    {
+      "path": "rendered-prompts/chatgpt-perplexity--supp-chatgpt-perplexity-CIT-009-P2-perplexity-r1.txt",
+      "bytes": 1307,
+      "sha256": "9beec35bbb215da10b301f643d34124f6e6e27b0b1e119634061d790b41d80ef"
+    },
+    {
+      "path": "rendered-prompts/chatgpt-perplexity--supp-chatgpt-perplexity-CIT-010-P2-gemini-r1.txt",
+      "bytes": 1345,
+      "sha256": "97a3a20efc3af8e2333cd75470d94bf86e56683e1a6b6b4bc1cbc781524d53e2"
+    },
+    {
+      "path": "rendered-prompts/chatgpt-perplexity--supp-chatgpt-perplexity-CIT-011-P2-gemini-r1.txt",
+      "bytes": 1286,
+      "sha256": "2b2fa922741e7118e2c13f78c8a6f2ed3c8855580dbf458811245700a93ed89b"
+    },
+    {
+      "path": "rendered-prompts/chatgpt-perplexity--supp-chatgpt-perplexity-CIT-014-P2-gemini-r1.txt",
+      "bytes": 1311,
+      "sha256": "437fed1698f5f51f61ce536ebd3c6cb5543409436a6fa14908776e752996ddf3"
+    },
+    {
+      "path": "rendered-prompts/chatgpt-perplexity--supp-chatgpt-perplexity-CIT-021-P2-chatgpt-r1.txt",
+      "bytes": 1360,
+      "sha256": "5375960201672c3b92deed7abd5529ed5ae4358dac5a4a37e11a96ba0469fc58"
+    },
+    {
+      "path": "rendered-prompts/chatgpt-perplexity--supp-chatgpt-perplexity-CIT-022-P2-chatgpt-r1.txt",
+      "bytes": 1321,
+      "sha256": "660e7b61ebaf4df3c1eaf2a7211f98f3e1bd0b8154d54632452cfb63385c2500"
+    },
+    {
+      "path": "rendered-prompts/chatgpt-perplexity--supp-chatgpt-perplexity-CIT-023-P2-chatgpt-r1.txt",
+      "bytes": 1454,
+      "sha256": "3087654eb379c39e36401bfeacc5ddff37719ed1b5c86a973d8af1e4278d4a97"
+    },
+    {
+      "path": "rendered-prompts/chatgpt-perplexity--supp-chatgpt-perplexity-CIT-024-P2-chatgpt-r1.txt",
+      "bytes": 1347,
+      "sha256": "10a39eeef61c8039dd4f459dac332abb054128d959d306fa4cf4f9b24cb19006"
+    },
+    {
+      "path": "rendered-prompts/chatgpt-perplexity--supp-chatgpt-perplexity-CIT-025-P2-chatgpt-r1.txt",
+      "bytes": 1430,
+      "sha256": "bf891dfdcf09a52b98f49b320d2d84aac32c4003bf90ce5a8405f78be87d34a1"
+    },
+    {
+      "path": "rendered-prompts/chatgpt-perplexity--supp-chatgpt-perplexity-CIT-026-P2-chatgpt-r1.txt",
+      "bytes": 1251,
+      "sha256": "562dbcb52c9da09978b28862308a36634283fa3a3f959749095bb8ba725e08d0"
+    },
+    {
+      "path": "rendered-prompts/chatgpt-perplexity--supp-chatgpt-perplexity-CIT-027-P2-chatgpt-r1.txt",
+      "bytes": 1348,
+      "sha256": "34b23c691f2f160e50a0d73460ce66dc3cf64b0fdde28912279a6d451f983092"
+    },
+    {
+      "path": "rendered-prompts/chatgpt-perplexity--supp-chatgpt-perplexity-CIT-028-P2-chatgpt-r1.txt",
+      "bytes": 1382,
+      "sha256": "8e0054d38a09d88b3442d43e72f12a5bbf337e2581fe14f58849dd960b42fd2d"
+    },
+    {
+      "path": "rendered-prompts/chatgpt-perplexity--supp-chatgpt-perplexity-CIT-029-P2-chatgpt-r1.txt",
+      "bytes": 1371,
+      "sha256": "2f079e13fb1eee697b3e869c86dafd223408de2492bbe991415315bb478882c3"
+    },
+    {
+      "path": "rendered-prompts/chatgpt-perplexity--supp-chatgpt-perplexity-CIT-030-P2-chatgpt-r1.txt",
+      "bytes": 1271,
+      "sha256": "87b58b44e68e38a5167ab6e312e1390adf0472aca6b13ade9baeeace512ba431"
+    },
+    {
+      "path": "rendered-prompts/completion-gemini--completion-SUP-H006-P1-gemini-r1.txt",
+      "bytes": 234,
+      "sha256": "80a5f461282b820e9e32e8e1ad044458c61d01cfd8c5d7ab5f4cb53b75399a9f"
+    },
+    {
+      "path": "rendered-prompts/completion-gemini--completion-SUP-H006-P3A-gemini-r1.txt",
+      "bytes": 1477,
+      "sha256": "5e9c32dff8773da2b7d75bc581707c4cce3261e839cd7f29e65d7716fac0cd9a"
+    },
+    {
+      "path": "rendered-prompts/completion-gemini--completion-SUP-H007-P1-gemini-r1.txt",
+      "bytes": 263,
+      "sha256": "24460612a0d42c5e7e1c1d69f6e9c3ab96953c8a1c4c16bf565bd03f9f4f8786"
+    },
+    {
+      "path": "rendered-prompts/completion-gemini--completion-SUP-H007-P3A-gemini-r1.txt",
+      "bytes": 1579,
+      "sha256": "cf357985805a8c0cad10b368132c7204c14589c2897300cf1c6ab864692c1691"
+    },
+    {
+      "path": "rendered-prompts/completion-gemini--completion-SUP-H008-P1-gemini-r1.txt",
+      "bytes": 254,
+      "sha256": "276378e31c00f9d7c122378cbbc96293bcb24c71b6f42b68c67a1c574c5bc1cf"
+    },
+    {
+      "path": "rendered-prompts/completion-gemini--completion-SUP-H008-P3A-gemini-r1.txt",
+      "bytes": 1497,
+      "sha256": "e80830a486baf3f5a350dc566a18db33d5bd500afd82b2f09b6151d8a81c14a8"
+    },
+    {
+      "path": "rendered-prompts/completion-gemini--completion-SUP-H009-P1-gemini-r1.txt",
+      "bytes": 245,
+      "sha256": "be13a2be1ef792ae516346bbe0f795eaf07d4d88fcf37f2b9268322b6f1fdef1"
+    },
+    {
+      "path": "rendered-prompts/completion-gemini--completion-SUP-H009-P3A-gemini-r1.txt",
+      "bytes": 1561,
+      "sha256": "3efe65a0baeb02fce9235d2baeb0d7154c49d1b831bff97e0f0323ce203d4928"
+    },
+    {
+      "path": "rendered-prompts/completion-gemini--completion-SUP-H010-P1-gemini-r1.txt",
+      "bytes": 230,
+      "sha256": "b9a31cb93852d0901d3e1315eb89f41636a1f45cf97523135606d0223dd05b39"
+    },
+    {
+      "path": "rendered-prompts/completion-gemini--completion-SUP-H010-P1-gemini-r2.txt",
+      "bytes": 230,
+      "sha256": "b9a31cb93852d0901d3e1315eb89f41636a1f45cf97523135606d0223dd05b39"
+    },
+    {
+      "path": "rendered-prompts/completion-gemini--completion-SUP-H010-P3A-gemini-r1.txt",
+      "bytes": 1473,
+      "sha256": "da06335f323d0f33e2090a3333beb3f345f8083f60c64066cc2f535fab39006b"
+    },
+    {
+      "path": "rendered-prompts/completion-gemini--completion-SUP-H010-P3A-gemini-r2.txt",
+      "bytes": 1473,
+      "sha256": "da06335f323d0f33e2090a3333beb3f345f8083f60c64066cc2f535fab39006b"
+    },
+    {
+      "path": "rendered-prompts/gemini-grok--supp-CIT-017-P2-gemini-r1.txt",
+      "bytes": 1341,
+      "sha256": "1f89ddf95f35c5cce1db750c0118c2e48497772997bc78adf7aab9f7b9c6825a"
+    },
+    {
+      "path": "rendered-prompts/gemini-grok--supp-CIT-018-P2-gemini-r1.txt",
+      "bytes": 1376,
+      "sha256": "a7d61a55da55d8e5db9f346da6f828e5d1edfe6c9f81429ce3aada80f641b303"
+    },
+    {
+      "path": "rendered-prompts/gemini-grok--supp-CIT-019-P2-gemini-r1.txt",
+      "bytes": 1326,
+      "sha256": "3423285979abfa04ac9d2725ad2a316971ec115962117aa1441530d7894733c9"
+    },
+    {
+      "path": "rendered-prompts/gemini-grok--supp-SUP-H001-P1-gemini-r1.txt",
+      "bytes": 255,
+      "sha256": "6a975488b396c46e9c3b2227bbed32f1e5b704e3ac9a1f1b679bcfc8c8eee382"
+    },
+    {
+      "path": "rendered-prompts/gemini-grok--supp-SUP-H001-P2-gemini-r1.txt",
+      "bytes": 1399,
+      "sha256": "095c4c07bdcf3858c1afa2c7517c51dbfca1e932064dfa182771d6b9a126306c"
+    },
+    {
+      "path": "rendered-prompts/gemini-grok--supp-SUP-H001-P3A-gemini-r1.txt",
+      "bytes": 1571,
+      "sha256": "494f9d0f7136f0199665774e45ca684fb343d98776653c5cc7ebf69192cb51ee"
+    },
+    {
+      "path": "rendered-prompts/gemini-grok--supp-SUP-H002-P1-gemini-r1.txt",
+      "bytes": 242,
+      "sha256": "d65e1a615dd5a68470c682bdec910d82e6ad47d852ff1bd76fbc6015aecfc0a3"
+    },
+    {
+      "path": "rendered-prompts/gemini-grok--supp-SUP-H002-P2-gemini-r1.txt",
+      "bytes": 1307,
+      "sha256": "33dea2c019bb158e36a715afa02d439de6bd39cc91529840ed14b02e221afe16"
+    },
+    {
+      "path": "rendered-prompts/gemini-grok--supp-SUP-H002-P2-gemini-replacement-r1.txt",
+      "bytes": 1307,
+      "sha256": "33dea2c019bb158e36a715afa02d439de6bd39cc91529840ed14b02e221afe16"
+    },
+    {
+      "path": "rendered-prompts/gemini-grok--supp-SUP-H002-P3A-gemini-r1.txt",
+      "bytes": 1485,
+      "sha256": "259e6cf8ea9ba8b936a89917d9ea5f716dee2f28d4a1670aff6395a991732b31"
+    },
+    {
+      "path": "rendered-prompts/gemini-grok--supp-SUP-H003-P1-gemini-r1.txt",
+      "bytes": 295,
+      "sha256": "71d33b5cea2c9162bb4cc2d15d986135ba2e3e8d58ecadd17d66599cacf6e23c"
+    },
+    {
+      "path": "rendered-prompts/gemini-grok--supp-SUP-H003-P2-gemini-r1.txt",
+      "bytes": 1439,
+      "sha256": "9b831789c414e24b8677d8a0a6d3f7f428e335c87f5dcf2725fb81a615f85c5a"
+    },
+    {
+      "path": "rendered-prompts/gemini-grok--supp-SUP-H003-P3A-gemini-r1.txt",
+      "bytes": 1611,
+      "sha256": "6ce81a7890f9114c915e8dc51c5ae8dbb624a3e2b7d5a2bf47dc7fae2ccf91eb"
+    },
+    {
+      "path": "rendered-prompts/gemini-grok--supp-SUP-H004-P1-gemini-r1.txt",
+      "bytes": 230,
+      "sha256": "5b0af8d0d70a388a938e0b2925bd313a8660fce817ffaf76f810eb952b06decb"
+    },
+    {
+      "path": "rendered-prompts/gemini-grok--supp-SUP-H004-P2-gemini-r1.txt",
+      "bytes": 1295,
+      "sha256": "653c9e05b02eb1ea6f8f15919481f746ce73431758658acb6d53e9122ec6587e"
+    },
+    {
+      "path": "rendered-prompts/gemini-grok--supp-SUP-H004-P3A-gemini-r1.txt",
+      "bytes": 1473,
+      "sha256": "8ff62c3906af6356b3d64c8c8dbc97242ee1ac2f62e2e6744fdcc7a77ccc671e"
+    },
+    {
+      "path": "rendered-prompts/gemini-grok--supp-SUP-H005-P1-gemini-r1.txt",
+      "bytes": 277,
+      "sha256": "c3f01b618823acf57e47b023a1618e357476dc3f02ac35ed6da5928177b60276"
+    },
+    {
+      "path": "rendered-prompts/gemini-grok--supp-SUP-H005-P2-gemini-r1.txt",
+      "bytes": 1421,
+      "sha256": "7469af224b23bc69312caba0d0fa1d9263befd1d8f633abd1788c2d42b7c8f4f"
+    },
+    {
+      "path": "rendered-prompts/gemini-grok--supp-SUP-H005-P3A-gemini-r1.txt",
+      "bytes": 1593,
+      "sha256": "058f1459ddc6ae9174f6f561d89c99f4ad2ed75496cdf6a74366aabce2e494c2"
+    },
+    {
+      "path": "rendered-prompts/gemini-grok--supp-SUP-H006-P2-gemini-r1.txt",
+      "bytes": 1299,
+      "sha256": "1582d8934c58515f36cd8ab6d885bb78544a300aec649b4148d2883a30aeee1d"
+    },
+    {
+      "path": "rendered-prompts/gemini-grok--supp-SUP-H007-P2-gemini-r1.txt",
+      "bytes": 1407,
+      "sha256": "1b85cab40690e1c328abffba3f9473ce3b665b5e193cbe8e86ccc12c855380ed"
+    },
+    {
+      "path": "rendered-prompts/gemini-grok--supp-SUP-H008-P2-gemini-r1.txt",
+      "bytes": 1319,
+      "sha256": "167b30ae206d4c980ace7855eb75053a9aa4e2a708aedae5ea0f8facebd656b1"
+    },
+    {
+      "path": "rendered-prompts/gemini-grok--supp-SUP-H009-P2-gemini-r1.txt",
+      "bytes": 1389,
+      "sha256": "504a56fb1f4e8cbbbf76698f8668eabf2ff711f3e25cbd8d2dc31eacfd430016"
+    },
+    {
+      "path": "rendered-prompts/gemini-grok--supp-SUP-H010-P2-gemini-r1.txt",
+      "bytes": 1295,
+      "sha256": "221027dff760bc37db28418f9001ddd2a371d6bc979af1037b09fa73cc1a46dd"
+    },
+    {
+      "path": "rendered-prompts/legacy--dev-CIT-001-P2-chatgpt-r1.txt",
+      "bytes": 1393,
+      "sha256": "5b27249f1882b0a833043eebe72ad8481ad25ad03cfa65f9c141cf79d4bbf089"
+    },
+    {
+      "path": "rendered-prompts/legacy--dev-CIT-001-P2-claude-r1.txt",
+      "bytes": 1393,
+      "sha256": "5b27249f1882b0a833043eebe72ad8481ad25ad03cfa65f9c141cf79d4bbf089"
+    },
+    {
+      "path": "rendered-prompts/legacy--dev-CIT-001-P2-gemini-r1.txt",
+      "bytes": 1393,
+      "sha256": "5b27249f1882b0a833043eebe72ad8481ad25ad03cfa65f9c141cf79d4bbf089"
+    },
+    {
+      "path": "rendered-prompts/legacy--dev-CIT-001-P2-grok-r1.txt",
+      "bytes": 1393,
+      "sha256": "5b27249f1882b0a833043eebe72ad8481ad25ad03cfa65f9c141cf79d4bbf089"
+    },
+    {
+      "path": "rendered-prompts/legacy--dev-CIT-001-P2-perplexity-r1.txt",
+      "bytes": 1393,
+      "sha256": "5b27249f1882b0a833043eebe72ad8481ad25ad03cfa65f9c141cf79d4bbf089"
+    },
+    {
+      "path": "rendered-prompts/legacy--dev-CIT-020-P2-chatgpt-r1.txt",
+      "bytes": 1250,
+      "sha256": "c799d338009777b6dd4a237b004328c1b4a7b05b109fcfd3149bad820f57a965"
+    },
+    {
+      "path": "rendered-prompts/legacy--dev-CIT-020-P2-claude-r1.txt",
+      "bytes": 1250,
+      "sha256": "c799d338009777b6dd4a237b004328c1b4a7b05b109fcfd3149bad820f57a965"
+    },
+    {
+      "path": "rendered-prompts/legacy--dev-CIT-020-P2-gemini-r1.txt",
+      "bytes": 1250,
+      "sha256": "c799d338009777b6dd4a237b004328c1b4a7b05b109fcfd3149bad820f57a965"
+    },
+    {
+      "path": "rendered-prompts/legacy--dev-CIT-020-P2-grok-r1.txt",
+      "bytes": 1250,
+      "sha256": "c799d338009777b6dd4a237b004328c1b4a7b05b109fcfd3149bad820f57a965"
+    },
+    {
+      "path": "rendered-prompts/legacy--dev-CIT-020-P2-perplexity-r1.txt",
+      "bytes": 1250,
+      "sha256": "c799d338009777b6dd4a237b004328c1b4a7b05b109fcfd3149bad820f57a965"
+    },
+    {
+      "path": "rendered-prompts/root-gemini--supplement-CIT-009-P2-gemini-r1.txt",
+      "bytes": 1307,
+      "sha256": "9beec35bbb215da10b301f643d34124f6e6e27b0b1e119634061d790b41d80ef"
+    },
+    {
+      "path": "rendered-prompts/root-gemini--supplement-CIT-021-P1-gemini-r1.txt",
+      "bytes": 216,
+      "sha256": "3dee2554af8915c61c32e68fbf99bfa173d6e332f1785701d8083b09f0a36738"
+    },
+    {
+      "path": "rendered-prompts/root-gemini--supplement-CIT-021-P3A-gemini-r1.txt",
+      "bytes": 1532,
+      "sha256": "dee8c04e444047ce70003f922c7ebe4d7b09c3e1185b7fa306d8d38fa427fb2c"
+    },
+    {
+      "path": "rendered-prompts/root-gemini--supplement-CIT-022-P1-gemini-r1.txt",
+      "bytes": 256,
+      "sha256": "afbaf4ddca4d17e802b83015c928a079a5ff4f39e8f2374096b8066d8c38a66b"
+    },
+    {
+      "path": "rendered-prompts/root-gemini--supplement-CIT-022-P3A-gemini-r1.txt",
+      "bytes": 1499,
+      "sha256": "79d18f4070651a1ca4d271b802156668e480eb9deaa37a7781138280a4aefbe1"
+    },
+    {
+      "path": "rendered-prompts/root-gemini--supplement-CIT-023-P1-gemini-r1.txt",
+      "bytes": 310,
+      "sha256": "6c3524efee94efcb0e94cb7b6a950c7417edbde737dbe862f2506e3f225c60bb"
+    },
+    {
+      "path": "rendered-prompts/root-gemini--supplement-CIT-023-P3A-gemini-r1.txt",
+      "bytes": 1626,
+      "sha256": "28021c2b32bd623add38b805ba6a22d6ae136205da52e5e6ac2c96907301a763"
+    },
+    {
+      "path": "rendered-prompts/root-grok--supplement-CIT-021-P3A-grok-r1.txt",
+      "bytes": 1532,
+      "sha256": "dee8c04e444047ce70003f922c7ebe4d7b09c3e1185b7fa306d8d38fa427fb2c"
+    }
+  ]
+}

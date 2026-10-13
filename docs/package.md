@@ -9,17 +9,17 @@ výjimkou z minimálních požadavků zadání.
 | # | Povinný výstup | Umístění | Stav |
 | --- | --- | --- | --- |
 | 1 | Výzkumný protokol | `PROTOCOL.md`, `freeze/README.md` | Hotový (nezmrazeno) |
-| 2 | Benchmarková data | `data/` (dev 20, val 10) | Hotovo; soukromý test 10 je návrh bez lidského schválení |
+| 2 | Benchmarková data | `data/` (dev 20, val 10) | 30 veřejných + 10 zveřejněných doplňkových otázek; nezávislá kontrola chybí |
 | 3 | Prompty a historie | `prompts/`, `prompts/CHANGELOG.md` | P1, P2, kandidáti P3; P3_final se v omezeném rozsahu nevybíral |
-| 4 | Metadata běhů | `runs/`, `scripts/make_run_plan.py` | Generátor + skutečný pilot (33 odpovědí) |
+| 4 | Metadata běhů | `runs/`, `scripts/make_run_plan.py` | Kanonický registr 93 uložených věcných odpovědí |
 | 5 | Kód a rubrika | `scripts/`, `annotation/`, `tests/` | Hotovo a testováno na syntetických datech |
-| 6 | Výsledky a nejistota | [](#results), `results/pilot/` | Pilot a orientační metriky; finální skóre mimo rozsah |
+| 6 | Výsledky a nejistota | [](#results), `results/pilot/` | Pilot, AI audit v2 a intervaly; G3 skóre chybí |
 | 7 | Analýza ≥ 8 úloh | [](#error-analysis) | 8 skutečných úloh, úspěchy i selhání |
 | 8 | Závěrečná zpráva | `docs/`, `docs/exports/project.pdf` | Tato zpráva |
 | – | Zdroje a použití AI | [](#references) | Příloha C |
-| – | Worksheet | `docs/deliverables/worksheet.md` | Vyplněný v rozsahu pilotu |
+| – | Worksheet | `docs/deliverables/worksheet.md` | Aktuální pilot, doplněk a AI audit |
 
-Mimo rozsah (omezený čas a rozpočet): finální výsledky s intervaly, nezávislé ratingy a podepsané brány G1–G3.
+Dosud chybí nezávislé ratingy, úplná matice a schválené brány G1–G3. Dostupné intervaly AI auditu se uvádějí samostatně.
 
 ## Reprodukce bez přístupu k produktům
 
@@ -42,6 +42,9 @@ Složky `runs/*/avast/` jsou původní názvy evidence z pilotu; sběr probíhal
 odpovědím nepatří přihlašovací údaje ani profily účtů.
 
 
-## Aktualizace 13. 10. 2026
+## Aktuální stav po kontrole 13. 10. 2026
 
-Doplňkový sběr nyní dokládá 40 různých měřených úloh a 84 věcných odpovědí. Pět nových úloh má Gemini P1/P2/P3A. Dostupný AI audit a intervaly jsou v kapitole [](#results), metoda v [](#supplement). Původní úplná matice a skutečné lidské hodnocení nejsou dokončené; starší plánované počty v této kapitole nejsou aktuální počet uložených odpovědí.
+40 různých úloh, 93 uložených věcných odpovědí / 92 způsobilých
+podkladů; 9 Gemini tripletů. Zaslepené listy pro skutečné hodnotitele
+jsou připravené ([](#human-handoff)). Aktuální AI metriky pocházejí z opravované
+verze 2 ([](#results)); úplná produktová matice a původní G1/G2/G3 zůstávají otevřené.

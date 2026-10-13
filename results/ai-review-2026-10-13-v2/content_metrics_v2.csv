@@ -1,0 +1,6 @@
+metric,mean,ci95_percentile_low,ci95_percentile_high,n_answers,n_tasks,bootstrap_draws,seed,scope
+rf_completeness,0.9848484848484849,0.9516129032258065,1.0,33,8,10000,20261013,Separate v2 exploratory AI review; response macro average; purposeful tasks; no human reliability or rating-error uncertainty
+correctness_lower,1.8181818181818181,1.7419354838709677,1.903225806451613,33,8,10000,20261013,Separate v2 exploratory AI review; response macro average; purposeful tasks; no human reliability or rating-error uncertainty
+correctness_upper,1.878787878787879,1.8055555555555556,1.9666666666666666,33,8,10000,20261013,Separate v2 exploratory AI review; response macro average; purposeful tasks; no human reliability or rating-error uncertainty
+full_correct_lower,0.8181818181818182,0.7419354838709677,0.9032258064516129,33,8,10000,20261013,Separate v2 exploratory AI review; response macro average; purposeful tasks; no human reliability or rating-error uncertainty
+full_correct_upper,0.8787878787878788,0.8055555555555556,0.9666666666666667,33,8,10000,20261013,Separate v2 exploratory AI review; response macro average; purposeful tasks; no human reliability or rating-error uncertainty

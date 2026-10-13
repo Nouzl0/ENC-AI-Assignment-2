@@ -120,9 +120,9 @@
 
   // Set the body font.
   if (font-face != none) {
-    set text(font: font-face, size: 10pt)
+    set text(font: font-face, size: 10pt, lang: "cs", hyphenate: true)
   } else {
-    set text(size: 10pt)
+    set text(size: 10pt, lang: "cs", hyphenate: true)
   }
   // Code blocks: monospace, shaded box with a theme-coloured left rule.
   show raw: set text(font: ("DejaVu Sans Mono", "Consolas", "Liberation Mono", "Courier New"), size: 8pt)

@@ -1,0 +1,10 @@
+{
+  "run_id": "completion-SUP-H010-P1-gemini-r1",
+  "task_id": "SUP-H010",
+  "system": "gemini",
+  "condition": "P1",
+  "run_status": "failed",
+  "failure_reason": "Visible check internet connection error; no user message or model answer created after Send action.",
+  "datetime_end": "2026-10-13T12:00:31.869Z",
+  "answer_generated": false
+}

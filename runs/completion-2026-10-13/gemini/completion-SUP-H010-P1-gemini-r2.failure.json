@@ -1,0 +1,15 @@
+{
+  "run_id": "completion-SUP-H010-P1-gemini-r2",
+  "task_id": "SUP-H010",
+  "condition": "P1",
+  "system": "gemini",
+  "run_status": "failed",
+  "failure_type": "timeout",
+  "datetime_end": "2026-10-13T12:08:35.059Z",
+  "configured_timeout_s": 180,
+  "observed_interval_s": 321.184,
+  "failure_reason": "User message and generating control observed after Send; no model answer; later UI returned prompt to composer without response. End is observation upper bound, includes operator scheduling.",
+  "retry_of": "completion-SUP-H010-P1-gemini-r1",
+  "answer_generated": false,
+  "ui_mode_proof": "temporary notice checked before Send; final composer reset lost temporary label"
+}

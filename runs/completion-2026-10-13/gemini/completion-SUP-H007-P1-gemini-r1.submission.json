@@ -1,0 +1,10 @@
+{
+  "run_id": "completion-SUP-H007-P1-gemini-r1",
+  "task_id": "SUP-H007",
+  "condition": "P1",
+  "datetime_start": "2026-10-13T11:41:13.107Z",
+  "rendered_prompt_sha256": "24460612a0d42c5e7e1c1d69f6e9c3ab96953c8a1c4c16bf565bd03f9f4f8786",
+  "model_visible": "Flash-Lite",
+  "plan_tier": "unknown",
+  "interface": "Gemini Temporary chat"
+}

@@ -1,0 +1,13 @@
+{
+  "run_id": "completion-SUP-H009-P1-gemini-r1",
+  "task_id": "SUP-H009",
+  "condition": "P1",
+  "system": "gemini",
+  "run_status": "completed",
+  "datetime_end": "2026-10-13T11:58:41.424Z",
+  "search_used": "yes",
+  "clipboard_used": false,
+  "question_visible_verified": true,
+  "chars": 170,
+  "source_chips_captured": 4
+}

@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "run_id": "completion-SUP-H006-P3A-gemini-r1",
+  "task_id": "SUP-H006",
+  "condition": "P3A",
+  "text": "ANSWER: The Python programming language was created by Guido van Rossum, and its first public version was released on February 20, 1991.\n\nCLAIMS:\nC1: Python was created by Guido van Rossum [1.1.1] \"Python was created by Guido van Rossum and first released on February 20, 1991.\"\nC2: Python's first public version was released on February 20, 1991 [1.1.3] \"First appeared | 20 February 1991\"\n\nSOURCES:\n[1.1.1] the language of today and tomorrow – Python Institute – not stated – https://pythoninstitute.org/about-python\n[1.1.3] Python (programming language) – Wikipedia – not stated – https://en.wikipedia.org/wiki/Python_(programming_language\n\nCONFIDENCE: high – The facts are supported by direct quotes from official and standard reference sources.",
+  "dom_text": "ANSWER: The Python programming language was created by Guido van Rossum, and its first public version was released on February 20, 1991.\n\nCLAIMS:\nC1: Python was created by Guido van Rossum [1.1.1] \"Python was created by Guido van Rossum and first released on February 20, 1991.\"\nC2: Python's first public version was released on February 20, 1991 [1.1.3] \"First appeared | 20 February 1991\"\n\nSOURCES:\n[1.1.1] the language of today and tomorrow – Python Institute – not stated – https://pythoninstitute.org/about-python\n[1.1.3] Python (programming language) – Wikipedia – not stated – https://en.wikipedia.org/wiki/Python_(programming_language\n\nCONFIDENCE: high – The facts are supported by direct quotes from official and standard reference sources.",
+  "links": [
+    {
+      "href": "https://pythoninstitute.org/about-python",
+      "label": "https://pythoninstitute.org/about-python"
+    },
+    {
+      "href": "https://en.wikipedia.org/wiki/Python_(programming_language)",
+      "label": "https://en.wikipedia.org/wiki/Python_(programming_language"
+    }
+  ],
+  "chips": [],
+  "chipsSources": [],
+  "raw_text_sha256": "37cf8d4d6eb86be6f66444cd23f08b6a32ce9f36a1a848a14328402be01bb846",
+  "private_reply_dom_sha256": "8843c4f5007372f3ee6eee10b3b1c89f324d4d55d61d3444a117de3c038a65fa",
+  "sanitized_html_file": "completion-SUP-H006-P3A-gemini-r1.reply-visible.html",
+  "citation_policy": "Only visible original anchors and opened source popovers. Native chip paragraph ties retained; unlinked source-list anchors remain unlinked. Written malformed URLs, quotes and labels are not corrected.",
+  "capture_method": "Rendered response content; clipboard_used field in capture indicates whether official Copy was used."
+}

@@ -1,0 +1,14 @@
+								37 container model-response-message-contentr_34b4665193b2792e
+									38 container p-rc_66bd9bef46f9b937-22
+										39 text Maximální pokuta za nejzávažnější porušení GDPR (čl. 83 odst. 5):
+										40 pop up button (collapsed) Secondary Actions: Expand, Description: Zobrazit podrobnosti o zdrojích pro citace z webů General Data Protection Regulation (GDPR). Stisknutím klávesy Enter otevřete dialogové okno se zdroji.
+									41 content list
+										42 container p-rc_66bd9bef46f9b937-23
+											43 text Přesné znění limitu:
+											44 text Až do výše  20 000 000 EUR , nebo jedná-li se o podnik, až do výše  4 % celkového ročního obratu celosvětově  za předchozí finanční rok, podle toho, která hodnota je vyšší.
+											45 pop up button (collapsed) Secondary Actions: Expand, Description: Zobrazit podrobnosti o zdrojích pro citace z webů www.privacy-regulation.eu a www.privacy-regulation.eu. Stisknutím klávesy Enter otevřete dialogové okno se zdroji.
+										46 container p-rc_66bd9bef46f9b937-24
+											47 text Odkaz na text nařízení:
+											48 link Description: Článek 83 odst. 5 nařízení GDPR (EUR-Lex), Value: google.com/search?q=https://eur-lex.europa.eu/legal-content/CS/TXT/HTML/%3Furi%3DCELEX:32016R0679%23d1e3458-1-1
+											49 text .
+											50 pop up button (collapsed) Secondary Actions: Expand, Description: Zobrazit podrobnosti o zdrojích pro citace z webů www.privacy-regulation.eu. Stisknutím klávesy Enter otevřete dialogové okno se zdroji.

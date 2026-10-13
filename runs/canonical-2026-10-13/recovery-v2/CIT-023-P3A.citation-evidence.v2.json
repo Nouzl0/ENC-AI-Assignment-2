@@ -1,0 +1,47 @@
+{
+  "text": "ODPOVĚĎ: Za nejzávažnější porušení GDPR podle čl. 83 odst. 5 lze uložit správní pokutu až do výše 20 000 000 EUR, nebo u podniku až do výše 4 % celkového ročního celosvětového obratu za předchozí finanční rok, podle toho, která hodnota je vyšší.\nwww.privacy-regulation.eu + 2\n\nTVRZENÍ:\nT1: Za nejzávažnější porušení podle čl. 83 odst. 5 lze uložit pokutu až do výše 20 000 000 EUR [1.1.2] „až do výše 20 000 000 EUR, nebo jedná-li se o podnik, až do výše 4 % celkového ročního obratu celosvětově za předchozí finanční rok“\nT2: U podniků lze alternativně uložit pokutu do výše 4 % celkového ročního obratu [1.1.2] „až do výše 20 000 000 EUR, nebo jedná-li se o podnik, až do výše 4 % celkového ročního obratu celosvětově za předchozí finanční rok, podle toho, která hodnota je vyšší“\nEUR-Lex - European Union\n\nZDROJE:\n[1.1.2] Článek 83 EU obecné nařízení o ochraně osobních údajů – Privacy-Regulation.eu – neuvedeno – https://www.privacy-regulation.eu/cs/83.htm\n\nJISTOTA: vysoká – Odpověď přímo cituje závazné znění evropského nařízení z oficiálního textu čl. 83 odst. 5 GDPR.\nEUR-Lex - European Union\n",
+  "links": [
+    {
+      "label": "https://www.privacy-regulation.eu/cs/83.htm",
+      "href": "https://www.privacy-regulation.eu/cs/83.htm"
+    }
+  ],
+  "chip_labels": [
+    {
+      "label": "www.privacy-regulation.eu + 2",
+      "description": "Zobrazit podrobnosti o zdrojích pro citace z webů www.privacy-regulation.eu, EUR-Lex - European Union a www.privacy-regulation.eu. Stisknutím klávesy Enter otevřete dialogové okno se zdroji."
+    },
+    {
+      "label": "EUR-Lex - European Union",
+      "description": "Zobrazit podrobnosti o zdrojích pro citace z webů EUR-Lex - European Union. Stisknutím klávesy Enter otevřete dialogové okno se zdroji."
+    },
+    {
+      "label": "EUR-Lex - European Union",
+      "description": "Zobrazit podrobnosti o zdrojích pro citace z webů EUR-Lex - European Union. Stisknutím klávesy Enter otevřete dialogové okno se zdroji."
+    }
+  ],
+  "source_bindings": [
+    {
+      "label": "www.privacy-regulation.eu + 2",
+      "ax_node_id": 59,
+      "description": "Zobrazit podrobnosti o zdrojích pro citace z webů www.privacy-regulation.eu, EUR-Lex - European Union a www.privacy-regulation.eu. Stisknutím klávesy Enter otevřete dialogové okno se zdroji.",
+      "href": null,
+      "href_status": "not_present_in_preserved_capture"
+    },
+    {
+      "label": "EUR-Lex - European Union",
+      "ax_node_id": 63,
+      "description": "Zobrazit podrobnosti o zdrojích pro citace z webů EUR-Lex - European Union. Stisknutím klávesy Enter otevřete dialogové okno se zdroji.",
+      "href": null,
+      "href_status": "not_present_in_preserved_capture"
+    },
+    {
+      "label": "EUR-Lex - European Union",
+      "ax_node_id": 70,
+      "description": "Zobrazit podrobnosti o zdrojích pro citace z webů EUR-Lex - European Union. Stisknutím klávesy Enter otevřete dialogové okno se zdroji.",
+      "href": null,
+      "href_status": "not_present_in_preserved_capture"
+    }
+  ],
+  "scope": "response_only; original native attribution retained; no source support assessment"
+}

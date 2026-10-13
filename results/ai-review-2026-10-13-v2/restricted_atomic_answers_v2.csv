@@ -1,0 +1,12 @@
+answer_id,task_id,n_atomic_claims,explicit_pairs,uncited_claims,s2,s1,s0,na,precision_lower,precision_upper,scope,reviewer
+A142d89b,CIT-004,7,7,0,5,0,2,0,0.7142857142857143,0.7142857142857143,"Three purposefully selected pilot tasks, completed answers only; not balanced protocol matrix",Codex AI; exact model version unavailable; no human rating
+A2020e5c,CIT-013,3,7,0,5,0,2,0,0.7142857142857143,0.7142857142857143,"Three purposefully selected pilot tasks, completed answers only; not balanced protocol matrix",Codex AI; exact model version unavailable; no human rating
+A394a2d9,CIT-013,3,8,0,6,0,2,0,0.75,0.75,"Three purposefully selected pilot tasks, completed answers only; not balanced protocol matrix",Codex AI; exact model version unavailable; no human rating
+A47e409c,CIT-008,10,17,0,12,0,5,0,0.7058823529411765,0.7058823529411765,"Three purposefully selected pilot tasks, completed answers only; not balanced protocol matrix",Codex AI; exact model version unavailable; no human rating
+A565bb36,CIT-013,2,2,0,2,0,0,0,1.0,1.0,"Three purposefully selected pilot tasks, completed answers only; not balanced protocol matrix",Codex AI; exact model version unavailable; no human rating
+A8019bc1,CIT-004,8,9,0,8,0,1,0,0.8888888888888888,0.8888888888888888,"Three purposefully selected pilot tasks, completed answers only; not balanced protocol matrix",Codex AI; exact model version unavailable; no human rating
+A9d737a8,CIT-013,4,11,0,10,0,1,0,0.9090909090909091,0.9090909090909091,"Three purposefully selected pilot tasks, completed answers only; not balanced protocol matrix",Codex AI; exact model version unavailable; no human rating
+Ab5e0446,CIT-004,16,15,1,13,0,2,0,0.8666666666666667,0.8666666666666667,"Three purposefully selected pilot tasks, completed answers only; not balanced protocol matrix",Codex AI; exact model version unavailable; no human rating
+Ac447a37,CIT-008,7,10,0,7,0,3,0,0.7,0.7,"Three purposefully selected pilot tasks, completed answers only; not balanced protocol matrix",Codex AI; exact model version unavailable; no human rating
+Ad2c30e3,CIT-008,4,6,0,3,1,2,0,0.5,0.5,"Three purposefully selected pilot tasks, completed answers only; not balanced protocol matrix",Codex AI; exact model version unavailable; no human rating
+Af7ad0c7,CIT-008,7,7,0,7,0,0,0,1.0,1.0,"Three purposefully selected pilot tasks, completed answers only; not balanced protocol matrix",Codex AI; exact model version unavailable; no human rating

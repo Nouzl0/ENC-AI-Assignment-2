@@ -1,0 +1,600 @@
+{
+  "status": "AI_CORRECTION_PROPOSAL_NOT_HUMAN_VERIFIED",
+  "checked_at": "2026-10-13T11:39:59+00:00",
+  "reviewer": "Codex AI; exact model version unavailable",
+  "no_original_mutation": true,
+  "input_hashes": {
+    "results/ai-review-2026-10-13/restricted_atomic_pairs.csv": "df9b69dacd6f9cf702975104806646e57bed91bfe49a5af9111fe80fac40da13",
+    "results/ai-review-2026-10-13/content_review.csv": "7920d4b170a3bf84c7ab4807416015d7315beb2ddbed88c60184220f143766c6",
+    "results/ai-review-2026-10-13/draft_pair_review.csv": "977eb2247ca9e23788016ee3da84bd479fc51a6c350a863d9f4bd3ff751b3319"
+  },
+  "rating_corrections": [
+    {
+      "pair_id": "A394a2d9-U2-2",
+      "cited_url": "https://csu.gov.cz/scitani-2021",
+      "evidence_url": "https://csu.gov.cz/scitani-2021",
+      "checked_at": "2026-10-13T11:39:59+00:00",
+      "locator": "Úvod, immediately before population-with-usual-residence figure",
+      "brief_paraphrase": "The source explicitly gives midnight from 26 to 27 March 2021; the old snapshot already contains it.",
+      "source_identity": "The same source/document originally cited",
+      "old_rating": "S0",
+      "new_rating": "S2",
+      "artifact_path": "private-source-snapshot/4bc37b8a742e51c1.raw",
+      "artifact_sha256": "6345960488fd1be27329ccb6fdc71d32444e5fe3a35c8692e01452b7ae22bbd3",
+      "action": "semantic_correction"
+    },
+    {
+      "pair_id": "Ac447a37-U1-1",
+      "cited_url": "https://www.hrad.cz/cs/ceska-republika/ustava-cr",
+      "evidence_url": "https://www.hrad.cz/cs/ceska-republika/ustava-cr",
+      "checked_at": "2026-10-13T11:39:59+00:00",
+      "locator": "Constitution article 19(2), article 16(2), and full-document search",
+      "brief_paraphrase": "Article 19(2) states age 40, citizenship and voting eligibility. Article 16(2) concerns Senate composition. No second-election-day rule, election-law section 57 or named court rationale is present.",
+      "source_identity": "Exact cited Hrad Constitution page; .shtml redirects to the same page",
+      "old_rating": "NA",
+      "new_rating": "S2",
+      "artifact_path": "private-source-snapshot/hrad-web-reader.json",
+      "artifact_sha256": "3e9160e0bce4b924a52b0cad2b5577b9950c8d14c1238f3dc9e736df977a48c6",
+      "action": "new_access_resolution"
+    },
+    {
+      "pair_id": "Ac447a37-U2-1",
+      "cited_url": "https://www.hrad.cz/cs/ceska-republika/ustava-cr",
+      "evidence_url": "https://www.hrad.cz/cs/ceska-republika/ustava-cr",
+      "checked_at": "2026-10-13T11:39:59+00:00",
+      "locator": "Constitution article 19(2), article 16(2), and full-document search",
+      "brief_paraphrase": "Article 19(2) states age 40, citizenship and voting eligibility. Article 16(2) concerns Senate composition. No second-election-day rule, election-law section 57 or named court rationale is present.",
+      "source_identity": "Exact cited Hrad Constitution page; .shtml redirects to the same page",
+      "old_rating": "NA",
+      "new_rating": "S0",
+      "artifact_path": "private-source-snapshot/hrad-web-reader.json",
+      "artifact_sha256": "3e9160e0bce4b924a52b0cad2b5577b9950c8d14c1238f3dc9e736df977a48c6",
+      "action": "new_access_resolution"
+    },
+    {
+      "pair_id": "Ac447a37-U3-1",
+      "cited_url": "https://www.hrad.cz/cs/ceska-republika/ustava-cr",
+      "evidence_url": "https://www.hrad.cz/cs/ceska-republika/ustava-cr",
+      "checked_at": "2026-10-13T11:39:59+00:00",
+      "locator": "Constitution article 19(2), article 16(2), and full-document search",
+      "brief_paraphrase": "Article 19(2) states age 40, citizenship and voting eligibility. Article 16(2) concerns Senate composition. No second-election-day rule, election-law section 57 or named court rationale is present.",
+      "source_identity": "Exact cited Hrad Constitution page; .shtml redirects to the same page",
+      "old_rating": "NA",
+      "new_rating": "S0",
+      "artifact_path": "private-source-snapshot/hrad-web-reader.json",
+      "artifact_sha256": "3e9160e0bce4b924a52b0cad2b5577b9950c8d14c1238f3dc9e736df977a48c6",
+      "action": "new_access_resolution"
+    },
+    {
+      "pair_id": "Ac447a37-U4-1",
+      "cited_url": "https://www.hrad.cz/cs/ceska-republika/ustava-cr",
+      "evidence_url": "https://www.hrad.cz/cs/ceska-republika/ustava-cr",
+      "checked_at": "2026-10-13T11:39:59+00:00",
+      "locator": "Constitution article 19(2), article 16(2), and full-document search",
+      "brief_paraphrase": "Article 19(2) states age 40, citizenship and voting eligibility. Article 16(2) concerns Senate composition. No second-election-day rule, election-law section 57 or named court rationale is present.",
+      "source_identity": "Exact cited Hrad Constitution page; .shtml redirects to the same page",
+      "old_rating": "NA",
+      "new_rating": "S2",
+      "artifact_path": "private-source-snapshot/hrad-web-reader.json",
+      "artifact_sha256": "3e9160e0bce4b924a52b0cad2b5577b9950c8d14c1238f3dc9e736df977a48c6",
+      "action": "new_access_resolution"
+    },
+    {
+      "pair_id": "Ac447a37-U7-1",
+      "cited_url": "https://www.hrad.cz/cs/ceska-republika/ustava-cr",
+      "evidence_url": "https://www.hrad.cz/cs/ceska-republika/ustava-cr",
+      "checked_at": "2026-10-13T11:39:59+00:00",
+      "locator": "Constitution article 19(2), article 16(2), and full-document search",
+      "brief_paraphrase": "Article 19(2) states age 40, citizenship and voting eligibility. Article 16(2) concerns Senate composition. No second-election-day rule, election-law section 57 or named court rationale is present.",
+      "source_identity": "Exact cited Hrad Constitution page; .shtml redirects to the same page",
+      "old_rating": "NA",
+      "new_rating": "S2",
+      "artifact_path": "private-source-snapshot/hrad-web-reader.json",
+      "artifact_sha256": "3e9160e0bce4b924a52b0cad2b5577b9950c8d14c1238f3dc9e736df977a48c6",
+      "action": "new_access_resolution"
+    },
+    {
+      "pair_id": "A47e409c-U1-1",
+      "cited_url": "https://www.hrad.cz/cs/ceska-republika/ustava-cr.shtml",
+      "evidence_url": "https://www.hrad.cz/cs/ceska-republika/ustava-cr",
+      "checked_at": "2026-10-13T11:39:59+00:00",
+      "locator": "Constitution article 19(2), article 16(2), and full-document search",
+      "brief_paraphrase": "Article 19(2) states age 40, citizenship and voting eligibility. Article 16(2) concerns Senate composition. No second-election-day rule, election-law section 57 or named court rationale is present.",
+      "source_identity": "Exact cited Hrad Constitution page; .shtml redirects to the same page",
+      "old_rating": "NA",
+      "new_rating": "S2",
+      "artifact_path": "private-source-snapshot/hrad-web-reader.json",
+      "artifact_sha256": "3e9160e0bce4b924a52b0cad2b5577b9950c8d14c1238f3dc9e736df977a48c6",
+      "action": "new_access_resolution"
+    },
+    {
+      "pair_id": "A47e409c-U2-1",
+      "cited_url": "https://www.hrad.cz/cs/ceska-republika/ustava-cr.shtml",
+      "evidence_url": "https://www.hrad.cz/cs/ceska-republika/ustava-cr",
+      "checked_at": "2026-10-13T11:39:59+00:00",
+      "locator": "Constitution article 19(2), article 16(2), and full-document search",
+      "brief_paraphrase": "Article 19(2) states age 40, citizenship and voting eligibility. Article 16(2) concerns Senate composition. No second-election-day rule, election-law section 57 or named court rationale is present.",
+      "source_identity": "Exact cited Hrad Constitution page; .shtml redirects to the same page",
+      "old_rating": "NA",
+      "new_rating": "S0",
+      "artifact_path": "private-source-snapshot/hrad-web-reader.json",
+      "artifact_sha256": "3e9160e0bce4b924a52b0cad2b5577b9950c8d14c1238f3dc9e736df977a48c6",
+      "action": "new_access_resolution"
+    },
+    {
+      "pair_id": "A47e409c-U3-1",
+      "cited_url": "https://www.hrad.cz/cs/ceska-republika/ustava-cr.shtml",
+      "evidence_url": "https://www.hrad.cz/cs/ceska-republika/ustava-cr",
+      "checked_at": "2026-10-13T11:39:59+00:00",
+      "locator": "Constitution article 19(2), article 16(2), and full-document search",
+      "brief_paraphrase": "Article 19(2) states age 40, citizenship and voting eligibility. Article 16(2) concerns Senate composition. No second-election-day rule, election-law section 57 or named court rationale is present.",
+      "source_identity": "Exact cited Hrad Constitution page; .shtml redirects to the same page",
+      "old_rating": "NA",
+      "new_rating": "S2",
+      "artifact_path": "private-source-snapshot/hrad-web-reader.json",
+      "artifact_sha256": "3e9160e0bce4b924a52b0cad2b5577b9950c8d14c1238f3dc9e736df977a48c6",
+      "action": "new_access_resolution"
+    },
+    {
+      "pair_id": "A47e409c-U4-1",
+      "cited_url": "https://www.hrad.cz/cs/ceska-republika/ustava-cr.shtml",
+      "evidence_url": "https://www.hrad.cz/cs/ceska-republika/ustava-cr",
+      "checked_at": "2026-10-13T11:39:59+00:00",
+      "locator": "Constitution article 19(2), article 16(2), and full-document search",
+      "brief_paraphrase": "Article 19(2) states age 40, citizenship and voting eligibility. Article 16(2) concerns Senate composition. No second-election-day rule, election-law section 57 or named court rationale is present.",
+      "source_identity": "Exact cited Hrad Constitution page; .shtml redirects to the same page",
+      "old_rating": "NA",
+      "new_rating": "S0",
+      "artifact_path": "private-source-snapshot/hrad-web-reader.json",
+      "artifact_sha256": "3e9160e0bce4b924a52b0cad2b5577b9950c8d14c1238f3dc9e736df977a48c6",
+      "action": "new_access_resolution"
+    },
+    {
+      "pair_id": "A47e409c-U5-1",
+      "cited_url": "https://www.hrad.cz/cs/ceska-republika/ustava-cr.shtml",
+      "evidence_url": "https://www.hrad.cz/cs/ceska-republika/ustava-cr",
+      "checked_at": "2026-10-13T11:39:59+00:00",
+      "locator": "Constitution article 19(2), article 16(2), and full-document search",
+      "brief_paraphrase": "Article 19(2) states age 40, citizenship and voting eligibility. Article 16(2) concerns Senate composition. No second-election-day rule, election-law section 57 or named court rationale is present.",
+      "source_identity": "Exact cited Hrad Constitution page; .shtml redirects to the same page",
+      "old_rating": "NA",
+      "new_rating": "S0",
+      "artifact_path": "private-source-snapshot/hrad-web-reader.json",
+      "artifact_sha256": "3e9160e0bce4b924a52b0cad2b5577b9950c8d14c1238f3dc9e736df977a48c6",
+      "action": "new_access_resolution"
+    },
+    {
+      "pair_id": "A47e409c-U6-1",
+      "cited_url": "https://www.hrad.cz/cs/ceska-republika/ustava-cr.shtml",
+      "evidence_url": "https://www.hrad.cz/cs/ceska-republika/ustava-cr",
+      "checked_at": "2026-10-13T11:39:59+00:00",
+      "locator": "Constitution article 19(2), article 16(2), and full-document search",
+      "brief_paraphrase": "Article 19(2) states age 40, citizenship and voting eligibility. Article 16(2) concerns Senate composition. No second-election-day rule, election-law section 57 or named court rationale is present.",
+      "source_identity": "Exact cited Hrad Constitution page; .shtml redirects to the same page",
+      "old_rating": "NA",
+      "new_rating": "S0",
+      "artifact_path": "private-source-snapshot/hrad-web-reader.json",
+      "artifact_sha256": "3e9160e0bce4b924a52b0cad2b5577b9950c8d14c1238f3dc9e736df977a48c6",
+      "action": "new_access_resolution"
+    },
+    {
+      "pair_id": "A47e409c-U8-1",
+      "cited_url": "https://www.hrad.cz/cs/ceska-republika/ustava-cr.shtml",
+      "evidence_url": "https://www.hrad.cz/cs/ceska-republika/ustava-cr",
+      "checked_at": "2026-10-13T11:39:59+00:00",
+      "locator": "Constitution article 19(2), article 16(2), and full-document search",
+      "brief_paraphrase": "Article 19(2) states age 40, citizenship and voting eligibility. Article 16(2) concerns Senate composition. No second-election-day rule, election-law section 57 or named court rationale is present.",
+      "source_identity": "Exact cited Hrad Constitution page; .shtml redirects to the same page",
+      "old_rating": "NA",
+      "new_rating": "S0",
+      "artifact_path": "private-source-snapshot/hrad-web-reader.json",
+      "artifact_sha256": "3e9160e0bce4b924a52b0cad2b5577b9950c8d14c1238f3dc9e736df977a48c6",
+      "action": "new_access_resolution"
+    },
+    {
+      "pair_id": "A2020e5c-U1-3",
+      "cited_url": "https://csu.gov.cz/produkty/zakladni-vysledky-scitani-lidu-domu-a-bytu-ceska-republika-2021",
+      "evidence_url": "https://csu.gov.cz/docs/107508/25d43c10-cad9-9723-deda-040ebc5dcd94/17038923.pdf?version=1.0",
+      "checked_at": "2026-10-13T11:39:59+00:00",
+      "locator": "Catalogue full-publication PDF, printed pages 7–8, 17 and table 1",
+      "brief_paraphrase": "The cited catalogue directly links publication 170389-23. That publication states the count and usual-residence basis; downloaded version=1.0 is byte-identical to the earlier directly cited PDF.",
+      "source_identity": "Full text of the exact publication cited via its catalogue landing page, not another reference source",
+      "old_rating": "S0",
+      "new_rating": "S2",
+      "artifact_path": "private-source-snapshot/catalogue-full-publication.pdf",
+      "artifact_sha256": "f0b91ea95c10362ef217219751cfcef47bfba8ac978a6d2e5cdc2ddca61d5544",
+      "action": "semantic_correction"
+    },
+    {
+      "pair_id": "A2020e5c-U3-3",
+      "cited_url": "https://csu.gov.cz/produkty/zakladni-vysledky-scitani-lidu-domu-a-bytu-ceska-republika-2021",
+      "evidence_url": "https://csu.gov.cz/docs/107508/25d43c10-cad9-9723-deda-040ebc5dcd94/17038923.pdf?version=1.0",
+      "checked_at": "2026-10-13T11:39:59+00:00",
+      "locator": "Catalogue full-publication PDF, printed pages 7–8, 17 and table 1",
+      "brief_paraphrase": "The cited catalogue directly links publication 170389-23. That publication states the count and usual-residence basis; downloaded version=1.0 is byte-identical to the earlier directly cited PDF.",
+      "source_identity": "Full text of the exact publication cited via its catalogue landing page, not another reference source",
+      "old_rating": "S0",
+      "new_rating": "S2",
+      "artifact_path": "private-source-snapshot/catalogue-full-publication.pdf",
+      "artifact_sha256": "f0b91ea95c10362ef217219751cfcef47bfba8ac978a6d2e5cdc2ddca61d5544",
+      "action": "semantic_correction"
+    },
+    {
+      "pair_id": "A6e369c7-T1-1",
+      "cited_url": "https://www.govinfo.gov/content/pkg/FR-2021-05-17/html/2021-10460.htm",
+      "evidence_url": "https://www.govinfo.gov/content/pkg/FR-2021-05-17/html/2021-10460.htm",
+      "checked_at": "2026-10-13T11:39:59+00:00",
+      "locator": "Executive Order 14028 section 10(j), Federal Register page 26646",
+      "brief_paraphrase": "The EO explicitly defines component relationships and permits vulnerability and licence analysis to assess risk.",
+      "source_identity": "Exact originally cited EO text",
+      "old_rating": "S1",
+      "new_rating": "S2",
+      "artifact_path": "private-source-snapshot/894b1fc36efe2b5c.raw",
+      "artifact_sha256": "24d323dc90ddb4a3b00d0d546441aad5d2e624b54c93a98068ae152f110f9fab",
+      "action": "semantic_correction"
+    },
+    {
+      "pair_id": "A6e369c7-T4-1",
+      "cited_url": "https://www.govinfo.gov/content/pkg/FR-2021-05-17/html/2021-10460.htm",
+      "evidence_url": "https://www.govinfo.gov/content/pkg/FR-2021-05-17/html/2021-10460.htm",
+      "checked_at": "2026-10-13T11:39:59+00:00",
+      "locator": "Executive Order 14028 section 10(j), Federal Register page 26646",
+      "brief_paraphrase": "The EO explicitly defines component relationships and permits vulnerability and licence analysis to assess risk.",
+      "source_identity": "Exact originally cited EO text",
+      "old_rating": "S1",
+      "new_rating": "S2",
+      "artifact_path": "private-source-snapshot/894b1fc36efe2b5c.raw",
+      "artifact_sha256": "24d323dc90ddb4a3b00d0d546441aad5d2e624b54c93a98068ae152f110f9fab",
+      "action": "semantic_correction"
+    }
+  ],
+  "content_corrections": [
+    {
+      "answer_id": "A3cba382",
+      "changes": {
+        "correctness_lower": {
+          "before": "1",
+          "after": "2"
+        },
+        "constraint_results": {
+          "before": "{\"RC1\": \"unknown\"}",
+          "after": "{\"RC1\": \"yes\"}"
+        }
+      },
+      "notes": "Original publication identity is established by DOI2034577 and same-document EuropePMC XML. The rubric permits same-document mirror/abstract evidence; access failure is not an unmet original-publication citation constraint. Core and added efficacy facts match Polack2020; citation-support ratings are separate from content correctness."
+    },
+    {
+      "answer_id": "A30f47ec",
+      "changes": {
+        "correctness_lower": {
+          "before": "1",
+          "after": "2"
+        },
+        "constraint_results": {
+          "before": "{\"RC1\": \"unknown\"}",
+          "after": "{\"RC1\": \"yes\"}"
+        }
+      },
+      "notes": "Original publication identity is established by DOI2034577 and same-document EuropePMC XML. The rubric permits same-document mirror/abstract evidence; access failure is not an unmet original-publication citation constraint. Core and added efficacy facts match Polack2020; citation-support ratings are separate from content correctness."
+    },
+    {
+      "answer_id": "A0a0dd91",
+      "changes": {
+        "correctness_lower": {
+          "before": "1",
+          "after": "2"
+        },
+        "constraint_results": {
+          "before": "{\"RC1\": \"unknown\"}",
+          "after": "{\"RC1\": \"yes\"}"
+        }
+      },
+      "notes": "Original publication identity is established by DOI2034577 and same-document EuropePMC XML. The rubric permits same-document mirror/abstract evidence; access failure is not an unmet original-publication citation constraint. Core and added efficacy facts match Polack2020; citation-support ratings are separate from content correctness."
+    },
+    {
+      "answer_id": "Ad1dab95",
+      "changes": {
+        "correctness_lower": {
+          "before": "1",
+          "after": "2"
+        },
+        "constraint_results": {
+          "before": "{\"RC1\": \"unknown\"}",
+          "after": "{\"RC1\": \"yes\"}"
+        }
+      },
+      "notes": "Original publication identity is established by DOI2034577 and same-document EuropePMC XML. The rubric permits same-document mirror/abstract evidence; access failure is not an unmet original-publication citation constraint. Core and added efficacy facts match Polack2020; citation-support ratings are separate from content correctness."
+    },
+    {
+      "answer_id": "Ab5e0446",
+      "changes": {
+        "correctness_lower": {
+          "before": "2",
+          "after": "1"
+        }
+      },
+      "notes": "Both RF are correct; the confidence sentence additionally asserts no subsequent official revision. Its uncited negative provenance claim was omitted in v1 and is not fully verified; preserve whole-answer uncertainty."
+    },
+    {
+      "answer_id": "A109f779",
+      "changes": {
+        "correctness_upper": {
+          "before": "2",
+          "after": "1"
+        }
+      },
+      "notes": "All RF are correct. Added claim that cryptographic hash is a July 2021 minimum field is wrong: final NTIA report lists seven minimum fields on pp8–9, while hashes appear under Beyond Minimum/Recommended Data Fields p14. Cited June17 Chamber comments describe proposals, not adopted minimum elements."
+    },
+    {
+      "answer_id": "legacy-dev-CIT-001-P2-chatgpt-r1",
+      "changes": {
+        "constraint_results": {
+          "before": "{\"RC1\":\"unknown\"}",
+          "after": "{\"RC1\": \"yes\"}"
+        }
+      },
+      "notes": "Original publication identity is established by DOI2034577 and same-document EuropePMC XML. The rubric permits same-document mirror/abstract evidence; access failure is not an unmet original-publication citation constraint. Legacy ChatGPT still incorrectly calls a Bayesian credible interval a confidence interval."
+    },
+    {
+      "answer_id": "legacy-dev-CIT-001-P2-perplexity-r1",
+      "changes": {
+        "correctness_lower": {
+          "before": "1",
+          "after": "2"
+        },
+        "constraint_results": {
+          "before": "{\"RC1\":\"unknown\"}",
+          "after": "{\"RC1\": \"yes\"}"
+        }
+      },
+      "notes": "Original publication identity is established by DOI2034577 and same-document EuropePMC XML. The rubric permits same-document mirror/abstract evidence; access failure is not an unmet original-publication citation constraint. Legacy Perplexity cites a correct original title/plain canonical URL in SOURCES, but inline chips point to different DOI2200674; those require a separate attribution rating."
+    }
+  ],
+  "content_source_decisions": [
+    {
+      "pair_id": "A3cba382-RC1",
+      "cited_url": "https://pubmed.ncbi.nlm.nih.gov/33301246/",
+      "evidence_url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC7745181/fullTextXML",
+      "checked_at": "2026-10-13T11:39:59+00:00",
+      "locator": "Article metadata DOI2034577, abstract/results and Table2",
+      "brief_paraphrase": "The original two-dose phase3 publication is identified and its actual full text confirms the reported facts. The rubric accepts an abstract/mirror of that same document; this is not a different-study replacement.",
+      "source_identity": "Polack et al.2020, DOI10.1056/NEJMoa2034577; PubMed33301246; PMC7745181",
+      "old_rating": "RC1 unknown",
+      "new_rating": "RC1 yes",
+      "artifact_path": "private-source-snapshot/polack-2020.xml",
+      "artifact_sha256": "985d422a37ea3543aa204be4892e0809aaf3f0ed4b2db43b097b130142f55cf1",
+      "action": "same_document_identity_confirmed"
+    },
+    {
+      "pair_id": "A30f47ec-RC1",
+      "cited_url": "https://www.nejm.org/doi/full/10.1056/NEJMoa2034577",
+      "evidence_url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC7745181/fullTextXML",
+      "checked_at": "2026-10-13T11:39:59+00:00",
+      "locator": "Article metadata DOI2034577, abstract/results and Table2",
+      "brief_paraphrase": "The original two-dose phase3 publication is identified and its actual full text confirms the reported facts. The rubric accepts an abstract/mirror of that same document; this is not a different-study replacement.",
+      "source_identity": "Polack et al.2020, DOI10.1056/NEJMoa2034577; PubMed33301246; PMC7745181",
+      "old_rating": "RC1 unknown",
+      "new_rating": "RC1 yes",
+      "artifact_path": "private-source-snapshot/polack-2020.xml",
+      "artifact_sha256": "985d422a37ea3543aa204be4892e0809aaf3f0ed4b2db43b097b130142f55cf1",
+      "action": "same_document_identity_confirmed"
+    },
+    {
+      "pair_id": "A0a0dd91-RC1",
+      "cited_url": "https://doi.org/10.1056/NEJMoa2034577",
+      "evidence_url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC7745181/fullTextXML",
+      "checked_at": "2026-10-13T11:39:59+00:00",
+      "locator": "Article metadata DOI2034577, abstract/results and Table2",
+      "brief_paraphrase": "The original two-dose phase3 publication is identified and its actual full text confirms the reported facts. The rubric accepts an abstract/mirror of that same document; this is not a different-study replacement.",
+      "source_identity": "Polack et al.2020, DOI10.1056/NEJMoa2034577; PubMed33301246; PMC7745181",
+      "old_rating": "RC1 unknown",
+      "new_rating": "RC1 yes",
+      "artifact_path": "private-source-snapshot/polack-2020.xml",
+      "artifact_sha256": "985d422a37ea3543aa204be4892e0809aaf3f0ed4b2db43b097b130142f55cf1",
+      "action": "same_document_identity_confirmed"
+    },
+    {
+      "pair_id": "Ad1dab95-RC1",
+      "cited_url": "https://pubmed.ncbi.nlm.nih.gov/33301246/",
+      "evidence_url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC7745181/fullTextXML",
+      "checked_at": "2026-10-13T11:39:59+00:00",
+      "locator": "Article metadata DOI2034577, abstract/results and Table2",
+      "brief_paraphrase": "The original two-dose phase3 publication is identified and its actual full text confirms the reported facts. The rubric accepts an abstract/mirror of that same document; this is not a different-study replacement.",
+      "source_identity": "Polack et al.2020, DOI10.1056/NEJMoa2034577; PubMed33301246; PMC7745181",
+      "old_rating": "RC1 unknown",
+      "new_rating": "RC1 yes",
+      "artifact_path": "private-source-snapshot/polack-2020.xml",
+      "artifact_sha256": "985d422a37ea3543aa204be4892e0809aaf3f0ed4b2db43b097b130142f55cf1",
+      "action": "same_document_identity_confirmed"
+    },
+    {
+      "pair_id": "A109f779-CONTENT",
+      "cited_url": "https://www.ntia.gov/sites/default/files/publications/uscc_-_2021.06.17_0.pdf",
+      "evidence_url": "https://www.ntia.gov/files/ntia/publications/sbom_minimum_elements_report.pdf",
+      "checked_at": "2026-10-13T11:39:59+00:00",
+      "locator": "Final report July12 2021, pages8–9 versus Beyond Minimum/Recommended Data Fields page14",
+      "brief_paraphrase": "The adopted seven minimum fields omit cryptographic hash; hashes are discussed as recommended extensions. A draft comment list cannot establish the final minimum field set.",
+      "source_identity": "Primary reference for content truth; does not replace the product-cited Chamber document for citation support",
+      "old_rating": "correctness 1–2",
+      "new_rating": "correctness 1–1",
+      "artifact_path": "private-source-snapshot/eea56ce8e0982e98.raw",
+      "artifact_sha256": "b0fbbe5e3c5773977df1f402eceb845c4d5715a02cde4d967e54aef51856b716",
+      "action": "content_error_confirmed"
+    },
+    {
+      "pair_id": "legacy-dev-CIT-001-P2-chatgpt-r1-RC1",
+      "cited_url": "https://doi.org/10.1056/NEJMoa2034577",
+      "evidence_url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC7745181/fullTextXML",
+      "checked_at": "2026-10-13T11:39:59+00:00",
+      "locator": "Article metadata DOI2034577, abstract/results and Table2",
+      "brief_paraphrase": "The original two-dose phase3 publication is identified and its actual full text confirms the reported facts. The rubric accepts an abstract/mirror of that same document; this is not a different-study replacement.",
+      "source_identity": "Polack et al.2020, DOI10.1056/NEJMoa2034577; PubMed33301246; PMC7745181",
+      "old_rating": "RC1 unknown",
+      "new_rating": "RC1 yes",
+      "artifact_path": "private-source-snapshot/polack-2020.xml",
+      "artifact_sha256": "985d422a37ea3543aa204be4892e0809aaf3f0ed4b2db43b097b130142f55cf1",
+      "action": "same_document_identity_confirmed"
+    },
+    {
+      "pair_id": "legacy-dev-CIT-001-P2-perplexity-r1-RC1",
+      "cited_url": "https://www.nejm.org/doi/full/10.1056/NEJMoa2034577",
+      "evidence_url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC7745181/fullTextXML",
+      "checked_at": "2026-10-13T11:39:59+00:00",
+      "locator": "Article metadata DOI2034577, abstract/results and Table2",
+      "brief_paraphrase": "The original two-dose phase3 publication is identified and its actual full text confirms the reported facts. The rubric accepts an abstract/mirror of that same document; this is not a different-study replacement.",
+      "source_identity": "Polack et al.2020, DOI10.1056/NEJMoa2034577; PubMed33301246; PMC7745181",
+      "old_rating": "RC1 unknown",
+      "new_rating": "RC1 yes",
+      "artifact_path": "private-source-snapshot/polack-2020.xml",
+      "artifact_sha256": "985d422a37ea3543aa204be4892e0809aaf3f0ed4b2db43b097b130142f55cf1",
+      "action": "same_document_identity_confirmed"
+    }
+  ],
+  "segmentation_additions": [
+    {
+      "pair_id": "Af7ad0c7-U5-1",
+      "answer_id": "Af7ad0c7",
+      "claim_text": "Senate eligibility requires Czech citizenship.",
+      "source_original_pair_id": "Af7ad0c7-T2-1",
+      "rating": "S2",
+      "action": "restore_omitted_factual_claim",
+      "reason": "These factual eligibility conditions occur in the P2 CLAIMS constitutional quotation; P3 evidence-quote exclusion does not apply."
+    },
+    {
+      "pair_id": "Af7ad0c7-U6-1",
+      "answer_id": "Af7ad0c7",
+      "claim_text": "Senate eligibility requires the right to vote.",
+      "source_original_pair_id": "Af7ad0c7-T2-1",
+      "rating": "S2",
+      "action": "restore_omitted_factual_claim",
+      "reason": "These factual eligibility conditions occur in the P2 CLAIMS constitutional quotation; P3 evidence-quote exclusion does not apply."
+    },
+    {
+      "pair_id": "Af7ad0c7-U7-1",
+      "answer_id": "Af7ad0c7",
+      "claim_text": "Chamber of Deputies eligibility requires Czech citizenship.",
+      "source_original_pair_id": "Af7ad0c7-T5-1",
+      "rating": "S2",
+      "action": "restore_omitted_factual_claim",
+      "reason": "Citizenship is explicit in the original P2 deputy-eligibility claim."
+    },
+    {
+      "pair_id": "A47e409c-U9-1",
+      "answer_id": "A47e409c",
+      "claim_text": "Senate eligibility requires Czech citizenship.",
+      "source_original_pair_id": "A47e409c-T4-1",
+      "rating": "S2",
+      "action": "restore_omitted_factual_claim",
+      "reason": "Restore explicit constitutional quotation condition."
+    },
+    {
+      "pair_id": "A47e409c-U10-1",
+      "answer_id": "A47e409c",
+      "claim_text": "Senate eligibility requires the right to vote.",
+      "source_original_pair_id": "A47e409c-T4-1",
+      "rating": "S2",
+      "action": "restore_omitted_factual_claim",
+      "reason": "Restore explicit constitutional quotation condition."
+    },
+    {
+      "pair_id": "A47e409c-U10-2",
+      "answer_id": "A47e409c",
+      "claim_text": "Senate eligibility requires the right to vote.",
+      "source_original_pair_id": "A47e409c-T5-2",
+      "rating": "S2",
+      "action": "restore_omitted_factual_claim",
+      "reason": "The election-law quotation also calls an eligible senator a voter; merge the semantic claim while preserving both assigned citations."
+    },
+    {
+      "pair_id": "A9d737a8-U4-2",
+      "answer_id": "A9d737a8",
+      "claim_text": "ČSÚ also describes the population reference date as 26 March 2021.",
+      "source_original_pair_id": "A9d737a8-T3-2",
+      "rating": "S2",
+      "action": "restore_omitted_factual_claim",
+      "reason": "The original P2 T2 separately asserts this date-reporting convention. Methodology and result PDF state it; the law only states midnight 26/27 and does not present that shorthand date."
+    },
+    {
+      "pair_id": "A9d737a8-U4-3",
+      "answer_id": "A9d737a8",
+      "claim_text": "ČSÚ also describes the population reference date as 26 March 2021.",
+      "source_original_pair_id": "A9d737a8-T3-3",
+      "rating": "S2",
+      "action": "restore_omitted_factual_claim",
+      "reason": "The original P2 T2 separately asserts this date-reporting convention. Methodology and result PDF state it; the law only states midnight 26/27 and does not present that shorthand date."
+    },
+    {
+      "pair_id": "A9d737a8-U4-4",
+      "answer_id": "A9d737a8",
+      "claim_text": "ČSÚ also describes the population reference date as 26 March 2021.",
+      "source_original_pair_id": "A9d737a8-T3-4",
+      "rating": "S0",
+      "action": "restore_omitted_factual_claim",
+      "reason": "The original P2 T2 separately asserts this date-reporting convention. Methodology and result PDF state it; the law only states midnight 26/27 and does not present that shorthand date."
+    },
+    {
+      "pair_id": "A142d89b-U7-1",
+      "answer_id": "A142d89b",
+      "claim_text": "The highest point is near the St Lawrence chapel.",
+      "source_original_pair_id": "A142d89b-T6-1",
+      "rating": "S2",
+      "action": "restore_omitted_factual_claim",
+      "reason": "Split the original Poland-and-chapel conjunction without changing its citation assignment."
+    },
+    {
+      "pair_id": "Ab5e0446-U14-1",
+      "answer_id": "Ab5e0446",
+      "claim_text": "The height was measured using technical levelling.",
+      "source_original_pair_id": "Ab5e0446-T2-1",
+      "rating": "S2",
+      "action": "restore_omitted_factual_claim",
+      "reason": "Separate method from measurement dates, both explicit in the original claim."
+    },
+    {
+      "pair_id": "Ab5e0446-U15-1",
+      "answer_id": "Ab5e0446",
+      "claim_text": "The reported natural summit height concerns unstabilized terrain.",
+      "source_original_pair_id": "Ab5e0446-T5-1",
+      "rating": "S2",
+      "action": "restore_omitted_factual_claim",
+      "reason": "Restore the terrain-property assertion preceding the erosion/human-activity explanation."
+    },
+    {
+      "pair_id": "Ab5e0446-U16-none",
+      "answer_id": "Ab5e0446",
+      "claim_text": "The 2014 official height has not subsequently been officially revised.",
+      "source_original_pair_id": "Ab5e0446-T1-1",
+      "rating": "NONE",
+      "action": "restore_omitted_factual_claim",
+      "reason": "Factual assertion in JISTOTA omitted in v1; absence of an explicit citation must remain uncited. Content status remains unverified, not declared false."
+    }
+  ],
+  "atomic_scope": {
+    "n_answers": 11,
+    "n_tasks": 3,
+    "n_claim_units": 71,
+    "n_explicit_pairs": 99,
+    "rating_counts": {
+      "S2": 78,
+      "S0": 20,
+      "S1": 1
+    },
+    "recall_not_reported": true,
+    "mean_lower": 0.7953727496508245,
+    "mean_upper": 0.7953727496508245
+  },
+  "content_scope": {
+    "n_answers": 33,
+    "required_facts_correct": 47,
+    "required_facts_total": 48,
+    "rf_completeness_macro": 0.9848484848484849
+  },
+  "interpretation": [
+    "RF completeness is not citation recall.",
+    "Bootstrap preserves all rows from a sampled task and averages completed answer scores; it does not restore planned failed responses or task parity.",
+    "Three purposeful tasks give highly discrete descriptive intervals; no hypothesis, human agreement or rating correctness is proven.",
+    "V1 source failures remain historical records; v2 makes newly accessible exact URLs explicit.",
+    "Whole-answer segmentation treats factual P2 quotes as claims, while P3 supporting excerpts are proof only.",
+    "Prompt/collection defects and corrected transcripts belong in a separate collection-integrity audit."
+  ]
+}

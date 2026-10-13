@@ -1,0 +1,2 @@
+metric,mean,ci95_percentile_low,ci95_percentile_high,n_answers,n_tasks,bootstrap_draws,seed,scope
+precision_terminal_failure_zero,0.7290916871799225,0.6174603174603175,0.8433441558441559,12,3,10000,20261013,"Purposeful exploratory subset, not human ratings or G3."

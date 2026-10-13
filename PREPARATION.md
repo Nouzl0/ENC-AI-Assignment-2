@@ -339,3 +339,36 @@ zůstávají nedokončené; nepředstíráme splnění celého assignmentu.
 ## 13. 10. 2026 – doplňkový sběr a AI audit
 
 Na výslovný pokyn uživatele paralelní sběr ve třech subagentech a kořenovém agentu: 51 nových věcných odpovědí, celkem40 různých úloh/84odpovědí. P1/P2/P3A stejného Gemini na5nových úlohách. Původní pilot/humanlisty neměněné. Atomizovaný AI subset11odpovědí, obsahový AI audit33pilotních a novézdrojové review. Žádné fiktivní ratingy, podpisy nebo G3. Aktualizované odevzdávací dokumenty a PDF. Testy, lint, původní validátor ani vzdálenéCI nebyly na přání uživatele spuštěny.
+
+## 13. 10. 2026 – auditovaný sběr, opravy a skutečné lidské podklady
+
+Kanonický registr má 116 řádků (včetně 15 neodeslaných plánů), 93 uložených
+věcných odpovědí / 92 způsobilých podkladů na 40 úlohách. Poslední sběr přidal
+9 skutečných odpovědí a uchoval 3 selhání i jediné povolené retry. Gemini SUP
+matice má 29 dokončených podmínek a 1 terminální chybu, 9 úplných tripletů.
+Čtyři clipboard chyby obnovené z původního AX/PNG, originály neměněné.
+
+Nové CLI supplement_review.py a verify_exploratory.py ověřují hashy/promptové
+vazby, zvláštní identitu collection/run_id, zaslepené listy a Git bytes. RUN_DAY
+se pro lidský časový kontext řeší pouze z aware startu v UTC, ne odhadem. V3
+human export má 92/27 odpovědí a 559/167 návrhů párů, přesně ceil(25 %) po
+11 stratech; ratingy jsou prázdné, překryvy totožné a 124 zaznamenaných href
+zachované. Původní případové soubory beze změny, klíč zůstává mimo Git.
+
+Opravený AI audit v2: obsah všech 33 pilotních odpovědí, citační subset
+CIT-004/008/013 s 11 dokončenými odpověďmi, 99 explicitními páry a precision
+0,7954; samostatně 12 prvních pokusů se selháním jako nulou, precision 0,7291.
+SUP RF obsah 52/52 ve 29 dokončených podmínkách není citační podpora RF.
+Telemetry URL zůstávají soukromé hypotézy; nativní značky bez zachycených cílů
+nejsou dodatečně označené S2/S0. Plné copyrighted snapshoty se nepublikují.
+
+Kontroly: všech 114 softwarových testů prošlo na Pythonu 3.14.8 (82,654 s);
+Ruff 0.16.1, formát, veřejný dev/val validátor a diff check prošly. Diskový
+peer audit ověřil 116 záznamů a 403 unikátních registrovaných souborů.
+Typst/MyST sestaví aktuální zprávu a worksheet; jejich vykreslené stránky byly
+zkontrolované a přetékající tabulkové položky opravené. Přesné staged/Git
+hash kontroly jsou součástí závěrečného commitu. Vzdálené CI netvrdíme.
+
+Skutečné lidské ratingy, nezávislé reference, úplná produktová matice, validační
+P3_final a G1/G2/G3 nejsou vyrobené ani zpětně schválené. Nové pokyny pro tým
+jsou bez jmen; zajišťují nezávislé hodnocení před diskusí o neshodách.

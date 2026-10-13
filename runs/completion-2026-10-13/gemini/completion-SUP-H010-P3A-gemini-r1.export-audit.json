@@ -1,0 +1,12 @@
+{
+  "private_ax_available": true,
+  "private_ax_sha256": "5890aa6879ad3aa855ad0a60eb82df011d04c02ec021b88cca619a7c3ed2f6c9",
+  "temporary_chat_observed": false,
+  "temporary_chat_before_send_observer_confirmed": true,
+  "correct_question_observed": true,
+  "model_visible_in_ax": true,
+  "submitted_prompt_matches_frozen_plan": true,
+  "screenshot_privacy_review": "visually inspected all exported PNG; no visible account identifiers",
+  "direct_error_text_in_preserved_ax": false,
+  "failure_evidence_scope": "Saved AX/screen prove composer/no model answer. Active temporary mode may have reset by end; pre-Send mode confirmation is separately recorded by operator. Transient specific internet error, where reported, is an operator observation without hashed error-text screenshot."
+}

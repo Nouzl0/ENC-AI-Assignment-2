@@ -1,0 +1,17 @@
+								62 container model-response-message-contentr_854520ec0afb0f61
+									63 text ODPOVĚĎ: Otázka obsahuje chybný předpoklad; Albert Einstein nezískal Nobelovu cenu za teorii relativity, ale za objev zákona fotoelektrického jevu [1.2.2]. Teorie relativity nebyla oceněna kvůli tehdejší kontroverzi a nedostatku jednoznačných důkazů [1.2.2].
+									64 container p-rc_b75799af46cb7ae6-21
+										65 text TVRZENÍ:
+T1: Albert Einstein nezískal Nobelovu cenu za teorii relativity [1.2.2]. [1.2.2]  „Albert Einstein in 1920. He would receive the Nobel Prize in Physics the following year, but not for relativity.“
+										66 text 
+T2: Nobelova cena mu byla udělena za zásluhy o teoretickou fyziku a zejména za objasnění fotoelektrického jevu [1.2.2]. [1.2.2]  „The Nobel citation reads that Einstein is honoured for "services to theoretical physics, and especially for his discovery of the law of the photoelectric effect".“
+										67 text 
+T3: Teorie relativity nebyla výborem oceněna, protože byla tehdy považována za nedostatečně ověřenou a čelila kontroverzím [1.2.2]. [1.2.2]  „to mounting criticism, the committee decided against his work on the grounds that relativity was unproven.“
+										68 pop up button (collapsed) Secondary Actions: Expand, Description: Zobrazit podrobnosti o zdrojích pro citace z webů The Guardian, The Guardian a The Guardian. Stisknutím klávesy Enter otevřete dialogové okno se zdroji.
+									69 container
+										70 text ZDROJE:
+[1.2.2] Why Einstein never received a Nobel prize for relativity – The Guardian – říjen 2012 – 
+										71 link Description: https://www.theguardian.com/science/across-the-universe/2012/oct/08/einstein-nobel-prize-relativity, Value: theguardian.com/science/across-the-universe/2012/oct/08/einstein-nobel-prize-relativity
+									72 container p-rc_b75799af46cb7ae6-22
+										73 text JISTOTA: vysoká – Fakt, že Einstein nezískal cenu za relativitu, ale za fotoelektrický jev, je historicky doložen oficiální nominací a citací Nobelova výboru.
+										74 pop up button (collapsed) Secondary Actions: Expand, Description: Zobrazit podrobnosti o zdrojích pro citace z webů Reddit. Stisknutím klávesy Enter otevřete dialogové okno se zdroji.

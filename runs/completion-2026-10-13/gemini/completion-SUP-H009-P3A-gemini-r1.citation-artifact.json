@@ -1,0 +1,77 @@
+{
+  "schema_version": 1,
+  "run_id": "completion-SUP-H009-P3A-gemini-r1",
+  "task_id": "SUP-H009",
+  "condition": "P3A",
+  "text": "ODPOVĚĎ: Slova písně Kde domov můj napsal spisovatel a dramatik Josef Kajetán Tyl, autorem hudby je skladatel František Škroup. Píseň zazněla poprvé v roce 1834 jako součást divadelní hry Fidlovačka.   \nMůj stát\n+ 1\n\nTVRZENÍ:\nT1: Autorem textu písně Kde domov můj je Josef Kajetán Tyl. „Autorem textu naší státní hymny je spisovatel a dramatik Josef Kajetán Tyl.“\nT2: Autorem hudby písně Kde domov můj je František Škroup. „Autorem hudby naší státní hymny „Kde domov můj“ je skladatel František Škroup.“\nT3: Píseň poprvé zazněla v roce 1834 v rámci divadelní hry Fidlovačka. „V prosinci 1834 poprvé zazněla ve Stavovském divadle píseň „Kde domov můj“. ... při premiéře hry Fidlovačka poprvé píseň „Kde domov můj.““   \nSvejkmuseum.cz\n+ 4\n\nZDROJE:\n[1] Státní hymna ČR – Můj stát – neuvedeno – http://www.mujstat.cz/statni_hymna_cr.aspx\n\nJISTOTA: vysoká – Informace o autorech české hymny jsou historicky zcela jednoznačně doložené primárními i sekundárními zdroji.",
+  "dom_text": "ODPOVĚĎ: Slova písně Kde domov můj napsal spisovatel a dramatik Josef Kajetán Tyl, autorem hudby je skladatel František Škroup. Píseň zazněla poprvé v roce 1834 jako součást divadelní hry Fidlovačka.   \nMůj stát\n+ 1\n\nTVRZENÍ:\nT1: Autorem textu písně Kde domov můj je Josef Kajetán Tyl. „Autorem textu naší státní hymny je spisovatel a dramatik Josef Kajetán Tyl.“\nT2: Autorem hudby písně Kde domov můj je František Škroup. „Autorem hudby naší státní hymny „Kde domov můj“ je skladatel František Škroup.“\nT3: Píseň poprvé zazněla v roce 1834 v rámci divadelní hry Fidlovačka. „V prosinci 1834 poprvé zazněla ve Stavovském divadle píseň „Kde domov můj“. ... při premiéře hry Fidlovačka poprvé píseň „Kde domov můj.““   \nSvejkmuseum.cz\n+ 4\n\nZDROJE:\n[1] Státní hymna ČR – Můj stát – neuvedeno – http://www.mujstat.cz/statni_hymna_cr.aspx\n\nJISTOTA: vysoká – Informace o autorech české hymny jsou historicky zcela jednoznačně doložené primárními i sekundárními zdroji.",
+  "links": [
+    {
+      "href": "http://www.mujstat.cz/statni_hymna_cr.aspx",
+      "label": "http://www.mujstat.cz/statni_hymna_cr.aspx"
+    }
+  ],
+  "chips": [
+    {
+      "description": "Zobrazit podrobnosti o zdrojích pro citace z webů Můj stát a Opera PLUS. Stisknutím klávesy Enter otevřete dialogové okno se zdroji.",
+      "label": "Můj stát\n+ 1",
+      "paragraph": "ODPOVĚĎ: Slova písně Kde domov můj napsal spisovatel a dramatik Josef Kajetán Tyl, autorem hudby je skladatel František Škroup. Píseň zazněla poprvé v roce 1834 jako součást divadelní hry Fidlovačka.   \nMůj stát\n+ 1"
+    },
+    {
+      "description": "Zobrazit podrobnosti o zdrojích pro citace z webů Svejkmuseum.cz, Můj stát a www.svejkmuseum.cz a dalších. Stisknutím klávesy Enter otevřete dialogové okno se zdroji.",
+      "label": "Svejkmuseum.cz\n+ 4",
+      "paragraph": "TVRZENÍ:\nT1: Autorem textu písně Kde domov můj je Josef Kajetán Tyl. „Autorem textu naší státní hymny je spisovatel a dramatik Josef Kajetán Tyl.“\nT2: Autorem hudby písně Kde domov můj je František Škroup. „Autorem hudby naší státní hymny „Kde domov můj“ je skladatel František Škroup.“\nT3: Píseň poprvé zazněla v roce 1834 v rámci divadelní hry Fidlovačka. „V prosinci 1834 poprvé zazněla ve Stavovském divadle píseň „Kde domov můj“. ... při premiéře hry Fidlovačka poprvé píseň „Kde domov můj.““   \nSvejkmuseum.cz\n+ 4"
+    }
+  ],
+  "chipsSources": [
+    {
+      "label": "Můj stát\n+ 1",
+      "description": "Zobrazit podrobnosti o zdrojích pro citace z webů Můj stát a Opera PLUS. Stisknutím klávesy Enter otevřete dialogové okno se zdroji.",
+      "observed_at": "2026-10-13T12:00:30.832Z",
+      "origin": "opened visible citation popover",
+      "paragraph_text": "ODPOVĚĎ: Slova písně Kde domov můj napsal spisovatel a dramatik Josef Kajetán Tyl, autorem hudby je skladatel František Škroup. Píseň zazněla poprvé v roce 1834 jako součást divadelní hry Fidlovačka.   \nMůj stát\n+ 1",
+      "paragraph_position": null,
+      "links": [
+        {
+          "href": "http://www.mujstat.cz/statni_hymna_cr.aspx#:~:text=Autorem%20hudby%20na%C5%A1%C3%AD%20st%C3%A1tn%C3%AD%20hymny%20%E2%80%9EKde%20domov,v%20n%C4%9Bm%20vyj%C3%A1d%C5%99it%20bohatou%20kr%C3%A1su%20na%C5%A1%C3%AD%20p%C5%99%C3%ADrody.",
+          "label": "Můj stát\nStátní hymna ČR - Můj stát\n„Autorem hudby naší státní hymny „Kde domov můj“ je skladatel František Škroup. Tuto písničku však původně nesložil jako hymnu, ale jako součást divadelní hry s ...“"
+        },
+        {
+          "href": "https://operaplus.cz/pisen-kde-domov-muj-poprve-zaznela-pred-180-lety/#:~:text=Publikov%C3%A1no%2018%2F12%2F2014.%205%20minut%20%C4%8Dten%C3%AD%20%C4%8Cesk%C3%A1%20vlasteneck%C3%A1,Fidlova%C4%8Dka%20aneb%20%C5%BD%C3%A1dn%C3%BD%20hn%C4%9Bv%20a%20%C5%BE%C3%A1dn%C3%A1%20rva%C4%8Dka.",
+          "label": "Opera PLUS\nPíseň Kde domov můj poprvé zazněla před 180 lety - Opera PLUS\n„Publikováno 18/12/2014. 5 minut čtení Česká vlastenecká píseň Kde domov můj, dnešní česká hymna, poprvé zazněla ve Stavovském divadle v Praze před sto osmdesáti...“"
+        }
+      ]
+    },
+    {
+      "label": "Svejkmuseum.cz\n+ 4",
+      "description": "Zobrazit podrobnosti o zdrojích pro citace z webů Svejkmuseum.cz, Můj stát a www.svejkmuseum.cz a dalších. Stisknutím klávesy Enter otevřete dialogové okno se zdroji.",
+      "observed_at": "2026-10-13T12:00:31.596Z",
+      "origin": "opened visible citation popover",
+      "paragraph_text": "TVRZENÍ:\nT1: Autorem textu písně Kde domov můj je Josef Kajetán Tyl. „Autorem textu naší státní hymny je spisovatel a dramatik Josef Kajetán Tyl.“\nT2: Autorem hudby písně Kde domov můj je František Škroup. „Autorem hudby naší státní hymny „Kde domov můj“ je skladatel František Škroup.“\nT3: Píseň poprvé zazněla v roce 1834 v rámci divadelní hry Fidlovačka. „V prosinci 1834 poprvé zazněla ve Stavovském divadle píseň „Kde domov můj“. ... při premiéře hry Fidlovačka poprvé píseň „Kde domov můj.““   \nSvejkmuseum.cz\n+ 4",
+      "paragraph_position": null,
+      "links": [
+        {
+          "href": "https://www.svejkmuseum.cz/new/zpevnik/r_kde_domov_muj.htm",
+          "label": "Svejkmuseum.cz\nKde domov můj\n„Heslo: Kde domov můj. Text: Josef Kajetán Tyl. Hudba: František Škroup · I-04. A také to dál neumím,“ vzdychl Švejk. „Znám ještě první sloku z ,Kde domov“"
+        },
+        {
+          "href": "https://www.svejkmuseum.cz/new/zpevnik/r_kde_domov_muj.htm#:~:text=P%C3%ADse%C5%88%20poch%C3%A1z%C3%AD%20z%20divadeln%C3%AD%20hry%20Josefa%20Kajet%C3%A1na,maj%C3%AD%20jako%20hymnu%20divadeln%C3%AD%20%C5%A1l%C3%A1gr.%20Ale%20hezk%C3%BD.",
+          "label": "www.svejkmuseum.cz\nKde domov můj\n„ Píseň pochází z divadelní hry Josefa Kajetána Tyla Fidlovačka aneb žádný hněv a žádná rvačka, poprvé uvedené v Praze dne 21.12.1834. Hudbu k ní složil Františe...“"
+        },
+        {
+          "href": "http://www.mujstat.cz/statni_hymna_cr.aspx#:~:text=Od%20konce%2013.%20stolet%C3%AD%20pat%C5%99il%20mezi%20nejpopul%C3%A1rn%C4%9Bj%C5%A1%C3%AD,jej%C3%AD%20obliba%20u%C4%8Dinila%20jakousi%20neofici%C3%A1ln%C3%AD%20%C4%8Deskou%20hymnu.",
+          "label": "Můj stát\nStátní hymna ČR - Můj stát\n„Od konce 13. století patřil mezi nejpopulárnější takové písně chorál „Svatý Václave“. Od konce 18. století se začaly prosazovat hymny bez náboženského obsahu. V...“"
+        },
+        {
+          "href": "http://www.mujstat.cz/statni_hymna_cr.aspx#:~:text=Josef%20Kajet%C3%A1n%20Tyl%2C%20autor%20textu%20na%C5%A1%C3%AD%20st%C3%A1tn%C3%AD,m%C5%AFj%E2%80%9D%2C%20napsal%20nap%C5%99%C3%ADklad%20tak%C3%A9%20hru%20Strakonick%C3%BD%20dud%C3%A1k.",
+          "label": "Můj stát\nStátní hymna ČR - Můj stát\n„Josef Kajetán Tyl, autor textu naší státní hymny, byl český spisovatel a novinář. Zasloužil se o rozvoj českého divadla. Žil v první polovině 19. století. Vedle...“"
+        }
+      ]
+    }
+  ],
+  "raw_text_sha256": "2f64448ce0cfb20665e822a6505e9c85f631ddbc83915c1fd86d9b6d46acfd5c",
+  "private_reply_dom_sha256": "8c3458a69050f02784149ed33796b2375933affd9787460143cc47749b8490e3",
+  "sanitized_html_file": "completion-SUP-H009-P3A-gemini-r1.reply-visible.html",
+  "citation_policy": "Only visible original anchors and opened source popovers. Native chip paragraph ties retained; unlinked source-list anchors remain unlinked. Written malformed URLs, quotes and labels are not corrected.",
+  "capture_method": "Rendered response content; clipboard_used field in capture indicates whether official Copy was used."
+}

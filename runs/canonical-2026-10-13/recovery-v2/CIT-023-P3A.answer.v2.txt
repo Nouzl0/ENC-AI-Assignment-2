@@ -1,0 +1,13 @@
+ODPOVĚĎ: Za nejzávažnější porušení GDPR podle čl. 83 odst. 5 lze uložit správní pokutu až do výše 20 000 000 EUR, nebo u podniku až do výše 4 % celkového ročního celosvětového obratu za předchozí finanční rok, podle toho, která hodnota je vyšší.
+www.privacy-regulation.eu + 2
+
+TVRZENÍ:
+T1: Za nejzávažnější porušení podle čl. 83 odst. 5 lze uložit pokutu až do výše 20 000 000 EUR [1.1.2] „až do výše 20 000 000 EUR, nebo jedná-li se o podnik, až do výše 4 % celkového ročního obratu celosvětově za předchozí finanční rok“
+T2: U podniků lze alternativně uložit pokutu do výše 4 % celkového ročního obratu [1.1.2] „až do výše 20 000 000 EUR, nebo jedná-li se o podnik, až do výše 4 % celkového ročního obratu celosvětově za předchozí finanční rok, podle toho, která hodnota je vyšší“
+EUR-Lex - European Union
+
+ZDROJE:
+[1.1.2] Článek 83 EU obecné nařízení o ochraně osobních údajů – Privacy-Regulation.eu – neuvedeno – https://www.privacy-regulation.eu/cs/83.htm
+
+JISTOTA: vysoká – Odpověď přímo cituje závazné znění evropského nařízení z oficiálního textu čl. 83 odst. 5 GDPR.
+EUR-Lex - European Union

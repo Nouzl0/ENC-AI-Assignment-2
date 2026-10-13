@@ -1,26 +1,19 @@
-# Předání kolegovi: co provést a co ještě není hotové
+# Předání týmu a aktuální podklady
 
-**Skutečný sběr v Chromu provádí autorizovaný AI operátor.** René spravuje holdout
-a kontroluje reference, Jan je autor promptu; oba mají provést nezávislé lidské
-hodnocení. Již existuje 10 skutečných pilotních odpovědí na dvě úlohy v
-`runs/pilot-2026-10-12/` a pilotní zpráva v `docs/results.md`. Finální analytické
-výsledky, nezávisle schválené reference, G1/G2/G3 ani vítězný P3 hotové nejsou.
-Syntetické testy nejsou výsledky produktů. Postup číst spolu s PROTOCOL.md a rubrikou.
+Aktuální exploratorní sběr má 40 různých úloh; přesné počty odpovědí a vyřazení
+jsou v runs/canonical-2026-10-13/coverage.json. Opravené metriky AI jsou ve verzi 2.
+Žádné lidské ratingy ani skutečné G1/G2/G3 se nedoplňují pod identitou AI.
 
-Kolega může finální text protokolu a zprávy dopracovat později. Schválení G1
-musí předcházet prvnímu analytickému běhu; G2 předchází testu a G3 scoringu.
-Pozdější sepsání dokumentu nenahrazuje tyto skutečně provedené kontroly.
+**Nejbližší krok:** rozdělit zaslepené ZIP balíčky dvěma skutečným hodnotitelům
+a postupovat podle docs/human-handoff.md. První zkontroluje všechny způsobilé
+odpovědi, druhý ≥25 % každé skupiny; klíč a AI nápovědy zůstávají u správce.
+Nezávislé ratingy odevzdat před diskusí o neshodách.
 
-Reprodukce na jiné cestě/počítači: viz freeze/README.md, `--path-map` pouze pro ověření
-a finální replay. Předat učiteli autorizovaný kompletní soukromý balíček i přesný commit;
-nepřepisovat původní absolutní cesty uvnitř podepsaných souborů.
-
-**Krátce, co jsme změnili a proč:** Zpřesnili jsme férové reference a holdout, opravili
-parser a přenositelnost, zajistili přepočitatelný výběr P3 a stejné podklady pro nezávislé
-hodnotitele. Přidali jsme kalibrační kotvy, ukázku evidence a interpretační kontroly,
-aby učitel mohl postup skutečně ověřit. Pilotní odpovědi, metadata a hashovaný export
-již pocházejí ze skutečných produktů; finální výkon zatím změřen není. Níže je postup
-pro navazující sběr, lidské kontroly a závěry.
+Níže je původní postup pro plný potvrzující experiment. Již zveřejněné SUP otázky
+se nesmějí použít jako neviděný holdout; nová skrytá sada a včasné schválení bran
+jsou pro tento rozsah stále nutné. Aktuální exploratorní data se za post-G1
+analytické běhy nepřejmenovávají. Soukromé příkazy provádí správce, původní
+podepsané soubory při replayi nepřepisovat.
 
 ## 0. Role a izolovaný pracovní prostor
 

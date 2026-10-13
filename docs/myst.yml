@@ -35,13 +35,13 @@ project:
   parts:
     abstract: >
       Studie hodnotí podporu tvrzení citovanými zdroji u AI produktů s webovým
-      vyhledáváním. Balíček obsahuje 40 různých měřených úloh a 84 věcných
-      odpovědí, z toho 33 původních pilotních a 51 doplňkových. Deset nových
-      otázek vzniklo odděleně po byte/hash zmrazení promptů. Pět z nich má
-      Gemini P1/P2/P3A. AI obsahový audit pilotu našel 47 ze 48 povinných faktů
-      správně; atomizovaný subset 11 odpovědí má průměrné meze citační precision
-      0,7141 až 0,8050. Výsledky jsou pomocné AI hodnocení, nikoli lidské ratingy,
-      dokončená vyvážená matice nebo splnění původních bran G1/G2/G3.
+      vyhledáváním. Sběr obsahuje 40 různých úloh a 93 uložených věcných
+      odpovědí, z nich 92 podkladů pro nezávislé lidské hodnocení.
+      Gemini má 9 nových otázek v P1/P2/P3A. Opravené AI posouzení
+      pilotu uvádí 47 ze 48 RF správně; vybraný citační subset má precision
+      0,7954 (11 dokončených odpovědí, 99 explicitních párů). Lidské listy
+      jsou zaslepené a ratingy prázdné. Úplná produktová matice, skutečné
+      lidské ratingy a původní G1/G2/G3 nejsou dokončené.
 
     acknowledgements: >
       Mendelova univerzita v Brně, Provozně ekonomická fakulta.
@@ -67,6 +67,7 @@ project:
     - file: evaluation.md
     - file: results.md
     - file: supplement.md
+    - file: human-handoff.md
     - file: error-analysis.md
     - file: limits.md
     - file: plan.md

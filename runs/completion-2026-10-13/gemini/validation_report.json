@@ -1,0 +1,84 @@
+{
+  "checks": [
+    {
+      "run_id": "completion-SUP-H006-P1-gemini-r1",
+      "prompt_export_byte_equal": true,
+      "raw_export_byte_equal": true,
+      "visible_reply_href_exact": true,
+      "visible_chip_href_exact": true
+    },
+    {
+      "run_id": "completion-SUP-H006-P3A-gemini-r1",
+      "prompt_export_byte_equal": true,
+      "raw_export_byte_equal": true,
+      "visible_reply_href_exact": true,
+      "visible_chip_href_exact": true
+    },
+    {
+      "run_id": "completion-SUP-H007-P1-gemini-r1",
+      "prompt_export_byte_equal": true,
+      "raw_export_byte_equal": true,
+      "visible_reply_href_exact": true,
+      "visible_chip_href_exact": true
+    },
+    {
+      "run_id": "completion-SUP-H007-P3A-gemini-r1",
+      "prompt_export_byte_equal": true,
+      "raw_export_byte_equal": true,
+      "visible_reply_href_exact": true,
+      "visible_chip_href_exact": true
+    },
+    {
+      "run_id": "completion-SUP-H008-P1-gemini-r1",
+      "prompt_export_byte_equal": true,
+      "raw_export_byte_equal": true,
+      "visible_reply_href_exact": true,
+      "visible_chip_href_exact": true
+    },
+    {
+      "run_id": "completion-SUP-H008-P3A-gemini-r1",
+      "prompt_export_byte_equal": true,
+      "raw_export_byte_equal": true,
+      "visible_reply_href_exact": true,
+      "visible_chip_href_exact": true
+    },
+    {
+      "run_id": "completion-SUP-H009-P1-gemini-r1",
+      "prompt_export_byte_equal": true,
+      "raw_export_byte_equal": true,
+      "visible_reply_href_exact": true,
+      "visible_chip_href_exact": true
+    },
+    {
+      "run_id": "completion-SUP-H009-P3A-gemini-r1",
+      "prompt_export_byte_equal": true,
+      "raw_export_byte_equal": true,
+      "visible_reply_href_exact": true,
+      "visible_chip_href_exact": true
+    },
+    {
+      "run_id": "completion-SUP-H010-P1-gemini-r1",
+      "prompt_export_byte_equal": true
+    },
+    {
+      "run_id": "completion-SUP-H010-P1-gemini-r2",
+      "prompt_export_byte_equal": true
+    },
+    {
+      "run_id": "completion-SUP-H010-P3A-gemini-r1",
+      "prompt_export_byte_equal": true
+    },
+    {
+      "run_id": "completion-SUP-H010-P3A-gemini-r2",
+      "prompt_export_byte_equal": true,
+      "raw_export_byte_equal": true,
+      "visible_reply_href_exact": true,
+      "visible_chip_href_exact": true
+    }
+  ],
+  "private_ax_exported": false,
+  "unsanitized_reply_dom_exported": false,
+  "all_exported_current_png_visually_reviewed": true,
+  "completed_count": 9,
+  "failed_count": 3
+}

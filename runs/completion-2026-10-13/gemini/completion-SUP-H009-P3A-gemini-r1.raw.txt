@@ -1,0 +1,15 @@
+ODPOVĚĎ: Slova písně Kde domov můj napsal spisovatel a dramatik Josef Kajetán Tyl, autorem hudby je skladatel František Škroup. Píseň zazněla poprvé v roce 1834 jako součást divadelní hry Fidlovačka.   
+Můj stát
++ 1
+
+TVRZENÍ:
+T1: Autorem textu písně Kde domov můj je Josef Kajetán Tyl. „Autorem textu naší státní hymny je spisovatel a dramatik Josef Kajetán Tyl.“
+T2: Autorem hudby písně Kde domov můj je František Škroup. „Autorem hudby naší státní hymny „Kde domov můj“ je skladatel František Škroup.“
+T3: Píseň poprvé zazněla v roce 1834 v rámci divadelní hry Fidlovačka. „V prosinci 1834 poprvé zazněla ve Stavovském divadle píseň „Kde domov můj“. ... při premiéře hry Fidlovačka poprvé píseň „Kde domov můj.““   
+Svejkmuseum.cz
++ 4
+
+ZDROJE:
+[1] Státní hymna ČR – Můj stát – neuvedeno – http://www.mujstat.cz/statni_hymna_cr.aspx
+
+JISTOTA: vysoká – Informace o autorech české hymny jsou historicky zcela jednoznačně doložené primárními i sekundárními zdroji.

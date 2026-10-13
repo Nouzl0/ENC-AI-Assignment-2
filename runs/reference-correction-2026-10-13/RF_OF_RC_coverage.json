@@ -1,0 +1,134 @@
+[
+  {
+    "task_id": "SUP-H001",
+    "exact_question": "Kdo objevil penicilin a ve kterém roce? Uveďte původní objev, nikoli pozdější zavedení léčby.",
+    "RF": [
+      "Penicilin původně objevil Alexander Fleming.",
+      "Původní objev penicilinu nastal v roce 1928."
+    ],
+    "OF": [],
+    "RC": [],
+    "interpretation": "Výslovné upozornění na původní objev zakazuje nahrazovat jej datem zavedení léčby; nevynucuje vyprávění o pozdější léčbě.",
+    "task_type_retained": "fact",
+    "difficulty_retained": "medium"
+  },
+  {
+    "task_id": "SUP-H002",
+    "exact_question": "What exact numerical value does the SI definition assign to the speed of light in vacuum, and in which unit?",
+    "RF": [
+      "Přesná definovaná číselná hodnota rychlosti světla ve vakuu v SI je 299 792 458.",
+      "Jednotkou této hodnoty je metr za sekundu (m/s)."
+    ],
+    "OF": [],
+    "RC": [],
+    "interpretation": "Přesnost je součást RF; pouhé přibližně300milionů nestačí. Fyzikální diskuse ani datum definice nejsou povinné.",
+    "task_type_retained": "fact",
+    "difficulty_retained": "medium"
+  },
+  {
+    "task_id": "SUP-H003",
+    "exact_question": "Od kterého data se obecně používá evropské nařízení GDPR (nařízení EU 2016/679)? Rozlište použitelnost od data vstupu v platnost.",
+    "RF": [
+      "GDPR (EU2016/679) vstoupilo v platnost 24. května 2016.",
+      "GDPR je obecně použitelné od 25. května 2018."
+    ],
+    "OF": [],
+    "RC": [
+      "Jednoznačně rozlišit datum vstupu v platnost od počátku obecné použitelnosti."
+    ],
+    "interpretation": "Původní reference vynechala požadovaný vstup v platnost. RC kontroluje jasné přiřazení dvou již povinných dat; nevynucuje další právní výklad.",
+    "task_type_retained": "fact",
+    "difficulty_retained": "medium"
+  },
+  {
+    "task_id": "SUP-H004",
+    "exact_question": "On what date did the Charter of the United Nations enter into force? Cite an official UN source.",
+    "RF": [
+      "Charta OSN vstoupila v platnost 24. října 1945."
+    ],
+    "OF": [],
+    "RC": [
+      "Citovat oficiální zdroj OSN."
+    ],
+    "interpretation": "Původní required_constraints bylo prázdné přes výslovný požadavek otázky. UNoverview nebo UNTreatyCollection jsou přijatelné; sekundární stránka sama RC nesplní.",
+    "task_type_retained": "fact",
+    "difficulty_retained": "medium"
+  },
+  {
+    "task_id": "SUP-H005",
+    "exact_question": "Které číslo RFC definuje sémantiku HTTP v sérii standardů zveřejněné roku 2022? Nezaměňte s dokumentem pro HTTP/2.",
+    "RF": [
+      "Sémantiku HTTP v sérii standardů z roku2022 definuje RFC9110."
+    ],
+    "OF": [],
+    "RC": [],
+    "interpretation": "Nezaměnit RFC9110 s HTTP/2; otázka nevyžaduje uvádět číslo RFC pro HTTP/2 ani odkaz na primární RFC.",
+    "task_type_retained": "fact",
+    "difficulty_retained": "medium"
+  },
+  {
+    "task_id": "SUP-H006",
+    "exact_question": "Who created the Python programming language, and in what year was its first public version released?",
+    "RF": [
+      "Programovací jazyk Python vytvořil Guido van Rossum.",
+      "První veřejná verze Pythonu vyšla roku1991."
+    ],
+    "OF": [],
+    "RC": [],
+    "interpretation": "Otázka chce pouze rok; přesný den20February není RF a každý dodatečný den/tvrzení se ověřuje zvlášť.",
+    "task_type_retained": "fact",
+    "difficulty_retained": "medium"
+  },
+  {
+    "task_id": "SUP-H007",
+    "exact_question": "Kterého dne byly uvedeny do oběhu eurobankovky a euromince? Nezaměňujte s počátkem bezhotovostního eura.",
+    "RF": [
+      "Eurobankovky a euromince byly uvedeny do oběhu 1. ledna2002."
+    ],
+    "OF": [],
+    "RC": [],
+    "interpretation": "Výslovně jde o hotovost. Nezaměnit s1January1999; další datum bezhotovostníhoeura není povinná položka.",
+    "task_type_retained": "fact",
+    "difficulty_retained": "medium"
+  },
+  {
+    "task_id": "SUP-H008",
+    "exact_question": "In which month and year was the Bretton Woods conference held, and which two international institutions emerged from it?",
+    "RF": [
+      "Brettonwoodská konference se konala v červenci1944.",
+      "Jednou institucí vzešlou z konference byl Mezinárodní měnový fond (IMF).",
+      "Druhou institucí byla Mezinárodní banka pro obnovu a rozvoj (IBRD, běžně Světová banka)."
+    ],
+    "OF": [],
+    "RC": [],
+    "interpretation": "WorldBank je v tomto historickém kontextu přijatelná parafrázeIBRD. Nelze bez dalšího tvrdit, že v1944 vznikla dnešní pětiinstituční WorldBankGroup; formální právní ratifikace27December1945 se nezaměňuje s konferencí.",
+    "task_type_retained": "fact",
+    "difficulty_retained": "medium"
+  },
+  {
+    "task_id": "SUP-H009",
+    "exact_question": "Kdo napsal slova a kdo hudbu písně Kde domov můj, která se později stala českou hymnou?",
+    "RF": [
+      "Slova písně Kde domov můj napsal Josef Kajetán Tyl.",
+      "Hudbu písně Kde domov můj napsal František Škroup."
+    ],
+    "OF": [],
+    "RC": [],
+    "interpretation": "Datum premiéry, hra Fidlovačka ani počet slok hymny nejsou RF.",
+    "task_type_retained": "fact",
+    "difficulty_retained": "medium"
+  },
+  {
+    "task_id": "SUP-H010",
+    "exact_question": "On what exact date was UNESCO’s Constitution signed, and on what date did it enter into force?",
+    "RF": [
+      "Ústava UNESCO byla podepsána16.listopadu1945.",
+      "Ústava UNESCO vstoupila v platnost4.listopadu1946."
+    ],
+    "OF": [],
+    "RC": [],
+    "interpretation": "Podepsání/adopce není vstup v platnost; požadována přesná data. Článek UNESCO má nesouvisející chybnou větu o UNCharter date16Nov1945; ta není převzata jako reference pro Chartu OSN.",
+    "task_type_retained": "fact",
+    "difficulty_retained": "medium"
+  }
+]

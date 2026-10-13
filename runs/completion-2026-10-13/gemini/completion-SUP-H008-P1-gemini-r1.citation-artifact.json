@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "run_id": "completion-SUP-H008-P1-gemini-r1",
+  "task_id": "SUP-H008",
+  "condition": "P1",
+  "text": "Date: July 1944   \nFederal Reserve History\n\nInstitutions: The International Monetary Fund (IMF) and the World Bank (originally the International Bank for Reconstruction and Development, or IBRD)   \nFederal Reserve History\n\nSources:\n\nWikipedia - Bretton Woods Conference\n\nFederal Reserve History - Creation of the Bretton Woods System",
+  "dom_text": "Date: July 1944   \nFederal Reserve History\n\nInstitutions: The International Monetary Fund (IMF) and the World Bank (originally the International Bank for Reconstruction and Development, or IBRD)   \nFederal Reserve History\n\nSources:\n\nWikipedia - Bretton Woods Conference\n\nFederal Reserve History - Creation of the Bretton Woods System",
+  "links": [
+    {
+      "href": "https://en.wikipedia.org/wiki/Bretton_Woods_Conference",
+      "label": "Wikipedia - Bretton Woods Conference"
+    },
+    {
+      "href": "https://www.federalreservehistory.org/essays/bretton-woods-created",
+      "label": "Federal Reserve History - Creation of the Bretton Woods System"
+    }
+  ],
+  "chips": [
+    {
+      "description": "Zobrazit podrobnosti o zdrojích pro citace z webů Federal Reserve History. Stisknutím klávesy Enter otevřete dialogové okno se zdroji.",
+      "label": "Federal Reserve History",
+      "paragraph": "Date: July 1944   \nFederal Reserve History"
+    },
+    {
+      "description": "Zobrazit podrobnosti o zdrojích pro citace z webů Federal Reserve History. Stisknutím klávesy Enter otevřete dialogové okno se zdroji.",
+      "label": "Federal Reserve History",
+      "paragraph": "Institutions: The International Monetary Fund (IMF) and the World Bank (originally the International Bank for Reconstruction and Development, or IBRD)   \nFederal Reserve History"
+    }
+  ],
+  "chipsSources": [
+    {
+      "label": "Federal Reserve History",
+      "description": "Zobrazit podrobnosti o zdrojích pro citace z webů Federal Reserve History. Stisknutím klávesy Enter otevřete dialogové okno se zdroji.",
+      "observed_at": "2026-10-13T11:58:40.265Z",
+      "origin": "opened visible citation popover",
+      "paragraph_text": "Date: July 1944   \nFederal Reserve History",
+      "paragraph_position": null,
+      "links": [
+        {
+          "href": "https://www.federalreservehistory.org/essays/bretton-woods-created#:~:text=Creation%20of%20the%20Bretton%20Woods%20System.%20July,Photographer%3A%20Abe%20Fox)%20by%20Sandra%20Kollen%20Ghizoni.",
+          "label": "Federal Reserve History\nCreation of the Bretton Woods System | Federal Reserve History\n„Creation of the Bretton Woods System. July 1944. A new international monetary system was forged by delegates from forty-four nations in Bretton Woods, New Hamps...“"
+        }
+      ]
+    },
+    {
+      "label": "Federal Reserve History",
+      "description": "Zobrazit podrobnosti o zdrojích pro citace z webů Federal Reserve History. Stisknutím klávesy Enter otevřete dialogové okno se zdroji.",
+      "observed_at": "2026-10-13T11:58:40.843Z",
+      "origin": "opened visible citation popover",
+      "paragraph_text": "Institutions: The International Monetary Fund (IMF) and the World Bank (originally the International Bank for Reconstruction and Development, or IBRD)   \nFederal Reserve History",
+      "paragraph_position": null,
+      "links": []
+    }
+  ],
+  "raw_text_sha256": "31c797243aa56acac98337052589312755d0f469f0ede46311cf911c7aa2a22f",
+  "private_reply_dom_sha256": "e1ef80d7f84996e370278c44145b809f97f2b60aec322ac4fe1f95291041ec2f",
+  "sanitized_html_file": "completion-SUP-H008-P1-gemini-r1.reply-visible.html",
+  "citation_policy": "Only visible original anchors and opened source popovers. Native chip paragraph ties retained; unlinked source-list anchors remain unlinked. Written malformed URLs, quotes and labels are not corrected.",
+  "capture_method": "Rendered response content; clipboard_used field in capture indicates whether official Copy was used."
+}

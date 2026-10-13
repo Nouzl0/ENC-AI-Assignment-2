@@ -1,0 +1,14 @@
+{
+  "private_ax_available": true,
+  "private_ax_sha256": "706dea05732563363c4ee0e17d49e6ef455d23162b22f46c6e023d996341a451",
+  "temporary_chat_observed": false,
+  "temporary_chat_before_send_observer_confirmed": true,
+  "correct_question_observed": true,
+  "model_visible_in_ax": true,
+  "submitted_prompt_matches_frozen_plan": true,
+  "screenshot_privacy_review": "visually inspected all exported PNG; no visible account identifiers",
+  "direct_error_text_in_preserved_ax": false,
+  "operator_reported_transient_error_text": "Zkontrolujte připojení k internetu a zkuste to znovu",
+  "operator_reported_evidence": "Root observed fresh in-turn AX node69 before transient toast vanished; that AX tool output was not saved to hashed artifact. No contemporaneous toast screenshot.",
+  "failure_evidence_scope": "Saved AX/screen prove composer/no model answer. Active temporary mode may have reset by end; pre-Send mode confirmation is separately recorded by operator. Transient specific internet error, where reported, is an operator observation without hashed error-text screenshot."
+}

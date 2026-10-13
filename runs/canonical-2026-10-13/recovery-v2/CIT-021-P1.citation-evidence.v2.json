@@ -1,0 +1,40 @@
+{
+  "text": "Albert Einstein nedostal Nobelovu cenu za teorii relativity.\nConverter.cz\n\nNobelovu cenu za fyziku za rok 1921 (převzatou v roce 1922) získal „za zásluhy o teoretickou fyziku, a zejména za objev zákona fotoelektrického jevu“. Teorie relativity byla v té době pro část Nobelova výboru stále příliš kontroverzní a předmětem diskusí.\nwww.alberteinstein.com + 1\n\nPoužité zdroje:\n[Max Planck Gesellschaft – Albert Einstein](https://www.nobel.mpg.de/en/albert-einstein)\n[Converter.cz – Životopis Alberta Einsteina](https://www.converter.cz/fyzici/einstein.htm)\n",
+  "links": [
+    {
+      "label": "Max Planck Gesellschaft – Albert Einstein",
+      "href": "https://www.nobel.mpg.de/en/albert-einstein"
+    },
+    {
+      "label": "Converter.cz – Životopis Alberta Einsteina",
+      "href": "https://www.converter.cz/fyzici/einstein.htm"
+    }
+  ],
+  "chip_labels": [
+    {
+      "label": "Converter.cz",
+      "description": "Zobrazit podrobnosti o zdrojích pro citace z webů Converter.cz. Stisknutím klávesy Enter otevřete dialogové okno se zdroji."
+    },
+    {
+      "label": "www.alberteinstein.com + 1",
+      "description": "Zobrazit podrobnosti o zdrojích pro citace z webů www.alberteinstein.com a Converter.cz. Stisknutím klávesy Enter otevřete dialogové okno se zdroji."
+    }
+  ],
+  "source_bindings": [
+    {
+      "label": "Converter.cz",
+      "ax_node_id": 46,
+      "description": "Zobrazit podrobnosti o zdrojích pro citace z webů Converter.cz. Stisknutím klávesy Enter otevřete dialogové okno se zdroji.",
+      "href": null,
+      "href_status": "not_present_in_preserved_capture"
+    },
+    {
+      "label": "www.alberteinstein.com + 1",
+      "ax_node_id": 50,
+      "description": "Zobrazit podrobnosti o zdrojích pro citace z webů www.alberteinstein.com a Converter.cz. Stisknutím klávesy Enter otevřete dialogové okno se zdroji.",
+      "href": null,
+      "href_status": "not_present_in_preserved_capture"
+    }
+  ],
+  "scope": "response_only; original native attribution retained; no source support assessment"
+}

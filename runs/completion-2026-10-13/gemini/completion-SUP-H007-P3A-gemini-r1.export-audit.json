@@ -1,0 +1,11 @@
+{
+  "private_ax_available": true,
+  "private_ax_sha256": "1c840935074c0d2a0fe8d135f7c166d0d9b19c2c1b77e8fb114bce0b62a9dd2f",
+  "temporary_chat_observed": true,
+  "temporary_chat_before_send_observer_confirmed": false,
+  "correct_question_observed": true,
+  "model_visible_in_ax": true,
+  "submitted_prompt_matches_frozen_plan": true,
+  "screenshot_privacy_review": "visually inspected all exported PNG; no visible account identifiers",
+  "raw_text_matches_dom_text": true
+}

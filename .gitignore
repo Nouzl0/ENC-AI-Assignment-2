@@ -206,3 +206,7 @@ cython_debug/
 
 # Temporary Word owner/lock files.
 ~$*.docx
+
+# Approved separately versioned exploratory AI audit.
+!/results/ai-review-2026-10-13-v2/
+!/results/ai-review-2026-10-13-v2/**

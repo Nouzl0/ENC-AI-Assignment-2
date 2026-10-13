@@ -1,0 +1,7 @@
+# Gemini completion evidence —2026-10-13
+
+New collection of fixed P1/P3A on the same published supplemental questions H006–H010. Existing prompt templates remain unchanged; this is continuation after initial holdout publication, not a new unseen holdout or optimization validation winner. See run_index.json for actual completed/failed attempts and pending cells.
+
+Each completed answer preserves original rendered text and a citation-artifact.json with visible hyperlinks and opened native-source popovers tied to their original paragraphs. Source-list links remain unlinked where the UI does not attribute them. Written URLs, source labels, publication dates and quotations are not repaired. Sanitized visible HTML preserves safe reply structure and href values but strips original session/response IDs, event logs, hidden data and telemetry. Private full AX/DOM originals remain outside Git; their hashes are retained in audit metadata. Original screenshots/prompts/submission/capture are exported, with safe metadata only.
+
+Observed intervals include delayed asynchronous operator inspection and are not model-only latency. Tier/token/credit counts remain unknown where current UI does not prove them. Failed actual submissions remain separate records and recovery attempts are linked without adding unique tasks. Operator setup actions that did not send a model prompt are only setup audit, not invented responses. No human ratings or original protocol gate claims are made.

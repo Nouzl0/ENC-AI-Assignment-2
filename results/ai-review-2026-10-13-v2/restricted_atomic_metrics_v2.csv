@@ -1,0 +1,3 @@
+metric,mean,ci95_percentile_low,ci95_percentile_high,n_answers,n_tasks,bootstrap_draws,seed,scope
+precision_lower,0.7953727496508245,0.7264705882352941,0.8433441558441559,11,3,10000,20261013,Separate v2 exploratory AI review; response macro average; purposeful tasks; no human reliability or rating-error uncertainty
+precision_upper,0.7953727496508245,0.7264705882352941,0.8433441558441559,11,3,10000,20261013,Separate v2 exploratory AI review; response macro average; purposeful tasks; no human reliability or rating-error uncertainty

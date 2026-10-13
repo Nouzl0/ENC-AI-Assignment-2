@@ -97,54 +97,73 @@ a bez intervalů; **pořadí produktů z nich nevyvozujeme**. Latence jsou horn�
 jednotlivé extrémy (až 1 211 s u Groku). Claude nemá žádnou dokončenou odpověď. Výpočet je reprodukovatelný skriptem
 `analysis/pilot_proxy.py`, výstup je v `results/pilot/pilot_metrics.csv`. Skutečná citační přesnost bude podíl lidských hodnocení S2.
 
-## Dokončený doplňkový sběr (13. 10. 2026)
+## Aktuální sjednocené pokrytí
 
-Celkové pokrytí nyní činí **40 různých úloh a 84 věcných odpovědí**.
-Doplněk přidává 51 odpovědí: všechny zbývající veřejné dev/val otázky a
-10 nových samostatných otázek. Obsahuje také jednu oddělenou náhradu
-operátorské chyby; náhrada není nový případ. Autentizační text a dvě chyby bez
-odpovědi jsou mimo tento počet, ale zůstávají v datech.
+Celkem je **40 různých úloh, 93 uložených věcných odpovědí a 92
+způsobilých podkladů pro hodnocení**. Rozdíl jedné odpovědi je původní operátorský
+export SUP-H002/P2; jeho náhrada je započítaná jednou. Čtyři chybné clipboard
+exporty byly věrně obnoveny z původního AX a snímku, nikoli znovu vygenerované.
+Autentizační odmítnutí, časová selhání a neodeslané plány zůstávají v registru.
 
-| Kolekce | Věcné odpovědi | Unikátní úlohy | Interpretace |
+| Část | Věcné odpovědi | Unikátní úlohy | Význam |
 | --- | --- | --- | --- |
-| Původní pilot | 33 | 8 | Historické P2, účty a podmínky zachovány |
-| Doplněk | 51 | 32 | Částečně překrývající se úlohy, včetně nových promptových běhů |
-| Sjednocení ID | 84 | 40 | Počet uložených odpovědí; nikoli společné produktové skóre |
+| Původní pilot | 33 | 8 | Historické P2 |
+| Doplňkový sběr a dokončování | 60 | 32 | Další veřejné otázky a 10 nových otázek |
+| Celkem | 93 uložených / 92 způsobilých | 40 | Žádný společný produktový žebříček |
 
-Pět nových otázek má Gemini P1/P2/P3A; další tři veřejné validační otázky mají
-Gemini P1/P3A a původní doplňkový P2 z jiného produktu. Tyto tři se proto
-nepovažují za párové měření promptového efektu. Registry a tabulky jsou v
-`runs/supplement-2026-10-13/`. Přesné prompty jsou stejné jako ve fixovaných
-kopiích; P3A není původní validačně vybraný P3_final. Metoda: [](#supplement).
+Gemini má 9 úplných tripletů na SUP-H001–009. Další tři veřejné otázky
+mají P1/P3A na Gemini a P2 od jiného produktu, proto nejsou párovým měřením
+promptového efektu. Poslední sběr uchovává skutečné přístupové/časové chyby;
+operator-capture intervaly se nevydávají za generační latenci. Registr:
+`runs/canonical-2026-10-13/registry.jsonl`, součty `coverage.json`.
 
-## Skutečně provedené pomocné AI hodnocení
+## Opravený pomocný AI audit, verze 2
 
-Všech 33 původních odpovědí má obsahové AI posouzení. Nových 22 veřejných
-otázek má kvalitativní zdrojový audit, nová oddělená sada AI kontrolu hlavních
-faktů a primárních referencí. Žádná z těchto tabulek není lidský rating.
+Obsahové posouzení zahrnuje všech 33 původních odpovědí. Atomizovaná citační
+metrika se týká pouze 11 dokončených odpovědí na 3 účelově vybraných úlohách.
+V1 je historická verze; pro aktuální čísla se používá v2. Přesně citované stránky
+byly znovu kontrolované. Zrcadlo lze použít jen po doložení totožnosti dokumentu;
+jiný správný zdroj nemůže opravit chybnou původní citaci.
 
 | Výsledek | Rozsah | Odhad / meze | Deskriptivní 95% interval |
 | --- | --- | --- | --- |
-| Pokrytí povinných faktů po odpovědích | 33 odpovědí / 8 úloh; 47/48 RF správně | 0,9848 | 0,9516–1,0000 |
-| Obsahová správnost, škála 0–2 | 33 odpovědí / 8 úloh; nejisté RC a bonusy zachovány | 1,6970–1,9091 | Dolní mez: 1,4211–1,9063; horní: 1,8333–1,9706 |
-| Precision, atomizovaný subset | 11 odpovědí / 3 úlohy / 87 explicitních párů | 0,7141–0,8050 | Dolní mez: 0,6000–0,8006; horní: 0,7634–0,8500 |
+| Pokrytí RF po odpovědích | 33 odpovědí / 8 úloh; 47/48 RF | 0,9848 | 0,9516–1,0000 |
+| Obsahová správnost 0–2 | 33 odpovědí / 8 úloh; nejisté RC zachovány | 1,8182–1,8788 | Dolní mez 1,7419–1,9032; horní 1,8056–1,9667 |
+| Precision, dokončený atomizovaný subset | 11 odpovědí / 3 úlohy / 99 explicitních párů | 0,7954 | 0,7265–0,8433 |
+| Precision, terminální selhání = 0 | 12 prvních pokusů / stejné 3 úlohy | 0.7291 | 0.6175–0.8433 |
 
-Dolní precision ponechává nepřístupné citace ve jmenovateli, horní představuje
-možnou plnou podporu těchto neověřených vztahů. Nejde o jeden interval spolehlivosti
-0,7141–0,8050. Zvlášť jsou uvedeny bootstrapové intervaly každé meze
-(10 000 výběrů úloh s vracením, seed 20261013). Atomizovaný subset tvoří
-CIT-004, CIT-008 a CIT-013; byl vybrán účelově a neodhadujeme z něj pořadí
-produktů. Úplnost RF není citační recall. Nejistota nezahrnuje chyby AI hodnotitele.
+Explicitní páry: **78 S2, 1 S1, 20 S0, 0 NA**. Všechny faktické jednotky zahrnují
+úvod, závěr a dobrovolné doplňky; podpůrné citované úryvky nejsou nová tvrzení.
+Počty jednotek závisejí na lidské kontrole segmentace. Subset tvoří CIT-004,
+CIT-008 a CIT-013. Dokončený subset vynechává selhání ChatGPT/CIT-004; proto je
+uvedena i samostatná verze s nulou za tento pokus, v souladu s protokolem.
 
-Všech 202 původních parserových návrhů bylo AI posouzeno: 113 S2, 35 S1,
-3 S0, 32 NA a 19 NONE (necitovaná tvrzení nebo UI artefakty). Žádný řádek
-nezůstal REVIEW_PENDING. Není to hlavní atomická segmentace celého pilotu;
-původní parserové řádky i audit dělení zůstaly uchované.
+Bootstrap: 10 000 výběrů celých úloh s vracením, seed 20261013. Tři klastry mají
+hrubé diskrétní rozdělení; interval je popis tohoto subsetu, nezahrnuje chyby AI
+hodnotitele ani nezávislou lidskou shodu. Úplnost RF není citační recall.
+Žádné z těchto čísel není finální G3 skóre ani potvrzení H1/H2.
 
-Nejvýznamnější nové nálezy: chybný článek Ústavy při správném věku, rozhlasový
-zdroj bez uvedené přesnosti výšky, nesoulad nativních značek Gemini se seznamem
-zdrojů a nedoložené stáří publikace u CIT-015. Nečitelný zdroj je NA, nikoli FAB.
-Podklady: `results/ai-review-2026-10-13/`, kolekční AI review v `runs/supplement-2026-10-13/`.
+Podklady: `results/ai-review-2026-10-13-v2/`. Doplňkový audit zachovává nativní
+značky, přesné href a neznámé vazby. Nestandardní formát sám o sobě neznamená
+nepodporující zdroj; chybějící přiřazení se nesmí doplnit domněnkou.
 
-H1/H2 se nepotvrzují: chybí úplná párová matice a skutečné lidské hodnocení.
-Přístupové limity a rozdílné konfigurace se zachovávají, jejich dopad se nezakrývá.
+## Obsah doplňkových promptových běhů
+
+Na deseti SUP otázkách má Gemini 30 podmínek: **29 dokončených odpovědí a jedno
+terminální selhání P1**. Aktivní P2 pro SUP-H002 je jeho doložená náhrada.
+AI porovnání s referencí našlo v dokončených odpovědích správný obsah 52/52 RF.
+Při zahrnutí selhání je mikro pokrytí 52/54 = 0,9630 a makro po podmínkách
+29/30 = 0,9667. To měří obsah povinných faktů, **nikoli jejich citační podporu**
+a nikoli plnou správnost zahrnující RC a dobrovolné údaje.
+
+P3A má také konkrétní vady: SUP-H007 uvádí chybné datum dokumentu, SUP-H008
+obsahuje 30slovný úryvek při limitu 25 a SUP-H010 má neověřenou oporu na
+přesně uvedené URL. Nativní doménové značky ani telemetry se nepovažují za
+zachycený cílový odkaz. Pro doplněk proto **citační precision není spočítaná**.
+Podklady: `results/ai-review-2026-10-13-v2/supplement/`.
+
+## Podklady pro skutečné lidi
+
+Zaslepený export má 92 odpovědí, prázdné ratingy a oddělený privátní klíč.
+Druhý hodnotitel pokrývá ≥25 % v každém stratu. Každý musí nezávisle zkontrolovat
+celou odpověď, RF/RC, atomizaci a původní přiřazení zdroje. Postup [](#human-handoff).

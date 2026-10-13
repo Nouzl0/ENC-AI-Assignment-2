@@ -1,0 +1,11 @@
+{
+  "run_id": "completion-SUP-H006-P1-gemini-r1",
+  "task_id": "SUP-H006",
+  "condition": "P1",
+  "system": "gemini",
+  "run_status": "completed",
+  "datetime_end": "2026-10-13T11:40:28.844Z",
+  "search_used": "yes",
+  "source_proof": "opened visible BME chip; list hyperlinks independently preserved",
+  "clipboard_used": false
+}

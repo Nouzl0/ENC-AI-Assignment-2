@@ -1,0 +1,47 @@
+{
+  "text": "Maximální pokuta za nejzávažnější porušení GDPR (čl. 83 odst. 5):\nGeneral Data Protection Regulation (GDPR)\n\nPřesné znění limitu:\nAž do výše 20 000 000 EUR, nebo jedná-li se o podnik, až do výše 4 % celkového ročního obratu celosvětově za předchozí finanční rok, podle toho, která hodnota je vyšší.\nwww.privacy-regulation.eu + 1\n\nOdkaz na text nařízení:\n[Článek 83 odst. 5 nařízení GDPR (EUR-Lex)](https://www.google.com/search?q=https://eur-lex.europa.eu/legal-content/CS/TXT/HTML/%3Furi%3DCELEX:32016R0679%23d1e3458-1-1).\nwww.privacy-regulation.eu\n",
+  "links": [
+    {
+      "label": "Článek 83 odst. 5 nařízení GDPR (EUR-Lex)",
+      "href": "https://www.google.com/search?q=https://eur-lex.europa.eu/legal-content/CS/TXT/HTML/%3Furi%3DCELEX:32016R0679%23d1e3458-1-1"
+    }
+  ],
+  "chip_labels": [
+    {
+      "label": "General Data Protection Regulation (GDPR)",
+      "description": "Zobrazit podrobnosti o zdrojích pro citace z webů General Data Protection Regulation (GDPR). Stisknutím klávesy Enter otevřete dialogové okno se zdroji."
+    },
+    {
+      "label": "www.privacy-regulation.eu + 1",
+      "description": "Zobrazit podrobnosti o zdrojích pro citace z webů www.privacy-regulation.eu a www.privacy-regulation.eu. Stisknutím klávesy Enter otevřete dialogové okno se zdroji."
+    },
+    {
+      "label": "www.privacy-regulation.eu",
+      "description": "Zobrazit podrobnosti o zdrojích pro citace z webů www.privacy-regulation.eu. Stisknutím klávesy Enter otevřete dialogové okno se zdroji."
+    }
+  ],
+  "source_bindings": [
+    {
+      "label": "General Data Protection Regulation (GDPR)",
+      "ax_node_id": 40,
+      "description": "Zobrazit podrobnosti o zdrojích pro citace z webů General Data Protection Regulation (GDPR). Stisknutím klávesy Enter otevřete dialogové okno se zdroji.",
+      "href": null,
+      "href_status": "not_present_in_preserved_capture"
+    },
+    {
+      "label": "www.privacy-regulation.eu + 1",
+      "ax_node_id": 45,
+      "description": "Zobrazit podrobnosti o zdrojích pro citace z webů www.privacy-regulation.eu a www.privacy-regulation.eu. Stisknutím klávesy Enter otevřete dialogové okno se zdroji.",
+      "href": null,
+      "href_status": "not_present_in_preserved_capture"
+    },
+    {
+      "label": "www.privacy-regulation.eu",
+      "ax_node_id": 50,
+      "description": "Zobrazit podrobnosti o zdrojích pro citace z webů www.privacy-regulation.eu. Stisknutím klávesy Enter otevřete dialogové okno se zdroji.",
+      "href": null,
+      "href_status": "not_present_in_preserved_capture"
+    }
+  ],
+  "scope": "response_only; original native attribution retained; no source support assessment"
+}

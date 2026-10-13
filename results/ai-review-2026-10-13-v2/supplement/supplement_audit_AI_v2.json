@@ -1,0 +1,53 @@
+{
+  "schema_version": 2,
+  "created_at": "2026-10-13T13:19:10.034145+00:00",
+  "evaluator_type": "AI_REVIEW_PROPOSAL_NOT_HUMAN",
+  "independence": "none; unblinded AI review; do not give proposals to independent human raters before their raw ratings are saved",
+  "scope": "10 task triplets, active H002 P2 replacement; read all completed answer text and saved citation bindings; source-specific decisive checks, not a complete rated pair table",
+  "cells": 30,
+  "completed": 29,
+  "terminal_failed": 1,
+  "pending": 0,
+  "rf_correct_completed": 52,
+  "rf_expected_completed": 52,
+  "rf_expected_planned": 54,
+  "rf_macro_complete_only": 1.0,
+  "rf_macro_failure_inclusive": 0.9666666666666667,
+  "citation_precision": "NOT COMPUTED; numeric-marker propositions and native binding gaps require full pair adjudication. No all-to-all source inheritance, no quote double counting.",
+  "atoms_proposed": 90,
+  "metadata_error": "H007 P3A source date19December2002 contradicts exact CELEX52006DC0862 header22December2006. Main cash-introduction RF remains correct.",
+  "h010_p3_source": "Google search wrapper actual href; displayed UNESCO path404 in web reader and CAPTCHA200 in direct GET; no200 Wayback snapshot. Source support/quote fidelity unresolved, not S2; real Constitution at another URL is not a silent repair.",
+  "retained_diagnostic_attempts": [
+    {
+      "answer_file": "runs/supplement-2026-10-13/gemini-grok/SUP-H002-P2.raw.txt",
+      "answer_sha256": "ffedc250d52511de83f32ada8df3cfd876db6ec8e325658d0c2ecfd1b421272d",
+      "reason": "Original orphan answer has documented screenshot loss. Do not count together with replacement as two matched cell observations."
+    }
+  ],
+  "limitations": [
+    "All10 tasks fact/medium, AI created; source reference proposal AI verified, not independent human gold.",
+    "Prompt types, difficult-case quota and full product matrix remain outside protocol requirements.",
+    "No human scores, adjudication, IRR or gates have been manufactured.",
+    "Native indices, rendered anchors and opened popover links are captured separately; badge/domain labels and private telemetry cannot establish target URLs. Incomplete index maps remain UNKNOWN_BINDING.",
+    "Document source correctness and task factual correctness are independent. Unlinked sources do not create explicit citation completeness."
+  ],
+  "input_sha256": {
+    "private-input/binding_inventory_PROPOSAL_v2.json": "be28fd295bf4edcafea174483b7a7038fb2fe44b83eabaa0d0a46ee5bb1d41eb",
+    "private-input/semantic_decisions_MANUAL_PROPOSAL_v2.json": "7556caae5362a2971beb5bfe2cd8d627c44dfd9898e471fb99816d5ca0fd3a46",
+    "private-input/run_index.json": "d80ed1c152c4487a94d630f9816394bc2b98ac4145ac1758538af81c2f41334f",
+    "private-input/source_decisions_MANUAL_PROPOSAL_v2.json": "3582566183a5869a206d641f278f31d8673bfc0e7c955c1036d155ffe4c5c986"
+  },
+  "files": [
+    "answers_content_AI_v2.csv",
+    "subject_matter_atoms_AI_v2.csv",
+    "P3_quote_checks_AI_v2.csv"
+  ],
+  "scope_correction_v2": "Supersedes v1, which incorrectly promoted telemetry-decoded URLs to captured native targets. v1 archived privately. Ten native-source hypotheses/unknown index maps are now NOT_RATED_UNKNOWN_BINDING; no native S2/S0 inferred from telemetry. No source precision or citation-supported RF coverage.",
+  "required_constraint_findings": {
+    "SUP-H004:P1": "Official-source RC unknown: visible UN branding does not establish an actual official URL target."
+  },
+  "metric_interpretation": "RF counts here measure correct factual content only. They are NOT key_facts_supported, explicit-S2 RF coverage, citation completeness, or final human correctness.",
+  "rf_content_micro_failure_inclusive": 0.9629629629629629,
+  "source_decision_rows": 42,
+  "public_export_note": "No telemetry URLs or private binding inventories exported. Quoted text not duplicated: hashes and word counts only. Content RF correctness is independent of citation-supported RF coverage."
+}

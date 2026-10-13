@@ -1,0 +1,45 @@
+{
+  "record_count": 116,
+  "status_counts": {
+    "completed": 94,
+    "failed": 7,
+    "planned": 15
+  },
+  "stored_substantive_answers": 93,
+  "eligible_review_answers": 92,
+  "unique_tasks": 40,
+  "stored_by_collection": {
+    "legacy": 2,
+    "avast": 8,
+    "avast-v2": 23,
+    "chatgpt-perplexity": 18,
+    "gemini-grok": 24,
+    "root-gemini": 7,
+    "ai-review-gemini": 2,
+    "completion-gemini": 9
+  },
+  "eligible_by_system_condition": {
+    "chatgpt/P1": 1,
+    "chatgpt/P2": 20,
+    "gemini/P1": 12,
+    "gemini/P2": 27,
+    "gemini/P3A": 13,
+    "grok/P2": 8,
+    "perplexity/P1": 1,
+    "perplexity/P2": 10
+  },
+  "complete_gemini_triplets": [
+    "SUP-H001",
+    "SUP-H002",
+    "SUP-H003",
+    "SUP-H004",
+    "SUP-H005",
+    "SUP-H006",
+    "SUP-H007",
+    "SUP-H008",
+    "SUP-H009"
+  ],
+  "human_ratings": 0,
+  "gates_approved": [],
+  "purpose": "Exploratory collection, not G3 or unseen holdout; rejected attempts remain registered."
+}

@@ -1,0 +1,20 @@
+								54 container model-response-message-contentr_432b5af5f09ff50c
+									55 container p-rc_abbffc1a7edaed6e-22
+										56 text ODPOVĚĎ: Za nejzávažnější porušení GDPR podle čl.
+										57 text 83 odst.
+										58 text 5 lze uložit správní pokutu až do výše 20 000 000 EUR, nebo u podniku až do výše 4 % celkového ročního celosvětového obratu za předchozí finanční rok, podle toho, která hodnota je vyšší.
+										59 pop up button (collapsed) Secondary Actions: Expand, Description: Zobrazit podrobnosti o zdrojích pro citace z webů www.privacy-regulation.eu, EUR-Lex - European Union a www.privacy-regulation.eu. Stisknutím klávesy Enter otevřete dialogové okno se zdroji.
+									60 container p-rc_abbffc1a7edaed6e-23
+										61 text TVRZENÍ:
+T1: Za nejzávažnější porušení podle čl.  83 odst.
+										62 text  5 lze uložit pokutu až do výše 20 000 000 EUR [1.1.2] „až do výše 20 000 000 EUR, nebo jedná-li se o podnik, až do výše 4 % celkového ročního obratu celosvětově za předchozí finanční rok“
+T2: U podniků lze alternativně uložit pokutu do výše 4 % celkového ročního obratu [1.1.2] „až do výše 20 000 000 EUR, nebo jedná-li se o podnik, až do výše 4 % celkového ročního obratu celosvětově za předchozí finanční rok, podle toho, která hodnota je vyšší“
+										63 pop up button (collapsed) Secondary Actions: Expand, Description: Zobrazit podrobnosti o zdrojích pro citace z webů EUR-Lex - European Union. Stisknutím klávesy Enter otevřete dialogové okno se zdroji.
+									64 container
+										65 text ZDROJE:
+[1.1.2] Článek 83 EU obecné nařízení o ochraně osobních údajů – Privacy-Regulation.eu – neuvedeno – 
+										66 link Description: https://www.privacy-regulation.eu/cs/83.htm, Value: privacy-regulation.eu/cs/83.htm
+									67 container p-rc_abbffc1a7edaed6e-24
+										68 text JISTOTA: vysoká – Odpověď přímo cituje závazné znění evropského nařízení z oficiálního textu čl.  83 odst.
+										69 text  5 GDPR.
+										70 pop up button (collapsed) Secondary Actions: Expand, Description: Zobrazit podrobnosti o zdrojích pro citace z webů EUR-Lex - European Union. Stisknutím klávesy Enter otevřete dialogové okno se zdroji.

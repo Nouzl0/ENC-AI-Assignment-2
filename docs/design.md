@@ -48,6 +48,11 @@ Dev a val jsou veřejné v `data/`. Testovací sada je **uložená mimo Git** a 
 P3 neotevře; po jejím zveřejnění nelze použít jako skrytý test. Validátor ověřuje schéma a stratifikaci,
 nikoli pravdivost referencí.
 
+Tato část popisuje plán plného experimentu. Aktuálních SUP-H001–010 už je
+zveřejněných a všechny mají typ fact/medium; nenaplňují původní testové kvóty
+ani utajení. Pro potvrzující experiment je třeba jiná nezávislá skrytá sada.
+
+
 :::{table} Složení testovací sady
 :label: tbl-dataset
 :align: center

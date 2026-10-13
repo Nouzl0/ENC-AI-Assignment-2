@@ -1,0 +1,92 @@
+{
+  "schema_version": 1,
+  "run_id": "completion-SUP-H009-P1-gemini-r1",
+  "task_id": "SUP-H009",
+  "condition": "P1",
+  "text": "Slova: Josef Kajetán Tyl   \nWikipedia\n+ 1\n\nHudba: František Škroup   \nWikipedia\n+ 1\n\nZdroje:\n\nČeská hymna – Wikipedia   \nWikipedia\n\nStátní hymna ČR – Můj stát   \nMůj stát",
+  "dom_text": "Slova: Josef Kajetán Tyl   \nWikipedia\n+ 1\n\nHudba: František Škroup   \nWikipedia\n+ 1\n\nZdroje:\n\nČeská hymna – Wikipedia   \nWikipedia\n\nStátní hymna ČR – Můj stát   \nMůj stát",
+  "links": [
+    {
+      "href": "https://www.google.com/search?q=https://cs.wikipedia.org/wiki/%C4%8Cesk%C3%A1_hymna",
+      "label": "Česká hymna – Wikipedia"
+    },
+    {
+      "href": "http://www.mujstat.cz/statni_hymna_cr.aspx",
+      "label": "Státní hymna ČR – Můj stát"
+    }
+  ],
+  "chips": [
+    {
+      "description": "Zobrazit podrobnosti o zdrojích pro citace z webů Wikipedia a Můj stát. Stisknutím klávesy Enter otevřete dialogové okno se zdroji.",
+      "label": "Wikipedia\n+ 1",
+      "paragraph": "Slova: Josef Kajetán Tyl   \nWikipedia\n+ 1"
+    },
+    {
+      "description": "Zobrazit podrobnosti o zdrojích pro citace z webů Wikipedia a Můj stát. Stisknutím klávesy Enter otevřete dialogové okno se zdroji.",
+      "label": "Wikipedia\n+ 1",
+      "paragraph": "Hudba: František Škroup   \nWikipedia\n+ 1"
+    },
+    {
+      "description": "Zobrazit podrobnosti o zdrojích pro citace z webů Wikipedia. Stisknutím klávesy Enter otevřete dialogové okno se zdroji.",
+      "label": "Wikipedia",
+      "paragraph": "Česká hymna – Wikipedia   \nWikipedia"
+    },
+    {
+      "description": "Zobrazit podrobnosti o zdrojích pro citace z webů Můj stát. Stisknutím klávesy Enter otevřete dialogové okno se zdroji.",
+      "label": "Můj stát",
+      "paragraph": "Státní hymna ČR – Můj stát   \nMůj stát"
+    }
+  ],
+  "chipsSources": [
+    {
+      "label": "Wikipedia\n+ 1",
+      "description": "Zobrazit podrobnosti o zdrojích pro citace z webů Wikipedia a Můj stát. Stisknutím klávesy Enter otevřete dialogové okno se zdroji.",
+      "observed_at": "2026-10-13T11:58:42.189Z",
+      "origin": "opened visible citation popover",
+      "paragraph_text": "Slova: Josef Kajetán Tyl   \nWikipedia\n+ 1",
+      "paragraph_position": null,
+      "links": [
+        {
+          "href": "https://cs.wikipedia.org/wiki/%C4%8Cesk%C3%A1_hymna#:~:text=Table_title%3A%20%C4%8Cesk%C3%A1%20hymna%20Table_content%3A%20%7C%20Kde%20domov,Instrumentace%20%E2%86%93%20Proveden%C3%AD%20Probl%C3%A9my%20s%20p%C5%99ehr%C3%A1v%C3%A1n%C3%ADm%3F%20N%C3%A1pov%C4%9Bda.",
+          "label": "Wikipedia\nČeská hymna - Wikipedia\n„Table_title: Česká hymna Table_content: | Kde domov můj!? původní Škroupův zápis, Praha, (1. ledna 1860) | | | --- | --- | | Hymna | Československo Protektorát ...“"
+        },
+        {
+          "href": "http://www.mujstat.cz/statni_hymna_cr.aspx#:~:text=Kde%20je%20dnes%20origin%C3%A1ln%C3%AD%20notov%C3%BD%20z%C3%A1znam%20(partitura),divadla.%20%C5%BDil%20v%20prvn%C3%AD%20polovin%C4%9B%2019.%20stolet%C3%AD.",
+          "label": "Můj stát\nStátní hymna ČR - Můj stát\n„Kde je dnes originální notový záznam (partitura) písně „Kde domov můj“? Originální notový záznam (partitura) hry Fidlovačka, tedy i písně „Kde domov můj“, je dn...“"
+        }
+      ]
+    },
+    {
+      "label": "Wikipedia\n+ 1",
+      "description": "Zobrazit podrobnosti o zdrojích pro citace z webů Wikipedia a Můj stát. Stisknutím klávesy Enter otevřete dialogové okno se zdroji.",
+      "observed_at": "2026-10-13T11:58:42.784Z",
+      "origin": "opened visible citation popover",
+      "paragraph_text": "Hudba: František Škroup   \nWikipedia\n+ 1",
+      "paragraph_position": null,
+      "links": []
+    },
+    {
+      "label": "Wikipedia",
+      "description": "Zobrazit podrobnosti o zdrojích pro citace z webů Wikipedia. Stisknutím klávesy Enter otevřete dialogové okno se zdroji.",
+      "observed_at": "2026-10-13T11:58:43.422Z",
+      "origin": "opened visible citation popover",
+      "paragraph_text": "Česká hymna – Wikipedia   \nWikipedia",
+      "paragraph_position": null,
+      "links": []
+    },
+    {
+      "label": "Můj stát",
+      "description": "Zobrazit podrobnosti o zdrojích pro citace z webů Můj stát. Stisknutím klávesy Enter otevřete dialogové okno se zdroji.",
+      "observed_at": "2026-10-13T11:58:44.119Z",
+      "origin": "opened visible citation popover",
+      "paragraph_text": "Státní hymna ČR – Můj stát   \nMůj stát",
+      "paragraph_position": null,
+      "links": []
+    }
+  ],
+  "raw_text_sha256": "c7ed90710d0c3c192afbadbd46489dc98dc090b2b5834537687d1adab7289719",
+  "private_reply_dom_sha256": "f69977584ccd5cd7d19650c0f83e7a7a23592e4059e6b91e74202796d04bd564",
+  "sanitized_html_file": "completion-SUP-H009-P1-gemini-r1.reply-visible.html",
+  "citation_policy": "Only visible original anchors and opened source popovers. Native chip paragraph ties retained; unlinked source-list anchors remain unlinked. Written malformed URLs, quotes and labels are not corrected.",
+  "capture_method": "Rendered response content; clipboard_used field in capture indicates whether official Copy was used."
+}

@@ -47,6 +47,9 @@ Každé selhání a ruční zásah je v metadatech (`failure_type`, `retries`, `
 Úplné příkazy s manifesty a soukromými cestami jsou v `HANDOFF.md`.
 
 
-## Aktualizace 13. 10. 2026
+## Aktuální stav po kontrole 13. 10. 2026
 
-Doplňkový sběr nyní dokládá 40 různých měřených úloh a 84 věcných odpovědí. Pět nových úloh má Gemini P1/P2/P3A. Dostupný AI audit a intervaly jsou v kapitole [](#results), metoda v [](#supplement). Původní úplná matice a skutečné lidské hodnocení nejsou dokončené; starší plánované počty v této kapitole nejsou aktuální počet uložených odpovědí.
+40 různých úloh, 93 uložených věcných odpovědí / 92 způsobilých
+podkladů; 9 Gemini tripletů. Zaslepené listy pro skutečné hodnotitele
+jsou připravené ([](#human-handoff)). Aktuální AI metriky pocházejí z opravované
+verze 2 ([](#results)); úplná produktová matice a původní G1/G2/G3 zůstávají otevřené.

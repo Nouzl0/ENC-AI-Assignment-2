@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "run_id": "completion-SUP-H007-P3A-gemini-r1",
+  "task_id": "SUP-H007",
+  "condition": "P3A",
+  "text": "ODPOVĚĎ: Eurobankovky a euromince byly do oběhu uvedeny 1. ledna 2002. Tento den znamenal počátek fyzického zavádění hotovostní evropské měny.   \nwww.ecb.europa.eu\n\nTVRZENÍ:\nT1: Eurobankovky a euromince byly do oběhu uvedeny 1. ledna 2002. „Od 1. ledna 2002 byly do oběhu dány eurobankovky a euromince“   \neur-lex.europa.eu\n\nZDROJE:\n[1] 52006DC0862 – EUR-Lex – 19. prosince 2002 – https://eur-lex.europa.eu/legal-content/CS/TXT/HTML/?uri=CELEX:52006DC0862\n\nJISTOTA: vysoká – Datum je jednoznačně doloženo z oficiálních právních a unijních dokumentů.",
+  "dom_text": "ODPOVĚĎ: Eurobankovky a euromince byly do oběhu uvedeny 1. ledna 2002. Tento den znamenal počátek fyzického zavádění hotovostní evropské měny.   \nwww.ecb.europa.eu\n\nTVRZENÍ:\nT1: Eurobankovky a euromince byly do oběhu uvedeny 1. ledna 2002. „Od 1. ledna 2002 byly do oběhu dány eurobankovky a euromince“   \neur-lex.europa.eu\n\nZDROJE:\n[1] 52006DC0862 – EUR-Lex – 19. prosince 2002 – https://eur-lex.europa.eu/legal-content/CS/TXT/HTML/?uri=CELEX:52006DC0862\n\nJISTOTA: vysoká – Datum je jednoznačně doloženo z oficiálních právních a unijních dokumentů.",
+  "links": [
+    {
+      "href": "https://eur-lex.europa.eu/legal-content/CS/TXT/HTML/?uri=CELEX:52006DC0862",
+      "label": "https://eur-lex.europa.eu/legal-content/CS/TXT/HTML/?uri=CELEX:52006DC0862"
+    }
+  ],
+  "chips": [
+    {
+      "description": "Zobrazit podrobnosti o zdrojích pro citace z webů www.ecb.europa.eu. Stisknutím klávesy Enter otevřete dialogové okno se zdroji.",
+      "label": "www.ecb.europa.eu",
+      "paragraph": "ODPOVĚĎ: Eurobankovky a euromince byly do oběhu uvedeny 1. ledna 2002. Tento den znamenal počátek fyzického zavádění hotovostní evropské měny.   \nwww.ecb.europa.eu"
+    },
+    {
+      "description": "Zobrazit podrobnosti o zdrojích pro citace z webů eur-lex.europa.eu. Stisknutím klávesy Enter otevřete dialogové okno se zdroji.",
+      "label": "eur-lex.europa.eu",
+      "paragraph": "TVRZENÍ:\nT1: Eurobankovky a euromince byly do oběhu uvedeny 1. ledna 2002. „Od 1. ledna 2002 byly do oběhu dány eurobankovky a euromince“   \neur-lex.europa.eu"
+    }
+  ],
+  "chipsSources": [
+    {
+      "label": "www.ecb.europa.eu",
+      "description": "Zobrazit podrobnosti o zdrojích pro citace z webů www.ecb.europa.eu. Stisknutím klávesy Enter otevřete dialogové okno se zdroji.",
+      "observed_at": "2026-10-13T11:47:12.892Z",
+      "origin": "opened visible citation popover",
+      "paragraph_text": "ODPOVĚĎ: Eurobankovky a euromince byly do oběhu uvedeny 1. ledna 2002. Tento den znamenal počátek fyzického zavádění hotovostní evropské měny.   \nwww.ecb.europa.eu",
+      "paragraph_position": null,
+      "links": [
+        {
+          "href": "https://www.ecb.europa.eu/euro/changeover/2002/html/index.cs.html",
+          "label": "www.ecb.europa.eu\nPočáteční výměna platidel (r. 2002) - European Central Bank\n„Přechod na hotovostní euro v roce 2002 se zapsal do dějin Evropy a byl velkým technickým úspěchem. Došlo k němu 1. ledna 2002, kdy byly eurobankovky a“"
+        }
+      ]
+    },
+    {
+      "label": "eur-lex.europa.eu",
+      "description": "Zobrazit podrobnosti o zdrojích pro citace z webů eur-lex.europa.eu. Stisknutím klávesy Enter otevřete dialogové okno se zdroji.",
+      "observed_at": "2026-10-13T11:47:13.546Z",
+      "origin": "opened visible citation popover",
+      "paragraph_text": "TVRZENÍ:\nT1: Eurobankovky a euromince byly do oběhu uvedeny 1. ledna 2002. „Od 1. ledna 2002 byly do oběhu dány eurobankovky a euromince“   \neur-lex.europa.eu",
+      "paragraph_position": null,
+      "links": [
+        {
+          "href": "https://eur-lex.europa.eu/legal-content/CS/TXT/HTML/?uri=CELEX:52006DC0862",
+          "label": "eur-lex.europa.eu\n52006DC0862 - CS - EUR-Lex\n„Od 1. ledna 2002 byly do oběhu dány eurobankovky a euromince a euro se pro více než 300 milionů obyvatel eurozóny, kteří dohromady ročně provedou přibližně 300“"
+        }
+      ]
+    }
+  ],
+  "raw_text_sha256": "96a6217ceba37b005429677a7c1f26ac4ef8bda2a915fca2329555740909b2db",
+  "private_reply_dom_sha256": "ed6f4e4856a11681cb04affcfe8be56e99b3658eed737a32fae38f7175f2f524",
+  "sanitized_html_file": "completion-SUP-H007-P3A-gemini-r1.reply-visible.html",
+  "citation_policy": "Only visible original anchors and opened source popovers. Native chip paragraph ties retained; unlinked source-list anchors remain unlinked. Written malformed URLs, quotes and labels are not corrected.",
+  "capture_method": "Rendered response content; clipboard_used field in capture indicates whether official Copy was used."
+}

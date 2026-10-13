@@ -1,33 +1,34 @@
 (limits)=
-# Limity a co výsledky neprokážou
+# Limity a platnost výsledků
 
-Výsledek je porovnáním pěti produktů na konkrétních dotazech v jednom časovém okně, ne měřením schopnosti jazykových modelů ani obecným žebříčkem.
+Sběr nyní pokrývá 40 různých otázek a 93 věcných odpovědí, ale produktová
+matice je neúplná. Gemini má 9 úplných tripletů; ostatní produkty nemají
+stejné pokrytí. Claude nemá dokončenou odpověď. Odpovědi z různých účtů, tarifů
+či rozhraní se neslévají do obecného žebříčku. Naměřené jsou produkty jako celky,
+nikoli izolované modely.
 
-:::{important} Omezené prostředky
-Studie vznikla s omezeným časem a rozpočtem na využití produktů a AI agentů. Plný rozsah (≈ 500 analytických odpovědí, dva lidští hodnotitelé) proto zatím běžel jen v podobě **skutečného pilotu na 8 úlohách**. Metodika, nástroje a data jsou připravené tak, aby šel plný experiment spustit bez změn návrhu. Místo odhadování chybějících čísel je výslovně uvádíme jako nezměřená.
-:::
+Deset doplňkových otázek bylo připravených s pomocí AI po fixaci šablon,
+nesplňuje původní požadovanou směs typů úloh a bylo zveřejněno. Jejich použití
+nedokládá nezávislý skrytý test, G1/G2 nebo validační výběr P3. Pro další
+potvrzující experiment je nutná nová nezávislá skrytá sada.
 
-- **Malý vzorek (10 testovacích případů).** Široké intervaly, malé rozdíly nerozlišíme. *Řešení:* Velikost efektu a intervaly, doplňkové výsledky z vývoje
-- **Produkty se mění.** Model, rozhraní i vyhledávání se mohou změnit během dnů. *Řešení:* 72hodinové okno, záznam viditelného modelu a data
-- **Web se mění.** Zdroj může zmizet nebo se změnit mezi během a hodnocením. *Řešení:* Hodnocení do 7 dní od běhu, snímky obrazovky, archivace stránky
-- **Bez parity nástrojů.** Rozdíly nelze připsat modelu. *Řešení:* Závěry formulujeme jen o produktech
-- **Úroveň účtu a personalizace.** Pilot používá existující účty, Gemini Plus; rozdíl úrovní může výsledek ovlivnit. *Řešení:* Před zmrazením sladíme konfiguraci nebo deklarujeme rozdíly; úroveň/model zapisujeme u každého běhu
-- **Jedno kolo a povolené standardní doptání.** Neměříme volnou vícekolovou konverzaci; případné druhé kolo zaznamenáme. *Řešení:* Uvedeme jako hranici platnosti
-- **Dotazy sám zvolil tým.** Známá fakta může model znát i bez vyhledávání. *Řešení:* Hodnotíme citaci, ne jen odpověď; dev/val mají 13/30 edge (43,3 %), soukromý test čeká na lidskou kontrolu
-- **Pilot bez lidských ratingů.** Pozorování v pilotu jsou kvalitativní a kontroly AI nenahrazují lidské hodnocení. *Řešení:* Listy pro dva hodnotitele jsou připravené; výsledky se publikují až po ratingu
-- **Hodnotitelé jsou studenti.** U odborných zdrojů (právo, zdraví) mohou chybovat. *Řešení:* Kalibrace, dvojité hodnocení, zlaté zdroje v případu
-- **Dělení na tvrzení je subjektivní.** Počet dvojic se může mezi hodnotiteli lišit. *Řešení:* Pravidla v rubrice, člověk kontroluje celou odpověď ve všech podmínkách, bez limitu osmi tvrzení
-- **Jen čeština a angličtina, česká IP.** Jiné jazyky a regiony mohou dopadnout jinak. *Řešení:* Uvedeme jako hranici platnosti
+Pomocné AI ratingy byly opravené po významových kontrolách zdrojů. To ukazuje
+potřebu skutečných lidských hodnotitelů. Jejich listy jsou zaslepené, ratingy
+prázdné a klíč oddělený. Lidská shoda dosud není naměřená. Reference mají
+post-collection AI evidenci, nikoli nezávislé schválení.
 
-:::{tip} Co výsledky prokázat mohou
-Zda se na této sadě a v tomto období liší citační přesnost produktů a zda strukturovaný prompt u jednotlivých produktů pomáhá. Také jaké typy chyb citací se opakují.
-:::
+Citační CI se týká pouze tří účelově vybraných úloh, obsahový CI osmi. Tyto
+intervaly nezahrnují chyby segmentace ani hodnotitele. Dokončený subset může
+nadhodnotit výsledek vynecháním selhání, proto uvádíme i nulový terminální pokus.
+Čísla neprokazují H1/H2 ani trvalé rozdíly mezi produkty.
 
-:::{warning} Co prokázat nemohou
-Který jazykový model je lepší, jak se produkty chovají na jiných typech dotazů a zda rozdíly vydrží po další aktualizaci produktu.
-:::
+Webové zdroje se mění a některé čtečky mění URL. Při použití zrcadla je nutné
+prokázat totožnost dokumentu; správné referenční URL nepodporuje automaticky
+jinou citaci produktu. Nezachycené cíle nativních značek zůstávají neznámé.
+Snímky mohou zachycovat pouze část viewportu; úplný text a originální DOM/AX
+jsou zachované samostatně. Opravy exportů jsou auditované a nepřepisují originály.
 
-
-## Aktualizace 13. 10. 2026
-
-Doplňkový sběr nyní dokládá 40 různých měřených úloh a 84 věcných odpovědí. Pět nových úloh má Gemini P1/P2/P3A. Dostupný AI audit a intervaly jsou v kapitole [](#results), metoda v [](#supplement). Původní úplná matice a skutečné lidské hodnocení nejsou dokončené; starší plánované počty v této kapitole nejsou aktuální počet uložených odpovědí.
+Časy zahrnují čekání operátora a zachycení, ne izolovanou generační latenci.
+Tokeny, kredity, ceny a nastavení, které UI neukazuje, zůstávají unknown.
+Časová selhání a opakování se zachovávají; překročení 180s limitu při pozorování
+se neskrývá zkrácením razítek. Žádné finální hodnocení se nepublikuje pod identitou člověka.

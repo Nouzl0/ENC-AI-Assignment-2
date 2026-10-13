@@ -1,0 +1,8 @@
+Python was created by Guido van Rossum, and its first public version was released in 1991.   
+BME
+
+Sources:
+
+Wikipedia - Python (programming language)
+
+Python.org

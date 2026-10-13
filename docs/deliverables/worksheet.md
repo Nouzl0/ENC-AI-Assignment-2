@@ -6,7 +6,7 @@ authors:
   - name: Nikolas Nosál
 parts:
   abstract: >
-    Pracovní odevzdávací worksheet: 40 různých měřených úloh, 84 věcných odpovědí,
+    Pracovní odevzdávací worksheet: 40 různých měřených úloh, 93 uložených věcných odpovědí,
     oddělené AI hodnocení. Plná produktová matice a skutečná lidská složka
     zůstávají nedokončené; původní G1/G2/G3 se netvrdí.
 exports:
@@ -19,7 +19,7 @@ exports:
 # AI Student worksheet
 
 **Verze: pracovní odevzdávací podklady (13. 10. 2026), pilot a označený doplněk.** Worksheet obsahuje skutečně změřené hodnoty z pilotu
-(33 odpovědí, 8 úloh), doplněné o 51 dalších odpovědí; celkové pokrytí je 40 různých úloh a 84 věcných odpovědí. Pole označená **Nevyhodnoceno** se týkají analytických běhů, které se kvůli omezenému času a rozpočtu
+(33 odpovědí, 8 úloh), doplněné o 60 dalších odpovědí; celkové pokrytí je 40 různých úloh a 93 uložených věcných odpovědí. Pole označená **Nevyhodnoceno** se týkají analytických běhů, které se kvůli omezenému času a rozpočtu
 na využití produktů a AI agentů nestihly; hodnoty se neodhadují. Zdroj pravdy je [PROTOCOL.md](../../PROTOCOL.md).
 
 ## A. Project identity
@@ -32,19 +32,19 @@ na využití produktů a AI agentů nestihly; hodnoty se neodhadují. Zdroj prav
 
 **Primary track:**
 
-- [ ] Směr A: řízený text
-- [x] Směr B: výzkum podložený zdroji
-- [ ] Směr C: vícejazyčné a regionální fungování
-- [ ] Programování a agentní systémy
-- [ ] Jiný
+- **Ne:** Směr A: řízený text
+- **Ano:** Směr B: výzkum podložený zdroji
+- **Ne:** Směr C: vícejazyčné a regionální fungování
+- **Ne:** Programování a agentní systémy
+- **Ne:** Jiný
 
 **Project scope:**
 
-- [x] Jedna schopnost: správnost a úplnost citací na úrovni tvrzení
-- [x] Návrh porovnání pěti produktů jako kompletních systémů, běžný chat s webovým vyhledáváním, bez Deep Research; skutečné účty nemají shodný tarif
-- [ ] Dokončené měření 40 různých faktických úloh se všemi třemi promptovými podmínkami napříč zahrnutými produkty
+- **Ano:** Jedna schopnost: správnost a úplnost citací na úrovni tvrzení
+- **Ano:** Návrh porovnání pěti produktů jako kompletních systémů, běžný chat s webovým vyhledáváním, bez Deep Research; skutečné účty nemají shodný tarif
+- **Ne:** Dokončené měření 40 různých faktických úloh se všemi třemi promptovými podmínkami napříč zahrnutými produkty
 
-**Worksheet version and date:** v0.2 (pilot a doplňkový sběr), 2026-10-13
+**Worksheet version and date:** v0.3 (auditované podklady pro lidské hodnocení), 2026-10-13
 
 ---
 
@@ -70,13 +70,13 @@ Vedlejší hypotéza H2: strukturovaný prompt P2 zvýší přesnost oproti P1 v
 
 **Unit of analysis:**
 
-- [x] Odpověď (průměr přes úlohy prvního běhu je agregace metriky)
-- [x] Dvojice tvrzení–citace (základ hodnocení)
-- [x] Faktické tvrzení (základ úplnosti)
-- [x] Úloha (klastr pro bootstrap a váha v průměru)
-- [x] Systém × podmínka (úroveň porovnání)
-- [ ] Sada úloh jako celek
-- [ ] Jiné
+- **Ano:** Odpověď (průměr přes úlohy prvního běhu je agregace metriky)
+- **Ano:** Dvojice tvrzení–citace (základ hodnocení)
+- **Ano:** Faktické tvrzení (základ úplnosti)
+- **Ano:** Úloha (klastr pro bootstrap a váha v průměru)
+- **Ano:** Systém × podmínka (úroveň porovnání)
+- **Ne:** Sada úloh jako celek
+- **Ne:** Jiné
 
 **Primary metric:** Přesnost explicitní atribuce = explicitní S2 dvojice / všechny explicitní dvojice odpovědi. Bez explicitních citací je hodnota 0. NA a FAB zůstávají ve jmenovateli. Vedlejší metriky: úplnost citací (tvrzení s alespoň jednou explicitní S2 citací / všechna faktická tvrzení celé odpovědi) a správnost odpovědi (rubrika 0–2, podíl odpovědí se skóre 2).
 
@@ -90,7 +90,7 @@ Vedlejší hypotéza H2: strukturovaný prompt P2 zvýší přesnost oproti P1 v
 
 | System | Interface/API | Visible model/version | Tools enabled | Prompt adaptations | Date tested |
 | --- | --- | --- | --- | --- | --- |
-| ChatGPT | Webové rozhraní, Temporary chat (Unpersonalized) | GPT-6, uvažování Střední | Search vynucen nástrojem; Deep research vyloučen | Žádné (cíl 0) | 12.–13. 10. 2026 (pilot) |
+| ChatGPT | Webové rozhraní, Temporary chat (bez personalizace) | GPT-6, uvažování Střední | Search vynucen nástrojem; Deep research vyloučen | Žádné (cíl 0) | 12.–13. 10. 2026 (pilot) |
 | Gemini | Webové rozhraní, Temporary chat | 3.6 Flash (tarif Plus) | Vyhledávání automaticky; Deep Research vyloučen | Žádné (cíl 0) | 12.–13. 10. 2026 (pilot) |
 | Claude | Webové rozhraní, Incognito chat | Opus 5.5 Medium (bez odpovědi: limit) | Web search; Research vyloučen | Žádné (cíl 0) | 12.–13. 10. 2026 (pilot) |
 | Claude Code | **Nezahrnut:** nástroj pro programování a agentní systémy, mimo směr B | – | – | – | – |
@@ -101,9 +101,9 @@ Nastavení vychází z nápovědy výrobců k 29. 9. 2026. Viditelný model a da
 
 **Comparison design:**
 
-- [ ] Návrh s paritou nástrojů
-- [x] Návrh podle schopností produktu: každý systém používá své běžné webové vyhledávání a výsledek je výslovně porovnáním produktů
-- [ ] Dvouvrstvý návrh (volitelné API rozšíření je jen možnost, nepočítá se do plánu)
+- **Ne:** Návrh s paritou nástrojů
+- **Ano:** Návrh podle schopností produktu: každý systém používá své běžné webové vyhledávání a výsledek je výslovně porovnáním produktů
+- **Ne:** Dvouvrstvý návrh (volitelné API rozšíření je jen možnost, nepočítá se do plánu)
 
 **What cannot be made equal?** Vyhledávač, index, zobrazení citací, bezpečnostní vrstva, skryté systémové instrukce, teplota a limit výstupu, nastavení modelu v bezplatné úrovni a režim vyhledávání. Model nelze odpojit od vyhledávání a produkt od rozhraní.
 
@@ -123,7 +123,7 @@ Nastavení vychází z nápovědy výrobců k 29. 9. 2026. Viditelný model a da
 
 **Repeated-run cases:** 10 předem určených testových úloh (úsporná varianta 5), podmínka P2, běhy 2 a 3
 
-| Stratum | Planned number | Actual number | How selected |
+| Stratum | Planned number | Dostupné / plánované | How selected |
 | --- | --- | --- | --- |
 | Ordinary (bez okrajové podmínky) | test: 5–6 z 10 | dev 11, val 6, test 6 (návrh) | Týmový účelový výběr |
 | Difficult (hard) | test: 3 z 10 | dev 6, val 2, test 3 (návrh) | Podle `holdout_blueprint.json` |
@@ -211,9 +211,9 @@ Podrobný záznam je v [prompts/CHANGELOG.md](../../prompts/CHANGELOG.md).
 
 | Version | Date | Change | Evidence | Expected effect | Actual validation effect | Retained? |
 | --- | --- | --- | --- | --- | --- | --- |
-| v0 (P1 v1.0) | 2026-09-29 | Šablona ze zadání + věta o formátu | Povinná společná výchozí podmínka | Referenční úroveň | Nevyhodnoceno | Ano (zmrazí G1) |
-| v1 (P2 v1.0) | 2026-09-29 | Role, cíl, 8 pravidel, schéma výstupu, postup při nejistotě | Návrh před měřením | Vyšší podíl explicitních a podpořených citací | Nevyhodnoceno | Ano (zmrazí G1) |
-| v2 (P3-A / P3-B v0.1, v0.2) | 2026-09-29, pak přípravná revize | P3-A: doslovný úryvek ke každému tvrzení. P3-B: navíc kontrola tvrzení před odesláním | Hypotéza E2/E5. Chybí ≥3 chybné dev odpovědi, zatím nepotvrzeno | Méně nepodporujících citací | Nevyhodnoceno (validace neproběhla) | Nevyhodnoceno |
+| v0 (P1 v1.0) | 2026-09-29 | Šablona ze zadání + věta o formátu | Povinná společná výchozí podmínka | Referenční úroveň | Neurčeno | Ano (zmrazí G1) |
+| v1 (P2 v1.0) | 2026-09-29 | Role, cíl, 8 pravidel, schéma výstupu, postup při nejistotě | Návrh před měřením | Vyšší podíl explicitních a podpořených citací | Neurčeno | Ano (zmrazí G1) |
+| v2 (P3-A / P3-B v0.1, v0.2) | 2026-09-29, pak přípravná revize | P3-A: doslovný úryvek ke každému tvrzení. P3-B: navíc kontrola tvrzení před odesláním | Hypotéza E2/E5. Chybí ≥3 chybné dev odpovědi, zatím nepotvrzeno | Méně citací bez opory | Bez validace | Neurčeno |
 | v3 (P3_final) | nevytvořen | Přesná kopie vítěze validace (plán) | – | – | – | – |
 
 ---
@@ -225,7 +225,7 @@ Podrobný záznam je v [prompts/CHANGELOG.md](../../prompts/CHANGELOG.md).
 | Přesnost explicitní atribuce | Primární | Člověk (hodnocení S2–FAB) | Explicitní S2 dvojice / všechny explicitní dvojice odpovědi; průměr přes úlohy prvního běhu | Kalibrace na offline kotvách, pilot CIT-001 a CIT-020, druhý hodnotitel | S2 neznamená pravdivost odpovědi |
 | Úplnost citací | Vedlejší 1 | Člověk | Tvrzení s ≥1 explicitní S2 citací / všechna faktická tvrzení celé odpovědi | Segmentace tvrzení se hodnotí zvlášť | Dělení na tvrzení je subjektivní |
 | Správnost odpovědi (0–2) | Vedlejší 2 | Člověk | Podíl odpovědí se skóre 2 proti povinným faktům a požadavkům | Kalibrace, druhé hodnocení | Závisí na ověřené reference |
-| Dostupnost URL, konkrétnost odkazu, shoda čísel a jmen, datum publikace, formát P2/P3 | Diagnostika | Automatická kontrola (`check_citations.py`) | HTTP stav, příznaky, podíl nalezených entit | Porovnání s lidským hodnocením až po nezávislém ratingu | Automatika pravdivost nepotvrdí; paywall není nepodpořeno |
+| Dostupnost URL, konkrétnost odkazu, shoda čísel a jmen, datum publikace, formát P2/P3 | Diagnostika | Automatická kontrola parserem | HTTP stav, příznaky, podíl nalezených entit | Porovnání s lidským hodnocením až po nezávislém ratingu | Automatika pravdivost nepotvrdí; paywall není nepodpořeno |
 
 **Human raters:** Dva hodnotitelé. Hodnotitel 1 hodnotí všechny dokončené odpovědi. Hodnotitel 2 hodnotí předem náhodně vybraných ≥25 % v každém stratu fáze × produkt × podmínka (zaokrouhleno nahoru), přestože zadání vyžaduje 20 %. Nikdo nehodnotí vlastní běh.
 
@@ -259,27 +259,27 @@ Hlavní závěry stavíme jen na lidském hodnocení. LLM lze nanejvýš použí
 
 Checklist níže potvrzuje připravená metadata, nikoli provedení všech běhů.
 
-- [x] Produkt a viditelný název modelu
-- [x] Rozhraní nebo API
-- [x] Datum a čas (Europe/Prague)
-- [x] Podmínka promptu a verze s hashem SHA-256
-- [x] Systémová instrukce (výchozí/neznámá)
-- [x] Oprávnění k používání nástrojů
-- [x] Kontextové soubory (žádné)
-- [x] Teplota nebo ekvivalent (výchozí/neznámá)
-- [x] Maximální délka výstupu (výchozí/neznámá)
-- [x] Počet kol komunikace
-- [x] Počet volání nástrojů (zobrazených vyhledávání)
-- [x] Latence (první a end-to-end)
-- [x] Tokeny, kredity, náklady (cost_note)
-- [x] Opakování a selhání (`failure_type`, `retries`)
-- [x] Ruční zásahy (`manual_intervention`)
-- [x] Surový text odpovědi, normalizace a SHA-256
-- [x] Snímek obrazovky a odkaz na sdílení
+- **Ano:** Produkt a viditelný název modelu
+- **Ano:** Rozhraní nebo API
+- **Ano:** Datum a čas s offsetem; run_day v UTC
+- **Ano:** Podmínka promptu a verze s hashem SHA-256
+- **Ano:** Systémová instrukce (výchozí/neznámá)
+- **Ano:** Oprávnění k používání nástrojů
+- **Ano:** Kontextové soubory (žádné)
+- **Ano:** Teplota nebo ekvivalent (výchozí/neznámá)
+- **Ano:** Maximální délka výstupu (výchozí/neznámá)
+- **Ano:** Počet kol komunikace
+- **Ano:** Počet volání nástrojů (zobrazených vyhledávání)
+- **Ano:** Latence (první a end-to-end)
+- **Ano:** Tokeny, kredity, náklady (cost_note)
+- **Ano:** Opakování a selhání (`failure_type`, `retries`)
+- **Ano:** Ruční zásahy (`manual_intervention`)
+- **Ano:** Surový text odpovědi, normalizace a SHA-256
+- **Ano:** Snímek obrazovky a odkaz na sdílení
 
-**Storage location:** Doplněk 13. 10. 2026: původní artefakty mimo Git v pracovním adresáři operátorů; schválený export `runs/supplement-2026-10-13/` s relativními cestami, metadata a SHA-256. Historický originální sběr: `D:\AI\czai-private-v1` (ve WSL `/mnt/d/AI/czai-private-v1`), mimo worktree. Nový pilot je oddělený v `calibration/avast-v1/`. Schválený export pro odevzdání bude v `ENC-AI-Project`; podepsané originály se nepřepisují a holdout se před G2 nepublikuje.
+**Storage location:** Originály zůstávají mimo Git u správce. Aktuální schválené exporty mají relativní cesty a SHA-256 v `runs/canonical-2026-10-13/`, `runs/completion-2026-10-13/` a původním doplňku. Podepsané originály se nepřepisují. Pravidlo utajeného holdoutu před G2 patří budoucímu potvrzujícímu protokolu; současné SUP otázky už jsou zveřejněné jako exploratorní doplněk.
 
-**Anonymization and data-protection procedure:** Dotazy jsou syntetické veřejné fakty, bez osobních údajů. Nový pilot používá existující přihlášené účty a dočasné/anonymní chaty; rozdíly úrovní a personalizace se evidují. Analytická konfigurace se rozhodne před G1. Soukromé snapshoty a klíče zůstávají mimo Git a sdílejí se jen oprávněně. Přístupové údaje ani osobní data se neukládají. Publikace testu a odsanitizovaných artefaktů až po G3 a souhlasu týmu.
+**Anonymization and data-protection procedure:** Dotazy jsou veřejné fakty bez osobních údajů. Sběr používá existující účty a dočasné/anonymní chaty; rozdíly úrovní se evidují. Soukromé AX mohou obsahovat identifikátor přihlášeného účtu, proto zůstávají chráněné mimo export. Autorizované veřejné podklady jsou sanitizované. Klíče, původní ratingy a source snapshoty zůstávají u správce. Publikace až po G3 je pravidlo budoucího potvrzujícího experimentu; SUP je již zveřejněný doplněk s deklarovanými odchylkami, bez předstírání G1/G2/G3.
 
 ---
 
@@ -295,13 +295,13 @@ Checklist níže potvrzuje připravená metadata, nikoli provedení všech běh�
 
 **What evidence supports freezing the benchmark?** Skutečný pilot na 8 úlohách a 33 odpovědích, připravené nástroje a postup. Formální zmrazení G1 se pro omezený rozsah neprovedlo. Podmínky G1 jsou v [freeze/README.md](../../freeze/README.md): pilot, role, dostupnost, nezávislé reference, nový soukromý holdout, hashe.
 
-**What remains uncertain?** Nový holdout, nezávislé ověření referencí, lidská kalibrace a G1 nebyly v rozsahu projektu dokončeny. Skutečné úrovně účtů musí být sladěné nebo odchylky deklarované před G1; Gemini nyní ukazuje Plus.
+**What remains uncertain?** Nový holdout, nezávislé ověření referencí, lidská kalibrace a G1 nebyly v rozsahu projektu dokončeny. Skutečné úrovně účtů musí být sladěné nebo odchylky deklarované před G1; V doplňku byl viditelný Flash-Lite; tarif není jednotně doložený.
 
 ---
 
 ## L. Results table
 
-**Aktuální doplněk:** 84 věcných odpovědí / 40 různých úloh; pět nových úloh má Gemini P1/P2/P3A. AI obsahový audit pilotu: 47/48 RF, průměr pokrytí 0,9848 (CI 0,9516–1,0000). Atomizovaný subset 11 odpovědí / 3 úlohy / 87 párů: precision meze 0,7141–0,8050; zvláštní CI a omezení v [results.md](../results.md). Jde o skutečný pomocný AI audit, ne lidské hodnocení ani finální G3 skóre.
+**Aktuální doplněk:** 93 uložených věcných odpovědí / 92 způsobilých podkladů / 40 úloh; 9 Gemini tripletů. Obsahový AI audit: 47/48 RF, makro 0,9848 (CI 0,9516–1,0000). Opravený atomizovaný subset v2: 11 odpovědí / 3 úlohy / 99 explicitních párů, precision 0,7954 (CI 0,7265–0,8433). S terminálním selháním jako nulou: 0.7291 / 12 pokusů. Zaslepené lidské listy jsou připravené, ratingy a shoda prázdné. Nejde o G3.
 
 **Nevykázáno: agregovaná skóre vyžadují lidské ratingy a G3. Orientační provozní metriky a lexikální proxy podpory (nejde o rating) jsou v [results.md](../results.md) a `results/pilot/pilot_metrics.csv`.** Sloupce plné tabulky: System, Condition, N, Primary score, Interval or variation, Secondary score, Median latency, Cost, First-attempt success. Řádky: pět produktů × Baseline / Structured / Optimized (Claude Code se nehodnotí). Žádná hodnota se nevymýšlí ani nepřebírá ze syntetické ukázky.
 
@@ -315,7 +315,7 @@ Checklist níže potvrzuje připravená metadata, nikoli provedení všech běh�
 
 **Most consequential error:** Předběžně záměna zdroje u tvrzení (CIT-001, CIT-008), protože čtenář ji při běžném čtení nezachytí; k potvrzení lidským hodnocením.
 
-**Did optimization change the error distribution?** Nelze určit: P3 a analytická matice P1/P2/P3 nebyly spuštěny.
+**Did optimization change the error distribution?** Exploratorní P3A byl skutečně měřen: Gemini má 9 úplných tripletů a poslední triplet s terminálním selháním P1. Citační precision doplňku vyžaduje dokončení vazeb a lidské ratingy; úplná produktová matice ani validační výběr P3_final neproběhly.
 
 ---
 

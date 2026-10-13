@@ -1,0 +1,74 @@
+[
+  {
+    "record_id": "root-gemini/supplement-CIT-021-P1-gemini-r1",
+    "reason": "stale clipboard capture; recovered original matching response, no new model run",
+    "old_answer_file": "runs/supplement-2026-10-13/root-gemini/CIT-021-P1.answer.md",
+    "old_answer_sha256": "dee8c04e444047ce70003f922c7ebe4d7b09c3e1185b7fa306d8d38fa427fb2c",
+    "private_original_ax_sha256": "3ff6928c243b7be0ff7b925aae49171108a01a6c5da43ce27bb04ebc75abe379",
+    "new_answer_file": "runs/canonical-2026-10-13/recovery-v2/CIT-021-P1.answer.v2.txt",
+    "new_answer_sha256": "cc4734a18ca07c51e654187459c815907e9c0776105f459220430a4a7aa08749",
+    "scoped_ax_file": "runs/canonical-2026-10-13/recovery-v2/CIT-021-P1.response.ax.v2.txt",
+    "scoped_ax_sha256": "33f2b079e6e17a133f098a0b8f5b7528d78df4b974b2b46a330dd969373411c7",
+    "screenshot_file": "runs/supplement-2026-10-13/root-gemini/CIT-021-P1.png",
+    "screenshot_sha256": "1bb26836adcd47dd6a72b48770296667c6905a40a456566f09ab3ee8b4a8458d",
+    "original_ax_scope_lines_1based": [
+      38,
+      49
+    ],
+    "old_to_new_input_audit": "Matching original AX and PNG; exact displaced clipboard href cross-check when available."
+  },
+  {
+    "record_id": "root-gemini/supplement-CIT-021-P3A-gemini-r1",
+    "reason": "stale clipboard capture; recovered original matching response, no new model run",
+    "old_answer_file": "runs/supplement-2026-10-13/root-gemini/CIT-021-P3A.answer.md",
+    "old_answer_sha256": "5169f4a0739fa8e33bef27aacc3e37e15c4516f324cf6e7d63398efba17dcdfc",
+    "private_original_ax_sha256": "744f8301e672a3e2786d31d190c237554b6d913257d27c9288e8f1ca669a42a2",
+    "new_answer_file": "runs/canonical-2026-10-13/recovery-v2/CIT-021-P3A.answer.v2.txt",
+    "new_answer_sha256": "d62fa8a3522abe8f2a9c2a4ce0e9533174a6ddc24a01472d2b1706f071bf61d0",
+    "scoped_ax_file": "runs/canonical-2026-10-13/recovery-v2/CIT-021-P3A.response.ax.v2.txt",
+    "scoped_ax_sha256": "e8a2da32c19f71d4da5ff83940b81123aab10e2aa1ecc43af62b751fdb795886",
+    "screenshot_file": "runs/supplement-2026-10-13/root-gemini/CIT-021-P3A.png",
+    "screenshot_sha256": "3128a99ac705b63681512127a73262768f820bb0c1251fb43285e1b65d3083ef",
+    "original_ax_scope_lines_1based": [
+      55,
+      71
+    ],
+    "old_to_new_input_audit": "Matching original AX and PNG; exact displaced clipboard href cross-check when available."
+  },
+  {
+    "record_id": "root-gemini/supplement-CIT-023-P1-gemini-r1",
+    "reason": "stale clipboard capture; recovered original matching response, no new model run",
+    "old_answer_file": "runs/supplement-2026-10-13/root-gemini/CIT-023-P1.answer.md",
+    "old_answer_sha256": "258dec5f8bf033281e8b89148534a2b98cfb255d89e6b522a9d5183d39295346",
+    "private_original_ax_sha256": "a2c51257b55445c633e89ea5a3789f83f5c79acef75e1d3ab25d484c0cb1c069",
+    "new_answer_file": "runs/canonical-2026-10-13/recovery-v2/CIT-023-P1.answer.v2.txt",
+    "new_answer_sha256": "d41d0cd966580f1f06bfedb7303da6ea1bad75bece756430a2432cf0ca217861",
+    "scoped_ax_file": "runs/canonical-2026-10-13/recovery-v2/CIT-023-P1.response.ax.v2.txt",
+    "scoped_ax_sha256": "72d80ea63297263e8e6ed4613c668e3985a798f0de63a46266705e8ebdb544b1",
+    "screenshot_file": "runs/supplement-2026-10-13/root-gemini/CIT-023-P1.png",
+    "screenshot_sha256": "1e4340dc71645ef9e5a6aa738450e8a314e369148f3bf9448aa0e60b2676dd18",
+    "original_ax_scope_lines_1based": [
+      38,
+      51
+    ],
+    "old_to_new_input_audit": "Matching original AX and PNG; exact displaced clipboard href cross-check when available."
+  },
+  {
+    "record_id": "root-gemini/supplement-CIT-023-P3A-gemini-r1",
+    "reason": "stale clipboard capture; recovered original matching response, no new model run",
+    "old_answer_file": "runs/supplement-2026-10-13/root-gemini/CIT-023-P3A.answer.md",
+    "old_answer_sha256": "eca30ec74ca5eff727710bcbc09ea6914ab7df501bdebd37c1b24731bfbd4d05",
+    "private_original_ax_sha256": "ad1080efc23a3dff64c57a3d9592d8d8adc2f49e3f6004d05fce9d26e13ba522",
+    "new_answer_file": "runs/canonical-2026-10-13/recovery-v2/CIT-023-P3A.answer.v2.txt",
+    "new_answer_sha256": "ffff5cf16c4fcdfd00915167b042c28724990fda22a5281d25f11bc2ff8db951",
+    "scoped_ax_file": "runs/canonical-2026-10-13/recovery-v2/CIT-023-P3A.response.ax.v2.txt",
+    "scoped_ax_sha256": "218b58b4ab8171b9c11be1877f9d050ed9391b26a76cab664dbff3b90ca2e9f9",
+    "screenshot_file": "runs/supplement-2026-10-13/root-gemini/CIT-023-P3A.png",
+    "screenshot_sha256": "f8c725ba07a8be83b1bb46a03197b874381737b139a28e5a4afae4cae59fdd99",
+    "original_ax_scope_lines_1based": [
+      55,
+      74
+    ],
+    "old_to_new_input_audit": "Matching original AX and PNG; exact displaced clipboard href cross-check when available."
+  }
+]

@@ -50,3 +50,14 @@ Před podpisem G1 je třeba vyřešit ostatní uvedené mezery a získat lidskou
 každého RF i OF s konkrétní hodnotou, locatorem, datem a soukromým snapshotem/hash.
 Žádné přístupové selhání není důkazem neexistence zdroje. Dynamické reference
 se navíc ověřují podle UTC dne každého analytického běhu.
+
+## Aktualizace AI kontroly 13. 10. 2026
+
+Deset nových zveřejněných otázek má opravenou jednotnou verzi RF/RC v
+`runs/reference-correction-2026-10-13/`: 18 RF, 2 RC, datované otevřené oficiální
+zdroje a snapshot SHA. Otázky a prompty se neměnily; korekce vznikla po sběru.
+Opravené zdrojové rozhodnutí pro pilot je v `results/ai-review-2026-10-13-v2/`.
+Přesně citovaná stránka Hradu je nyní čitelná, ČSÚ uvádí rozhodný okamžik přímo,
+EO §10(j) podporuje licenční analýzu a hash není jedním ze sedmi minimálních
+prvků NTIA z července 2021. Původní snapshoty a tehdejší přístupové chyby zůstaly zachované.
+Nejde o lidské schválení referencí ani původní G1.

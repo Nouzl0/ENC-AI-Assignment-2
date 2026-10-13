@@ -1,0 +1,88 @@
+{
+  "schema_version": 1,
+  "run_id": "completion-SUP-H007-P1-gemini-r1",
+  "task_id": "SUP-H007",
+  "condition": "P1",
+  "text": "Eurobankovky a euromince byly uvedeny do oběhu 1. ledna 2002.   \neur-lex.europa.eu\n\nZdroje:\n\nEvropská centrální banka – Počáteční výměna platidel (r. 2002)   \nEUR-Lex - European Union\n\nWikipedia – Euromince\n\nWikipedia – Eurobankovky   \nWikipedia",
+  "dom_text": "Eurobankovky a euromince byly uvedeny do oběhu 1. ledna 2002.   \neur-lex.europa.eu\n\nZdroje:\n\nEvropská centrální banka – Počáteční výměna platidel (r. 2002)   \nEUR-Lex - European Union\n\nWikipedia – Euromince\n\nWikipedia – Eurobankovky   \nWikipedia",
+  "links": [
+    {
+      "href": "https://www.ecb.europa.eu/euro/changeover/2002/html/index.cs.html",
+      "label": "Evropská centrální banka – Počáteční výměna platidel (r. 2002)"
+    },
+    {
+      "href": "https://cs.wikipedia.org/wiki/Euromince",
+      "label": "Wikipedia – Euromince"
+    },
+    {
+      "href": "https://cs.wikipedia.org/wiki/Eurobankovky",
+      "label": "Wikipedia – Eurobankovky"
+    }
+  ],
+  "chips": [
+    {
+      "description": "Zobrazit podrobnosti o zdrojích pro citace z webů eur-lex.europa.eu. Stisknutím klávesy Enter otevřete dialogové okno se zdroji.",
+      "label": "eur-lex.europa.eu",
+      "paragraph": "Eurobankovky a euromince byly uvedeny do oběhu 1. ledna 2002.   \neur-lex.europa.eu"
+    },
+    {
+      "description": "Zobrazit podrobnosti o zdrojích pro citace z webů EUR-Lex - European Union. Stisknutím klávesy Enter otevřete dialogové okno se zdroji.",
+      "label": "EUR-Lex - European Union",
+      "paragraph": "Evropská centrální banka – Počáteční výměna platidel (r. 2002)   \nEUR-Lex - European Union"
+    },
+    {
+      "description": "Zobrazit podrobnosti o zdrojích pro citace z webů Wikipedia. Stisknutím klávesy Enter otevřete dialogové okno se zdroji.",
+      "label": "Wikipedia",
+      "paragraph": "Wikipedia – Eurobankovky   \nWikipedia"
+    }
+  ],
+  "chipsSources": [
+    {
+      "label": "eur-lex.europa.eu",
+      "description": "Zobrazit podrobnosti o zdrojích pro citace z webů eur-lex.europa.eu. Stisknutím klávesy Enter otevřete dialogové okno se zdroji.",
+      "observed_at": "2026-10-13T11:47:10.587Z",
+      "origin": "opened visible citation popover",
+      "paragraph_text": "Eurobankovky a euromince byly uvedeny do oběhu 1. ledna 2002.   \neur-lex.europa.eu",
+      "paragraph_position": null,
+      "links": [
+        {
+          "href": "https://eur-lex.europa.eu/EN/legal-content/summary/five-years-of-euro-banknotes-and-coins.html",
+          "label": "eur-lex.europa.eu\nFive years of Euro banknotes and coins | EUR-Lex - European Union\n„On 1 January 2002, the euro became a part of daily life for citizens from twelve EU Member States. Five years after the introduction of euro coins and banknotes“"
+        }
+      ]
+    },
+    {
+      "label": "EUR-Lex - European Union",
+      "description": "Zobrazit podrobnosti o zdrojích pro citace z webů EUR-Lex - European Union. Stisknutím klávesy Enter otevřete dialogové okno se zdroji.",
+      "observed_at": "2026-10-13T11:47:11.230Z",
+      "origin": "opened visible citation popover",
+      "paragraph_text": "Evropská centrální banka – Počáteční výměna platidel (r. 2002)   \nEUR-Lex - European Union",
+      "paragraph_position": null,
+      "links": [
+        {
+          "href": "https://eur-lex.europa.eu/EN/legal-content/summary/five-years-of-euro-banknotes-and-coins.html#:~:text=The%20European%20Commission%20reviews%20the%20introduction%20on,information%20and%20even%20misconceptions%20remaining%20very%20widespread.",
+          "label": "EUR-Lex - European Union\nFive years of Euro banknotes and coins | EUR-Lex - European Union\n„The European Commission reviews the introduction on 1 January 2002 of euro banknotes and coins into the daily life of citizens. * Informing citizens about the e...“"
+        }
+      ]
+    },
+    {
+      "label": "Wikipedia",
+      "description": "Zobrazit podrobnosti o zdrojích pro citace z webů Wikipedia. Stisknutím klávesy Enter otevřete dialogové okno se zdroji.",
+      "observed_at": "2026-10-13T11:47:11.820Z",
+      "origin": "opened visible citation popover",
+      "paragraph_text": "Wikipedia – Eurobankovky   \nWikipedia",
+      "paragraph_position": null,
+      "links": [
+        {
+          "href": "https://cs.wikipedia.org/wiki/Eurobankovky#:~:text=Table_title%3A%20S%C3%A9rie%20Europa%20Table_content%3A%20%7C%20Hodnota%20%7C,%7C%20%C5%BDlut%C3%A1%20%7C%2028.%20kv%C4%9Btna%202019%20%7C",
+          "label": "Wikipedia\nEurobankovky - Wikipedia\n„ Table_title: Série Europa Table_content: | Hodnota | Barva | Uvedení do oběhu | | --- | --- | --- | | | | | | 5 eur | Šedá | 2. května 2013 | | 10 eur | Červen...“"
+        }
+      ]
+    }
+  ],
+  "raw_text_sha256": "23bfe4010bd1fa5ef9c004fc96b24800e57ca594f5d4dcb1d68de4fa10e9c0da",
+  "private_reply_dom_sha256": "faf7fe6c7aad24a39bb88fa7cc2607ff5add3e0af0346ce876a7f61268ac95d4",
+  "sanitized_html_file": "completion-SUP-H007-P1-gemini-r1.reply-visible.html",
+  "citation_policy": "Only visible original anchors and opened source popovers. Native chip paragraph ties retained; unlinked source-list anchors remain unlinked. Written malformed URLs, quotes and labels are not corrected.",
+  "capture_method": "Rendered response content; clipboard_used field in capture indicates whether official Copy was used."
+}

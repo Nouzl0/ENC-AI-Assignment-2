@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "run_id": "completion-SUP-H008-P3A-gemini-r1",
+  "task_id": "SUP-H008",
+  "condition": "P3A",
+  "text": "ANSWER: The Bretton Woods conference was held in July 1944, leading to the creation of the International Monetary Fund (IMF) and the International Bank for Reconstruction and Development (IBRD), which is now part of the World Bank Group.\n\nCLAIMS:\nC1: The Bretton Woods conference was held from July 1 to 22, 1944. [1.1.1] \"The Bretton Woods Conference, held in Bretton Woods, New Hampshire from July 1-22, 1944, gives birth to both the International Monetary Fund and the\"\nC2: The two international institutions that emerged from the conference are the International Monetary Fund and the International Bank for Reconstruction and Development. [1.1.4] \"The Bretton Woods Conference, held in Bretton Woods, New Hampshire from July 1-22, 1944, gives birth to both the International Monetary Fund and the International Bank for Reconstruction and Development.\"\n\nSOURCES:\n[1] Bretton Woods Conference begins | Timeline – World Bank – not stated – https://timeline.worldbank.org/en/timeline/home\n\nCONFIDENCE: high – The dates and institutions are verified by official World Bank and IMF historical records.",
+  "dom_text": "ANSWER: The Bretton Woods conference was held in July 1944, leading to the creation of the International Monetary Fund (IMF) and the International Bank for Reconstruction and Development (IBRD), which is now part of the World Bank Group.\n\nCLAIMS:\nC1: The Bretton Woods conference was held from July 1 to 22, 1944. [1.1.1] \"The Bretton Woods Conference, held in Bretton Woods, New Hampshire from July 1-22, 1944, gives birth to both the International Monetary Fund and the\"\nC2: The two international institutions that emerged from the conference are the International Monetary Fund and the International Bank for Reconstruction and Development. [1.1.4] \"The Bretton Woods Conference, held in Bretton Woods, New Hampshire from July 1-22, 1944, gives birth to both the International Monetary Fund and the International Bank for Reconstruction and Development.\"\n\nSOURCES:\n[1] Bretton Woods Conference begins | Timeline – World Bank – not stated – https://timeline.worldbank.org/en/timeline/home\n\nCONFIDENCE: high – The dates and institutions are verified by official World Bank and IMF historical records.",
+  "links": [
+    {
+      "href": "https://timeline.worldbank.org/en/timeline/home",
+      "label": "https://timeline.worldbank.org/en/timeline/home"
+    }
+  ],
+  "chips": [],
+  "chipsSources": [],
+  "raw_text_sha256": "7930dd4e7d39c1ca51e4e958d3d9432df47c0bd2958d26221516b660c022b5e3",
+  "private_reply_dom_sha256": "b54d14f5e951848e5a04145b1809ad927e8b39d5502ac8c3c396c274938db9ce",
+  "sanitized_html_file": "completion-SUP-H008-P3A-gemini-r1.reply-visible.html",
+  "citation_policy": "Only visible original anchors and opened source popovers. Native chip paragraph ties retained; unlinked source-list anchors remain unlinked. Written malformed URLs, quotes and labels are not corrected.",
+  "capture_method": "Rendered response content; clipboard_used field in capture indicates whether official Copy was used."
+}

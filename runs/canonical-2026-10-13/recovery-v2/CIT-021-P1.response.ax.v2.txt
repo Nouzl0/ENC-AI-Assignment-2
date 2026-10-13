@@ -1,0 +1,12 @@
+								43 container model-response-message-contentr_33c1abe7bd907079
+									44 container p-rc_ba94a8bd346a89cf-21
+										45 text Albert Einstein  nedostal Nobelovu cenu za teorii relativity .
+										46 pop up button (collapsed) Secondary Actions: Expand, Description: Zobrazit podrobnosti o zdrojích pro citace z webů Converter.cz. Stisknutím klávesy Enter otevřete dialogové okno se zdroji.
+									47 container p-rc_ba94a8bd346a89cf-22
+										48 text Nobelovu cenu za fyziku za rok 1921 (převzatou v roce 1922) získal „za zásluhy o teoretickou fyziku, a zejména  za objev zákona fotoelektrického jevu “.
+										49 text Teorie relativity byla v té době pro část Nobelova výboru stále příliš kontroverzní a předmětem diskusí.
+										50 pop up button (collapsed) Secondary Actions: Expand, Description: Zobrazit podrobnosti o zdrojích pro citace z webů www.alberteinstein.com a Converter.cz. Stisknutím klávesy Enter otevřete dialogové okno se zdroji.
+									51 text Použité zdroje:
+									52 content list
+										53 link Description: Max Planck Gesellschaft – Albert Einstein, Value: nobel.mpg.de/en/albert-einstein
+										54 link Description: Converter.cz – Životopis Alberta Einsteina, Value: converter.cz/fyzici/einstein.htm

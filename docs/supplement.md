@@ -35,7 +35,7 @@ se dokládá konkrétní chybou, nikoli náhradní vymyšlenou odpovědí.
 
 ## Hodnocení
 
-Výstupy v `results/ai-review-2026-10-13/` představují **pomocné AI hodnocení**
+Aktuální výstupy v `results/ai-review-2026-10-13-v2/` představují **pomocné AI hodnocení**
 podle existující rubriky. Nejsou prací Reného Mrákavy ani Jana Duba. Pokud
 nebylo možné otevřít přesně citovaný zdroj, je tato skutečnost zachována;
 jiný kontrolní zdroj nedokazuje podporu původní citace. Přístupové selhání
@@ -56,3 +56,17 @@ existence šablon nebo dosažení 40 úloh úplnou matici nedokazuje.
 
 Aktuální součty a dostupné tabulky jsou v kapitole [](#results). Uvedené
 neúplnosti jsou stav dat, nikoli dodatečně odsouhlasené výjimky ze zadání.
+
+## Audit exportů a příprava lidské práce
+
+Kanonický registr používá collection/run_id, samostatné template a rendered
+SHA a skutečná metadata. Původní chybné clipboard exporty jsou zachované; čtyři
+odpovědi byly z dochovaných AX a PNG obnovené do nové verze. Nový sběr čte
+přímo konkrétní response DOM a zachovává skutečné href. Odstraněn byl jediný
+UI nadpis identifikující produkt v podkladu pro zaslepené hodnocení; odpověď
+ani citace se nepřepisují. SUP-H002/P2 se ve výběru započítá pouze jeho náhradou.
+
+Reference doplňku byly jednotně opravené po sběru a označené jako AI ověřené.
+Deset otázek už je zveřejněných; není to neviděný test pro další ladění.
+Zaslepený exportátor ověřuje všechny vstupní hashy, odděluje identifikační klíč
+a nepředvyplňuje ratingy. Povinné skutečné lidské hodnocení: [](#human-handoff).

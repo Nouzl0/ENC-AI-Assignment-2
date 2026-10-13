@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "run_id": "completion-SUP-H006-P1-gemini-r1",
+  "task_id": "SUP-H006",
+  "condition": "P1",
+  "text": "Python was created by Guido van Rossum, and its first public version was released in 1991.   \nBME\n\nSources:\n\nWikipedia - Python (programming language)\n\nPython.org",
+  "dom_text": "Python was created by Guido van Rossum, and its first public version was released in 1991.   \nBME\n\nSources:\n\nWikipedia - Python (programming language)\n\nPython.org",
+  "links": [
+    {
+      "href": "https://en.wikipedia.org/wiki/Python_(programming_language)",
+      "label": "Wikipedia - Python (programming language)"
+    },
+    {
+      "href": "https://www.python.org/downloads/",
+      "label": "Python.org"
+    }
+  ],
+  "chips": [
+    {
+      "description": "Zobrazit podrobnosti o zdrojích pro citace z webů BME. Stisknutím klávesy Enter otevřete dialogové okno se zdroji.",
+      "label": "BME"
+    }
+  ],
+  "chipsSources": [
+    {
+      "observed_at": "2026-10-13T11:40:28.778Z",
+      "origin": "visible opened BME citation popover",
+      "paragraph_text": null,
+      "paragraph_position": 0,
+      "links": [
+        {
+          "href": "https://static.hlt.bme.hu/semantics/external/pages/nagysz%C3%A1m-aritmetika/en.wikipedia.org/wiki/Python_(programming_language).html",
+          "label": "BME\nPython (programming language) - Wikipedia - Index of /\n„Python is an interpreted, high-level, general-purpose programming language. Created by Guido van Rossum and first released in 1991, Python has a design {\"isSci...“"
+        }
+      ]
+    }
+  ],
+  "raw_text_sha256": "0a1e3974c980930821b67fa19af476ca2d4894e085503f94c11b9f0b62e75c68",
+  "private_reply_dom_sha256": "70dbf6e8ef6ffe96efa713ea24427d327f31130a58c6ce4b689ceb72924c60b8",
+  "sanitized_html_file": "completion-SUP-H006-P1-gemini-r1.reply-visible.html",
+  "citation_policy": "Only visible original anchors and opened source popovers. Native chip paragraph ties retained; unlinked source-list anchors remain unlinked. Written malformed URLs, quotes and labels are not corrected.",
+  "capture_method": "Rendered response content; clipboard_used field in capture indicates whether official Copy was used."
+}

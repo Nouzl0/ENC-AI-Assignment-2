@@ -1,0 +1,42 @@
+[
+  {
+    "task_id": "SUP-H003",
+    "constraint_id": "RC1",
+    "text": "Jednoznačně rozlišit datum vstupu v platnost od počátku obecné použitelnosti.",
+    "evidence": {
+      "url": "https://www.consilium.europa.eu/en/policies/digital-single-market/",
+      "title": "Digital single market for Europe — 2016, 24 May, Data protection reform",
+      "publisher": "Council of the European Union",
+      "locator": "L626–631",
+      "checked_at": "2026-10-13T11:31:01+00:00",
+      "snapshot_file": "private-source-snapshot/gdpr.web-extract.txt",
+      "snapshot_sha256": "c418306c28b22ad4de26497998ef5b5ad25522ca540f9ab50350eeb01161f2b4",
+      "snapshot_kind": "unmodified returned web-tool extracted text, not raw server HTML",
+      "reviewer": "Codex supplemental operator",
+      "reviewer_type": "AI",
+      "independent": false,
+      "human_approved": false
+    },
+    "interpretation": "Dates must be correctly distinguished; no additional third fact required."
+  },
+  {
+    "task_id": "SUP-H004",
+    "constraint_id": "RC1",
+    "text": "Citovat oficiální zdroj OSN.",
+    "evidence": {
+      "url": "https://treaties.un.org/pages/ViewDetails.aspx?src=TREATY&mtdsg_no=I-1&chapter=1&clang=_en",
+      "title": "Charter of the United Nations — treaty register I.1",
+      "publisher": "United Nations Treaty Collection",
+      "locator": "L39",
+      "checked_at": "2026-10-13T11:28:31+00:00",
+      "snapshot_file": "private-source-snapshot/un.web-extract.txt",
+      "snapshot_sha256": "3ae22e5ad212001267837aef1b81133229615f70ff90f0bf705fcfde85ded43e",
+      "snapshot_kind": "unmodified returned web-tool extracted text, not raw server HTML",
+      "reviewer": "Codex supplemental operator",
+      "reviewer_type": "AI",
+      "independent": false,
+      "human_approved": false
+    },
+    "interpretation": "Reference is official UN treaty-register domain/publisher; each product answer still requires its own official-source citation check."
+  }
+]

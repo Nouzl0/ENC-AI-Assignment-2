@@ -9,3 +9,12 @@
 # Pilot originals contain genuine Windows CRLF; preserve their recorded hashes.
 runs/pilot-2026-10-12/** -text whitespace=-blank-at-eol,-blank-at-eof,-space-before-tab,cr-at-eol
 runs/pilot-2026-10-13/** -text whitespace=-blank-at-eol,-blank-at-eof,-space-before-tab,cr-at-eol
+# Approved supplementary artefacts are bound by byte hashes as well.
+runs/supplement-2026-10-13/** -text whitespace=-blank-at-eol,-blank-at-eof,-space-before-tab,cr-at-eol
+results/ai-review-2026-10-13/** -text whitespace=-blank-at-eol,-blank-at-eof,-space-before-tab,cr-at-eol
+
+# New approved hash-bound exploratory exports retain exact bytes.
+runs/completion-2026-10-13/** -text whitespace=-blank-at-eol,-blank-at-eof,-space-before-tab,cr-at-eol
+runs/canonical-2026-10-13/** -text whitespace=-blank-at-eol,-blank-at-eof,-space-before-tab,cr-at-eol
+runs/reference-correction-2026-10-13/** -text whitespace=-blank-at-eol,-blank-at-eof,-space-before-tab,cr-at-eol
+results/ai-review-2026-10-13-v2/** -text whitespace=-blank-at-eol,-blank-at-eof,-space-before-tab,cr-at-eol

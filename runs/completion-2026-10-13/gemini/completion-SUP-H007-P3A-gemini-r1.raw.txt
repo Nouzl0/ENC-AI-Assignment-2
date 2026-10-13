@@ -1,0 +1,11 @@
+ODPOVĚĎ: Eurobankovky a euromince byly do oběhu uvedeny 1. ledna 2002. Tento den znamenal počátek fyzického zavádění hotovostní evropské měny.   
+www.ecb.europa.eu
+
+TVRZENÍ:
+T1: Eurobankovky a euromince byly do oběhu uvedeny 1. ledna 2002. „Od 1. ledna 2002 byly do oběhu dány eurobankovky a euromince“   
+eur-lex.europa.eu
+
+ZDROJE:
+[1] 52006DC0862 – EUR-Lex – 19. prosince 2002 – https://eur-lex.europa.eu/legal-content/CS/TXT/HTML/?uri=CELEX:52006DC0862
+
+JISTOTA: vysoká – Datum je jednoznačně doloženo z oficiálních právních a unijních dokumentů.

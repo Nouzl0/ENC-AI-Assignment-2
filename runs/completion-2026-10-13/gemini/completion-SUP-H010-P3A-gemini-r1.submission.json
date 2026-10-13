@@ -1,0 +1,16 @@
+{
+  "run_id": "completion-SUP-H010-P3A-gemini-r1",
+  "task_id": "SUP-H010",
+  "condition": "P3A",
+  "system": "gemini",
+  "run_status": "planned",
+  "template_name": "P3A_candidate_en.txt",
+  "template_sha256": "a71d6a853de0f8ea69c747e293c2abacc2e95ba0e73704fad7b7793a078f8016",
+  "rendered_prompt_sha256": "da06335f323d0f33e2090a3333beb3f345f8083f60c64066cc2f535fab39006b",
+  "data_status": "supplement published after initial P2 collection; fixed templates unchanged; not unseen holdout for future optimization",
+  "datetime_start": "2026-10-13T12:01:57.502Z",
+  "temporary_chat": true,
+  "temporary_notice_verified": true,
+  "ui_setup_correction": "Unsent tab load refreshed before first actual send",
+  "interface": "Gemini Temporary chat; Flash-Lite"
+}

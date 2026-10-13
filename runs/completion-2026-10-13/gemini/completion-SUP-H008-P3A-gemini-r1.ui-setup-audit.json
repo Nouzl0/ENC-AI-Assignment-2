@@ -1,0 +1,14 @@
+{
+  "prior_attempt": {
+    "run_id": "completion-SUP-H008-P3A-gemini-r1",
+    "task_id": "SUP-H008",
+    "condition": "P3A",
+    "datetime_start": "2026-10-13T11:42:48.705Z",
+    "rendered_prompt_sha256": "e80830a486baf3f5a350dc566a18db33d5bd500afd82b2f09b6151d8a81c14a8",
+    "model_visible": "Flash-Lite",
+    "plan_tier": "unknown",
+    "interface": "Gemini Temporary chat"
+  },
+  "observed_at": "2026-10-13T11:53:39.266Z",
+  "result": "Prompt remained in composer; no model response/submission observed; fix UI setup before first actual send"
+}

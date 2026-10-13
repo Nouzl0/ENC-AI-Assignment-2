@@ -1,0 +1,11 @@
+{
+  "run_id": "completion-SUP-H009-P3A-gemini-r1",
+  "task_id": "SUP-H009",
+  "condition": "P3A",
+  "datetime_start": "2026-10-13T11:58:57.848Z",
+  "rendered_prompt_sha256": "3efe65a0baeb02fce9235d2baeb0d7154c49d1b831bff97e0f0323ce203d4928",
+  "model_visible": "Flash-Lite",
+  "plan_tier": "unknown",
+  "interface": "Gemini Temporary chat verified before submit",
+  "ui_setup_correction": "Native click did not send or activate mode; semantic controls used before first model submission"
+}

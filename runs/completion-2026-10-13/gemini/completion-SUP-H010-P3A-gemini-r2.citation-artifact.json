@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "run_id": "completion-SUP-H010-P3A-gemini-r2",
+  "task_id": "SUP-H010",
+  "condition": "P3A",
+  "text": "ANSWER: UNESCO's Constitution was signed on 16 November 1945 and entered into force on 4 November 1946.\n\nCLAIMS:\nC1: UNESCO's Constitution was signed on 16 November 1945 [1] \"The Constitution of UNESCO was adopted in London on 16 November 1945\"\nC2: UNESCO's Constitution entered into force on 4 November 1946 [1] \"and entered into force on 4 November 1946 after deposit of the twentieth ratification\"\n\nSOURCES:\n[1] UNESCO Constitution (Introduction) – UNESCO – not stated – https://www.unesco.org/en/legal-affairs/unesco-constitution\n\nCONFIDENCE: high – The dates are officially documented by UNESCO itself in the introduction to its founding constitutional text.",
+  "dom_text": "ANSWER: UNESCO's Constitution was signed on 16 November 1945 and entered into force on 4 November 1946.\n\nCLAIMS:\nC1: UNESCO's Constitution was signed on 16 November 1945 [1] \"The Constitution of UNESCO was adopted in London on 16 November 1945\"\nC2: UNESCO's Constitution entered into force on 4 November 1946 [1] \"and entered into force on 4 November 1946 after deposit of the twentieth ratification\"\n\nSOURCES:\n[1] UNESCO Constitution (Introduction) – UNESCO – not stated – https://www.unesco.org/en/legal-affairs/unesco-constitution\n\nCONFIDENCE: high – The dates are officially documented by UNESCO itself in the introduction to its founding constitutional text.",
+  "links": [
+    {
+      "href": "https://www.google.com/search?q=https://www.unesco.org/en/legal-affairs/unesco-constitution",
+      "label": "https://www.unesco.org/en/legal-affairs/unesco-constitution"
+    }
+  ],
+  "chips": [],
+  "chipsSources": [],
+  "raw_text_sha256": "d20db8877bfaa0ee59227bdf52610e1c2dd2a2ca7b3592da27ac9841b33eb143",
+  "private_reply_dom_sha256": "1606f75ecc4a235ccbed10b7fcd0069065e744585b67263f4eb7d9f0bacea9e1",
+  "sanitized_html_file": "completion-SUP-H010-P3A-gemini-r2.reply-visible.html",
+  "citation_policy": "Only visible original anchors and opened source popovers. Native chip paragraph ties retained; unlinked source-list anchors remain unlinked. Written malformed URLs, quotes and labels are not corrected.",
+  "capture_method": "Rendered response content; clipboard_used field in capture indicates whether official Copy was used."
+}

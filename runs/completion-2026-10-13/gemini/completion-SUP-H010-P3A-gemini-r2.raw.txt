@@ -1,0 +1,10 @@
+ANSWER: UNESCO's Constitution was signed on 16 November 1945 and entered into force on 4 November 1946.
+
+CLAIMS:
+C1: UNESCO's Constitution was signed on 16 November 1945 [1] "The Constitution of UNESCO was adopted in London on 16 November 1945"
+C2: UNESCO's Constitution entered into force on 4 November 1946 [1] "and entered into force on 4 November 1946 after deposit of the twentieth ratification"
+
+SOURCES:
+[1] UNESCO Constitution (Introduction) – UNESCO – not stated – https://www.unesco.org/en/legal-affairs/unesco-constitution
+
+CONFIDENCE: high – The dates are officially documented by UNESCO itself in the introduction to its founding constitutional text.
