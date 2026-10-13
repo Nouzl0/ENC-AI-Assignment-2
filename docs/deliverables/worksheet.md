@@ -1,8 +1,8 @@
 # AI Student worksheet
 
-**Verze: počáteční (k návrhu projektu), před G1.** Nic není zmrazeno a neexistují
-výsledky. Pole označená **DOPLNIT** se vyplní až po skutečných bězích, pilotu nebo
-rozhodnutí týmu. Hodnoty se nesmí odhadovat. Zdroj pravdy je [PROTOCOL.md](../../PROTOCOL.md).
+**Verze: závěrečná k odevzdání (13. 10. 2026), rozsah pilotu.** Worksheet obsahuje skutečně změřené hodnoty z pilotu
+(33 odpovědí, 8 úloh). Pole označená **Nevyhodnoceno** se týkají analytických běhů, které se kvůli omezenému času a rozpočtu
+na využití produktů a AI agentů nestihly; hodnoty se neodhadují. Zdroj pravdy je [PROTOCOL.md](../../PROTOCOL.md).
 
 ## A. Project identity
 
@@ -10,7 +10,7 @@ rozhodnutí týmu. Hodnoty se nesmí odhadovat. Zdroj pravdy je [PROTOCOL.md](..
 
 **Team members:** Jan Dub, René Mrákava, Nikolas Nosál (Mendelova univerzita v Brně, Provozně ekonomická fakulta)
 
-**Roles:** René Mrákava: správce skrytého testu, nezávislý ověřovatel referencí a hodnotitel; Jan Dub: autor promptu a hodnotitel (potvrzeno uživatelem 12. 10. 2026). Nový operátor: `codex-ui-2026-10-12`, AI agent ovládající chrome. Jan před G2 nedostává obsah testu. Přiřazení role není provedený rating ani podpis brány. Viz [docs/team.md](../team.md).
+**Roles:** René Mrákava: správce skrytého testu, nezávislý ověřovatel referencí a hodnotitel; Jan Dub: autor promptu a hodnotitel (potvrzeno uživatelem 12. 10. 2026). Nový operátor: `codex-ui-2026-10-12`, AI agent ovládající chrome. Jan před G2 nedostává obsah testu. Přiřazení role není provedený rating ani podpis brány. Viz [plan.md](../plan.md).
 
 **Primary track:**
 
@@ -72,14 +72,14 @@ Vedlejší hypotéza H2: strukturovaný prompt P2 zvýší přesnost oproti P1 v
 
 | System | Interface/API | Visible model/version | Tools enabled | Prompt adaptations | Date tested |
 | --- | --- | --- | --- | --- | --- |
-| ChatGPT | Webové rozhraní, Temporary chat (Unpersonalized) | DOPLNIT při běhu | Search vynucen nástrojem; Deep research vyloučen | Žádné (cíl 0) | DOPLNIT |
-| Gemini | Webové rozhraní, Temporary chat | DOPLNIT při běhu | Vyhledávání automaticky; Deep Research vyloučen | Žádné (cíl 0) | DOPLNIT |
-| Claude | Webové rozhraní, Incognito chat | DOPLNIT při běhu | Web search; Research vyloučen | Žádné (cíl 0) | DOPLNIT |
+| ChatGPT | Webové rozhraní, Temporary chat (Unpersonalized) | GPT-6, uvažování Střední | Search vynucen nástrojem; Deep research vyloučen | Žádné (cíl 0) | 12.–13. 10. 2026 (pilot) |
+| Gemini | Webové rozhraní, Temporary chat | 3.6 Flash (tarif Plus) | Vyhledávání automaticky; Deep Research vyloučen | Žádné (cíl 0) | 12.–13. 10. 2026 (pilot) |
+| Claude | Webové rozhraní, Incognito chat | Opus 5.5 Medium (bez odpovědi: limit) | Web search; Research vyloučen | Žádné (cíl 0) | 12.–13. 10. 2026 (pilot) |
 | Claude Code | **Nezahrnut:** nástroj pro programování a agentní systémy, mimo směr B | – | – | – | – |
-| Grok | Webové rozhraní, Private Chat | DOPLNIT při běhu | Automaticky web a X; DeepSearch vyloučen | Žádné (cíl 0) | DOPLNIT |
-| Perplexity | Webové rozhraní, Incognito, režim Search | DOPLNIT při běhu | Vždy Search; Research a Labs vyloučeny | Žádné (cíl 0) | DOPLNIT |
+| Grok | Webové rozhraní, Private Chat | Fast (podkladový model neznámý) | Automaticky web a X; DeepSearch vyloučen | Žádné (cíl 0) | 12.–13. 10. 2026 (pilot) |
+| Perplexity | Webové rozhraní, Incognito, režim Search | Výchozí Search, název modelu nezobrazen | Vždy Search; Research a Labs vyloučeny | Žádné (cíl 0) | 12.–13. 10. 2026 (pilot) |
 
-Nastavení vychází z nápovědy výrobců k 29. 9. 2026. Operátor ho ověří a doloží snímkem obrazovky před G1.
+Nastavení vychází z nápovědy výrobců k 29. 9. 2026. Viditelný model a datum jsou z pilotu 12.–13. 10. 2026 (Chrome); analytická konfigurace se ověří před G1.
 
 **Comparison design:**
 
@@ -107,14 +107,14 @@ Nastavení vychází z nápovědy výrobců k 29. 9. 2026. Operátor ho ověří
 
 | Stratum | Planned number | Actual number | How selected |
 | --- | --- | --- | --- |
-| Ordinary (bez okrajové podmínky) | test: 5–6 z 10 | dev 11, val 6, test DOPLNIT | Týmový účelový výběr |
-| Difficult (hard) | test: 3 z 10 | dev 6, val 2, test DOPLNIT | Podle `holdout_blueprint.json` |
-| Edge or adversarial | ≥20 % v každé sadě; test: 4–5 z 10 | dev 9 (45 %), val 4 (40 %), test DOPLNIT | Nepravdivý předpoklad, protichůdné zdroje, časové omezení, nedávná změna |
-| Ambiguous or incomplete | bez samostatné kvóty | dev 3, val 2, test DOPLNIT | Nejednoznačné zadání a chybějící informace |
-| Czech | test: 4–5 z 10 | dev 10, val 5, test DOPLNIT | Podle blueprintu |
-| English | test: 4–5 z 10 | dev 9, val 4, test DOPLNIT | Podle blueprintu |
-| Mixed language | test: 0–1 z 10 | dev 1, val 1, test DOPLNIT | Podle blueprintu |
-| Other relevant stratum: oblast | test: 2 z každé z 5 oblastí | dev 4 × 5, val 2 × 5, test DOPLNIT | Věda a zdraví, právo, IT, ekonomika, historie a kultura |
+| Ordinary (bez okrajové podmínky) | test: 5–6 z 10 | dev 11, val 6, test 6 (návrh) | Týmový účelový výběr |
+| Difficult (hard) | test: 3 z 10 | dev 6, val 2, test 3 (návrh) | Podle `holdout_blueprint.json` |
+| Edge or adversarial | ≥20 % v každé sadě; test: 4–5 z 10 | dev 9 (45 %), val 4 (40 %), test 4 (návrh) | Nepravdivý předpoklad, protichůdné zdroje, časové omezení, nedávná změna |
+| Ambiguous or incomplete | bez samostatné kvóty | dev 3, val 2, test neevidováno | Nejednoznačné zadání a chybějící informace |
+| Czech | test: 4–5 z 10 | dev 10, val 5, test 4 (návrh) | Podle blueprintu |
+| English | test: 4–5 z 10 | dev 9, val 4, test 5 (návrh) | Podle blueprintu |
+| Mixed language | test: 0–1 z 10 | dev 1, val 1, test 1 (návrh) | Podle blueprintu |
+| Other relevant stratum: oblast | test: 2 z každé z 5 oblastí | dev 4 × 5, val 2 × 5, test 2 × 5 (návrh) | Věda a zdraví, právo, IT, ekonomika, historie a kultura |
 
 **Data provenance:** Všechny dotazy jsou syntetické a vytvořil je tým. Ptáme se jen na veřejně dostupná fakta, bez osobních údajů, důvěrných dat a autorsky chráněných textů. U každého případu je v poli `source_or_provenance` původ a datum ověření. Datované reference u dev/val jsou návrh. Nezávislé ověření všech povinných a nepovinných faktů před G1 zatím není provedeno.
 
@@ -171,7 +171,7 @@ JISTOTA: vysoká / střední / nízká – jedna věta proč.
 #### Optimized prompt
 
 ```
-DOPLNIT: P3_final dosud neexistuje. Vznikne jako přesná kopie vítěze mezi kandidáty
+P3_final nebyl vytvořen (omezený rozsah projektu: validační běh P2/P3 se nestihl). Vznikne jako přesná kopie vítěze mezi kandidáty
 P3A (doslovný úryvek ze zdroje ≤ 25 slov ke každému tvrzení) a P3B (P3A + kontrola
 tvrzení před odesláním) po validaci. Návrhy jsou v prompts/P3A_candidate_*.txt
 a prompts/P3B_candidate_*.txt. Jsou to hypotézy, ne naměřená zlepšení.
@@ -193,10 +193,10 @@ Podrobný záznam je v [prompts/CHANGELOG.md](../../prompts/CHANGELOG.md).
 
 | Version | Date | Change | Evidence | Expected effect | Actual validation effect | Retained? |
 | --- | --- | --- | --- | --- | --- | --- |
-| v0 (P1 v1.0) | 2026-09-29 | Šablona ze zadání + věta o formátu | Povinná společná výchozí podmínka | Referenční úroveň | DOPLNIT | Ano (zmrazí G1) |
-| v1 (P2 v1.0) | 2026-09-29 | Role, cíl, 8 pravidel, schéma výstupu, postup při nejistotě | Návrh před měřením | Vyšší podíl explicitních a podpořených citací | DOPLNIT | Ano (zmrazí G1) |
-| v2 (P3-A / P3-B v0.1, v0.2) | 2026-09-29, pak přípravná revize | P3-A: doslovný úryvek ke každému tvrzení. P3-B: navíc kontrola tvrzení před odesláním | Hypotéza E2/E5. Chybí ≥3 chybné dev odpovědi, zatím nepotvrzeno | Méně nepodporujících citací | DOPLNIT (val dosud neproběhla) | DOPLNIT |
-| v3 (P3_final) | DOPLNIT | Přesná kopie vítěze validace | DOPLNIT | DOPLNIT | DOPLNIT | DOPLNIT |
+| v0 (P1 v1.0) | 2026-09-29 | Šablona ze zadání + věta o formátu | Povinná společná výchozí podmínka | Referenční úroveň | Nevyhodnoceno | Ano (zmrazí G1) |
+| v1 (P2 v1.0) | 2026-09-29 | Role, cíl, 8 pravidel, schéma výstupu, postup při nejistotě | Návrh před měřením | Vyšší podíl explicitních a podpořených citací | Nevyhodnoceno | Ano (zmrazí G1) |
+| v2 (P3-A / P3-B v0.1, v0.2) | 2026-09-29, pak přípravná revize | P3-A: doslovný úryvek ke každému tvrzení. P3-B: navíc kontrola tvrzení před odesláním | Hypotéza E2/E5. Chybí ≥3 chybné dev odpovědi, zatím nepotvrzeno | Méně nepodporujících citací | Nevyhodnoceno (validace neproběhla) | Nevyhodnoceno |
+| v3 (P3_final) | nevytvořen | Přesná kopie vítěze validace (plán) | – | – | – | – |
 
 ---
 
@@ -275,41 +275,41 @@ Checklist níže potvrzuje připravená metadata, nikoli provedení všech běh�
 
 **Which metric or rubric changes were made?** Normativní metriky a rubrika se neměnily. Dokumentace byla opravena podle PROTOCOL.md: všechna tvrzení, explicitní atribuce, oddělená opakování a zaslepené ratingy bez automatických nápověd.
 
-**What evidence supports freezing the benchmark?** DOPLNIT. Podmínky G1 jsou v [freeze/README.md](../../freeze/README.md): pilot, role, dostupnost, nezávislé reference, nový soukromý holdout, hashe.
+**What evidence supports freezing the benchmark?** Skutečný pilot na 8 úlohách a 33 odpovědích, připravené nástroje a postup. Formální zmrazení G1 se pro omezený rozsah neprovedlo. Podmínky G1 jsou v [freeze/README.md](../../freeze/README.md): pilot, role, dostupnost, nezávislé reference, nový soukromý holdout, hashe.
 
-**What remains uncertain?** Nový holdout, nezávislé ověření referencí, lidská kalibrace a G1 zatím nejsou dokončené. Skutečné úrovně účtů musí být sladěné nebo odchylky deklarované před G1; Gemini nyní ukazuje Plus.
+**What remains uncertain?** Nový holdout, nezávislé ověření referencí, lidská kalibrace a G1 nebyly v rozsahu projektu dokončeny. Skutečné úrovně účtů musí být sladěné nebo odchylky deklarované před G1; Gemini nyní ukazuje Plus.
 
 ---
 
 ## L. Results table
 
-**DOPLNIT po skutečných bězích a G3.** Sloupce: System, Condition, N, Primary score, Interval or variation, Secondary score, Median latency, Cost, First-attempt success. Řádky: pět produktů × Baseline / Structured / Optimized (Claude Code se nehodnotí). Žádná hodnota se nevymýšlí ani nepřebírá ze syntetické ukázky.
+**Nevykázáno: agregovaná skóre vyžadují lidské ratingy a G3. Orientační provozní metriky a lexikální proxy podpory (nejde o rating) jsou v [results.md](../results.md) a `results/pilot/pilot_metrics.csv`.** Sloupce plné tabulky: System, Condition, N, Primary score, Interval or variation, Secondary score, Median latency, Cost, First-attempt success. Řádky: pět produktů × Baseline / Structured / Optimized (Claude Code se nehodnotí). Žádná hodnota se nevymýšlí ani nepřebírá ze syntetické ukázky.
 
 ---
 
 ### M. Error analysis
 
-**Čeká na skutečné běhy a ratingy.** Plán: nejméně 8 unikátních task_id, ideálně 12–16 odpovědí, alespoň 2 za každý systém, alespoň 3 úspěšné odpovědi a alespoň jeden případ z každého typu okrajové podmínky, s hlavním kódem chyby E1–E11. Postup a šablona jsou v [analysis/README.md](../../analysis/README.md).
+**Provedeno na pilotu (8 úloh, 33 odpovědí), viz [error-analysis.md](../error-analysis.md).** Plán pro plný experiment: nejméně 8 unikátních task_id, ideálně 12–16 odpovědí, alespoň 2 za každý systém, alespoň 3 úspěšné odpovědi a alespoň jeden případ z každého typu okrajové podmínky, s hlavním kódem chyby E1–E11. Postup a šablona jsou v [analysis/README.md](../../analysis/README.md).
 
-**Most frequent error:** DOPLNIT
+**Most frequent error:** Nelze určit; pilot nemá lidské ratingy ani četnosti kódů. Pozorováno: nesoulad inline odkazu a seznamu zdrojů (CIT-001) a nadbytečná tvrzení nad referencí (CIT-004).
 
-**Most consequential error:** DOPLNIT
+**Most consequential error:** Předběžně záměna zdroje u tvrzení (CIT-001, CIT-008), protože čtenář ji při běžném čtení nezachytí; k potvrzení lidským hodnocením.
 
-**Did optimization change the error distribution?** DOPLNIT
+**Did optimization change the error distribution?** Nelze určit: P3 a analytická matice P1/P2/P3 nebyly spuštěny.
 
 ---
 
 ## N. Practical recommendation
 
-**DOPLNIT po G3.** Doporučení se smí týkat jen testovaných produktů, režimu, účtů, jazyků, oblastí a období. Nesmí tvrdit „nejlepší AI" ani se opírat o hypotézu, kterou data nepodpořila.
+**Nevykázáno: vyžaduje G3 a lidská hodnocení.** Doporučení se smí týkat jen testovaných produktů, režimu, účtů, jazyků, oblastí a období. Nesmí tvrdit „nejlepší AI" ani se opírat o hypotézu, kterou data nepodpořila.
 
-**Best system for the defined capability:** DOPLNIT
+**Best system for the defined capability:** Nelze určit z pilotních dat; nevykazujeme.
 
-**Best prompt condition:** DOPLNIT
+**Best prompt condition:** Nelze určit z pilotních dat; nevykazujeme.
 
-**Conditions under which this recommendation holds:** DOPLNIT
+**Conditions under which this recommendation holds:** Nelze určit z pilotních dat; nevykazujeme.
 
-**Important cost, latency, or human-effort trade-off:** DOPLNIT
+**Important cost, latency, or human-effort trade-off:** Nelze určit z pilotních dat; nevykazujeme.
 
 **What should a practitioner not infer from this study?** Předběžně: který jazykový model je lepší, že S2 znamená pravdivou odpověď, že výsledek platí pro jiné typy dotazů, jazyky, placené úrovně nebo pozdější verze produktů.
 

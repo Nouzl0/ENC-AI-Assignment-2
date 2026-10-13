@@ -34,15 +34,17 @@ project:
 
   parts:
     abstract: >
-      Projekt plánuje změřit, jak často citace AI asistentů s webovým vyhledáváním
-      (ChatGPT, Gemini, Claude, Perplexity, Grok) skutečně podporují tvrzení,
-      ke kterým jsou připojeny. Plánujeme porovnání produktů jako celků na alespoň 40 faktických
-      rešeršních dotazech v češtině a angličtině a ve třech promptových
-      podmínkách. Hlavní metrikou je citační přesnost na úrovni tvrzení,
-      doplněná úplností citací a správností odpovědi.
-      Reálný pilot obsahuje 33 odpovědí na osm unikátních úloh a konkrétní analýzu
-      úspěchů, citačních problémů a provozního selhání. Finální analytické měření
-      a nezávislé lidské ratingy zatím nejsou dokončené.
+      Odkaz u odpovědi AI asistenta ještě neznamená, že zdroj tvrzení podporuje.
+      Navrhli jsme benchmark, který na úrovni jednotlivých tvrzení měří citační
+      přesnost pěti produktů s webovým vyhledáváním (ChatGPT, Gemini, Claude,
+      Perplexity, Grok) na 40 faktických úlohách v češtině a angličtině
+      a ve třech promptových podmínkách. Metodiku, data a nástroje jsme
+      ověřili skutečným pilotem: 33 odpovědí na 8 úloh, z nich 23 z 24 odeslaných
+      prvních pokusů rozšířeného pilotu skončilo odpovědí. Kvalitativní analýza
+      ukázala například rozpor mezi citovaným a uvedeným DOI, korektní přiznání
+      nejistoty i vysvětlení rozdílných hodnot. Finální citační přesnost
+      a testy hypotéz nejsou vykázány: vyžadují nezávislé lidské hodnocení,
+      které se kvůli omezeným prostředkům nestihlo.
 
     acknowledgements: >
       Mendelova univerzita v Brně, Provozně ekonomická fakulta.
@@ -54,7 +56,7 @@ project:
 
   exports:
     - format: pdf
-      template: lapreprint-typst
+      template: templates/lapreprint-typst
       output: exports/project.pdf
       kind: "ENC-AI Project"
       logo: figures/logo.jpg
@@ -62,19 +64,20 @@ project:
 
   toc:
     - file: index.md
+    - file: overview.md
     - file: introduction.md
-    - file: systems.md
-    - file: dataset.md
-    - file: source-audit.md
-    - file: prompts.md
-    - file: metrics.md
-    - file: annotation.md
-    - file: plan.md
+    - file: design.md
+    - file: evaluation.md
     - file: results.md
     - file: error-analysis.md
-    - file: team.md
     - file: limits.md
-    - file: package.md
+    - file: plan.md
+    - title: Přílohy
+      children:
+        - file: package.md
+        - file: glossary.md
+        - file: source-audit.md
+        - file: references.md
 
 site:
   template: book-theme

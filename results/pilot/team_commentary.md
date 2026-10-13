@@ -6,7 +6,7 @@
 
 Můj dojem je zatím dost smíšený. Některé odpovědi působí dobře a hlavní údaj
 sedí, ale mám problém s tím, jak snadno se za přesvědčivým textem ztratí chyba
-v citaci. U vakcíny mě zaujalo, že původní Perplexity!!!! uvádělo v seznamu správné
+v citaci. U vakcíny mě zaujalo, že původní Perplexity uvádělo v seznamu správné
 DOI, ale odkaz v textu vedl na jiný článek. Při rychlém čtení bych ten rozdíl
 nemusel zachytit. Proto bych těmto nástrojům důvěřoval spíš jako pomoci
 s rešerší a důležité zdroje si otevřel sám.

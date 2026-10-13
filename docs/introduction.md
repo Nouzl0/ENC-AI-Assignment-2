@@ -1,50 +1,45 @@
-# Úvod a výzkumná otázka
+(introduction)=
+# Výzkumná otázka a hypotézy
 
-Projekt plánuje porovnání pěti produktů s webovým vyhledáváním ve směru B:
-správnost a úplnost citací na faktických CZ/EN rešeršních úlohách z pěti
-oblastí. Měřením je podpora tvrzení skutečně přiřazeným zdrojem, nikoli
-čistá schopnost samotného modelu. Existuje 20 dev + 10 val návrhů;
-nový nezávislý holdout ≥10 a finální experiment zatím nejsou dokončené.
+AI asistenti s webovým vyhledáváním (ChatGPT, Gemini, Claude, Perplexity, Grok) připojují k odpovědím
+odkazy, které působí jako důkaz. U rešerše je ale důležité, zda zdroj skutečně podporuje právě to tvrzení,
+u kterého stojí. Zadání nás vede k porovnání **produktů jako celků** (model + vyhledávání + rozhraní),
+ne izolovaných modelů; schopnost modelu bez vyhledávání neměříme.
 
-## Výzkumná otázka
+:::{important} Výzkumná otázka
+Jak často citovaný zdroj skutečně podporuje tvrzení u pěti produktů na 40 faktických
+rešeršních úlohách v češtině a angličtině a jak tuto podporu mění strukturovaný prompt (P2)
+a prompt optimalizovaný na vývojových datech (P3) oproti společné výchozí podmínce (P1)?
+:::
 
-Jak často citovaný zdroj skutečně podporuje tvrzení u ChatGPT, Gemini,
-Claude, Perplexity a Groku na definovaném mixu ≥40 úloh a jak tuto
-atribuci mění společný P1, strukturovaný P2 a obecně optimalizovaný P3?
-Praktickým významem je ověřitelnost citací při rešerši. Závěry se omezí
-na měřené produkty, účty, režimy, úlohy, jazyky a období.
+**Praktický význam:** uživatel se na odkaz spoléhá a ověřuje jej jen výjimečně; zajímá nás, kdy je to oprávněné.
 
-Hlavní metrika je průměr explicitní citační přesnosti po odpovědích
-prvního běhu, se stejnými vahami úloh. Vedlejší metriky jsou úplnost
-citací celé odpovědi a správnost proti RF/RC. S2 neznamená pravdivost.
+## Hlavní metrika
 
-## Předem definované hypotézy
+**Citační přesnost** = podíl explicitně citovaných dvojic tvrzení–zdroj, které zdroj plně podporuje (S2).
+Je to průměr přes odpovědi, každá úloha má stejnou váhu. Vedlejší metriky jsou úplnost citací a správnost
+odpovědi; S2 neznamená, že je tvrzení pravdivé. Definice jsou v [](#evaluation).
 
-**H1:** Bodový odhad přesnosti předem zvoleného focus produktu
-(výchozí Perplexity) v P2 minus průměr ostatních zahrnutých produktů
-je ≥0,10 a dolní mez 95% párového bootstrapového CI je >0.
-Navrhovaný mechanismus je hypoteticky lepší vazba retrievalu a citovaných
-pasáží; není zde vydáván za ověřenou vlastnost produktu.
+## Hypotézy
 
-**H2:** Bodový odhad P2 minus P1, průměrovaný přes zahrnuté produkty,
-je ≥0,05, dolní mez CI je >0 a kladný odhad má ≥4/5 produktů
-(≥3/4 při předem zdůvodněném čtyřproduktovém návrhu).
-Hypotetickým mechanismem jsou instrukce přiřadit důkaz a přiznat nejistotu.
+Obě hypotézy se vyhodnotí **výhradně na držené testovací sadě** po zmrazení protokolu a promptu.
 
-Obě hypotézy se vyhodnotí **výhradně na novém testu po G3**. Dev/val
-nejsou potvrzující test a nepřidávají se do jeho n. Uvedená pravidla
-podpory praktického odhadu nejsou důkazem populačního efektu ≥margin.
-Silnější diagnostika `ci_above_margin` se uvede odděleně; společná
-chybovost H1/H2 není garantována. P3 a další žebříčky jsou explorační.
+| | Tvrzení | Rozhodovací pravidlo |
+| --- | --- | --- |
+| **H1** | Předem zvolený produkt (výchozí Perplexity), který je postaven na vyhledávání, má v P2 vyšší přesnost než průměr ostatních. | Rozdíl ≥ 0,10 a dolní mez 95% párového bootstrapového CI > 0 |
+| **H2** | Strukturovaný prompt P2 zvyšuje přesnost oproti P1 napříč produkty. | Průměrný rozdíl ≥ 0,05, dolní mez CI > 0 a kladný odhad u ≥ 4 z 5 produktů |
+
+Mechanismy (lepší vazba retrievalu na pasáže u H1; pokyn přiřadit důkaz u H2) jsou hypotézy. P3 a žebříčky jsou explorační.
+
+**H1 ve znění zadání:** Za podmínek P2 a stejných úloh dosáhne Perplexity vyšší citační přesnosti než průměr ostatních produktů o ≥ 0,10, protože je vyhledávání jeho jádrem. Hypotézu budeme považovat za podpořenou, jen pokud se výsledek projeví na držené testovací sadě. **H2:** Za týchž podmínek zvýší P2 přesnost oproti P1 o ≥ 0,05, protože žádá přiřazení důkazu a přiznání nejistoty; podpora vyžaduje shodu na testovací sadě.
+
+**Co by hypotézy vyvrátilo:** rozdíl H1 pod 0,10 nebo interval zahrnující nulu; H2 s kladným efektem jen u 1–2 produktů
+nebo se zhoršením jiných. Prompt, který jednomu produktu pomůže a ostatním uškodí, hlásíme jako platný výsledek.
 
 ## Alternativní vysvětlení
 
-| Alternativa | Kontrola v reportu |
+| Alternativa | Jak ji kontrolujeme |
 | --- | --- |
-| A1: méně tvrzení místo lepší atribuce | Úplnost, RF pokrytí, počet tvrzení/citací a deskriptivní Spearman |
-| A2: zdrojová dostupnost, jazyk a doména | NA a členění podle jazyka/domény; CZ/EN nejsou párované překlady |
-| A3: změna formátu atribuce při P2 | Podíl explicitně citovaných odpovědí a podmíněná přesnost s n |
-
-Korelace ani lepší P3 odpověď samy neprokazují příčinu. Účelový malý
-vzorek, rozdílné účty a skryté nastavení produktů omezují interpretaci.
-Přesná metodika a pravidla zmrazení jsou v `PROTOCOL.md`.
+| A1: Produkt cituje méně tvrzení, proto „přesněji" | Úplnost citací, počet tvrzení a citací na odpověď |
+| A2: Rozdíl dělá dostupnost zdrojů, jazyk nebo obor | Podíl NA, členění podle jazyka a oboru (CZ/EN nejsou párované překlady) |
+| A3: P2 jen změní formát citování | Podíl explicitně citovaných odpovědí a přesnost podmíněná jejich výskytem |
